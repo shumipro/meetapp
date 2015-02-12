@@ -1,0 +1,52 @@
+{
+  "name": "meetapp",
+  "version": "1.0.0",
+  "description": "MeetApp",
+  "main": "app.js",
+  "scripts": {
+    "start": "iojs ./bin/www"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tejitak/meetapp.git"
+  },
+  "author": "tejitak",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tejitak/meetapp/issues"
+  },
+  "homepage": "https://github.com/tejitak/meetapp",
+  "dependencies": {
+    "6to5-core": "^3.6.0",
+    "6to5-loader": "^3.0.0",
+    "6to5-runtime": "^3.4.0",
+    "body-parser": "~1.10.2",
+    "cookie-parser": "~1.3.3",
+    "debug": "~2.1.1",
+    "express": "~4.11.2",
+    "jade": "~1.9.1",
+    "morgan": "~1.5.1",
+    "react": "^0.12.2",
+    "serve-favicon": "~2.2.0"
+  },
+  "devDependencies": {
+    "gulp": "^3.8.10",
+    "gulp-concat": "^2.4.2",
+    "gulp-jshint": "^1.9.0",
+    "gulp-minify-css": "^0.3.11",
+    "gulp-pleeease": "^1.1.0",
+    "gulp-plumber": "^0.6.6",
+    "gulp-rename": "^1.2.0",
+    "gulp-shell": "^0.2.10",
+    "gulp-stylus": "^1.3.4",
+    "gulp-uglify": "~1.0.2",
+    "gulp-watch": "^3.0.0",
+    "gulp-webpack": "~1.1.0",
+    "gulp-webserver": "^0.9.0",
+    "insert-css": "^0.2.0",
+    "jsx-loader": "^0.12.2",
+    "run-sequence": "^1.0.1",
+    "stylus": "^0.49.3",
+    "webpack": "^1.5.3"
+  }
+}
