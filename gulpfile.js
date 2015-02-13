@@ -13,12 +13,12 @@ var webserver     = require('gulp-webserver');
 // :stylus
 gulp.task('stylus', function(){
   return gulp.src([
-    './public/css/stylus/*.styl'
+    './public/stylus/*.styl'
   ])
   .pipe(stylus())
   .pipe(pleeease())
   .pipe(minifyCss({keepSpecialComments: 0}))
-  .pipe(rename({extname: '.min.css'}))
+  .pipe(rename({extname: '.css'}))
   .pipe(gulp.dest('./public/css/'));
 });
 
@@ -69,7 +69,6 @@ gulp.task('webpack', function() {
 });
 
 gulp.task('default', function(){
-    // runSequence('jshint', 'webpack', 'watch', 'stylus', 'webserver');
     runSequence('webpack', 'watch', 'stylus', 'webserver');
 });
 

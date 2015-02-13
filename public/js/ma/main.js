@@ -1,10 +1,10 @@
-// es6
+// es6 sample
 import Hello from './components/Hello.js'
 var hello = new Hello('Hello')
 hello.say()
 hello.later().then(() => hello.say())
 
-// react
+// react sample
 import React from 'react'
 import HelloReact from './jsx/Hello'
 
