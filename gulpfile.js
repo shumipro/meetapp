@@ -24,12 +24,12 @@ gulp.task('stylus', function(){
 
 // :Livereload for Static Build
 gulp.task('webserver', function() {
-  gulp.src('public/')
+  gulp.src('public')
   .pipe(webserver({
     livereload: true,
     port: 8088,
     // directoryListing: true,
-    open: true
+    open: 'http://localhost:8088/html/'
   }));
 });
 
