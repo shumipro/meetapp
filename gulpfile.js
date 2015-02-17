@@ -44,7 +44,8 @@ gulp.task('jshint', function() {
 });
 
 gulp.task('watch', function() {
-    gulp.watch(['public/js/**/*.js'], ['jshint', 'webpack']);
+    gulp.watch(['public/js/**/*.js'], ['webpack']);
+    gulp.watch(['public/js/**/*.jsx'], ['webpack']);
     gulp.watch(['public/css/stylus/**/*.styl'],['stylus']);
 });
 
@@ -60,8 +61,8 @@ gulp.task('webpack', function() {
       },
       module: {
         loaders: [
-          // { test: /\.jsx$/, loader: 'jsx-loader?harmony' }
-          { test: /\.js|\.jsx$/, exclude: /node_modules|public\/dist/, loader: '6to5-loader' }
+          // the optional 'selfContained' transformer tells babel to require the runtime instead of inlining it
+          { test: /\.js$|\.jsx$/, exclude: /node_modules|public\/dist/, loader: 'babel-loader?experimental&optional=selfContained'}
         ]
       }
     }))
