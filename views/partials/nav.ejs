@@ -1,17 +1,37 @@
-<nav class="navbar navbar-default" role="navigation">
-    <div class="container-fluid">
-
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
         <div class="navbar-header">
-            <a class="navbar-brand" href="#">
-                <span class="glyphicon glyphicon glyphicon-tree-deciduous"></span>
-                EJS Is Fun
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+            <span class="fa fa-bars fa-lg"></span>
+            </button>
+            <a class="navbar-brand" href="/">
+            <img src="/img/logo.png" alt="" class="logo">
             </a>
         </div>
-
-        <ul class="nav navbar-nav">
-            <li><a href="/">Home</a></li>
-            <li><a href="/about">About</a></li>
-        </ul>
-      
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/list/apps?orderBy=new">新着一覧</a></li>
+                <li><a href="/list/apps?orderBy=popular">人気一覧</a></li>
+                <li><a href="/about">About</a></li>
+            </ul>
+        </div>
     </div>
 </nav>
+<div class="tp-banner-container">
+    <div class="tp-banner" style="padding: 128px 80px 60px;">
+        <ul>
+            <li>
+                <div class="tp-caption large_white_bold sft">
+                    アプリを自慢しよう
+                </div>
+                <div class="tp-caption large_white_light sfr">
+                    Hoge
+                </div>
+                <div class="tp-caption sfb hidden-xs">
+                    <a href="#new" class="btn btn-primary inverse btn-lg">新着アプリ</a>
+                    <a href="#popular" class="btn btn-primary inverse btn-lg">人気アプリ</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
