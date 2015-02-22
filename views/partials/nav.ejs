@@ -10,16 +10,19 @@
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="/list/apps?orderBy=new">新着一覧</a></li>
-                <li><a href="/list/apps?orderBy=popular">人気一覧</a></li>
-                <li><a href="/about">About</a></li>
+                <li><a href="/">トップページ</a></li>
+                <li><a href="/app/list?orderBy=new">新着一覧</a></li>
+                <li><a href="/app/list?orderBy=popular">人気一覧</a></li>
+                <li><a href="/app/register">アプリの登録</a></li>
+                <li><a href="/about">MeetAppとは</a></li>
             </ul>
         </div>
     </div>
 </nav>
+
 <div class="tp-banner-container">
     <div class="tp-banner" style="padding: 128px 80px 60px;">
-        <ul>
+        <ul style="<%= locals.showBanner ? '': 'display: none;' %>">
             <li>
                 <div class="tp-caption large_white_bold sft">
                     アプリを自慢しよう

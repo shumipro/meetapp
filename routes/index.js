@@ -3,11 +3,14 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'MeetApp' });
+    res.render('index', { 
+        title: 'MeetApp',
+        showBanner: true
+    });
 });
 
 router.get('/about', function(req, res, next) {
-  res.render('about', { title: 'About' });
+    res.render('about', { title: 'About' });
 });
 
 module.exports = router;
