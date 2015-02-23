@@ -1,14 +1,4 @@
 var appMaster = {
-    preLoader: function() {
-        imageSources = []
-        $('img').each(function() {
-            var sources = $(this).attr('src');
-            imageSources.push(sources);
-        });
-        if ($(imageSources).load()) {
-            $('.pre-loader').fadeOut('slow');
-        }
-    },
     smoothScroll: function() {
         $('a[href*=#]:not([href=#carousel-example-generic])').click(function() {
             if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {

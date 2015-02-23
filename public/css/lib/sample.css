@@ -1,21 +1,5 @@
 @import url(http://fonts.googleapis.com/css?family=Lato:300,400,700,900);
 
-.video-container {
-    position: relative;
-    padding-bottom: 56.25%;
-    padding-top: 30px;
-    height: 0;
-    overflow: hidden;
-}
-
-.video-container iframe,.video-container object,.video-container embed {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-}
-
 body {
     font-family: 'Lato',Arial;
     color: #666666;
@@ -27,10 +11,6 @@ a {
     -webkit-font-smoothing: antialiased;
 }
 
-div.content {
-    overflow: hidden;
-}
-
 h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6 {
     color: #666666;
 }
@@ -38,7 +18,7 @@ h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6 {
 header .navbar-default {
     background: none;
     border: none;
-    padding-top: 40px;
+    /*padding-top: 40px;*/
     padding-bottom: 20px;
     -webkit-transition: all 0.25s ease-in-out;
     -moz-transition: all 0.25s ease-in-out;
@@ -118,6 +98,10 @@ header .navbar-default ul.navbar-nav li a:focus {
     color: #ffffff;
 }
 
+header .navbar-default .navbar-header {
+    margin-top: 20px;
+}
+
 header .navbar-default .navbar-brand {
     height: auto;
     padding: 0;
@@ -145,6 +129,10 @@ header .navbar-default.scrolled .navbar-brand img {
     max-height: 33px;
 }
 
+header .navbar-default.scrolled .navbar-header {
+    margin-top: 0;
+}
+
 header .navbar-default.scrolled ul.navbar-nav {
     padding-top: 15px;
 }
@@ -157,15 +145,8 @@ header .navbar-default.scrolled ul.navbar-nav {
     opacity: 1 \0;
 }
 
-.hanging-phone {
-    position: absolute;
-    right: 0;
-    z-index: 0;
-    bottom: -70px;
-}
-
 .section-heading {
-    margin: 60px 0 80px;
+    margin: 24px 0 80px;
     text-align: center;
 }
 
@@ -206,7 +187,7 @@ header .navbar-default.scrolled ul.navbar-nav {
 }
 
 footer {
-    padding: 80px 0;
+    padding: 10px 0;
     text-align: center;
 }
 
@@ -269,27 +250,8 @@ section::before,section::after {
     overflow: hidden;
 }
 
-.carousel-fade .carousel-inner .item {
-    opacity: 0;
-    transition-property: opacity;
-}
-
-.carousel-fade .carousel-inner .active {
-    opacity: 1;
-}
-
-.carousel-fade .carousel-inner .active.left,.carousel-fade .carousel-inner .active.right {
-    left: 0;
-    opacity: 0;
-    z-index: 1;
-}
-
-.carousel-fade .carousel-inner .next.left,.carousel-fade .carousel-inner .prev.right {
-    opacity: 1;
-}
-
-.carousel-fade .carousel-control {
-    z-index: 2;
+.tp-banner {
+    padding: 108px 80px 24px;
 }
 
 .tp-caption {
@@ -346,6 +308,7 @@ section::before,section::after {
 
 .btn.btn-lg {
     padding: 10px 25px;
+    margin: 16px 10px;
 }
 
 .btn:hover {
@@ -465,70 +428,6 @@ form textarea.form-control {
         -ms-border-radius: 5em;
         -o-border-radius: 5em;
         border-radius: 5em;
-    };
-}
-
-.pre-loader {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    z-index: 9999999;
-    display: none;
-}
-
-.pre-loader .load-con {
-    margin: 20% auto;
-    position: relative;
-    text-align: center;
-}
-
-.spinner {
-    margin: 50px auto 0;
-    width: 70px;
-    text-align: center;
-}
-
-.spinner>div {
-    width: 18px;
-    height: 18px;
-    background-color: #ffffff;
-    border-radius: 100%;
-    display: inline-block;
-    -webkit-animation: bouncedelay 1.4s infinite ease-in-out;
-    animation: bouncedelay 1.4s infinite ease-in-out;
-    -webkit-animation-fill-mode: both;
-    animation-fill-mode: both;
-}
-
-.spinner .bounce1 {
-    -webkit-animation-delay: -0.32s;
-    animation-delay: -0.32s;
-}
-
-.spinner .bounce2 {
-    -webkit-animation-delay: -0.16s;
-    animation-delay: -0.16s;
-}
-
-@-webkit-keyframes bouncedelay {
-    0%,80%,100% {
-        -webkit-transform: scale(0);
-    }
-
-    40% {
-        -webkit-transform: scale(1);
-    };
-}
-
-@keyframes bouncedelay {
-    0%,80%,100% {
-        transform: scale(0);
-        -webkit-transform: scale(0);
-    }
-
-    40% {
-        transform: scale(1);
-        -webkit-transform: scale(1);
     };
 }
 
@@ -713,6 +612,10 @@ form .form-control:focus {
     };
 }
 
-.pre-loader {
-    background: #336799;
+.feature.text-right {
+    padding-right: 40px;
+}
+
+.feature.text-left {
+    padding-left: 40px;
 }
