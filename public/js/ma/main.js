@@ -6,9 +6,9 @@ hello.later().then(() => hello.say())
 
 // react sample
 import React from 'react'
-import HelloReact from './jsx/Hello'
+import HelloReact from './jsx/HelloReact'
 
 React.render(
   <HelloReact />,
   document.getElementById('example')
-);
+)

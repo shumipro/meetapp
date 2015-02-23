@@ -1,14 +1,19 @@
 var gulp          = require('gulp');
+var gulpif        = require('gulp-if');
 var shell         = require('gulp-shell');
 var runSequence   = require('run-sequence');
 var jshint        = require('gulp-jshint');
 var webpack       = require('gulp-webpack');
+var uglify        = require('gulp-uglify');
 var stylus        = require('gulp-stylus');
 var pleeease      = require('gulp-pleeease');
 var minifyCss     = require('gulp-minify-css');
 var rename        = require('gulp-rename');
 var webserver     = require('gulp-webserver');
 
+var config = {
+  uglify: false
+};
 
 // :stylus
 gulp.task('stylus', function(){
@@ -66,11 +71,18 @@ gulp.task('webpack', function() {
         ]
       }
     }))
+    .pipe(gulpif(config.uglify, uglify()))
     .pipe(gulp.dest(''));
 });
 
 gulp.task('default', function(){
+    config.uglify = false;
     runSequence('webpack', 'watch', 'stylus', 'webserver');
+});
+
+gulp.task('product', function(){
+    config.uglify = true;
+    runSequence('webpack', 'stylus');
 });
 
 gulp.task('server', shell.task(['npm start']));
