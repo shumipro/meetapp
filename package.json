@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/tejitak/meetapp",
   "engines": {
-    "node": "io@v1.2.0",
+    "iojs": "v1.2.0",
     "npm":  "2.5.1"
   },
   "dependencies": {
