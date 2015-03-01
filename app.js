@@ -6,7 +6,13 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var passport = require('passport');
 var FacebookStrategy = require('passport-facebook').Strategy;
-var config = require('./configuration/config');
+var config = {};
+try{
+  require('./configuration/config');
+}catch(e){
+  // no config file try to env for deployment
+  config = process.env;
+}
 
 var routes = require('./routes/index');
 var appRoute = require('./routes/app');
@@ -29,9 +35,9 @@ passport.deserializeUser(function(obj, done) {
 });
 // Use the FacebookStrategy within Passport.
 passport.use(new FacebookStrategy({
-    clientID: config.fb_api_key,
-    clientSecret:config.fb_api_secret ,
-    callbackURL: config.fb_callback_url
+    clientID: config.FB_API_KEY,
+    clientSecret:config.FB_API_SECRET ,
+    callbackURL: config.FB_CALLBACK_URL
   },
   function(accessToken, refreshToken, profile, done) {
     process.nextTick(function () {
