@@ -1,1 +1,1 @@
-web: iojs app.js
+web: node app.js

@@ -4,7 +4,7 @@
   "description": "MeetApp",
   "main": "app.js",
   "scripts": {
-    "start": "iojs ./bin/www"
+    "start": "node ./bin/www"
   },
   "repository": {
     "type": "git",
@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/tejitak/meetapp",
   "engines": {
-    "node": "io@v1.2.0",
+    "node": "v0.12.0",
     "npm":  "2.5.1"
   },
   "dependencies": {
