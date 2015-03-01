@@ -3,3 +3,4 @@ bower_components/
 data/
 .DS_Store
 npm-debug.log
+configuration/config.js
