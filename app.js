@@ -8,7 +8,7 @@ var passport = require('passport');
 var FacebookStrategy = require('passport-facebook').Strategy;
 var config = {};
 try{
-  require('./configuration/config');
+  config = require('./configuration/config');
 }catch(e){
   // no config file try to env for deployment
   config = process.env;
