@@ -4,3 +4,10 @@ data/
 .DS_Store
 npm-debug.log
 configuration/config.js
+
+# idea
+.idea
+*.iml
+
+# golang
+meetapp

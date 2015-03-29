@@ -1,29 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <% include partials/header %>
+    {{ template "partials/header" . }}
 </head>
 <body>
 
     <header>
-        <% include partials/nav %>
+        {{ template "partials/nav" . }}
     </header>
 
     <div class="wrapper">
         <section>
             <div class="container">
-                <div class="section-heading scrollpoint sp-effect3">
-                    <h1>Error</h1>
+                <div class="section-heading scrollpoint sp-effect5">
+                    <h1>MeetAppとは</h1>
                     <div class="divider"></div>
-                    <p>An error occurred</p>
+                    <p>hogehoge</p>
                 </div>
             </div>
         </section>
         <footer>
-            <% include partials/footer %>
+            {{ template "partials/footer" . }}
         </footer>
     </div>
-    
-    <% include partials/scripts %>
+
+    {{ template "partials/scripts" . }}
 </body>
 </html>

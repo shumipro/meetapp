@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <% include ../partials/header %>
+    {{ template "partials/header" . }}
 </head>
 <body>
     <header>
-        <% include ../partials/nav %>
+        {{ template "partials/nav" . }}
     </header>
 
     <div class="wrapper">
@@ -21,9 +21,9 @@
             </div>
         </section>
         <footer>
-            <% include ../partials/footer %>
+            {{ template "partials/footer" . }}
         </footer>
     </div>
-    <% include ../partials/scripts %>
+    {{ template "partials/scripts" . }}
 </body>
 </html>
