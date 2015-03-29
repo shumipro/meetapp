@@ -22,7 +22,7 @@ func Serve() {
 	//	ctx = session.NewContext(ctx) // insert db
 
 	// TODO: とりあえず
-	views.InitTemplates("./")
+	ctx = views.InitTemplates(ctx, "./")
 
 	kami.Context = ctx
 

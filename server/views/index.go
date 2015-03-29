@@ -18,7 +18,7 @@ func Index(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	preload := TemplateHeader{
 		Title: "MeetApp",
 	}
-	if err := indexTmpl.Execute(w, preload); err != nil {
+	if err := FromContextTemplate(ctx, "index").Execute(w, preload); err != nil {
 		log.Println("ERROR!", err)
 		renderer.JSON(w, 400, err)
 		return
@@ -29,7 +29,7 @@ func Error(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	preload := TemplateHeader{
 		Title: "Error",
 	}
-	if err := indexTmpl.Execute(w, preload); err != nil {
+	if err := FromContextTemplate(ctx, "error").Execute(w, preload); err != nil {
 		log.Println("ERROR!", err)
 		renderer.JSON(w, 400, err)
 		return
@@ -40,7 +40,7 @@ func About(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	preload := TemplateHeader{
 		Title: "About",
 	}
-	if err := indexTmpl.Execute(w, preload); err != nil {
+	if err := FromContextTemplate(ctx, "about").Execute(w, preload); err != nil {
 		log.Println("ERROR!", err)
 		renderer.JSON(w, 400, err)
 		return

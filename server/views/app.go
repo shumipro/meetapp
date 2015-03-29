@@ -27,7 +27,7 @@ func AppList(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	preload := TemplateHeader{
 		Title: "MeetApp - " + sortLabels[orderBy]["title"],
 	}
-	if err := appListTmpl.Execute(w, preload); err != nil {
+	if err := FromContextTemplate(ctx, "app/list").Execute(w, preload); err != nil {
 		log.Println("ERROR!", err)
 		renderer.JSON(w, 400, err)
 		return
@@ -38,7 +38,7 @@ func AppRegister(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	preload := TemplateHeader{
 		Title: "MeetApp - アプリの登録",
 	}
-	if err := appRegisterTmpl.Execute(w, preload); err != nil {
+	if err := FromContextTemplate(ctx, "app/register").Execute(w, preload); err != nil {
 		log.Println("ERROR!", err)
 		renderer.JSON(w, 400, err)
 		return
