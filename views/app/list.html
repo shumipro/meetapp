@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <% include ../partials/header %>
+    {{ template "partials/header" . }}
 </head>
 <body>
     <header>
-        <% include ../partials/nav %>
+        {{ template "partials/nav" . }}
     </header>
 
     <div class="wrapper">
         <section>
             <div class="container">
                 <div class="section-heading scrollpoint sp-effect3">
-                    <h1><%= subTitle %></h1>
+                    <h1>{{ .SubTitle }}</h1>
                     <div class="divider"></div>
                     <p>Oleose Beautiful App Landing Page</p>
                 </div>
@@ -49,9 +49,9 @@
             </div>
         </section>
         <footer>
-            <% include ../partials/footer %>
+            {{ template "partials/footer" . }}
         </footer>
     </div>
-    <% include ../partials/scripts %>
+    {{ template "partials/scripts" . }}
 </body>
 </html>
