@@ -26,3 +26,16 @@ $ ./meetapp
 ### try
 
 [http://localhost:8000](http://localhost:8000)
+
+## heroku環境
+
+自分用のheroku作りたい人向け
+
+```
+$ heroku create -b https://github.com/kr/heroku-buildpack-go.git meetapp-xxx
+$ git push heroku master
+```
+
+- `xxx`: は適当にかぶらない文字列（いっそランダムでもいいけど）
+
+
