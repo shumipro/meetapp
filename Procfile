@@ -1,1 +1,1 @@
-web: iojs ./bin/www
+web: meetapp
