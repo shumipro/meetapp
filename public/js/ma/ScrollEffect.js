@@ -1,5 +1,17 @@
-var appMaster = {
-    smoothScroll: function() {
+import $ from 'jquery'
+import waypoint from 'waypoints/lib/jquery.waypoints'
+
+export default class ScrollEffect {
+    constructor() {
+    }
+
+    init() {
+        this.smoothScroll()
+        this.animateScript()
+        this.scrollMenu()
+    }
+
+    smoothScroll() {
         $('a[href*=#]:not([href=#carousel-example-generic])').click(function() {
             if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
                 var target = $(this.hash);
@@ -12,8 +24,9 @@ var appMaster = {
                 }
             }
         });
-    },
-    animateScript: function() {
+    }
+
+    animateScript() {
         $('.scrollpoint.sp-effect1').waypoint(function() {
             $(this.element).toggleClass('active');
             $(this.element).toggleClass('animated fadeInLeft');
@@ -44,8 +57,9 @@ var appMaster = {
         }, {
             offset: '100%'
         });
-    },
-    scrollMenu: function() {
+    }
+
+    scrollMenu() {
         var num = 50;
         if ($(window).scrollTop() > num) {
             $('nav').addClass('scrolled');
@@ -63,9 +77,4 @@ var appMaster = {
             }
         });
     }
-};
-$(document).ready(function() {
-    appMaster.smoothScroll();
-    appMaster.animateScript();
-    appMaster.scrollMenu();
-});
+}

@@ -1,14 +1,6 @@
-// es6 sample
-import Hello from './components/Hello.js'
-var hello = new Hello('Hello')
-hello.say()
-hello.later().then(() => hello.say())
+import $ from 'jquery'
+import ScrollEffect from './ScrollEffect'
 
-// react sample
-import React from 'react'
-import HelloReact from './jsx/HelloReact'
-
-React.render(
-  <HelloReact />,
-  document.getElementById('example')
-)
+$(document).ready(function() {
+    (new ScrollEffect()).init()
+})
