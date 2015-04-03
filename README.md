@@ -23,6 +23,14 @@ $ go build
 $ ./meetapp
 ```
 
+godepがinstallされていない場合 
+
+```
+$ go get github.com/kr/godep
+$ godep get
+```
+
+
 ### try
 
 [http://localhost:8000](http://localhost:8000)
