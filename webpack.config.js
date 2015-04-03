@@ -22,6 +22,7 @@ module.exports = {
   },
 
   plugins: [
+    // set jquery as a global variable for waypoints
     new webpack.ProvidePlugin({
       $: "jquery",
       jQuery: "jquery",
