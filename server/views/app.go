@@ -6,11 +6,13 @@ import (
 
 	"encoding/json"
 
+	"fmt"
+	"io/ioutil"
+
 	"github.com/go-xweb/uuid"
 	"github.com/guregu/kami"
 	"github.com/shumipro/meetapp/server/models"
 	"golang.org/x/net/context"
-	"io/ioutil"
 )
 
 var sortLabels = map[string]map[string]string{
@@ -25,7 +27,7 @@ var sortLabels = map[string]map[string]string{
 func init() {
 	kami.Get("/app/list", AppList)
 	kami.Get("/app/register", AppRegister)
-	kami.Post("/app/register", AppRegisterPost)
+	kami.Post("/api/app/register", AppRegisterPost)
 }
 
 type AppListResponse struct {
@@ -86,13 +88,14 @@ type Image struct {
 }
 
 func AppRegisterPost(ctx context.Context, w http.ResponseWriter, r *http.Request) {
-//	data := []byte(mockRequestData)
+	//	data := []byte(mockRequestData)
 	data, err := ioutil.ReadAll(r.Body)
 	if err != nil {
 		log.Println("ERROR!", err)
 		renderer.JSON(w, 400, err)
-	    return
+		return
 	}
+	fmt.Println(string(data))
 
 	var registerAppInfo RegisterAppInfo
 	if err := json.Unmarshal(data, &registerAppInfo); err != nil {
@@ -101,22 +104,25 @@ func AppRegisterPost(ctx context.Context, w http.ResponseWriter, r *http.Request
 		return
 	}
 
-	// TODO: 必須項目チェック?
-
 	// TODO: 重複チェック?
 
-	appInfo := parseAppInfo(registerAppInfo)
+	appInfo, err := parseAppInfo(registerAppInfo)
+	if err != nil {
+		log.Println("ERROR! json parse", err)
+		renderer.JSON(w, 400, err)
+		return
+	}
+
 	if err := models.AppsCtx(ctx).Upsert(appInfo); err != nil {
 		log.Println("ERROR! register", err)
 		renderer.JSON(w, 400, err)
 		return
 	}
 
-	// TODO: とりあえずtop
-	http.Redirect(w, r, "/", 301)
+	renderer.JSON(w, 200, "ok")
 }
 
-func parseAppInfo(req RegisterAppInfo) models.AppInfo {
+func parseAppInfo(req RegisterAppInfo) (models.AppInfo, error) {
 	var appInfo models.AppInfo
 	appInfo.ID = uuid.NewRandom().String() // TODO: とりあえずUUID
 	appInfo.Name = req.Name
@@ -125,5 +131,8 @@ func parseAppInfo(req RegisterAppInfo) models.AppInfo {
 	if len(req.Images) > 0 {
 		appInfo.ImageURL = req.Images[0].URL // TODO: とりあえず1個
 	}
-	return appInfo
+
+	// TODO: 必須項目チェック?
+
+	return appInfo, nil
 }

@@ -48,7 +48,7 @@ export default class RegisterApp {
     submit() {
         // {"name": "App name", "description": "hoge", "images": [{"url": "https://golang.org/doc/gopher/gopherbw.png"}]}
        $.ajax({
-            url: '/api/register',
+            url: '/api/app/register',
             type: 'post',
             contentType:"application/json; charset=utf-8",
             dataType: 'json',
