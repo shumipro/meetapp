@@ -39,6 +39,7 @@ gulp.task('build', function () {
 gulp.task('serve', function () {
   connect.server({
     port: port,
+    root: 'public',
     livereload: {
       port: reloadPort
     }

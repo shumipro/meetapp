@@ -40,6 +40,7 @@ func InitTemplates(ctx context.Context, appRoot string) context.Context {
 	subNames := []string{
 		"app/list",
 		"app/register",
+		"app/components/tile",
 		"partials/footer",
 		"partials/header",
 		"partials/nav",
