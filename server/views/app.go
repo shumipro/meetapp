@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"github.com/guregu/kami"
+	"github.com/shumipro/meetapp/server/models"
 	"golang.org/x/net/context"
 )
 
@@ -22,10 +23,18 @@ func init() {
 	kami.Get("/app/register", AppRegister)
 }
 
+type AppListResponse struct {
+	TemplateHeader
+	AppInfoList []models.AppInfo
+}
+
 func AppList(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	orderBy := r.FormValue("orderBy")
-	preload := TemplateHeader{
-		Title: "MeetApp - " + sortLabels[orderBy]["title"],
+	preload := AppListResponse{
+		TemplateHeader: TemplateHeader{
+			Title: "MeetApp - " + sortLabels[orderBy]["title"],
+		},
+		AppInfoList: mockDataList,
 	}
 	if err := FromContextTemplate(ctx, "app/list").Execute(w, preload); err != nil {
 		log.Println("ERROR!", err)

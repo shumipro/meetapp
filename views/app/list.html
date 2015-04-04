@@ -17,10 +17,9 @@
                     <p>Oleose Beautiful App Landing Page</p>
                 </div>
                 <div class="row">
-                    {{ template "app/components/tile" . }}
-                    {{ template "app/components/tile" . }}
-                    {{ template "app/components/tile" . }}
-                    {{ template "app/components/tile" . }}
+                    {{range .AppInfoList}}
+                        {{ template "app/components/tile" . }}
+                    {{end}}
                 </div>
             </div>
         </section>

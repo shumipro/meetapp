@@ -7,6 +7,7 @@ import (
 	"net/http"
 
 	"github.com/guregu/kami"
+	"github.com/shumipro/meetapp/server/db"
 	"github.com/shumipro/meetapp/server/views"
 	"golang.org/x/net/context"
 )
@@ -18,7 +19,9 @@ func Serve() {
 	log.SetFlags(log.Ldate | log.Ltime | log.Lshortfile)
 
 	ctx := context.Background()
-	//	ctx = db.NewContext(ctx)      // insert db
+	// TODO: herokuの場合はenvを読むようにする
+	ctx = db.OpenMongoDB(ctx, "localhost", 27017) // insert db
+	defer db.CloseMongoDB(ctx)
 	//	ctx = session.NewContext(ctx) // insert db
 
 	// TODO: とりあえず
