@@ -55,7 +55,7 @@ export default class RegisterApp {
             data: JSON.stringify(this.getParams())
         }).done((res) => {
             if(res && res.id){
-                location.href = '/app/' + res.id
+                location.href = '/app/detail/' + res.id
             }
         }).fail(() => {
             alert("Error")
