@@ -267,7 +267,7 @@ section::before,section::after {
 
 .tp-caption.large_white_light {
     color: #ffffff;
-    font-size: 65px;
+    font-size: 45px;
     font-weight: 400;
     font-weight: 300;
 }
@@ -331,7 +331,7 @@ form .form-control {
     height: 40px;
     line-height: 40px;
     padding: 10px 20px;
-    color: #cfcfcf;
+    /*color: #cfcfcf;*/
     border: 2px solid #cccccc;
     font-weight: 300;
 }
