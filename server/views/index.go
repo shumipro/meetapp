@@ -24,8 +24,9 @@ type IndexResponse struct {
 func Index(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	preload := IndexResponse{
 		TemplateHeader: TemplateHeader{
-			Title: "MeetApp",
-			SubTitle: "サブタイトル",
+			Title:      "MeetApp",
+			SubTitle:   "サブタイトル",
+			NavTitle:   "一緒にアプリを開発する仲間を探そう",
 			ShowBanner: true,
 		},
 		LastedList:  mockDataList,

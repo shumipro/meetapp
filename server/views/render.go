@@ -14,6 +14,7 @@ import (
 
 type TemplateHeader struct {
 	Title      string
+	NavTitle   string
 	SubTitle   string
 	ShowBanner bool
 }
