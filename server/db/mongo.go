@@ -19,8 +19,13 @@ func MongoDB(ctx context.Context) *mgo.Session {
 	return db
 }
 
-func Name() string {
-	return mongoDBName
+func DBName(ctx context.Context) string {
+	names, err := MongoDB(ctx).DatabaseNames()
+	if err != nil || len(names) <= 0 {
+		fmt.Println("not found mongoDB databaseName")
+		return mongoDBName
+	}
+	return names[0]
 }
 
 func OpenMongoDB(ctx context.Context) context.Context {
@@ -28,10 +33,12 @@ func OpenMongoDB(ctx context.Context) context.Context {
 	if url == "" {
 		url = fmt.Sprintf("%s:%d", "localhost", 27017)
 	}
+	fmt.Println("mongoDB", url)
 	sesh, err := mgo.Dial(url)
 	if err != nil {
 		panic(err)
 	}
+	sesh.DatabaseNames()
 	ctx = context.WithValue(ctx, mongodb(mongoDBName), sesh)
 	return ctx
 }
