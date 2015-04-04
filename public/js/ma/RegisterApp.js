@@ -53,21 +53,43 @@ export default class RegisterApp {
             contentType:"application/json; charset=utf-8",
             dataType: 'json',
             data: JSON.stringify(this.getParams())
-        }).done(() => {
-            alert("success")
+        }).done((res) => {
+            if(res && res.id){
+                location.href = '/app/' + res.id
+            }
         }).fail(() => {
-            alert("fail")
-        });
+            alert("Error")
+        })
     }
 
     getParams() {
-        return {
-            name: $("#ma_register_form_name").val(),
-            description: $("#ma_register_form_description").val(),
-            images: [
-                {url: $("#ma_register_form_image1").val()}
-            ]
+        var param = {};
+        for(var prop in this.forms.props) {
+            var info = this.forms.props[prop]
+            if(info.type === 'list'){
+                var $inputs = $('*[data-list-name="' + prop + '"]')
+                if($inputs.size() > 0) {
+                    $inputs.each(function(index, target){
+                        var $target = $(target),
+                            v = $target.val(),
+                            obj = {}
+                        if(v !== ''){
+                            if(!param[prop]){
+                                param[prop] = []
+                            }
+                            obj[$target.attr('name')] = $target.val()
+                            param[prop].push(obj)
+                        }
+                    })
+                }
+            }else{
+                var $input = $('*[name="' + prop + '"]')
+                if($input.size() > 0) {
+                    param[prop] = $input.val()
+                }
+            }
         }
+        return param
     }
 
 }
