@@ -32,7 +32,7 @@ func OpenMongoDB(ctx context.Context) context.Context {
 		url = fmt.Sprintf("%s:%d", "localhost", 27017)
 	} else {
 		// mongodb://<dbuser>:<dbpassword>@ds061371.mongolab.com:61371/heroku_app35413694st
-		databaseName = strings.TrimLeft(url, "/")
+		databaseName = url[strings.LastIndex(url, "/")+1:]
 		fmt.Println(databaseName)
 	}
 	fmt.Println("mongoDB", url)
