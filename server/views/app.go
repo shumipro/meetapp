@@ -26,7 +26,9 @@ var sortLabels = map[string]map[string]string{
 
 func init() {
 	kami.Get("/app/list", AppList)
+	kami.Get("/app/:id", AppDetail)
 	kami.Get("/app/register", AppRegister)
+	// API
 	kami.Post("/api/app/register", AppRegisterPost)
 }
 
@@ -58,6 +60,12 @@ func AppList(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 		renderer.JSON(w, 400, err)
 		return
 	}
+}
+
+func AppDetail(ctx context.Context, w http.ResponseWriter, r *http.Request) {
+	appID := kami.Param(ctx, "id")
+	_ = appID
+
 }
 
 func AppRegister(ctx context.Context, w http.ResponseWriter, r *http.Request) {
@@ -119,10 +127,15 @@ func AppRegisterPost(ctx context.Context, w http.ResponseWriter, r *http.Request
 		return
 	}
 
-	renderer.JSON(w, 200, "ok")
+	renderer.JSON(w, 200, appInfo)
 }
 
 func parseAppInfo(req RegisterAppInfo) (models.AppInfo, error) {
+	// TODO: 必須項目チェック?
+	if req.Name == "" {
+		return models.AppInfo{}, fmt.Errorf("%s", "アプリ名は必須です")
+	}
+
 	var appInfo models.AppInfo
 	appInfo.ID = uuid.NewRandom().String() // TODO: とりあえずUUID
 	appInfo.Name = req.Name
@@ -131,8 +144,6 @@ func parseAppInfo(req RegisterAppInfo) (models.AppInfo, error) {
 	if len(req.Images) > 0 {
 		appInfo.ImageURL = req.Images[0].URL // TODO: とりあえず1個
 	}
-
-	// TODO: 必須項目チェック?
 
 	return appInfo, nil
 }
