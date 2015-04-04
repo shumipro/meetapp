@@ -33,6 +33,7 @@ func AppList(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	preload := AppListResponse{
 		TemplateHeader: TemplateHeader{
 			Title: "MeetApp - " + sortLabels[orderBy]["title"],
+			SubTitle: "サブタイトル",
 		},
 		AppInfoList: mockDataList,
 	}
@@ -46,6 +47,7 @@ func AppList(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 func AppRegister(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	preload := TemplateHeader{
 		Title: "MeetApp - アプリの登録",
+		SubTitle: "サブタイトル",
 	}
 	if err := FromContextTemplate(ctx, "app/register").Execute(w, preload); err != nil {
 		log.Println("ERROR!", err)

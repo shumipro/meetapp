@@ -64,6 +64,8 @@ func Index(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	preload := IndexResponse{
 		TemplateHeader: TemplateHeader{
 			Title: "MeetApp",
+			SubTitle: "サブタイトル",
+			ShowBanner: true,
 		},
 		LastedList:  mockDataList,
 		PopularList: mockDataList,
