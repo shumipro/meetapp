@@ -7,7 +7,7 @@ import (
 	mgo "gopkg.in/mgo.v2"
 )
 
-const mongoDBName = "default"
+const mongoDBName = "meetapp"
 
 type mongodb string
 

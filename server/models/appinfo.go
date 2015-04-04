@@ -1,5 +1,11 @@
 package models
 
+import (
+	"golang.org/x/net/context"
+	"gopkg.in/mgo.v2"
+	"gopkg.in/mgo.v2/bson"
+)
+
 type AppCategory string
 
 const (
@@ -28,7 +34,7 @@ const (
 
 // AppInfo アプリ
 type AppInfo struct {
-	ID           string       // アプリID
+	ID           string       `bson:"_id"` // アプリID
 	Name         string       // アプリ名
 	Title        string       // アプリ紹介タイトル
 	Detail       string       // アプリ詳細
@@ -44,4 +50,49 @@ type AppInfo struct {
 type URLInfo struct {
 	Name string
 	URL  string
+}
+
+// AppsContext appsのコレクション
+type AppsContext struct {
+	context.Context
+}
+
+func (ctx AppsContext) Name() string {
+	return "apps"
+}
+
+var _ modelsContext = (*AppsContext)(nil)
+
+// AppsCtx appsコレクションの取得
+func AppsCtx(ctx context.Context) AppsContext {
+	return AppsContext{ctx}
+}
+
+func (ctx AppsContext) withCollection(fn func(c *mgo.Collection)) {
+	withDefaultCollection(ctx, ctx.Name(), fn)
+}
+
+func (ctx AppsContext) FindAll() (result []AppInfo, err error) {
+	ctx.withCollection(func(c *mgo.Collection) {
+		err = c.Find(bson.M{}).All(&result)
+	})
+	return
+}
+
+// Upsert 登録
+func (ctx AppsContext) Upsert(app AppInfo) error {
+	var err error
+	ctx.withCollection(func(c *mgo.Collection) {
+		var result interface{} // bson.M
+		_, err = c.FindId(app.ID).Apply(mgo.Change{
+			Update: app,
+			Upsert: true,
+		}, &result)
+	})
+	return err
+}
+
+// document単位でatomicな更新
+func (ctx AppsContext) findAndModify(findQuery bson.M, query bson.M) error {
+	return findAndModify(ctx, findQuery, query)
 }
