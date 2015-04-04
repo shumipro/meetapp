@@ -122,6 +122,8 @@ func parseAppInfo(req RegisterAppInfo) models.AppInfo {
 	appInfo.Name = req.Name
 	appInfo.Title = req.Name // TODO: とりあえず
 	appInfo.Detail = req.Description
-	appInfo.ImageURL = req.Images[0].URL // TODO: とりあえず1個
+	if len(req.Images) > 0 {
+		appInfo.ImageURL = req.Images[0].URL // TODO: とりあえず1個
+	}
 	return appInfo
 }
