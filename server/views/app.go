@@ -25,8 +25,8 @@ var sortLabels = map[string]map[string]string{
 }
 
 func init() {
+	kami.Get("/app/detail/:id", AppDetail)
 	kami.Get("/app/list", AppList)
-	kami.Get("/app/:id", AppDetail)
 	kami.Get("/app/register", AppRegister)
 	// API
 	kami.Post("/api/app/register", AppRegisterPost)
