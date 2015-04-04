@@ -3,6 +3,8 @@ package db
 import (
 	"fmt"
 
+	"os"
+
 	"golang.org/x/net/context"
 	mgo "gopkg.in/mgo.v2"
 )
@@ -21,8 +23,11 @@ func Name() string {
 	return mongoDBName
 }
 
-func OpenMongoDB(ctx context.Context, host string, port int) context.Context {
-	url := fmt.Sprintf("%s:%d", host, port)
+func OpenMongoDB(ctx context.Context) context.Context {
+	url := os.Getenv("MONGOLAB_URI")
+	if url == "" {
+		url = fmt.Sprintf("%s:%d", "localhost", 27017)
+	}
 	sesh, err := mgo.Dial(url)
 	if err != nil {
 		panic(err)

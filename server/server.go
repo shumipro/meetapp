@@ -20,7 +20,7 @@ func Serve() {
 
 	ctx := context.Background()
 	// TODO: herokuの場合はenvを読むようにする
-	ctx = db.OpenMongoDB(ctx, "localhost", 27017) // insert db
+	ctx = db.OpenMongoDB(ctx) // insert db
 	defer db.CloseMongoDB(ctx)
 	//	ctx = session.NewContext(ctx) // insert db
 
