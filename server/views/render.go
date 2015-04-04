@@ -26,8 +26,11 @@ var renderer = render.New(render.Options{})
 func InitTemplates(ctx context.Context, appRoot string) context.Context {
 	path := filepath.FromSlash("views")
 
+	// TODO: あとでディレクトリ指定でいけるようにする
+
 	pageNames := []string{
 		"index",
+		"app/detail",
 		"app/list",
 		"app/register",
 		"error",

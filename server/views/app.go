@@ -62,10 +62,35 @@ func AppList(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+type AppDetailResponse struct {
+	TemplateHeader
+	AppInfo models.AppInfo
+}
+
 func AppDetail(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	appID := kami.Param(ctx, "id")
-	_ = appID
 
+	appInfo, err := models.AppsCtx(ctx).FindID(appID)
+	if err != nil {
+		log.Println("ERROR!", err)
+		renderer.JSON(w, 400, err)
+		return
+	}
+
+	preload := AppListResponse{
+		TemplateHeader: TemplateHeader{
+			Title:    "MeetApp - " + appInfo.Name,
+			SubTitle: appInfo.Name,
+			NavTitle: appInfo.Name,
+		},
+		AppInfo: appInfo,
+	}
+
+	if err := FromContextTemplate(ctx, "app/detail").Execute(w, preload); err != nil {
+		log.Println("ERROR!", err)
+		renderer.JSON(w, 400, err)
+		return
+	}
 }
 
 func AppRegister(ctx context.Context, w http.ResponseWriter, r *http.Request) {
@@ -81,10 +106,6 @@ func AppRegister(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-var mockRequestData = `
-{"name": "App name", "description": "hoge", "images": [{"url": "https://golang.org/doc/gopher/gopherbw.png"}]}
-`
-
 type RegisterAppInfo struct {
 	Description string  `json:"description"`
 	Images      []Image `json:"images"`
@@ -96,7 +117,6 @@ type Image struct {
 }
 
 func AppRegisterPost(ctx context.Context, w http.ResponseWriter, r *http.Request) {
-	//	data := []byte(mockRequestData)
 	data, err := ioutil.ReadAll(r.Body)
 	if err != nil {
 		log.Println("ERROR!", err)
