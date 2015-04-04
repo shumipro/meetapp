@@ -10,7 +10,7 @@
 
     <div class="wrapper">
         <section>
-            <form method="post" action="/register" enctype="multipart/form-data">
+            <form>
                 <div class="container">
                     <div class="section-heading scrollpoint sp-effect1">
                         <h1>アプリの登録</h1>
@@ -21,11 +21,11 @@
                     <div class="row">
                         <div class="col-xs-6 form-group">
                             <label>アプリ名</label>
-                            <input class="form-control" type="text"/>
+                            <input id="ma_register_form_name" name="name" class="form-control" type="text"/>
                         </div>
                         <div class="col-xs-6 form-group">
                             <label>プラットフォーム</label>
-                            <select class="form-control">
+                            <select id="ma_register_form_platform" name="platform" class="form-control">
                               <option value="web">Web</option>
                               <option value="ios">iOS</option>
                               <option value="android">Android</option>
@@ -33,11 +33,11 @@
                         </div>
                         <div class="col-xs-6 form-group">
                             <label>説明</label>
-                            <textarea class="form-control" rows="8"></textarea>
+                            <textarea id="ma_register_form_description" name="description" class="form-control" rows="8"></textarea>
                         </div>
                         <div class="col-xs-6 form-group">
                             <label>カテゴリ</label>
-                            <select class="form-control">
+                            <select id="ma_register_form_category" name="category" class="form-control">
                                 <option value="book">ブック</option>
                                 <option value="business">ビジネス</option>
                                 <option value="catalogs">カタログ</option>
@@ -64,7 +64,7 @@
                         </div>
                         <div class="col-xs-6 form-group">
                             <label>プログラミング言語</label>
-                            <select class="form-control">
+                            <select id="ma_register_form_pLang" name="pLang" class="form-control">
                                 <option value="c">C</option>
                                 <option value="c#">C#</option>
                                 <option value="c++">C++</option>
@@ -80,7 +80,7 @@
                         </div>
                         <div class="col-xs-6 form-group">
                             <label>キーワード</label>
-                            <input class="form-control" type="text"/>
+                            <input id="ma_register_form_keywords" name="keywords" class="form-control" type="text"/>
                         </div>
                     </div>
                     <hr>
@@ -89,60 +89,47 @@
                     <div class="row">
                         <div class="col-xs-6 form-group">
                             <span>画像1</span>
-                            <div class="input-group">
+                            <input id="ma_register_form_image1" name="image1" class="form-control" type="text"/>
+                            <!--div class="input-group">
                                 <span class="input-group-btn">
                                     <span class="btn btn-primary btn-file">
                                         Browse&hellip; <input type="file" multiple>
                                     </span>
                                 </span>
                                 <input type="text" class="form-control" readonly>
-                            </div>
+                            </div-->
                             <span>画像2</span>
-                            <div class="input-group">
-                                <span class="input-group-btn">
-                                    <span class="btn btn-primary btn-file">
-                                        Browse&hellip; <input type="file" multiple>
-                                    </span>
-                                </span>
-                                <input type="text" class="form-control" readonly>
-                            </div>
+                            <input id="ma_register_form_image2" name="image2" class="form-control" type="text"/>
                             <span>画像3</span>
-                            <div class="input-group">
-                                <span class="input-group-btn">
-                                    <span class="btn btn-primary btn-file">
-                                        Browse&hellip; <input type="file" multiple>
-                                    </span>
-                                </span>
-                                <input type="text" class="form-control" readonly>
-                            </div>
+                            <input id="ma_register_form_image3" name="image3" class="form-control" type="text"/>
                         </div>
                     </div>
                     <hr>
                     <h3>現在のメンバー構成
-                        <button type="button" class="btn btn-default">
+                        <button id="ma_register_add_currentMember" type="button" class="btn btn-default">
                             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                         </button>
                     </h3>
                     <div class="row">
                         <div class="col-xs-6 form-group">
                             <label>名前</label>
-                            <input class="form-control" type="text"/>
+                            <input id="ma_register_form_currentMember1_name" name="currentMemberName" class="form-control" type="text"/>
                         </div>
                         <div class="col-xs-6 form-group">
                             <label>役割</label>
-                            <input class="form-control" type="text"/>
+                            <input id="ma_register_form_currentMember1_role" name="currentMemberRole" class="form-control" type="text"/>
                         </div>
                     </div>
                     <hr>
                     <h3>募集したいメンバー
-                        <button type="button" class="btn btn-default">
+                        <button id="ma_register_add_wantMember" type="button" class="btn btn-default">
                             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                         </button>
                     </h3>
                     <div class="row">
                         <div class="col-xs-6 form-group">
                             <label>役割</label>
-                            <input class="form-control" type="text"/>
+                            <input id="ma_register_form_wantMember1_role" name="wantMemberRole" class="form-control" type="text"/>
                         </div>
                     </div>
                     <hr>
@@ -150,11 +137,11 @@
                     <div class="row">
                         <div class="col-xs-6 form-group">
                             <label>Demo URL</label>
-                            <input class="form-control" type="text"/>
+                            <input id="ma_register_form_demoUrl" name="demoUrl" class="form-control" type="text"/>
                         </div>
                         <div class="col-xs-6 form-group">
                             <label>Github URL</label>
-                            <input class="form-control" type="text"/>
+                            <input id="ma_register_form_githubUrl" name="githubUrl" class="form-control" type="text"/>
                         </div>
                     </div>
                     <hr>
@@ -162,24 +149,24 @@
                     <div class="row">
                         <div class="col-xs-6 form-group">
                             <label>ミーティング場所</label>
-                            <input class="form-control" type="text"/>
+                            <input id="ma_register_form_meetingPlace" class="form-control" type="text"/>
                         </div>
                         <div class="col-xs-6 form-group">
                             <label>ミーティング頻度</label>
-                            <input class="form-control" type="text"/>
+                            <input id="ma_register_form_meetingOften" class="form-control" type="text"/>
                         </div>
                         <div class="col-xs-6 form-group">
                             <label>プロジェクト開始日</label>
-                            <input class="form-control" type="date"/>
+                            <input id="ma_register_form_projectStartDate" class="form-control" type="date"/>
                         </div>
                         <div class="col-xs-6 form-group">
                             <label>リリース予定日</label>
-                            <input class="form-control" type="date"/>
+                            <input id="ma_register_form_projectReleaseDate" class="form-control" type="date"/>
                         </div>
                     </div>
                     <hr>
                     <div class="row text-center">
-                        <input id="registerSubmitBtn" class="btn btn-lg btn-primary" type="button" value="登録する" />
+                        <input id="ma_register_submitBtn" class="btn btn-lg btn-primary" type="button" value="登録する" />
                     </div>
                 </div>
             </form>

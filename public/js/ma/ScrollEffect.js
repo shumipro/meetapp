@@ -3,9 +3,6 @@ import waypoint from 'waypoints/lib/jquery.waypoints'
 
 export default class ScrollEffect {
     constructor() {
-    }
-
-    init() {
         this.smoothScroll()
         this.animateScript()
         this.scrollMenu()
