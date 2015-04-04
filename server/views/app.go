@@ -77,7 +77,7 @@ func AppDetail(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	preload := AppListResponse{
+	preload := AppDetailResponse{
 		TemplateHeader: TemplateHeader{
 			Title:    "MeetApp - " + appInfo.Name,
 			SubTitle: appInfo.Name,

@@ -72,9 +72,9 @@ func (ctx AppsContext) withCollection(fn func(c *mgo.Collection)) {
 	withDefaultCollection(ctx, ctx.Name(), fn)
 }
 
-func (ctx AppsContext) FindID() (result AppInfo, err error) {
+func (ctx AppsContext) FindID(appID string) (result AppInfo, err error) {
 	ctx.withCollection(func(c *mgo.Collection) {
-		err = c.Find(bson.M{}).One(&result)
+		err = c.FindId(appID).One(&result)
 	})
 	return
 }
