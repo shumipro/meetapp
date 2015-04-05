@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {{ template "partials/header" . }}
+</head>
+<body>
+    <header>
+        {{ template "partials/nav" . }}
+    </header>
+
+    <div class="wrapper">
+        <section>
+            <form>
+                <div class="container">
+                    <div class="section-heading scrollpoint sp-effect1">
+                        <h1>アプリの登録</h1>
+                        <div class="divider"></div>
+                        <p>アプリを作る仲間を募集しよう</p>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-xs-6 form-group">
+                            <label>アプリ名</label>
+                            <input id="ma_register_form_name" name="name" class="form-control" type="text"/>
+                        </div>
+                        <div class="col-xs-6 form-group">
+                            <label>プラットフォーム</label>
+                            <select id="ma_register_form_platform" name="platform" class="form-control">
+                              <option value="web">Web</option>
+                              <option value="ios">iOS</option>
+                              <option value="android">Android</option>
+                            </select>
+                        </div>
+                        <div class="col-xs-6 form-group">
+                            <label>説明</label>
+                            <textarea id="ma_register_form_description" name="description" class="form-control" rows="8"></textarea>
+                        </div>
+                        <div class="col-xs-6 form-group">
+                            <label>カテゴリ</label>
+                            <select id="ma_register_form_category" name="category" class="form-control">
+                                <option value="book">ブック</option>
+                                <option value="business">ビジネス</option>
+                                <option value="catalogs">カタログ</option>
+                                <option value="education">教育</option>
+                                <option value="entertainment">エンターテイメント</option>
+                                <option value="finance">ファイナンス</option>
+                                <option value="food">フード／ドリンク</option>
+                                <option value="game">ゲーム</option>
+                                <option value="health">ヘルスケア/フィットネス</option>
+                                <option value="lifestyle">ライフスタイル</option>
+                                <option value="medical">メディカル</option>
+                                <option value="music">ミュージック</option>
+                                <option value="navigation">ナビゲーション</option>
+                                <option value="news">ニュース</option>
+                                <option value="photo">写真/ビデオ</option>
+                                <option value="productivity">仕事効率化</option>
+                                <option value="reference">辞書/辞典/その他</option>
+                                <option value="sns">ソーシャルネットワーキング</option>
+                                <option value="sports">スポーツ</option>
+                                <option value="travel">旅行</option>
+                                <option value="utilities">ユーティリティ</option>
+                                <option value="weather">天気</option>
+                            </select>
+                        </div>
+                        <div class="col-xs-6 form-group">
+                            <label>プログラミング言語</label>
+                            <select id="ma_register_form_pLang" name="pLang" class="form-control">
+                                <option value="c">C</option>
+                                <option value="c#">C#</option>
+                                <option value="c++">C++</option>
+                                <option value="go">Go</option>
+                                <option value="java">Java</option>
+                                <option value="javascript">JavaScript</option>
+                                <option value="matlab">MATLAB.</option>
+                                <option value="php">PHP</option>
+                                <option value="python">Python</option>
+                                <option value="ruby">Ruby</option>
+                                <option value="sql">SQL</option>
+                            </select>
+                        </div>
+                        <div class="col-xs-6 form-group">
+                            <label>キーワード</label>
+                            <input id="ma_register_form_keywords" name="keywords" class="form-control" type="text"/>
+                        </div>
+                    </div>
+                    <hr>
+                    <h3>画像アップロード
+                    </h3>
+                    <div class="row">
+                        <div class="col-xs-6 form-group">
+                            <span>画像1</span>
+                            <input id="ma_register_form_image1" data-list-name="images" name="url" class="form-control" type="text"/>
+                            <!--div class="input-group">
+                                <span class="input-group-btn">
+                                    <span class="btn btn-primary btn-file">
+                                        Browse&hellip; <input type="file" multiple>
+                                    </span>
+                                </span>
+                                <input type="text" class="form-control" readonly>
+                            </div-->
+                            <span>画像2</span>
+                            <input id="ma_register_form_image2" data-list-name="images" name="url" class="form-control" type="text"/>
+                            <span>画像3</span>
+                            <input id="ma_register_form_image3" data-list-name="images" name="url" class="form-control" type="text"/>
+                        </div>
+                    </div>
+                    <hr>
+                    <h3>現在のメンバー構成
+                        <button id="ma_register_add_currentMember" type="button" class="btn btn-default">
+                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                        </button>
+                    </h3>
+                    <div class="row">
+                        <div class="col-xs-6 form-group">
+                            <label>名前</label>
+                            <input id="ma_register_form_currentMember1_name" name="currentMemberName" class="form-control" type="text"/>
+                        </div>
+                        <div class="col-xs-6 form-group">
+                            <label>役割</label>
+                            <input id="ma_register_form_currentMember1_role" name="currentMemberRole" class="form-control" type="text"/>
+                        </div>
+                    </div>
+                    <hr>
+                    <h3>募集したいメンバー
+                        <button id="ma_register_add_wantMember" type="button" class="btn btn-default">
+                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                        </button>
+                    </h3>
+                    <div class="row">
+                        <div class="col-xs-6 form-group">
+                            <label>役割</label>
+                            <input id="ma_register_form_wantMember1_role" name="wantMemberRole" class="form-control" type="text"/>
+                        </div>
+                    </div>
+                    <hr>
+                    <h3>URL</h3>
+                    <div class="row">
+                        <div class="col-xs-6 form-group">
+                            <label>Demo URL</label>
+                            <input id="ma_register_form_demoUrl" name="demoUrl" class="form-control" type="text"/>
+                        </div>
+                        <div class="col-xs-6 form-group">
+                            <label>Github URL</label>
+                            <input id="ma_register_form_githubUrl" name="githubUrl" class="form-control" type="text"/>
+                        </div>
+                    </div>
+                    <hr>
+                    <h3>プロジェクト計画</h3>
+                    <div class="row">
+                        <div class="col-xs-6 form-group">
+                            <label>ミーティング場所</label>
+                            <input id="ma_register_form_meetingPlace" name="meetingPlace" class="form-control" type="text"/>
+                        </div>
+                        <div class="col-xs-6 form-group">
+                            <label>ミーティング頻度</label>
+                            <input id="ma_register_form_meetingOften" name="meetingOfteh" class="form-control" type="text"/>
+                        </div>
+                        <div class="col-xs-6 form-group">
+                            <label>プロジェクト開始日</label>
+                            <input id="ma_register_form_projectStartDate" name="projectStartDate" class="form-control" type="date"/>
+                        </div>
+                        <div class="col-xs-6 form-group">
+                            <label>リリース予定日</label>
+                            <input id="ma_register_form_projectReleaseDate" name="projectReleaseDate" class="form-control" type="date"/>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row text-center">
+                        <input id="ma_register_submitBtn" class="btn btn-lg btn-primary" type="button" value="登録する" />
+                    </div>
+                </div>
+            </form>
+        </section>
+        <footer>
+            {{ template "partials/footer" . }}
+        </footer>
+    </div>
+    {{ template "partials/scripts" . }}
+</body>
+</html>

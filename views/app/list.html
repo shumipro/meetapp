@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {{ template "partials/header" . }}
+</head>
+<body>
+    <header>
+        {{ template "partials/nav" . }}
+    </header>
+
+    <div class="wrapper">
+        <section>
+            <div class="container">
+                <div class="section-heading scrollpoint sp-effect3">
+                    <h1>{{ .SubTitle }}</h1>
+                    <div class="divider"></div>
+                </div>
+                <div class="row">
+                    {{range .AppInfoList}}
+                        {{ template "app/components/tile" . }}
+                    {{end}}
+                </div>
+            </div>
+        </section>
+        <footer>
+            {{ template "partials/footer" . }}
+        </footer>
+    </div>
+    {{ template "partials/scripts" . }}
+</body>
+</html>

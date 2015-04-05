@@ -1,0 +1,46 @@
+{
+	"ImportPath": "github.com/shumipro/meetapp",
+	"GoVersion": "go1.4.1",
+	"Deps": [
+		{
+			"ImportPath": "github.com/go-xweb/uuid",
+			"Rev": "d7dce341f851128bb3fcc90b919c7138b675c16b"
+		},
+		{
+			"ImportPath": "github.com/guregu/kami",
+			"Rev": "564077614409a108e078455a609e0a2ae0725d10"
+		},
+		{
+			"ImportPath": "github.com/julienschmidt/httprouter",
+			"Rev": "bde5c16eb82ff15a1734a3818d9b9547065f65b1"
+		},
+		{
+			"ImportPath": "github.com/unrolled/render",
+			"Rev": "4796b5bc747483bf9b20a50b2c80e00ed2c85fab"
+		},
+		{
+			"ImportPath": "github.com/zenazn/goji/bind",
+			"Comment": "v0.9.0-10-g739f05c",
+			"Rev": "739f05c9497895aee8d398a8ff38fb0517c4d670"
+		},
+		{
+			"ImportPath": "github.com/zenazn/goji/graceful",
+			"Comment": "v0.9.0-10-g739f05c",
+			"Rev": "739f05c9497895aee8d398a8ff38fb0517c4d670"
+		},
+		{
+			"ImportPath": "github.com/zenazn/goji/web/mutil",
+			"Comment": "v0.9.0-10-g739f05c",
+			"Rev": "739f05c9497895aee8d398a8ff38fb0517c4d670"
+		},
+		{
+			"ImportPath": "golang.org/x/net/context",
+			"Rev": "9dd48c277bcb2bb2cc3eb6a6368a486a567d3562"
+		},
+		{
+			"ImportPath": "gopkg.in/mgo.v2",
+			"Comment": "r2015.01.24",
+			"Rev": "c6a7dce14133ccac2dcac3793f1d6e2ef048503a"
+		}
+	]
+}

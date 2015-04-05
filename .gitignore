@@ -1,0 +1,14 @@
+node_modules/
+bower_components/
+data/
+.DS_Store
+npm-debug.log
+configuration/config.js
+
+# idea
+.idea
+*.iml
+
+# golang
+meetapp
+_test

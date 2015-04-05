@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {{ template "partials/header" . }}
+</head>
+<body>
+
+    <header>
+        {{ template "partials/nav" . }}
+    </header>
+
+    <div class="wrapper">
+        <section>
+            <div class="container">
+                <div class="section-heading scrollpoint sp-effect5">
+                    <h1>MeetAppとは</h1>
+                    <div class="divider"></div>
+                    <p>hogehoge</p>
+                </div>
+            </div>
+        </section>
+        <footer>
+            {{ template "partials/footer" . }}
+        </footer>
+    </div>
+
+    {{ template "partials/scripts" . }}
+</body>
+</html>
