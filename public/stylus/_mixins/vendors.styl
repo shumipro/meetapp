@@ -1,0 +1,20 @@
+/* vender prefix */
+
+vendor(prp, args..., prefix='')
+    {prefix}-webkit-{prp} args
+    {prefix}-moz-{prp} args
+    {prefix}-o-{prp} args
+    {prefix}-ms-{prp} args
+    {prefix}{prp} args
+
+border-radius()
+    vendor('border-radius', arguments)
+
+appearance()
+    vendor('appearance', arguments)
+
+border-box()
+    vendor('border-box', arguments)
+
+box-sizing()
+    vendor('box-sizing', arguments)

@@ -240,7 +240,7 @@ footer .rights a:hover {
 
 section {
     position: relative;
-    padding-bottom: 90px;
+    padding-bottom: 20px;
 }
 
 section::before,section::after {
