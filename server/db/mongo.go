@@ -30,12 +30,13 @@ func OpenMongoDB(ctx context.Context) context.Context {
 	url := os.Getenv("MONGOLAB_URI")
 	if url == "" {
 		url = fmt.Sprintf("%s:%d", "localhost", 27017)
+		databaseName = mongoDBName
 	} else {
 		// mongodb://<dbuser>:<dbpassword>@ds061371.mongolab.com:61371/heroku_app35413694st
 		databaseName = url[strings.LastIndex(url, "/")+1:]
 		fmt.Println(databaseName)
 	}
-	fmt.Println("mongoDB", url)
+	fmt.Println("mongoDB", url, databaseName)
 	sesh, err := mgo.Dial(url)
 	if err != nil {
 		panic(err)
