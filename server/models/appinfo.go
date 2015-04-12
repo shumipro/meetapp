@@ -34,22 +34,42 @@ const (
 
 // AppInfo アプリ
 type AppInfo struct {
-	ID           string       `bson:"_id"` // アプリID
-	Name         string       // アプリ名
-	Title        string       // アプリ紹介タイトル
-	Detail       string       // アプリ詳細
-	URLs         string       // AppStoreのURLとかGitHubのURLとか TODO: 一旦1個あとでリストにする
-	ImageURL     string       // 画像のURL（s3?）
-	StarCount    int          // スター数
-	Category     AppCategory  // カテゴリ
-	PlatformType PlatformType // プラットフォーム
-	LanguageType LanguageType // プログラミング言語
+	ID            string        `bson:"_id"` // アプリID
+	Name          string        // アプリ名
+	Title         string        // アプリ紹介タイトル
+	Detail        string        // アプリ詳細
+	URLs          string        // AppStoreのURLとかGitHubのURLとか TODO: 一旦1個あとでリストにする
+	ImageURL      string        // 画像のURL（s3?）
+	StarCount     int           // スター数
+	Category      AppCategory   // カテゴリ
+	PlatformType  PlatformType  // プラットフォーム
+	LanguageType  LanguageType  // プログラミング言語
+	ImageURLs     []URLInfo     // 紹介画像URLたち
+	Members       []Member      // メンバー
+	RecruitMember []RecruitInfo // 募集メンバー
+	// プロジェクト情報
+	Area        string // 場所
+	Frequency   string // 頻度
+	StartDate   string // 開始日
+	ReleaseDate string // リリース予定日
+	DemoURL     string // デモURL
 }
 
 // URLInfo 各種URL情報
 type URLInfo struct {
 	Name string
 	URL  string
+}
+
+type RecruitInfo struct {
+	Post string // 肩書とか名前
+	Num  int    // 人数
+}
+
+type Member struct {
+	Name         string // 名前
+	IconImageURL string
+	Post         string
 }
 
 // AppsContext appsのコレクション

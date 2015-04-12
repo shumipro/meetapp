@@ -15,21 +15,21 @@
             <div class="ma-layout clearfix">
                 <div class="ma-layout-col-left">
                     <div>
-                        <img src="https://golang.org/doc/gopher/gopherbw.png" class="sectionImg">
+                        <img src="{{ .AppInfo.ImageURL }}" class="sectionImg">
                     </div>
                     <div class="infoBox">
                         <dl>
-                            <dt>プラットフォーム:</dt><dd>iOS</dd>
-                            <dt>カテゴリ:</dt><dd>教育</dd>
-                            <dt>プログラミング言語:</dt><dd>Swift JavaScript</dd>
+                            <dt>プラットフォーム:</dt><dd>{{ .AppInfo.PlatformType }}</dd>
+                            <dt>カテゴリ:</dt><dd>{{ .AppInfo.Category }}</dd>
+                            <dt>プログラミング言語:</dt><dd>{{ .AppInfo.LanguageType }}</dd>
                         </dl>
                     </div>
                 </div>
                 <div class="ma-layout-col-right">
                     <section>
                         <div>
-                            <h2>野草アプリ</h2>
-                            <div class="sectionDesc">野草アプリの説明文. 野草アプリの説明文. 野草アプリの説明文. 野草アプリの説明文. 野草アプリの説明文. 野草アプリの説明文. 野草アプリの説明文. 野草アプリの説明文. 野草アプリの説明文. 野草アプリの説明文.</div>
+                            <h2>{{ .AppInfo.Title }}</h2>
+                            <div class="sectionDesc">{{ .AppInfo.Detail }}</div>
                         </div>
                         <div class="row text-center">
                             <input class="ma_detail_joinBtn btn btn-lg btn-primary" type="button" value="プロジェクトに参加する" style="width: 100%;">
@@ -38,31 +38,28 @@
                     <section>
                         <div class="sectionTitle">プロジェクト計画</div>
                         <dl>
-                            <dt>ミーティング場所:</dt><dd>渋谷近辺</dd>
-                            <dt>ミーティング頻度:</dt><dd>週1回</dd>
-                            <dt>プロジェクト開始日:</dt><dd>2015-04-01</dd>
-                            <dt>リリース予定日:</dt><dd>2015-12-01</dd>
-                            <dt>Demo URL:</dt><dd><a href="http://devmorning.wordpress.com/">http://devmorning.wordpress.com/</a></dd>
+                            <dt>ミーティング場所:</dt><dd>{{ .AppInfo.Area }}</dd>
+                            <dt>ミーティング頻度:</dt><dd>{{ .AppInfo.Frequency }}</dd>
+                            <dt>プロジェクト開始日:</dt><dd>{{ .AppInfo.StartDate }}</dd>
+                            <dt>リリース予定日:</dt><dd>{{ .AppInfo.ReleaseDate }}</dd>
+                            <dt>Demo URL:</dt><dd><a href="{{ .AppInfo.DemoURL }}">{{ .AppInfo.DemoURL }}</a></dd>
                         </dl>
                     </section>
                     <section>
                         <div class="row text-center">
+                            {{range .AppInfo.ImageURLs }}
                             <div class="sectionImgWrap">
-                                <img src="https://golang.org/doc/gopher/gopherbw.png" class="sectionImg">
+                                <img src="{{ .URL }}" class="sectionImg">
                             </div>
-                            <div class="sectionImgWrap">
-                                <img src="https://golang.org/doc/gopher/gopherbw.png" class="sectionImg">
-                            </div>
-                            <div class="sectionImgWrap">
-                                <img src="https://golang.org/doc/gopher/gopherbw.png" class="sectionImg">
-                            </div>
+                            {{end}}
                         </div>
                     </section>
                     <section>
                         <div class="sectionTitle">募集したいメンバー</div>
                         <dl>
-                            <dt>エンジニア:</dt><dd>2名</dd>
-                            <dt>デザイナー:</dt><dd>1名</dd>
+                            {{range .AppInfo.RecruitMember }}
+                            <dt>{{ .Post }}:</dt><dd>{{ .Num }}名</dd>
+                            {{end}}
                         </dl>
                     </section>
                     <section>
@@ -73,28 +70,19 @@
                     <section>
                         <div class="sectionTitle">現在のメンバー</div>
                         <div>
+                            {{range .AppInfo.Members }}
                             <div class="ma-profile">
                                 <div class="ma-profile-image-wrap">
-                                    <img class="img-rounded ma-profile-image" src="http://graph.facebook.com/10152160532855662/picture?type=square">
+                                    <img class="img-rounded ma-profile-image" src="{{ .IconImageURL }}">
                                 </div>
                                 <div class="ma-profile-content-wrap">
                                     <div class="ma-profile-content">
-                                        <div class="ma-profile-name">tejitak</div>
-                                        <div class="ma-profile-title">エンジニア</div>
+                                        <div class="ma-profile-name">{{ .Name }}</div>
+                                        <div class="ma-profile-title">{{ .Post }}</div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="ma-profile">
-                                <div class="ma-profile-image-wrap">
-                                    <img class="img-rounded ma-profile-image" src="http://graph.facebook.com/10152160532855662/picture?type=square">
-                                </div>
-                                <div class="ma-profile-content-wrap">
-                                    <div class="ma-profile-content">
-                                        <div class="ma-profile-name">tejitak</div>
-                                        <div class="ma-profile-title">エンジニア</div>
-                                    </div>
-                                </div>
-                            </div>
+                            {{end}}
                         </div>
                     </section>
                 </div>
