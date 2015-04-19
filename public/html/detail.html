@@ -73,9 +73,25 @@
                             <h2>野草アプリ</h2>
                             <div class="sectionDesc">野草アプリの説明文. 野草アプリの説明文. 野草アプリの説明文. 野草アプリの説明文. 野草アプリの説明文. 野草アプリの説明文. 野草アプリの説明文. 野草アプリの説明文. 野草アプリの説明文. 野草アプリの説明文.</div>
                         </div>
+                    </section>
+                    <section>
                         <div class="row text-center">
-                            <input class="ma_detail_joinBtn btn btn-lg btn-primary" type="button" value="プロジェクトに参加する" style="width: 100%;">
+                            <div class="sectionImgWrap">
+                                <img src="https://golang.org/doc/gopher/gopherbw.png" class="sectionImg">
+                            </div>
+                            <div class="sectionImgWrap">
+                                <img src="https://golang.org/doc/gopher/gopherbw.png" class="sectionImg">
+                            </div>
+                            <div class="sectionImgWrap">
+                                <img src="https://golang.org/doc/gopher/gopherbw.png" class="sectionImg">
+                            </div>
                         </div>
+                    </section>
+                    <section>
+                        <div class="sectionTitle">Demo</div>
+                        <dl>
+                            <dt>Demo URL:</dt><dd><a href="http://devmorning.wordpress.com/">http://devmorning.wordpress.com/</a></dd>
+                        </dl>
                     </section>
                     <section>
                         <div class="sectionTitle">プロジェクト計画</div>
@@ -84,21 +100,7 @@
                             <dt>ミーティング頻度:</dt><dd>週1回</dd>
                             <dt>プロジェクト開始日:</dt><dd>2015-04-01</dd>
                             <dt>リリース予定日:</dt><dd>2015-12-01</dd>
-                            <dt>Demo URL:</dt><dd><a href="http://devmorning.wordpress.com/">http://devmorning.wordpress.com/</a></dd>
                         </dl>
-                    </section>
-                    <section>
-                        <div class="row text-center">
-                            <div class="sectionImgWrap">
-                                <img src="https://golang.org/doc/gopher/gopherbw.png" class="sectionImg">
-                            </div>
-                            <div class="sectionImgWrap">
-                                <img src="https://golang.org/doc/gopher/gopherbw.png" class="sectionImg">
-                            </div>
-                            <div class="sectionImgWrap">
-                                <img src="https://golang.org/doc/gopher/gopherbw.png" class="sectionImg">
-                            </div>
-                        </div>
                     </section>
                     <section>
                         <div class="sectionTitle">募集したいメンバー</div>
@@ -107,18 +109,20 @@
                             <dt>デザイナー:</dt><dd>1名</dd>
                         </dl>
                     </section>
-                    <section>
+                    <!--section>
                         <div class="row text-center">
                             <input class="ma_detail_joinBtn btn btn-lg btn-primary" type="button" value="プロジェクトに参加する" style="width: 100%;">
                         </div>
-                    </section>
+                    </section-->
                     <section>
                         <div class="sectionTitle">現在のメンバー</div>
                         <div>
                             <div class="ma-profile">
-                                <div class="ma-profile-image-wrap">
-                                    <img class="img-rounded ma-profile-image" src="http://graph.facebook.com/10152160532855662/picture?type=square">
-                                </div>
+                                <a href="#">
+                                    <div class="ma-profile-image-wrap">
+                                        <img class="img-rounded ma-profile-image" src="http://graph.facebook.com/10152160532855662/picture?type=square">
+                                    </div>
+                                </a>
                                 <div class="ma-profile-content-wrap">
                                     <div class="ma-profile-content">
                                         <div class="ma-profile-name">tejitak</div>
@@ -127,9 +131,11 @@
                                 </div>
                             </div>
                             <div class="ma-profile">
-                                <div class="ma-profile-image-wrap">
-                                    <img class="img-rounded ma-profile-image" src="http://graph.facebook.com/10152160532855662/picture?type=square">
-                                </div>
+                                <a href="#">
+                                    <div class="ma-profile-image-wrap">
+                                        <img class="img-rounded ma-profile-image" src="http://graph.facebook.com/10152160532855662/picture?type=square">
+                                    </div>
+                                </a>
                                 <div class="ma-profile-content-wrap">
                                     <div class="ma-profile-content">
                                         <div class="ma-profile-name">tejitak</div>
@@ -137,6 +143,41 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                    </section>
+                    <section>
+                        <div class="sectionTitle">Discussion</div>
+                        <ul class="ma-list-bordered">
+                            <li class="ma-profile-comment">
+                                <span class="ma-profile-date subtle-text">5/26/2014</span>
+                                <a href="#">
+                                    <div class="ma-profile-image-wrap">
+                                        <img class="img-rounded ma-profile-image" src="http://graph.facebook.com/10152160532855662/picture?type=square">
+                                    </div>
+                                </a>
+                                <div class="ma-profile-message">
+                                    <p>I can't wait for this event!</p>
+                                </div>
+                            </li>
+                            <li class="ma-profile-comment">
+                                <span class="ma-profile-date subtle-text">5/27/2014</span>
+                                <a href="#">
+                                    <div class="ma-profile-image-wrap">
+                                        <img class="img-rounded ma-profile-image" src="http://graph.facebook.com/10152160532855662/picture?type=square">
+                                    </div>
+                                </a>
+                                <div class="ma-profile-message">
+                                    <p>hoge<br>hoge hoge<br>Gopher!<br>How did you implement this?</p>
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="row text-center">
+                            <form class="ma-profile-comment-form">
+                                <div class="form-group">
+                                    <textarea id="ma_detail_discussion_comment" name="description" class="form-control" rows="4"></textarea>
+                                </div>
+                                <input class="ma_detail_discussion_comment_btn btn btn-primary" type="button" value="コメント" style="width: 100%;">
+                            </form>
                         </div>
                     </section>
                 </div>

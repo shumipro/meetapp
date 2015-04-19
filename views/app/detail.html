@@ -31,9 +31,12 @@
                             <h2>{{ .AppInfo.Title }}</h2>
                             <div class="sectionDesc">{{ .AppInfo.Detail }}</div>
                         </div>
-                        <div class="row text-center">
-                            <input class="ma_detail_joinBtn btn btn-lg btn-primary" type="button" value="プロジェクトに参加する" style="width: 100%;">
-                        </div>
+                    </section>
+                    <section>
+                        <div class="sectionTitle">Demo</div>
+                        <dl>
+                            <dt>Demo URL:</dt><dd><a href="{{ .AppInfo.DemoURL }}">{{ .AppInfo.DemoURL }}</a></dd>
+                        </dl>
                     </section>
                     <section>
                         <div class="sectionTitle">プロジェクト計画</div>
@@ -42,7 +45,6 @@
                             <dt>ミーティング頻度:</dt><dd>{{ .AppInfo.Frequency }}</dd>
                             <dt>プロジェクト開始日:</dt><dd>{{ .AppInfo.StartDate }}</dd>
                             <dt>リリース予定日:</dt><dd>{{ .AppInfo.ReleaseDate }}</dd>
-                            <dt>Demo URL:</dt><dd><a href="{{ .AppInfo.DemoURL }}">{{ .AppInfo.DemoURL }}</a></dd>
                         </dl>
                     </section>
                     <section>
@@ -62,27 +64,64 @@
                             {{end}}
                         </dl>
                     </section>
-                    <section>
+                    <!--section>
                         <div class="row text-center">
                             <input class="ma_detail_joinBtn btn btn-lg btn-primary" type="button" value="プロジェクトに参加する" style="width: 100%;">
                         </div>
-                    </section>
+                    </section-->
                     <section>
                         <div class="sectionTitle">現在のメンバー</div>
                         <div>
                             {{range .AppInfo.Members }}
                             <div class="ma-profile">
-                                <div class="ma-profile-image-wrap">
-                                    <img class="img-rounded ma-profile-image" src="{{ .IconImageURL }}">
-                                </div>
-                                <div class="ma-profile-content-wrap">
-                                    <div class="ma-profile-content">
-                                        <div class="ma-profile-name">{{ .Name }}</div>
-                                        <div class="ma-profile-title">{{ .Post }}</div>
+                                <a href="#">
+                                    <div class="ma-profile-image-wrap">
+                                        <img class="img-rounded ma-profile-image" src="{{ .IconImageURL }}">
                                     </div>
-                                </div>
+                                    <div class="ma-profile-content-wrap">
+                                        <div class="ma-profile-content">
+                                            <div class="ma-profile-name">{{ .Name }}</div>
+                                            <div class="ma-profile-title">{{ .Post }}</div>
+                                        </div>
+                                    </div>
+                                </a>
                             </div>
                             {{end}}
+                        </div>
+                    </section>
+                    <section>
+                        <div class="sectionTitle">Discussion</div>
+                        <ul class="ma-list-bordered">
+                            <li class="ma-profile-comment">
+                                <span class="ma-profile-date subtle-text">5/26/2014</span>
+                                <a href="#">
+                                    <div class="ma-profile-image-wrap">
+                                        <img class="img-rounded ma-profile-image" src="http://graph.facebook.com/10152160532855662/picture?type=square">
+                                    </div>
+                                </a>
+                                <div class="ma-profile-message">
+                                    <p>I can't wait for this event!</p>
+                                </div>
+                            </li>
+                            <li class="ma-profile-comment">
+                                <span class="ma-profile-date subtle-text">5/27/2014</span>
+                                <a href="#">
+                                    <div class="ma-profile-image-wrap">
+                                        <img class="img-rounded ma-profile-image" src="http://graph.facebook.com/10152160532855662/picture?type=square">
+                                    </div>
+                                </a>
+                                <div class="ma-profile-message">
+                                    <p>hoge<br>hoge hoge<br>Gopher!<br>How did you implement this?</p>
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="row text-center">
+                            <form class="ma-profile-comment-form">
+                                <div class="form-group">
+                                    <textarea id="ma_detail_discussion_comment" name="description" class="form-control" rows="4"></textarea>
+                                </div>
+                                <input class="ma_detail_discussion_comment_btn btn btn-primary" type="button" value="コメント" style="width: 100%;">
+                            </form>
                         </div>
                     </section>
                 </div>
