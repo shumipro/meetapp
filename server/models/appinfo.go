@@ -106,6 +106,22 @@ func (ctx AppsContext) FindAll() (result []AppInfo, err error) {
 	return
 }
 
+func (ctx AppsContext) FindLatest(offset int, num int) (result []AppInfo, err error) {
+	// TODO: 条件とりあえず開始日の降順（たぶん登録日にしないと）
+	ctx.withCollection(func(c *mgo.Collection) {
+		err = c.Find(bson.M{}).Sort("startdate").Skip(offset).Limit(num).All(&result)
+	})
+	return
+}
+
+func (ctx AppsContext) FindPopular(offset int, num int) (result []AppInfo, err error) {
+	// TODO: 人気の条件あとで
+	ctx.withCollection(func(c *mgo.Collection) {
+		err = c.Find(bson.M{}).Skip(offset).Limit(num).All(&result)
+	})
+	return
+}
+
 // Upsert 登録
 func (ctx AppsContext) Upsert(app AppInfo) error {
 	var err error

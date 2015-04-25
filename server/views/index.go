@@ -22,6 +22,19 @@ type IndexResponse struct {
 }
 
 func Index(ctx context.Context, w http.ResponseWriter, r *http.Request) {
+	latestList, err := models.AppsCtx(ctx).FindLatest(0, 4)
+	if err != nil {
+		log.Println("ERROR!", err)
+		renderer.JSON(w, 400, err)
+		return
+	}
+	popularList, err := models.AppsCtx(ctx).FindPopular(0, 4)
+	if err != nil {
+		log.Println("ERROR!", err)
+		renderer.JSON(w, 400, err)
+		return
+	}
+
 	preload := IndexResponse{
 		TemplateHeader: TemplateHeader{
 			Title:      "MeetApp",
@@ -29,8 +42,8 @@ func Index(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 			NavTitle:   "一緒にアプリを開発する仲間を探そう",
 			ShowBanner: true,
 		},
-		LastedList:  mockDataList,
-		PopularList: mockDataList,
+		LastedList:  latestList,
+		PopularList: popularList,
 	}
 	if err := FromContextTemplate(ctx, "index").Execute(w, preload); err != nil {
 		log.Println("ERROR!", err)

@@ -19,7 +19,6 @@ func Serve() {
 	log.SetFlags(log.Ldate | log.Ltime | log.Lshortfile)
 
 	ctx := context.Background()
-	// TODO: herokuの場合はenvを読むようにする
 	ctx = db.OpenMongoDB(ctx) // insert db
 	defer db.CloseMongoDB(ctx)
 	//	ctx = session.NewContext(ctx) // insert db
