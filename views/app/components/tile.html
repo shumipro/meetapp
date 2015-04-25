@@ -3,9 +3,9 @@
 <div class="col-md-3 col-sm-3 col-xs-6　ma-app-tile-wrap">
     <div class="ma-app-tile scrollpoint sp-effect{{ $showType }}">
         <div class="ma-app-tile-image">
-            <a href="/app/detail/{{ .ID }}"><img src="{{ .ImageURL }}" width="200" height="150" alt="{{ .Name }}"></a>
+            <a href="/app/detail/{{ .ID }}"><img src="{{ .MainImage }}" width="200" height="150" alt="{{ .Name }}"></a>
         </div>
         <div class="ma-app-tile-toolbar"><span class="star">{{ .StarCount }}</span></div>
-        <div class="ma-app-tile-title"><a href="/app/detail/{{ .ID }}">{{ .Title }}</a></div>
+        <div class="ma-app-tile-title"><a href="/app/detail/{{ .ID }}">{{ .Name }}</a></div>
     </div>
 </div>
