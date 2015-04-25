@@ -16,22 +16,16 @@ h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6 {
 }
 
 header .navbar-default {
-    background: none;
-    border: none;
-    /*padding-top: 40px;*/
-    padding-bottom: 20px;
-    -webkit-transition: all 0.25s ease-in-out;
-    -moz-transition: all 0.25s ease-in-out;
-    -ms-transition: all 0.25s ease-in-out;
-    -o-transition: all 0.25s ease-in-out;
-    transition: all 0.25s ease-in-out;
+    border-bottom: 3px solid #303F9F;
 }
 
 header .navbar-default ul.navbar-nav {
-    padding-top: 55px;
+    padding-top: 15px;
+
 }
 
 header .navbar-default ul.navbar-nav li a {
+    color: #303F9F;
     text-transform: capitalize;
     font-weight: 400;
     font-size: 16px;
@@ -44,6 +38,7 @@ header .navbar-default ul.navbar-nav li a {
 }
 
 header .navbar-default ul.navbar-nav li a:after {
+    color: #303F9F;
     content: '';
     width: 32px;
     background: none;
@@ -57,7 +52,6 @@ header .navbar-default ul.navbar-nav li a:after {
     -ms-border-radius: 5em;
     -o-border-radius: 5em;
     border-radius: 5em;
-    color: #ffffff;
     -webkit-transition: all 0.25s ease-in-out;
     -moz-transition: all 0.25s ease-in-out;
     -ms-transition: all 0.25s ease-in-out;
@@ -66,6 +60,7 @@ header .navbar-default ul.navbar-nav li a:after {
 }
 
 header .navbar-default ul.navbar-nav li a:hover {
+    color: #303F9F;
     -webkit-transition: all 0.25s ease-in-out;
     -moz-transition: all 0.25s ease-in-out;
     -ms-transition: all 0.25s ease-in-out;
@@ -74,67 +69,25 @@ header .navbar-default ul.navbar-nav li a:hover {
 }
 
 header .navbar-default ul.navbar-nav li a:hover:after {
-    background: #ffffff;
-}
-
-header .navbar-default ul.navbar-nav li a.getApp {
-    -webkit-border-radius: 5em;
-    -moz-border-radius: 5em;
-    -ms-border-radius: 5em;
-    -o-border-radius: 5em;
-    border-radius: 5em;
-    -webkit-transition: all 0.25s ease-in-out;
-    -moz-transition: all 0.25s ease-in-out;
-    -ms-transition: all 0.25s ease-in-out;
-    -o-transition: all 0.25s ease-in-out;
-    transition: all 0.25s ease-in-out;
-}
-
-header .navbar-default ul.navbar-nav li a.getApp:after {
-    display: none;
+    background: #303F9F;
 }
 
 header .navbar-default ul.navbar-nav li a:focus {
-    color: #ffffff;
+    color: #303F9F;
 }
 
 header .navbar-default .navbar-header {
-    margin-top: 20px;
+    margin-top: 0;
 }
 
 header .navbar-default .navbar-brand {
     height: auto;
-    padding: 0;
-}
-
-header .navbar-default.scrolled {
-    background: rgba(255,255,255,0.8);
-    -webkit-box-shadow: 0px 1px 3px rgba(0,0,0,0.3);
-    -moz-box-shadow: 0px 1px 3px rgba(0,0,0,0.3);
-    box-shadow: 0px 1px 3px rgba(0,0,0,0.3);
-    padding: 0;
-    -webkit-transition: all 0.25s ease-in-out;
-    -moz-transition: all 0.25s ease-in-out;
-    -ms-transition: all 0.25s ease-in-out;
-    -o-transition: all 0.25s ease-in-out;
-    transition: all 0.25s ease-in-out;
-}
-
-header .navbar-default.scrolled .navbar-brand {
     padding: 15px 20px;
 }
 
-header .navbar-default.scrolled .navbar-brand img {
+header .navbar-default .navbar-brand img {
     width: auto;
     max-height: 33px;
-}
-
-header .navbar-default.scrolled .navbar-header {
-    margin-top: 0;
-}
-
-header .navbar-default.scrolled ul.navbar-nav {
-    padding-top: 15px;
 }
 
 .scrollpoint {
@@ -146,13 +99,13 @@ header .navbar-default.scrolled ul.navbar-nav {
 }
 
 .section-heading {
-    margin: 24px 0 80px;
+    margin: 24px 0;
     text-align: center;
 }
 
 .section-heading h1 {
     display: inline-block;
-    font-size: 55px;
+    font-size: 36px;
     font-weight: 300;
     margin-bottom: 0;
 }
@@ -167,7 +120,7 @@ header .navbar-default.scrolled ul.navbar-nav {
     content: "";
     position: relative;
     height: 4px;
-    width: 60px;
+    width: 120px;
     display: block;
     text-align: center;
     margin: 13px auto;
@@ -250,8 +203,12 @@ section::before,section::after {
     overflow: hidden;
 }
 
-.tp-banner {
-    padding: 120px 80px 24px;
+.tp-banner-container {
+    margin-top: 66px;
+}
+
+.tp-banner ul {
+    padding: 48px 80px 24px;
 }
 
 .tp-caption {
@@ -365,15 +322,17 @@ form textarea.form-control {
     }
 
     header .navbar-default {
-        padding: 20px;
+        /*padding: 20px;*/
+        border-bottom: 3px solid #303F9F;
     }
 
     header .navbar-default .navbar-toggle {
-        margin-top: 0px;
-        margin-right: 0px;
+        border-radius: 5em;
+        margin-top: 20px;
+        margin-right: 20px;
         background: none;
-        border: 2px solid #ffffff;
-        color: #ffffff;
+        border: 2px solid #303f9f;
+        color: #303f9f;
         -webkit-border-radius: 5em;
         -moz-border-radius: 5em;
         -ms-border-radius: 5em;
@@ -386,8 +345,10 @@ form textarea.form-control {
     }
 
     header .navbar-default ul.navbar-nav {
+        /*padding-top: 0;*/
         padding-top: 0;
         margin: 0;
+        /*padding-top: 15px;*/
     }
 
     header .navbar-default ul.navbar-nav li a {
@@ -395,60 +356,26 @@ form textarea.form-control {
         text-align: center;
     }
 
-    header .navbar-default ul.navbar-nav li a.getApp {
-        background: none!important;
-        -webkit-border-radius: 0em;
-        -moz-border-radius: 0em;
-        -ms-border-radius: 0em;
-        -o-border-radius: 0em;
-        border-radius: 0em;
-    }
-
     header .navbar-default .navbar-collapse {
         border-color: transparent;
     }
-
-    header .navbar-default.scrolled .navbar-collapse {
-        border-color: transparent;
-    }
-
-    header .navbar-default.scrolled ul.navbar-nav {
-        padding-top: 0;
-        margin: 0;
-    }
-
-    header .navbar-default.scrolled .navbar-toggle {
-        margin-top: 11px;
-        margin-right: 20px;
-        background: none;
-        border: 2px solid #ffffff;
-        color: #ffffff;
-        -webkit-border-radius: 5em;
-        -moz-border-radius: 5em;
-        -ms-border-radius: 5em;
-        -o-border-radius: 5em;
-        border-radius: 5em;
-    };
 }
 
 header {
-    background: #66cdcc;
-    background: -moz-linear-gradient(-45deg,#66cdcc 0%,#336799 100%);
-    background: -webkit-gradient(linear,left top,right bottom,color-stop(0%,#66cdcc),color-stop(100%,#336799));
-    background: -webkit-linear-gradient(-45deg,#66cdcc 0%,#336799 100%);
-    background: -o-linear-gradient(-45deg,#66cdcc 0%,#336799 100%);
-    background: -ms-linear-gradient(-45deg,#66cdcc 0%,#336799 100%);
-    background: linear-gradient(-45deg,#66cdcc 0%,#336799 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#66cdcc,endColorstr=#336799,GradientType=1);
+    background: #2196f3;
+}
+
+header .navbar-default {
+    background-color: #fff;
 }
 
 header .navbar-default ul.navbar-nav li a {
-    color: #ffffff;
+    color: #303F9F;
     background: none;
 }
 
 header .navbar-default ul.navbar-nav li a:hover {
-    color: #ffffff;
+    color: #303F9F;
     -webkit-transition: all 0.25s ease-in-out;
     -moz-transition: all 0.25s ease-in-out;
     -ms-transition: all 0.25s ease-in-out;
@@ -456,47 +383,20 @@ header .navbar-default ul.navbar-nav li a:hover {
     transition: all 0.25s ease-in-out;
 }
 
-header .navbar-default.scrolled {
-    border-bottom: 3px solid #336799;
-}
-
-header .navbar-default.scrolled ul.navbar-nav li a {
-    color: #336799;
-}
-
-header .navbar-default.scrolled ul.navbar-nav li a:hover {
-    color: #336799;
-}
-
-header .navbar-default.scrolled ul.navbar-nav li a:hover:after {
-    background: #336799;
-}
-
-header .navbar-default.scrolled .navbar-brand {
-    background: #336799;
-}
-
 section .section-heading .divider:after {
-    background: #66cdcc;
+    background: #303F9F;
 }
 
-section#new {
+section.even {
     background: #ffffff;
 }
 
-section#popular {
+section.odd {
     background: #f6f6f6;
 }
 
 footer {
-    background: #66cdcc;
-    background: -moz-linear-gradient(-45deg,#66cdcc 0%,#336799 100%);
-    background: -webkit-gradient(linear,left top,right bottom,color-stop(0%,#66cdcc),color-stop(100%,#336799));
-    background: -webkit-linear-gradient(-45deg,#66cdcc 0%,#336799 100%);
-    background: -o-linear-gradient(-45deg,#66cdcc 0%,#336799 100%);
-    background: -ms-linear-gradient(-45deg,#66cdcc 0%,#336799 100%);
-    background: linear-gradient(-45deg,#66cdcc 0%,#336799 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#66cdcc,endColorstr=#336799,GradientType=1);
+    background: #2196f3;
 }
 
 footer .social a {
@@ -512,7 +412,7 @@ footer .social a:hover {
 }
 
 footer .social a:hover i {
-    color: #66cdcc;
+    color: #2196f3;
 }
 
 footer .rights {
@@ -526,19 +426,20 @@ footer .rights a {
 }
 
 .navbar-toggle {
-    background-color: #CCC;
+    background-color: #303f9f;
     border: 1px solid rgba(0,0,0,0);
+    margin-top: 20px;
 }
 
 .btn.btn-primary {
-    color: #66cdcc;
-    border-color: #66cdcc;
+    color: #2196f3;
+    border-color: #2196f3;
 }
 
 .btn.btn-primary:hover {
     color: #ffffff;
-    background: #66cdcc;
-    border-color: #66cdcc;
+    background: #2196f3;
+    border-color: #2196f3;
 }
 
 .btn.btn-primary.inverse {
@@ -548,8 +449,8 @@ footer .rights a {
 
 .btn.btn-primary.inverse:hover {
     color: #ffffff;
-    background: #66cdcc;
-    border-color: #66cdcc;
+    background: #2196f3;
+    border-color: #2196f3;
 }
 
 .btn.btn-default {
@@ -561,15 +462,15 @@ footer .rights a {
     background: -ms-linear-gradient(180deg,#ffffff 0%,#cccccc 100%);
     background: linear-gradient(180deg,#ffffff 0%,#cccccc 100%);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#ffffff,endColorstr=#cccccc,GradientType=1);
-    color: #336799;
+    color: #303F9F;
 }
 
 .btn.btn-default:hover {
-    color: #336799;
+    color: #303F9F;
 }
 
 form .form-control:focus {
-    border-color: #66cdcc;
+    border-color: #2196f3;
     color: #999999;
 }
 
@@ -583,24 +484,20 @@ form .form-control:focus {
         border-bottom: 1px solid #376fa4;
     }
 
-    header .navbar-default ul.navbar-nav li a.getApp {
-        color: #ffffff;
-    }
-
     header .navbar-default ul.navbar-nav li a:after {
         display: none;
     }
 
     header .navbar-default ul.navbar-nav li a:hover {
-        color: #66cdcc;
+        color: #2196f3;
     }
 
     header .navbar-default .navbar-collapse {
-        background: #336799;
+        background: #303F9F;
     }
 
     header .navbar-default.scrolled {
-        background: #336799;
+        background: #303F9F;
     }
 
     header .navbar-default.scrolled ul.navbar-nav li a {
@@ -608,7 +505,7 @@ form .form-control:focus {
     }
 
     header .navbar-default.scrolled ul.navbar-nav li a:hover {
-        color: #66cdcc;
+        color: #2196f3;
     };
 }
 

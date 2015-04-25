@@ -32,10 +32,10 @@ func Serve() {
 	for _, name := range []string{
 		"/css/*css",
 		"/dist/*dist",
-		"/html/*html",
+		// "/html/*html",
 		"/img/*img",
-		"/js/*js",
-		"/stylus/*stylus",
+		// "/js/*js",
+		// "/stylus/*stylus",
 	} {
 		kami.Get(name, func(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 			fileServer.ServeHTTP(w, r)

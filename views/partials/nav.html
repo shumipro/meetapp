@@ -10,11 +10,9 @@
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="/">トップページ</a></li>
+                <li><a href="/app/list?orderBy=popular">プロジェクトを探す</a></li>
                 <li><a href="/app/list?orderBy=new">新着一覧</a></li>
-                <li><a href="/app/list?orderBy=popular">人気一覧</a></li>
-                <li><a href="/app/register">アプリの登録</a></li>
-                <li><a href="/about">MeetAppとは</a></li>
+                <li><a href="/app/login">ログイン・登録</a></li>
             </ul>
         </div>
     </div>
@@ -25,12 +23,17 @@
         <ul style="{{with .ShowBanner }} {{else}}display: none;{{end}}">
             <li>
                 <div class="tp-caption large_white_light sft">
-                    {{ .NavTitle }}
+                    プロジェクトを探そう
                 </div>
-                <div class="tp-caption sfb hidden-xs">
-                    <a href="#new" class="btn btn-primary inverse btn-lg">新着アプリ</a>
-                    <a href="#popular" class="btn btn-primary inverse btn-lg">人気アプリ</a>
-                    <a href="#category" class="btn btn-primary inverse btn-lg">カテゴリー</a>
+            </li>
+            <li>
+                <div class="tp-caption large_white_light sft text-right">
+                    プロジェクトに参加しよう
+                </div>
+            </li>
+            <li>
+                <div class="tp-caption large_white_light sft text-center">
+                     企画・デザイン・開発を楽しもう
                 </div>
             </li>
         </ul>

@@ -33,6 +33,15 @@
                         </div>
                     </section>
                     <section>
+                        <div class="row text-center">
+                            {{range .AppInfo.ImageURLs }}
+                            <div class="sectionImgWrap">
+                                <img src="{{ .URL }}" class="sectionImg">
+                            </div>
+                            {{end}}
+                        </div>
+                    </section>
+                    <section>
                         <div class="sectionTitle">Demo</div>
                         <dl>
                             <dt>Demo URL:</dt><dd><a href="{{ .AppInfo.DemoURL }}">{{ .AppInfo.DemoURL }}</a></dd>
@@ -48,15 +57,6 @@
                         </dl>
                     </section>
                     <section>
-                        <div class="row text-center">
-                            {{range .AppInfo.ImageURLs }}
-                            <div class="sectionImgWrap">
-                                <img src="{{ .URL }}" class="sectionImg">
-                            </div>
-                            {{end}}
-                        </div>
-                    </section>
-                    <section>
                         <div class="sectionTitle">募集したいメンバー</div>
                         <dl>
                             {{range .AppInfo.RecruitMember }}
@@ -64,11 +64,6 @@
                             {{end}}
                         </dl>
                     </section>
-                    <!--section>
-                        <div class="row text-center">
-                            <input class="ma_detail_joinBtn btn btn-lg btn-primary" type="button" value="プロジェクトに参加する" style="width: 100%;">
-                        </div>
-                    </section-->
                     <section>
                         <div class="sectionTitle">現在のメンバー</div>
                         <div>
