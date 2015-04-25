@@ -34,31 +34,29 @@ const (
 
 // AppInfo アプリ
 type AppInfo struct {
-	ID            string        `bson:"_id"` // アプリID
-	Name          string        // アプリ名
-	Title         string        // アプリ紹介タイトル
-	Detail        string        // アプリ詳細
-	URLs          string        // AppStoreのURLとかGitHubのURLとか TODO: 一旦1個あとでリストにする
-	ImageURL      string        // 画像のURL（s3?）
-	StarCount     int           // スター数
-	Category      AppCategory   // カテゴリ
-	PlatformType  PlatformType  // プラットフォーム
-	LanguageType  LanguageType  // プログラミング言語
-	ImageURLs     []URLInfo     // 紹介画像URLたち
+	ID            string        `bson:"_id"`                // アプリID
+	Name          string        `json:"name"`               // アプリ名
+	Detail        string        `json:"description"`        // アプリ詳細
+	Category      string        `json:"category"`           // カテゴリ
+	PlatformType  string        `json:"platform"`           // プラットフォーム
+	LanguageType  string        `json:"pLang"`              // プログラミング言語
+	Keywords      string        `json:"keywords"`           // フリーキーワード
+	MainImage     string        `json:"mainImageUrl"`       // メイン画像
+	ImageURLs     []URLInfo     `json:"images"`             // 紹介画像URLたち
+	Area          string        `json:"meetingPlace"`       // 場所
+	StartDate     string        `json:"projectStartDate"`   // 開始日
+	ReleaseDate   string        `json:"projectReleaseDate"` // リリース予定日
+	GitHubURL     string        `json:"githubUrl"`          // GitHubのURL
+	DemoURL       string        `json:"demoUrl"`            // デモURL
+	Frequency     string        `json:"frequency"`          // 頻度 TODO: まだない
+	StarCount     int           `json:"starCount"`          // スター数
 	Members       []Member      // メンバー
 	RecruitMember []RecruitInfo // 募集メンバー
-	// プロジェクト情報
-	Area        string // 場所
-	Frequency   string // 頻度
-	StartDate   string // 開始日
-	ReleaseDate string // リリース予定日
-	DemoURL     string // デモURL
 }
 
 // URLInfo 各種URL情報
 type URLInfo struct {
-	Name string
-	URL  string
+	URL string `json:"url"`
 }
 
 type RecruitInfo struct {
