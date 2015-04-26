@@ -37,7 +37,8 @@ header .navbar-default ul.navbar-nav li a {
     transition: all 0.25s ease-in-out;
 }
 
-header .navbar-default ul.navbar-nav li a:after {
+header .navbar-default ul.navbar-nav li a:after,
+header .navbar-default ul.dropdown-menu li a:after {
     color: #303F9F;
     content: '';
     width: 32px;

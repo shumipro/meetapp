@@ -12,7 +12,22 @@
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="/app/list?orderBy=popular">プロジェクトを探す</a></li>
                 <li><a href="/app/list?orderBy=new">新着一覧</a></li>
+                <!-- TODO: Login してかったら -->
                 <li><a href="/login">ログイン・登録</a></li>
+                <!-- TODO: Login してたら -->
+                <li class="dropdown">
+                    <a data-toggle="dropdown" class="dropdown-toggle" role="button" href="#">
+                        <span class="ma-login-username">
+                            <img class="img-rounded" src="http://graph.facebook.com/10152160532855662/picture?type=square">
+                        </span>
+                        <span id="dropDownLoginName">Takuya Tejima</span><b class="caret"></b>
+                    </a>
+                    <ul role="menu" class="dropdown-menu ma-login-dropdown">
+                        <li role="presentation"><a href="/mypage">マイページ</a></li>
+                        <li role="presentation"><a href="/app/register">プロジェクト登録</a></li>
+                        <li role="presentation"><a href="/logout">ログアウト</a></li>
+                    </ul>
+                </li>
             </ul>
         </div>
     </div>
