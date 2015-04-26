@@ -1,9 +1,11 @@
 <div class="col-md-3 col-sm-3 col-xs-6 ma-app-tile-wrap">
-    <div class="ma-app-tile">
-        <div class="ma-app-tile-image">
-            <a href="/app/detail/{{ .ID }}"><img src="{{ .MainImage }}" width="200" height="150" alt="{{ .Name }}"></a>
+    <a href="/app/detail/{{ .ID }}">
+        <div class="ma-app-tile">
+            <div class="ma-app-tile-image">
+                <img src="{{ .MainImage }}" alt="{{ .Name }}">
+            </div>
+            <div class="ma-app-tile-toolbar"><span class="star">{{ .StarCount }}</span></div>
+            <div class="ma-app-tile-title">{{ .Name }}</div>
         </div>
-        <div class="ma-app-tile-toolbar"><span class="star">{{ .StarCount }}</span></div>
-        <div class="ma-app-tile-title"><a href="/app/detail/{{ .ID }}">{{ .Name }}</a></div>
-    </div>
+    </a>
 </div>

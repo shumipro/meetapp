@@ -82,12 +82,12 @@ header .navbar-default .navbar-header {
 
 header .navbar-default .navbar-brand {
     height: auto;
-    padding: 15px 20px;
+    padding: 0;
 }
 
 header .navbar-default .navbar-brand img {
     width: auto;
-    max-height: 33px;
+    max-height: 63px;
 }
 
 .scrollpoint {

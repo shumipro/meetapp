@@ -127,6 +127,9 @@ func AppRegisterPost(ctx context.Context, w http.ResponseWriter, r *http.Request
 	registerAppInfo.ID = uuid.NewRandom().String()
 	if len(registerAppInfo.ImageURLs) > 0 {
 		registerAppInfo.MainImage = registerAppInfo.ImageURLs[0].URL // TODO: とりあえず1件目をメインの画像にする
+	} else {
+		// set default image
+		registerAppInfo.MainImage = "/img/no_img.png"
 	}
 	// TODO: memberと募集はrequestにないので一旦固定値
 	registerAppInfo.Members = []models.Member{
