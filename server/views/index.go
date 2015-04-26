@@ -14,6 +14,7 @@ func init() {
 	kami.Get("/error", Error)
 	kami.Get("/about", About)
 	kami.Get("/login", Login)
+	kami.Get("/mypage", Mypage)
 }
 
 type IndexResponse struct {
@@ -80,6 +81,17 @@ func Login(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 		Title: "Login",
 	}
 	if err := FromContextTemplate(ctx, "login").Execute(w, preload); err != nil {
+		log.Println("ERROR!", err)
+		renderer.JSON(w, 400, err)
+		return
+	}
+}
+
+func Mypage(ctx context.Context, w http.ResponseWriter, r *http.Request) {
+	preload := TemplateHeader{
+		Title: "マイページ",
+	}
+	if err := FromContextTemplate(ctx, "mypage").Execute(w, preload); err != nil {
 		log.Println("ERROR!", err)
 		renderer.JSON(w, 400, err)
 		return
