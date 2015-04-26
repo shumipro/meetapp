@@ -10,8 +10,6 @@
 
     <div class="wrapper">
         <div class="ma-layout-wrap">
-            <div>
-            </div>
             <div class="ma-layout clearfix">
                 <div class="ma-layout-col-left">
                     <div>
@@ -42,13 +40,19 @@
                         </div>
                     </section>
                     <section>
-                        <div class="sectionTitle">Demo</div>
+                        <div class="section-heading">
+                            <h3>Demo</h3>
+                            <div class="divider"></div>
+                        </div>
                         <dl>
                             <dt>Demo URL:</dt><dd><a href="{{ .AppInfo.DemoURL }}">{{ .AppInfo.DemoURL }}</a></dd>
                         </dl>
                     </section>
                     <section>
-                        <div class="sectionTitle">プロジェクト計画</div>
+                        <div class="section-heading">
+                            <h3>プロジェクト計画</h3>
+                            <div class="divider"></div>
+                        </div>
                         <dl>
                             <dt>ミーティング場所:</dt><dd>{{ .AppInfo.Area }}</dd>
                             <dt>ミーティング頻度:</dt><dd>{{ .AppInfo.Frequency }}</dd>
@@ -57,7 +61,10 @@
                         </dl>
                     </section>
                     <section>
-                        <div class="sectionTitle">募集したいメンバー</div>
+                        <div class="section-heading">
+                            <h3>募集したいメンバー</h3>
+                            <div class="divider"></div>
+                        </div>
                         <dl>
                             {{range .AppInfo.RecruitMember }}
                             <dt>{{ .Post }}:</dt><dd>{{ .Num }}名</dd>
@@ -65,7 +72,10 @@
                         </dl>
                     </section>
                     <section>
-                        <div class="sectionTitle">現在のメンバー</div>
+                        <div class="section-heading">
+                            <h3>現在のメンバー</h3>
+                            <div class="divider"></div>
+                        </div>
                         <div>
                             {{range .AppInfo.Members }}
                             <div class="ma-profile">
@@ -85,7 +95,10 @@
                         </div>
                     </section>
                     <section>
-                        <div class="sectionTitle">Discussion</div>
+                        <div class="section-heading">
+                            <h3>Discussion</h3>
+                            <div class="divider"></div>
+                        </div>
                         <ul class="ma-list-bordered">
                             <li class="ma-profile-comment">
                                 <span class="ma-profile-date subtle-text">5/26/2014</span>

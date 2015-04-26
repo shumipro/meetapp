@@ -139,6 +139,11 @@ header .navbar-default .navbar-brand img {
     background: #ffffff;
 }
 
+.section-container {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
 footer {
     padding: 10px 0;
     text-align: center;
@@ -150,7 +155,7 @@ footer a>img {
 
 footer .social {
     display: block;
-    margin-top: 30px;
+    margin: 24px 0;
 }
 
 footer .social a {
@@ -189,6 +194,19 @@ footer .rights a {
 
 footer .rights a:hover {
     text-decoration: none;
+}
+
+footer .row .col ul {
+  text-align: center;
+  color: #fff;
+}
+
+footer .row .col ul a {
+  color: #fff;
+}
+
+footer .row .col h4 {
+  color: #fff;
 }
 
 section {
@@ -384,7 +402,7 @@ header .navbar-default ul.navbar-nav li a:hover {
 }
 
 section .section-heading .divider:after {
-    background: #303F9F;
+    background: #2196f3;
 }
 
 section.even {
