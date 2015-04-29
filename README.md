@@ -30,6 +30,14 @@ $ go get github.com/kr/godep
 $ godep get
 ```
 
+### 環境変数
+
+ローカルで動かす場合に、環境変数に以下の指定が必要です。
+
+※FakeLogin的なのを実装して、いずれ指定無しで動くようにします...
+
+- `FACEBOOK_APPID`
+- `FACEBOOK_SECRET`
 
 ### try
 

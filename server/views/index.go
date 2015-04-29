@@ -11,10 +11,6 @@ import (
 
 func init() {
 	kami.Get("/", Index)
-	kami.Get("/error", Error)
-	kami.Get("/about", About)
-	kami.Get("/login", Login)
-	kami.Get("/mypage", Mypage)
 }
 
 type IndexResponse struct {
@@ -48,50 +44,6 @@ func Index(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 		PopularList: popularList,
 	}
 	if err := FromContextTemplate(ctx, "index").Execute(w, preload); err != nil {
-		log.Println("ERROR!", err)
-		renderer.JSON(w, 400, err)
-		return
-	}
-}
-
-func Error(ctx context.Context, w http.ResponseWriter, r *http.Request) {
-	preload := TemplateHeader{
-		Title: "Error",
-	}
-	if err := FromContextTemplate(ctx, "error").Execute(w, preload); err != nil {
-		log.Println("ERROR!", err)
-		renderer.JSON(w, 400, err)
-		return
-	}
-}
-
-func About(ctx context.Context, w http.ResponseWriter, r *http.Request) {
-	preload := TemplateHeader{
-		Title: "About",
-	}
-	if err := FromContextTemplate(ctx, "about").Execute(w, preload); err != nil {
-		log.Println("ERROR!", err)
-		renderer.JSON(w, 400, err)
-		return
-	}
-}
-
-func Login(ctx context.Context, w http.ResponseWriter, r *http.Request) {
-	preload := TemplateHeader{
-		Title: "Login",
-	}
-	if err := FromContextTemplate(ctx, "login").Execute(w, preload); err != nil {
-		log.Println("ERROR!", err)
-		renderer.JSON(w, 400, err)
-		return
-	}
-}
-
-func Mypage(ctx context.Context, w http.ResponseWriter, r *http.Request) {
-	preload := TemplateHeader{
-		Title: "マイページ",
-	}
-	if err := FromContextTemplate(ctx, "mypage").Execute(w, preload); err != nil {
 		log.Println("ERROR!", err)
 		renderer.JSON(w, 400, err)
 		return

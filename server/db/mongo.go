@@ -5,9 +5,10 @@ import (
 
 	"os"
 
-	"golang.org/x/net/context"
-	mgo "gopkg.in/mgo.v2"
 	"strings"
+
+	"golang.org/x/net/context"
+	"gopkg.in/mgo.v2"
 )
 
 const mongoDBName = "meetapp"

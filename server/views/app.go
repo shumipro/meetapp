@@ -134,24 +134,24 @@ func AppRegisterPost(ctx context.Context, w http.ResponseWriter, r *http.Request
 	// TODO: memberと募集はrequestにないので一旦固定値
 	registerAppInfo.Members = []models.Member{
 		{
-			Name: "kyokomi",
+			Name:         "kyokomi",
 			IconImageURL: "https://avatars0.githubusercontent.com/u/1456047?v=3&s=460",
-			Post: "Gopher",
+			Post:         "Gopher",
 		},
 		{
-			Name: "tejitak",
+			Name:         "tejitak",
 			IconImageURL: "http://graph.facebook.com/10152160532855662/picture?type=square",
-			Post: "Engineer",
+			Post:         "Engineer",
 		},
 	}
 	registerAppInfo.RecruitMember = []models.RecruitInfo{
 		{
 			Post: "デザイナー",
-			Num: 1,
+			Num:  1,
 		},
 		{
 			Post: "企画",
-			Num: 1,
+			Num:  1,
 		},
 	}
 
