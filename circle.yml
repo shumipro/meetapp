@@ -13,3 +13,9 @@ dependencies:
 test:
   override:
     - go test -v ./... -race
+
+deployment:
+  staging:
+    branch: master
+    heroku:
+      appname: meetapp-dev
