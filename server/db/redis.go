@@ -27,6 +27,7 @@ func OpenRedis(ctx context.Context) context.Context {
 
 	client := redis.NewTCPClient(&redis.Options{
 		Addr: url,
+		DB:   int64(1),
 	})
 	ctx = context.WithValue(ctx, redisDB("default"), client)
 	return ctx
