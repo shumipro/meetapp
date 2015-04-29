@@ -6,6 +6,8 @@ import (
 
 	"os"
 
+	"net/url"
+
 	"golang.org/x/net/context"
 	"gopkg.in/redis.v2"
 )
@@ -19,15 +21,23 @@ func Redis(ctx context.Context) *redis.Client {
 }
 
 func OpenRedis(ctx context.Context) context.Context {
-	url := os.Getenv("REDISTOGO_URL")
-	if url == "" {
-		url = fmt.Sprintf("%s:%d", "localhost", 6379)
+	redisURL := os.Getenv("REDISTOGO_URL")
+	server := ""
+	password := ""
+	if redisURL == "" {
+		server = fmt.Sprintf("%s:%d", "localhost", 6379)
+	} else {
+		redisInfo, _ := url.Parse(redisURL)
+		server = redisInfo.Host
+		if redisInfo.User != nil {
+			password, _ = redisInfo.User.Password()
+		}
 	}
-	fmt.Println("redis", url)
+	fmt.Println("redis", server, password)
 
 	client := redis.NewTCPClient(&redis.Options{
-		Addr: url,
-		DB:   int64(1),
+		Addr: server,
+		Password: password,
 	})
 	ctx = context.WithValue(ctx, redisDB("default"), client)
 	return ctx
