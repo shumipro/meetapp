@@ -20,6 +20,8 @@ const (
 	ContentBinary = "application/octet-stream"
 	// ContentJSON header value for JSON data.
 	ContentJSON = "application/json"
+	// ContentJSONP header value for JSONP data.
+	ContentJSONP = "application/javascript"
 	// ContentHTML header value for HTML data.
 	ContentHTML = "text/html"
 	// ContentXHTML header value for XHTML data.
@@ -52,6 +54,10 @@ type Delims struct {
 type Options struct {
 	// Directory to load templates. Default is "templates".
 	Directory string
+	// Asset function to use in place of directory. Defaults to nil.
+	Asset func(name string) ([]byte, error)
+	// AssetNames function to use in place of directory. Defaults to nil.
+	AssetNames func() []string
 	// Layout template name. Will not render a layout if blank (""). Defaults to blank ("").
 	Layout string
 	// Extensions to parse template files from. Defaults to [".tmpl"].
@@ -64,16 +70,18 @@ type Options struct {
 	Charset string
 	// Outputs human readable JSON.
 	IndentJSON bool
-	// Outputs human readable XML.
+	// Outputs human readable XML. Default is false.
 	IndentXML bool
-	// Prefixes the JSON output with the given bytes.
+	// Prefixes the JSON output with the given bytes. Default is false.
 	PrefixJSON []byte
 	// Prefixes the XML output with the given bytes.
 	PrefixXML []byte
 	// Allows changing of output to XHTML instead of HTML. Default is "text/html"
 	HTMLContentType string
-	// If IsDevelopment is set to true, this will recompile the templates on every request. Default if false.
+	// If IsDevelopment is set to true, this will recompile the templates on every request. Default is false.
 	IsDevelopment bool
+	// Unescape HTML characters "&<>" to their original values. Default is false.
+	UnEscapeHTML bool
 }
 
 // HTMLOptions is a struct for overriding some rendering Options for specific HTML call.
@@ -129,6 +137,14 @@ func (r *Render) prepareOptions() {
 }
 
 func (r *Render) compileTemplates() {
+	if r.opt.Asset == nil || r.opt.AssetNames == nil {
+		r.compileTemplatesFromDir()
+		return
+	}
+	r.compileTemplatesFromAsset()
+}
+
+func (r *Render) compileTemplatesFromDir() {
 	dir := r.opt.Directory
 	r.templates = template.New(dir)
 	r.templates.Delims(r.opt.Delims.Left, r.opt.Delims.Right)
@@ -171,6 +187,50 @@ func (r *Render) compileTemplates() {
 	})
 }
 
+func (r *Render) compileTemplatesFromAsset() {
+	dir := r.opt.Directory
+	r.templates = template.New(dir)
+	r.templates.Delims(r.opt.Delims.Left, r.opt.Delims.Right)
+
+	for _, path := range r.opt.AssetNames() {
+		if !strings.HasPrefix(path, dir) {
+			continue
+		}
+
+		rel, err := filepath.Rel(dir, path)
+		if err != nil {
+			panic(err)
+		}
+
+		ext := ""
+		if strings.Index(rel, ".") != -1 {
+			ext = "." + strings.Join(strings.Split(rel, ".")[1:], ".")
+		}
+
+		for _, extension := range r.opt.Extensions {
+			if ext == extension {
+
+				buf, err := r.opt.Asset(path)
+				if err != nil {
+					panic(err)
+				}
+
+				name := (rel[0 : len(rel)-len(ext)])
+				tmpl := r.templates.New(filepath.ToSlash(name))
+
+				// Add our funcmaps.
+				for _, funcs := range r.opt.Funcs {
+					tmpl.Funcs(funcs)
+				}
+
+				// Break out if this parsing fails. We don't want any silent server starts.
+				template.Must(tmpl.Funcs(helperFuncs).Parse(string(buf)))
+				break
+			}
+		}
+	}
+}
+
 // Render is the generic function called by XML, JSON, Data, HTML, and can be called by custom implementations.
 func (r *Render) Render(w http.ResponseWriter, e Engine, data interface{}) {
 	err := e.Render(w, data)
@@ -203,9 +263,26 @@ func (r *Render) JSON(w http.ResponseWriter, status int, v interface{}) {
 	}
 
 	j := JSON{
-		Head:   head,
-		Indent: r.opt.IndentJSON,
-		Prefix: r.opt.PrefixJSON,
+		Head:         head,
+		Indent:       r.opt.IndentJSON,
+		Prefix:       r.opt.PrefixJSON,
+		UnEscapeHTML: r.opt.UnEscapeHTML,
+	}
+
+	r.Render(w, j, v)
+}
+
+// JSONP marshals the given interface object and writes the JSON response.
+func (r *Render) JSONP(w http.ResponseWriter, status int, callback string, v interface{}) {
+	head := Head{
+		ContentType: ContentJSONP + r.compiledCharset,
+		Status:      status,
+	}
+
+	j := JSONP{
+		Head:     head,
+		Indent:   r.opt.IndentJSON,
+		Callback: callback,
 	}
 
 	r.Render(w, j, v)

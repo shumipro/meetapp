@@ -1,6 +1,6 @@
 {
 	"ImportPath": "github.com/shumipro/meetapp",
-	"GoVersion": "go1.4.1",
+	"GoVersion": "go1.4.2",
 	"Deps": [
 		{
 			"ImportPath": "github.com/go-xweb/uuid",
@@ -8,39 +8,53 @@
 		},
 		{
 			"ImportPath": "github.com/guregu/kami",
-			"Rev": "564077614409a108e078455a609e0a2ae0725d10"
+			"Rev": "f808672b87d0fb889caeff31c9ffda61ae6f6f4a"
 		},
 		{
 			"ImportPath": "github.com/julienschmidt/httprouter",
-			"Rev": "bde5c16eb82ff15a1734a3818d9b9547065f65b1"
+			"Rev": "8c199fb6259ffc1af525cc3ad52ee60ba8359669"
 		},
 		{
 			"ImportPath": "github.com/unrolled/render",
-			"Rev": "4796b5bc747483bf9b20a50b2c80e00ed2c85fab"
+			"Rev": "a9e7a35d2194896cd9985fd068ab3735ce3bc39f"
 		},
 		{
 			"ImportPath": "github.com/zenazn/goji/bind",
-			"Comment": "v0.9.0-10-g739f05c",
-			"Rev": "739f05c9497895aee8d398a8ff38fb0517c4d670"
+			"Comment": "v0.9.0-15-g0276f3f",
+			"Rev": "0276f3f3fb609aabf8d9ba7aea10c80ec979989d"
 		},
 		{
 			"ImportPath": "github.com/zenazn/goji/graceful",
-			"Comment": "v0.9.0-10-g739f05c",
-			"Rev": "739f05c9497895aee8d398a8ff38fb0517c4d670"
+			"Comment": "v0.9.0-15-g0276f3f",
+			"Rev": "0276f3f3fb609aabf8d9ba7aea10c80ec979989d"
 		},
 		{
 			"ImportPath": "github.com/zenazn/goji/web/mutil",
-			"Comment": "v0.9.0-10-g739f05c",
-			"Rev": "739f05c9497895aee8d398a8ff38fb0517c4d670"
+			"Comment": "v0.9.0-15-g0276f3f",
+			"Rev": "0276f3f3fb609aabf8d9ba7aea10c80ec979989d"
 		},
 		{
 			"ImportPath": "golang.org/x/net/context",
-			"Rev": "9dd48c277bcb2bb2cc3eb6a6368a486a567d3562"
+			"Rev": "ff8eb9a34a5cbb9941ffc6f84a19a8014c2646ad"
+		},
+		{
+			"ImportPath": "golang.org/x/oauth2",
+			"Rev": "23f31c341b9ede4693ea642df2d2bd3c03c3bd8b"
+		},
+		{
+			"ImportPath": "gopkg.in/bufio.v1",
+			"Comment": "v1",
+			"Rev": "567b2bfa514e796916c4747494d6ff5132a1dfce"
 		},
 		{
 			"ImportPath": "gopkg.in/mgo.v2",
 			"Comment": "r2015.01.24",
 			"Rev": "c6a7dce14133ccac2dcac3793f1d6e2ef048503a"
+		},
+		{
+			"ImportPath": "gopkg.in/redis.v2",
+			"Comment": "v2.3.2",
+			"Rev": "e6179049628164864e6e84e973cfb56335748dea"
 		}
 	]
 }
