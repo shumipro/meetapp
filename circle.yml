@@ -1,0 +1,15 @@
+checkout:
+  post:
+    - rm -rf $HOME/.go_workspace/src/github.com/shumipro/*
+    - mkdir -p $HOME/.go_workspace/src/github.com/shumipro
+    - ln -snf $HOME/$CIRCLE_PROJECT_REPONAME $HOME/.go_workspace/src/github.com/shumipro
+
+dependencies:
+  pre:
+    - go get -t -d -v ./...
+  override:
+    - go build -v
+
+test:
+  override:
+    - go test -v ./... -race

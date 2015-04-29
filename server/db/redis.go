@@ -3,10 +3,8 @@ package db
 import (
 	"fmt"
 	"log"
-
-	"os"
-
 	"net/url"
+	"os"
 
 	"golang.org/x/net/context"
 	"gopkg.in/redis.v2"
@@ -21,26 +19,34 @@ func Redis(ctx context.Context) *redis.Client {
 }
 
 func OpenRedis(ctx context.Context) context.Context {
-	redisURL := os.Getenv("REDISTOGO_URL")
-	server := ""
-	password := ""
-	if redisURL == "" {
-		server = fmt.Sprintf("%s:%d", "localhost", 6379)
-	} else {
-		redisInfo, _ := url.Parse(redisURL)
-		server = redisInfo.Host
-		if redisInfo.User != nil {
-			password, _ = redisInfo.User.Password()
-		}
-	}
-	fmt.Println("redis", server, password)
-
+	addr, password := getHerokuRedisAddr()
 	client := redis.NewTCPClient(&redis.Options{
-		Addr: server,
+		Addr:     addr,
 		Password: password,
 	})
 	ctx = context.WithValue(ctx, redisDB("default"), client)
 	return ctx
+}
+
+func getHerokuRedisAddr() (addr string, password string) {
+	addr = fmt.Sprintf("%s:%d", "localhost", 6379)
+	password = ""
+
+	redisURL := os.Getenv("REDISTOGO_URL")
+	if redisURL == "" {
+		return
+	}
+
+	redisInfo, err := url.Parse(redisURL)
+	if err != nil {
+		return
+	}
+
+	addr = redisInfo.Host
+	if redisInfo.User != nil {
+		password, _ = redisInfo.User.Password()
+	}
+	return
 }
 
 func CloseRedis(ctx context.Context) context.Context {
