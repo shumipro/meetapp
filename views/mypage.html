@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {{ template "partials/header" . }}
+</head>
+<body>
+
+    <header>
+        {{ template "partials/nav" . }}
+    </header>
+
+    <div class="wrapper">
+        <div class="ma-layout-wrap">
+            <div class="ma-layout clearfix">
+                <div class="ma-layout-col-left">
+                    <div class="ma-infobox">
+                        <div class="ma-infobox-logo">
+                            <img src="http://graph.facebook.com/10152160532855662/picture?type=square" class="sectionImg">
+                        </div>
+                        <div class="ma-infobox-table">
+                            <dl>
+                                <dt>Name:</dt><dd>tejitak</dd>
+                                <dt>職種:</dt><dd>Engineer</dd>
+                                <dt>プログラミング言語:</dt><dd>Swift JavaScript</dd>
+                            </dl>
+                        </div>
+                    </div>
+                    <div class="ma-infobox">
+                        <div style="height: 72px;padding-top:2px;"><h3>Adsense</h3></div>
+                    </div>
+                </div>
+                <div class="ma-layout-col-right">
+                    <div class="ma-white-wrap">
+                        <section>
+                            <div class="section-heading">
+                                <h3>管理プロジェクト</h3>
+                                <div class="divider"></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3 col-sm-3 col-xs-6 ma-app-tile-wrap">
+                                    <div class="ma-app-tile">
+                                        <div class="ma-app-tile-image">
+                                            <a href="/app/detail?id=001"><img src="/img/sample1.png" width="200" height="150" alt="Meet App"></a>
+                                        </div>
+                                        <div class="ma-app-tile-toolbar"><span class="star">Star: 18</span></div>
+                                        <div class="ma-app-tile-title"><a href="/app/detail?id=001">Meet App - MeetAppは趣味アプリ開発を楽しくします</a></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                        <section>
+                            <div class="section-heading">
+                                <h3>参加プロジェクト</h3>
+                                <div class="divider"></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3 col-sm-3 col-xs-6 ma-app-tile-wrap">
+                                    <div class="ma-app-tile">
+                                        <div class="ma-app-tile-image">
+                                            <a href="/app/detail?id=001"><img src="/img/sample1.png" width="200" height="150" alt="Meet App"></a>
+                                        </div>
+                                        <div class="ma-app-tile-toolbar"><span class="star">Star: 18</span></div>
+                                        <div class="ma-app-tile-title"><a href="/app/detail?id=001">Meet App - MeetAppは趣味アプリ開発を楽しくします</a></div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-sm-3 col-xs-6 ma-app-tile-wrap">
+                                    <div class="ma-app-tile">
+                                        <div class="ma-app-tile-image">
+                                            <a href="/app/detail?id=001"><img src="/img/sample1.png" width="200" height="150" alt="Meet App"></a>
+                                        </div>
+                                        <div class="ma-app-tile-toolbar"><span class="star">Star: 18</span></div>
+                                        <div class="ma-app-tile-title"><a href="/app/detail?id=001">Meet App - MeetAppは趣味アプリ開発を楽しくします</a></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer>
+            {{ template "partials/footer" . }}
+        </footer>
+    </div>
+    
+    {{ template "partials/scripts" . }}
+</body>
+</html>

@@ -106,16 +106,6 @@ func AppRegister(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-type RegisterAppInfo struct {
-	Description string  `json:"description"`
-	Images      []Image `json:"images"`
-	Name        string  `json:"name"`
-}
-
-type Image struct {
-	URL string `json:"url"`
-}
-
 func AppRegisterPost(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	data, err := ioutil.ReadAll(r.Body)
 	if err != nil {
@@ -125,7 +115,7 @@ func AppRegisterPost(ctx context.Context, w http.ResponseWriter, r *http.Request
 	}
 	fmt.Println(string(data))
 
-	var registerAppInfo RegisterAppInfo
+	var registerAppInfo models.AppInfo
 	if err := json.Unmarshal(data, &registerAppInfo); err != nil {
 		log.Println("ERROR! json parse", err)
 		renderer.JSON(w, 400, err)
@@ -134,36 +124,42 @@ func AppRegisterPost(ctx context.Context, w http.ResponseWriter, r *http.Request
 
 	// TODO: 重複チェック?
 
-	appInfo, err := parseAppInfo(registerAppInfo)
-	if err != nil {
-		log.Println("ERROR! json parse", err)
-		renderer.JSON(w, 400, err)
-		return
+	registerAppInfo.ID = uuid.NewRandom().String()
+	if len(registerAppInfo.ImageURLs) > 0 {
+		registerAppInfo.MainImage = registerAppInfo.ImageURLs[0].URL // TODO: とりあえず1件目をメインの画像にする
+	} else {
+		// set default image
+		registerAppInfo.MainImage = "/img/no_img.png"
+	}
+	// TODO: memberと募集はrequestにないので一旦固定値
+	registerAppInfo.Members = []models.Member{
+		{
+			Name:         "kyokomi",
+			IconImageURL: "https://avatars0.githubusercontent.com/u/1456047?v=3&s=460",
+			Post:         "Gopher",
+		},
+		{
+			Name:         "tejitak",
+			IconImageURL: "http://graph.facebook.com/10152160532855662/picture?type=square",
+			Post:         "Engineer",
+		},
+	}
+	registerAppInfo.RecruitMember = []models.RecruitInfo{
+		{
+			Post: "デザイナー",
+			Num:  1,
+		},
+		{
+			Post: "企画",
+			Num:  1,
+		},
 	}
 
-	if err := models.AppsCtx(ctx).Upsert(appInfo); err != nil {
+	if err := models.AppsCtx(ctx).Upsert(registerAppInfo); err != nil {
 		log.Println("ERROR! register", err)
 		renderer.JSON(w, 400, err)
 		return
 	}
 
-	renderer.JSON(w, 200, appInfo)
-}
-
-func parseAppInfo(req RegisterAppInfo) (models.AppInfo, error) {
-	// TODO: 必須項目チェック?
-	if req.Name == "" {
-		return models.AppInfo{}, fmt.Errorf("%s", "アプリ名は必須です")
-	}
-
-	var appInfo models.AppInfo
-	appInfo.ID = uuid.NewRandom().String() // TODO: とりあえずUUID
-	appInfo.Name = req.Name
-	appInfo.Title = req.Name // TODO: とりあえず
-	appInfo.Detail = req.Description
-	if len(req.Images) > 0 {
-		appInfo.ImageURL = req.Images[0].URL // TODO: とりあえず1個
-	}
-
-	return appInfo, nil
+	renderer.JSON(w, 200, registerAppInfo)
 }

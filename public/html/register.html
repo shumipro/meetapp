@@ -12,52 +12,38 @@
 <body>
     <header>
         <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-            <span class="fa fa-bars fa-lg"></span>
-            </button>
-            <a class="navbar-brand" href="/">
-            <img src="/img/logo.png" alt="" class="logo">
-            </a>
-        </div>
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="/">トップページ</a></li>
-                <li><a href="/app/list?orderBy=new">新着一覧</a></li>
-                <li><a href="/app/list?orderBy=popular">人気一覧</a></li>
-                <li><a href="/app/register">アプリの登録</a></li>
-                <li><a href="/about">MeetAppとは</a></li>
-            </ul>
-        </div>
-    </div>
-</nav>
-
-<div class="tp-banner-container">
-    <div class="tp-banner">
-        <ul style="display: none;">
-            <div class="tp-caption large_white_light sft">
-                アプリを作る仲間を探そう＆募集しよう
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="fa fa-bars fa-lg"></span>
+                    </button>
+                    <a class="navbar-brand" href="/">
+                    <img src="/img/logo.png" alt="" class="logo">
+                    </a>
+                </div>
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="/app/list?orderBy=popular">プロジェクトを探す</a></li>
+                        <li><a href="/app/list?orderBy=new">新着一覧</a></li>
+                        <li><a href="/app/login">ログイン・登録</a></li>
+                    </ul>
+                </div>
             </div>
-            <div class="tp-caption sfb hidden-xs">
-                <a href="#new" class="btn btn-primary inverse btn-lg">新着アプリ</a>
-                <a href="#popular" class="btn btn-primary inverse btn-lg">人気アプリ</a>
-                <a href="#category" class="btn btn-primary inverse btn-lg">カテゴリー</a>
-            </div>
-        </ul>
-    </div>
-</div>
+        </nav>
 
+        <div class="tp-banner-container">
+            <div class="tp-banner">
+            </div>
+        </div>
     </header>
 
     <div class="wrapper">
         <section>
             <form>
                 <div class="container">
-                    <div class="section-heading scrollpoint sp-effect1">
+                    <div class="section-heading">
                         <h1>アプリの登録</h1>
                         <div class="divider"></div>
-                        <p>アプリを作る仲間を募集しよう</p>
                     </div>
                     <hr>
                     <div class="row">
@@ -215,16 +201,59 @@
         </section>
         <footer>
             <div class="container">
-    <div class="social">
-        <a href="#" class="scrollpoint sp-effect3"><i class="fa fa-twitter fa-lg"></i></a>
-        <a href="#" class="scrollpoint sp-effect3"><i class="fa fa-google-plus fa-lg"></i></a>
-        <a href="#" class="scrollpoint sp-effect3"><i class="fa fa-facebook fa-lg"></i></a>
-    </div>
-    <div class="rights">
-        <p>Copyright &copy; 2015</p>
-        <p>Created by DevMorning</p>
-    </div>
-</div>
+                <div class="social">
+                    <a href="#"><i class="fa fa-twitter fa-lg"></i></a>
+                    <a href="#"><i class="fa fa-google-plus fa-lg"></i></a>
+                    <a href="#"><i class="fa fa-facebook fa-lg"></i></a>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="col">
+                           <h4>MeetAppについて</h4>
+                           <ul>
+                                <li><a href="/getting_started">このサービスの使い方</a></li>
+                                <li><a href="/faq">よくある質問</a></li>
+                                <li><a href="/terms">利用規約</a></li>
+                                <li><a href="/privacy">プライバシーポリシー</a></li>
+                                <li><a href="/contacts/new">お問い合わせ</a></li>
+                            </ul>
+                         </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="col">
+                            <h4>職種別に探す</h4>
+                            <div>
+                              <ul>
+                                <li><a href="/list?occupation=1">企画</a></li>
+                                <li><a href="/list?occupation=2">デザイナー</a></li>
+                                <li><a href="/list?occupation=3">サーバーエンジニア</a></li>
+                                <li><a href="/list?occupation=4">スマートフォンエンジニア</a></li>
+                                <li><a href="/list?occupation=5">フロントエンドエンジニア</a></li>
+                                <li><a href="/list?occupation=6">インフラエンジニア</a></li>
+                                <li><a href="/list?occupation=7">おてつだい</a></li>
+                              </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="col">
+                            <h4>エリア別に探す</h4>
+                            <div>
+                              <ul>
+                                <li><a href="/list?area=1">渋谷</a></li>
+                                <li><a href="/list?area=2">新宿</a></li>
+                                <li><a href="/list?area=3">六本木</a></li>
+                                <li><a href="/list?area=4">福岡</a></li>
+                              </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="rights">
+                    <p>Copyright &copy; 2015</p>
+                    <p>Created by DevMorning</p>
+                </div>
+            </div>
         </footer>
     </div>
     <script src="/dist/main.js"></script>

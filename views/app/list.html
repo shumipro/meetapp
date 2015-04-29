@@ -9,19 +9,84 @@
     </header>
 
     <div class="wrapper">
-        <section>
-            <div class="container">
-                <div class="section-heading scrollpoint sp-effect3">
-                    <h1>{{ .SubTitle }}</h1>
-                    <div class="divider"></div>
+        <div class="ma-layout-wrap">
+            <div class="ma-layout clearfix">
+                <div class="ma-layout-col-left">
+                    <div class="ma-filterbox">
+                        <div class="section-heading">
+                            <h3>プラットフォーム</h3>
+                            <div class="divider"></div>
+                        </div>
+                        <ul>
+                            <li>
+                                <input type="checkbox" id="filter_platform_0">
+                                <label for="filter_platform_0">iOS</label>
+                            </li>
+                            <li>
+                                <input type="checkbox" id="filter_platform_1">
+                                <label for="filter_platform_1">Web</label>
+                            </li>
+                            <li>
+                                <input type="checkbox" id="filter_platform_2">
+                                <label for="filter_platform_2">Android</label>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="ma-filterbox">
+                        <div class="section-heading">
+                            <h3>募集職種別</h3>
+                            <div class="divider"></div>
+                        </div>
+                        <ul>
+                            <li>
+                                <input type="checkbox" id="filter_occupation_0">
+                                <label for="filter_occupation_0">企画</label>
+                            </li>
+                            <li>
+                                <input type="checkbox" id="filter_occupation_1">
+                                <label for="filter_occupation_1">デザイナー</label>
+                            </li>
+                            <li>
+                                <input type="checkbox" id="filter_occupation_2">
+                                <label for="filter_occupation_2">エンジニア</label>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="ma-filterbox">
+                        <div class="section-heading">
+                            <h3>Adsense</h3>
+                            <div class="divider"></div>
+                        </div>
+                    </div>
                 </div>
-                <div class="row">
-                    {{range .AppInfoList}}
-                        {{ template "app/components/tile" . }}
-                    {{end}}
+                <div class="ma-layout-col-right">
+                    <ul class="ma-app-list-item-wrap">
+                        {{range .AppInfoList}}
+                            {{ template "app/components/listItem" . }}
+                        {{end}}
+                    </ul>
+                    <hr>
+                    <div class="ma-app-list-pagination">
+                        <nav class="pagination">
+                            <span class="prev">
+                                <a href="/list?page=1" rel="prev"><i class="icon-angle-left"></i>前へ</a>
+                            </span>
+                            <span class="page"><a href="/list?page=1" rel="prev">1</a></span>
+                            <span class="page current">2</span>
+                            <span class="page"><a href="/list?page=3" rel="next">3</a></span>
+                            <span class="page"><a href="/list?page=4" rel="next">4</a></span>
+                            <span class="page"><a href="/list?page=5" rel="next">5</a></span>
+                            <span class="page"><a href="/list?page=6" rel="next">6</a></span>
+                            <span class="next">
+                                <a href="/list?page=3" rel="next">次へ<i class="icon-angle-right"></i></a>
+                            </span>
+                        </nav>
+                    </div>
                 </div>
             </div>
-        </section>
+        </div>
         <footer>
             {{ template "partials/footer" . }}
         </footer>

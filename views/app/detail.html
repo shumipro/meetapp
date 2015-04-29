@@ -9,21 +9,142 @@
     </header>
 
     <div class="wrapper">
-        <section>
-            <div class="container">
-                <div class="section-heading scrollpoint sp-effect3">
-                    <h1>{{ .SubTitle }}</h1>
-                    <div class="divider"></div>
+        <div class="ma-layout-wrap">
+            <div class="ma-layout clearfix">
+                <div class="ma-layout-col-left">
+                    <div class="ma-infobox">
+                        <div class="ma-infobox-logo">
+                            <img src="{{ .AppInfo.MainImage }}" class="sectionImg">
+                        </div>
+                        <div class="ma-infobox-table">
+                            <dl>
+                                <dt>プラットフォーム:</dt><dd>{{ .AppInfo.PlatformType }}</dd>
+                                <dt>カテゴリ:</dt><dd>{{ .AppInfo.Category }}</dd>
+                                <dt>プログラミング言語:</dt><dd>{{ .AppInfo.LanguageType }}</dd>
+                            </dl>
+                        </div>
+                    </div>
+                    <div class="ma-infobox">
+                        <div class="ma-infobox-table">
+                            <dl>
+                                <dt>ミーティング場所:</dt><dd>{{ .AppInfo.Area }}</dd>
+                                <dt>ミーティング頻度:</dt><dd>{{ .AppInfo.Frequency }}</dd>
+                                <dt>プロジェクト開始日:</dt><dd>{{ .AppInfo.StartDate }}</dd>
+                                <dt>リリース予定日:</dt><dd>{{ .AppInfo.ReleaseDate }}</dd>
+                            </dl>
+                        </div>
+                    </div>
+                    <div class="ma-infobox">
+                        <div style="height: 72px;padding-top:2px;"><h3>Adsense</h3></div>
+                    </div>
                 </div>
-                <div>
-                    <div>
-                        <h2>野草アプリ</h2>
-                        <div>野草アプリの説明文</div>
-                        <img src="https://golang.org/doc/gopher/gopherbw.png" style="width: 184px; height: 184px;">
+                <div class="ma-layout-col-right">
+
+                    <div class="ma-white-wrap">
+                        <section>
+                            <div>
+                                <h1>{{ .AppInfo.Name }}</h1>
+                                <div class="sectionDesc">{{ .AppInfo.Detail }}</div>
+                            </div>
+                        </section>
+                        <section>
+                            <div class="row text-center">
+                                {{range .AppInfo.ImageURLs }}
+                                <div class="sectionImgWrap">
+                                    <img src="{{ .URL }}" class="sectionImg">
+                                </div>
+                                {{end}}
+                            </div>
+                        </section>
+                        <section>
+                            <div class="section-heading">
+                                <h3>URL</h3>
+                                <div class="divider"></div>
+                            </div>
+                            <dl>
+                                <dt>Demo URL:</dt><dd><a href="{{ .AppInfo.DemoURL }}">{{ .AppInfo.DemoURL }}</a></dd>
+                            </dl>
+                        </section>
+                        <section>
+                            <div class="section-heading">
+                                <h3>募集中のメンバー</h3>
+                                <div class="divider"></div>
+                            </div>
+                            <dl>
+                                {{range .AppInfo.RecruitMember }}
+                                <dt>{{ .Post }}:</dt><dd>{{ .Num }}名</dd>
+                                {{end}}
+                            </dl>
+                        </section>
+                    </div>
+                    <div class="ma-white-wrap">
+                        <section>
+                            <div class="section-heading">
+                                <h3>現在のメンバー</h3>
+                                <div class="divider"></div>
+                            </div>
+                            <div>
+                                {{range .AppInfo.Members }}
+                                <div class="ma-profile">
+                                    <a href="#">
+                                        <div class="ma-profile-image-wrap">
+                                            <img class="img-rounded ma-profile-image" src="{{ .IconImageURL }}">
+                                        </div>
+                                        <div class="ma-profile-content-wrap">
+                                            <div class="ma-profile-content">
+                                                <div class="ma-profile-name">{{ .Name }}</div>
+                                                <div class="ma-profile-title">{{ .Post }}</div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                                {{end}}
+                            </div>
+                        </section>
+                    </div>
+                    <div class="ma-white-wrap">
+                        <section>
+                            <div class="section-heading">
+                                <h3>Discussion</h3>
+                                <div class="divider"></div>
+                            </div>
+                            <ul class="ma-list-bordered">
+                                <li class="ma-profile-comment">
+                                    <span class="ma-profile-date subtle-text">5/26/2014</span>
+                                    <a href="#">
+                                        <div class="ma-profile-image-wrap">
+                                            <img class="img-rounded ma-profile-image" src="http://graph.facebook.com/10152160532855662/picture?type=square">
+                                        </div>
+                                    </a>
+                                    <div class="ma-profile-message">
+                                        <p>I can't wait for this event!</p>
+                                    </div>
+                                </li>
+                                <li class="ma-profile-comment">
+                                    <span class="ma-profile-date subtle-text">5/27/2014</span>
+                                    <a href="#">
+                                        <div class="ma-profile-image-wrap">
+                                            <img class="img-rounded ma-profile-image" src="http://graph.facebook.com/10152160532855662/picture?type=square">
+                                        </div>
+                                    </a>
+                                    <div class="ma-profile-message">
+                                        <p>hoge<br>hoge hoge<br>Gopher!<br>How did you implement this?</p>
+                                    </div>
+                                </li>
+                            </ul>
+                            <div class="row text-center">
+                                <form class="ma-profile-comment-form">
+                                    <div class="form-group col-xs-11">
+                                        <textarea id="ma_detail_discussion_comment" name="description" class="form-control" rows="4"></textarea>
+                                        <input class="ma_detail_discussion_comment_btn btn btn-primary" type="button" value="コメント">
+                                    </div>
+                                </form>
+                            </div>
+                        </section>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
         <footer>
             {{ template "partials/footer" . }}
         </footer>

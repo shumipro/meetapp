@@ -5,9 +5,12 @@ import (
 
 	"os"
 
-	"golang.org/x/net/context"
-	mgo "gopkg.in/mgo.v2"
+	"net/url"
+
 	"strings"
+
+	"golang.org/x/net/context"
+	"gopkg.in/mgo.v2"
 )
 
 const mongoDBName = "meetapp"
@@ -27,21 +30,32 @@ func DBName() string {
 }
 
 func OpenMongoDB(ctx context.Context) context.Context {
-	url := os.Getenv("MONGOLAB_URI")
-	if url == "" {
-		url = fmt.Sprintf("%s:%d", "localhost", 27017)
-	} else {
-		// mongodb://<dbuser>:<dbpassword>@ds061371.mongolab.com:61371/heroku_app35413694st
-		databaseName = url[strings.LastIndex(url, "/")+1:]
-		fmt.Println(databaseName)
-	}
-	fmt.Println("mongoDB", url)
-	sesh, err := mgo.Dial(url)
+	uri, dbName := getHerokuURI()
+	databaseName = dbName
+	fmt.Println("mongoDB", uri, databaseName)
+
+	sesh, err := mgo.Dial(uri)
 	if err != nil {
 		panic(err)
 	}
 	ctx = context.WithValue(ctx, mongodb(mongoDBName), sesh)
 	return ctx
+}
+
+func getHerokuURI() (uri string, dbName string) {
+	// default
+	uri = fmt.Sprintf("%s:%d", "localhost", 27017)
+	dbName = mongoDBName
+
+	mongoURI := os.Getenv("MONGOLAB_URI")
+	mongoInfo, err := url.Parse(mongoURI)
+	if err != nil {
+		return
+	}
+
+	uri = mongoURI
+	dbName = strings.Replace(mongoInfo.Path, "/", "", 1)
+	return
 }
 
 func CloseMongoDB(ctx context.Context) context.Context {

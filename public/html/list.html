@@ -1,0 +1,317 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<title>MeetApp</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+<link rel="shortcut icon" href="favicon.png">
+<link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="fa fa-bars fa-lg"></span>
+                    </button>
+                    <a class="navbar-brand" href="/">
+                    <img src="/img/logo.png" alt="" class="logo">
+                    </a>
+                </div>
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="/app/list?orderBy=popular">プロジェクトを探す</a></li>
+                        <li><a href="/app/list?orderBy=new">新着一覧</a></li>
+                        <li><a href="/app/login">ログイン・登録</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div class="tp-banner-container">
+            <div class="tp-banner">
+            </div>
+        </div>
+    </header>
+
+    <div class="wrapper">
+        <div class="ma-layout-wrap">
+            <div class="ma-layout clearfix">
+                <div class="ma-layout-col-left">
+                    <div class="ma-filterbox">
+                        <div class="section-heading">
+                            <h3>プラットフォーム</h3>
+                            <div class="divider"></div>
+                        </div>
+                        <ul>
+                            <li>
+                                <input type="checkbox" id="filter_platform_0">
+                                <label for="filter_platform_0">iOS</label>
+                            </li>
+                            <li>
+                                <input type="checkbox" id="filter_platform_1">
+                                <label for="filter_platform_1">Web</label>
+                            </li>
+                            <li>
+                                <input type="checkbox" id="filter_platform_2">
+                                <label for="filter_platform_2">Android</label>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="ma-filterbox">
+                        <div class="section-heading">
+                            <h3>募集職種別</h3>
+                            <div class="divider"></div>
+                        </div>
+                        <ul>
+                            <li>
+                                <input type="checkbox" id="filter_occupation_0">
+                                <label for="filter_occupation_0">企画</label>
+                            </li>
+                            <li>
+                                <input type="checkbox" id="filter_occupation_1">
+                                <label for="filter_occupation_1">デザイナー</label>
+                            </li>
+                            <li>
+                                <input type="checkbox" id="filter_occupation_2">
+                                <label for="filter_occupation_2">エンジニア</label>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="ma-filterbox">
+                        <div class="section-heading">
+                            <h3>Adsense</h3>
+                            <div class="divider"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ma-layout-col-right">
+                    <ul class="ma-app-list-item-wrap">
+                        <li class="ma-app-list-item">
+                            <a href="/app/detail?id=001">
+                                <div class="ma-app-list-item-image">
+                                    <img src="/img/sample1.png" alt="Meet App">
+                                </div>
+                                <div class="ma-app-list-item-content">
+                                    <div class="ma-app-list-item-title">Meet App - MeetAppは趣味アプリ開発を楽しくします</div>
+                                    <section>
+                                        description hogehoge
+                                    </section>
+                                    <section class="ma-app-list-item-member-wrap">
+                                        <img class="img-rounded ma-profile-image" src="http://graph.facebook.com/10152160532855662/picture?type=square">
+                                        <img class="img-rounded ma-profile-image" src="http://graph.facebook.com/10152160532855662/picture?type=square">
+                                        <img class="img-rounded ma-profile-image" src="http://graph.facebook.com/10152160532855662/picture?type=square">
+                                    </section>
+                                </div>
+                                <div class="ma-app-list-item-toolbar">
+                                    <div class="ma-tag">iOS</div>
+                                    <div class="ma-tag">Swift</div>
+                                    <div class="ma-tag">渋谷</div>
+                                    <span class="ma-star">Star: 18</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="ma-app-list-item">
+                            <a href="/app/detail?id=001">
+                                <div class="ma-app-list-item-image">
+                                    <img src="/img/sample1.png" alt="Meet App">
+                                </div>
+                                <div class="ma-app-list-item-content">
+                                    <div class="ma-app-list-item-title">Meet App - MeetAppは趣味アプリ開発を楽しくします</div>
+                                    <section>
+                                        description hogehoge
+                                    </section>
+                                    <section class="ma-app-list-item-member-wrap">
+                                        <img class="img-rounded ma-profile-image" src="http://graph.facebook.com/10152160532855662/picture?type=square">
+                                        <img class="img-rounded ma-profile-image" src="http://graph.facebook.com/10152160532855662/picture?type=square">
+                                        <img class="img-rounded ma-profile-image" src="http://graph.facebook.com/10152160532855662/picture?type=square">
+                                    </section>
+                                </div>
+                                <div class="ma-app-list-item-toolbar">
+                                    <div class="ma-tag">iOS</div>
+                                    <div class="ma-tag">Swift</div>
+                                    <div class="ma-tag">渋谷</div>
+                                    <span class="ma-star">Star: 18</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="ma-app-list-item">
+                            <a href="/app/detail?id=001">
+                                <div class="ma-app-list-item-image">
+                                    <img src="/img/sample1.png" alt="Meet App">
+                                </div>
+                                <div class="ma-app-list-item-content">
+                                    <div class="ma-app-list-item-title">Meet App - MeetAppは趣味アプリ開発を楽しくします</div>
+                                    <section>
+                                        description hogehoge
+                                    </section>
+                                    <section class="ma-app-list-item-member-wrap">
+                                        <img class="img-rounded ma-profile-image" src="http://graph.facebook.com/10152160532855662/picture?type=square">
+                                        <img class="img-rounded ma-profile-image" src="http://graph.facebook.com/10152160532855662/picture?type=square">
+                                        <img class="img-rounded ma-profile-image" src="http://graph.facebook.com/10152160532855662/picture?type=square">
+                                    </section>
+                                </div>
+                                <div class="ma-app-list-item-toolbar">
+                                    <div class="ma-tag">iOS</div>
+                                    <div class="ma-tag">Swift</div>
+                                    <div class="ma-tag">渋谷</div>
+                                    <span class="ma-star">Star: 18</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="ma-app-list-item">
+                            <a href="/app/detail?id=001">
+                                <div class="ma-app-list-item-image">
+                                    <img src="/img/sample1.png" alt="Meet App">
+                                </div>
+                                <div class="ma-app-list-item-content">
+                                    <div class="ma-app-list-item-title">Meet App - MeetAppは趣味アプリ開発を楽しくします</div>
+                                    <section>
+                                        description hogehoge
+                                    </section>
+                                    <section class="ma-app-list-item-member-wrap">
+                                        <img class="img-rounded ma-profile-image" src="http://graph.facebook.com/10152160532855662/picture?type=square">
+                                        <img class="img-rounded ma-profile-image" src="http://graph.facebook.com/10152160532855662/picture?type=square">
+                                        <img class="img-rounded ma-profile-image" src="http://graph.facebook.com/10152160532855662/picture?type=square">
+                                    </section>
+                                </div>
+                                <div class="ma-app-list-item-toolbar">
+                                    <div class="ma-tag">iOS</div>
+                                    <div class="ma-tag">Swift</div>
+                                    <div class="ma-tag">渋谷</div>
+                                    <span class="ma-star">Star: 18</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="ma-app-list-item">
+                            <a href="/app/detail?id=001">
+                                <div class="ma-app-list-item-image">
+                                    <img src="/img/sample1.png" alt="Meet App">
+                                </div>
+                                <div class="ma-app-list-item-content">
+                                    <div class="ma-app-list-item-title">Meet App - MeetAppは趣味アプリ開発を楽しくします</div>
+                                    <section>
+                                        description hogehoge
+                                    </section>
+                                    <section class="ma-app-list-item-member-wrap">
+                                        <img class="img-rounded ma-profile-image" src="http://graph.facebook.com/10152160532855662/picture?type=square">
+                                        <img class="img-rounded ma-profile-image" src="http://graph.facebook.com/10152160532855662/picture?type=square">
+                                        <img class="img-rounded ma-profile-image" src="http://graph.facebook.com/10152160532855662/picture?type=square">
+                                    </section>
+                                </div>
+                                <div class="ma-app-list-item-toolbar">
+                                    <div class="ma-tag">iOS</div>
+                                    <div class="ma-tag">Swift</div>
+                                    <div class="ma-tag">渋谷</div>
+                                    <span class="ma-star">Star: 18</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="ma-app-list-item">
+                            <a href="/app/detail?id=001">
+                                <div class="ma-app-list-item-image">
+                                    <img src="/img/sample1.png" alt="Meet App">
+                                </div>
+                                <div class="ma-app-list-item-content">
+                                    <div class="ma-app-list-item-title">Meet App - MeetAppは趣味アプリ開発を楽しくします</div>
+                                    <section>
+                                        description hogehoge
+                                    </section>
+                                    <section class="ma-app-list-item-member-wrap">
+                                        <img class="img-rounded ma-profile-image" src="http://graph.facebook.com/10152160532855662/picture?type=square">
+                                        <img class="img-rounded ma-profile-image" src="http://graph.facebook.com/10152160532855662/picture?type=square">
+                                        <img class="img-rounded ma-profile-image" src="http://graph.facebook.com/10152160532855662/picture?type=square">
+                                    </section>
+                                </div>
+                                <div class="ma-app-list-item-toolbar">
+                                    <div class="ma-tag">iOS</div>
+                                    <div class="ma-tag">Swift</div>
+                                    <div class="ma-tag">渋谷</div>
+                                    <span class="ma-star">Star: 18</span>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                    <hr>
+                    <div class="ma-app-list-pagination">
+                        <nav class="pagination">
+                            <span class="prev">
+                                <a href="/list?page=1" rel="prev"><i class="icon-angle-left"></i>前へ</a>
+                            </span>
+                            <span class="page"><a href="/list?page=1" rel="prev">1</a></span>
+                            <span class="page current">2</span>
+                            <span class="page"><a href="/list?page=3" rel="next">3</a></span>
+                            <span class="page"><a href="/list?page=4" rel="next">4</a></span>
+                            <span class="page"><a href="/list?page=5" rel="next">5</a></span>
+                            <span class="page"><a href="/list?page=6" rel="next">6</a></span>
+                            <span class="next">
+                                <a href="/list?page=3" rel="next">次へ<i class="icon-angle-right"></i></a>
+                            </span>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer>
+            <div class="container">
+                <div class="social">
+                    <a href="#"><i class="fa fa-twitter fa-lg"></i></a>
+                    <a href="#"><i class="fa fa-google-plus fa-lg"></i></a>
+                    <a href="#"><i class="fa fa-facebook fa-lg"></i></a>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="col">
+                           <h4>MeetAppについて</h4>
+                           <ul>
+                                <li><a href="/getting_started">このサービスの使い方</a></li>
+                                <li><a href="/faq">よくある質問</a></li>
+                                <li><a href="/terms">利用規約</a></li>
+                                <li><a href="/privacy">プライバシーポリシー</a></li>
+                                <li><a href="/contacts/new">お問い合わせ</a></li>
+                            </ul>
+                         </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="col">
+                            <h4>職種別に探す</h4>
+                            <div>
+                              <ul>
+                                <li><a href="/list?occupation=1">企画</a></li>
+                                <li><a href="/list?occupation=2">デザイナー</a></li>
+                                <li><a href="/list?occupation=3">サーバーエンジニア</a></li>
+                                <li><a href="/list?occupation=4">スマートフォンエンジニア</a></li>
+                                <li><a href="/list?occupation=5">フロントエンドエンジニア</a></li>
+                                <li><a href="/list?occupation=6">インフラエンジニア</a></li>
+                                <li><a href="/list?occupation=7">おてつだい</a></li>
+                              </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="col">
+                            <h4>エリア別に探す</h4>
+                            <div>
+                              <ul>
+                                <li><a href="/list?area=1">渋谷</a></li>
+                                <li><a href="/list?area=2">新宿</a></li>
+                                <li><a href="/list?area=3">六本木</a></li>
+                                <li><a href="/list?area=4">福岡</a></li>
+                              </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="rights">
+                    <p>Copyright &copy; 2015</p>
+                    <p>Created by DevMorning</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+    <script src="/dist/main.js"></script>
+</body>
+</html>

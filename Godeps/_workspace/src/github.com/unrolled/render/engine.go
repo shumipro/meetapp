@@ -29,8 +29,16 @@ type XML struct {
 // JSON built-in renderer.
 type JSON struct {
 	Head
-	Indent bool
-	Prefix []byte
+	Indent       bool
+	UnEscapeHTML bool
+	Prefix       []byte
+}
+
+// JSONP built-in renderer.
+type JSONP struct {
+	Head
+	Indent   bool
+	Callback string
 }
 
 // HTML built-in renderer.
@@ -70,11 +78,19 @@ func (j JSON) Render(w http.ResponseWriter, v interface{}) error {
 
 	if j.Indent {
 		result, err = json.MarshalIndent(v, "", "  ")
+		result = append(result, '\n')
 	} else {
 		result, err = json.Marshal(v)
 	}
 	if err != nil {
 		return err
+	}
+
+	// Unescape HTML if needed.
+	if j.UnEscapeHTML {
+		result = bytes.Replace(result, []byte("\\u003c"), []byte("<"), -1)
+		result = bytes.Replace(result, []byte("\\u003e"), []byte(">"), -1)
+		result = bytes.Replace(result, []byte("\\u0026"), []byte("&"), -1)
 	}
 
 	// JSON marshaled fine, write out the result.
@@ -86,6 +102,33 @@ func (j JSON) Render(w http.ResponseWriter, v interface{}) error {
 	return nil
 }
 
+// Render a JSONP response.
+func (j JSONP) Render(w http.ResponseWriter, v interface{}) error {
+	var result []byte
+	var err error
+
+	if j.Indent {
+		result, err = json.MarshalIndent(v, "", "  ")
+	} else {
+		result, err = json.Marshal(v)
+	}
+	if err != nil {
+		return err
+	}
+
+	// JSON marshaled fine, write out the result.
+	j.Head.Write(w)
+	w.Write([]byte(j.Callback + "("))
+	w.Write(result)
+	w.Write([]byte(");"))
+
+	// If indenting, append a new line.
+	if j.Indent {
+		w.Write([]byte("\n"))
+	}
+	return nil
+}
+
 // Render an XML response.
 func (x XML) Render(w http.ResponseWriter, v interface{}) error {
 	var result []byte
@@ -93,6 +136,7 @@ func (x XML) Render(w http.ResponseWriter, v interface{}) error {
 
 	if x.Indent {
 		result, err = xml.MarshalIndent(v, "", "  ")
+		result = append(result, '\n')
 	} else {
 		result, err = xml.Marshal(v)
 	}

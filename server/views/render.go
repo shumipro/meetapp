@@ -30,6 +30,8 @@ func InitTemplates(ctx context.Context, appRoot string) context.Context {
 
 	pageNames := []string{
 		"index",
+		"login",
+		"mypage",
 		"app/detail",
 		"app/list",
 		"app/register",
@@ -45,6 +47,7 @@ func InitTemplates(ctx context.Context, appRoot string) context.Context {
 		"app/list",
 		"app/register",
 		"app/components/tile",
+		"app/components/listItem",
 		"partials/footer",
 		"partials/header",
 		"partials/nav",

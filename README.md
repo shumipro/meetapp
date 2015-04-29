@@ -1,6 +1,8 @@
 MeetApp
 ==============
 
+[![Circle CI](https://circleci.com/gh/shumipro/meetapp.svg?style=svg)](https://circleci.com/gh/shumipro/meetapp)
+
 ## ローカル環境
 
 ### Go環境ない人向けのGo環境構築（Mac & brew版）
@@ -30,6 +32,14 @@ $ go get github.com/kr/godep
 $ godep get
 ```
 
+### 環境変数
+
+ローカルで動かす場合に、環境変数に以下の指定が必要です。
+
+※FakeLogin的なのを実装して、いずれ指定無しで動くようにします...
+
+- `FACEBOOK_APPID`
+- `FACEBOOK_SECRET`
 
 ### try
 

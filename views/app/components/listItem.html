@@ -1,0 +1,25 @@
+<li class="ma-app-list-item">
+    <a href="/app/detail/{{ .ID }}">
+        <div class="ma-app-list-item-image">
+            <img src="{{ .MainImage }}" alt="{{ .Name }}">
+        </div>
+        <div class="ma-app-list-item-content">
+            <div class="ma-app-list-item-title">{{ .Name }}</div>
+            <section>
+                {{ .Detail }}
+            </section>
+            <section class="ma-app-list-item-member-wrap">
+                {{range .Members }}
+                    <img class="img-rounded ma-profile-image" src="{{ .IconImageURL }}">
+                {{end}}
+            </section>
+        </div>
+        <div class="ma-app-list-item-toolbar">
+            <div class="ma-tag">{{ .Category }}</div>
+            <div class="ma-tag">{{ .PlatformType }}</div>
+            <div class="ma-tag">{{ .LanguageType }}</div>
+            <div class="ma-tag">{{ .Area }}</div>
+            <span class="ma-star">Star: {{ .StarCount }}</span>
+        </div>
+    </a>
+</li>
