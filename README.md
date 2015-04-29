@@ -1,6 +1,8 @@
 MeetApp
 ==============
 
+[![Circle CI](https://circleci.com/gh/shumipro/meetapp.svg?style=svg)](https://circleci.com/gh/shumipro/meetapp)
+
 ## ローカル環境
 
 ### Go環境ない人向けのGo環境構築（Mac & brew版）
