@@ -54,9 +54,14 @@
                         <div class="col-xs-6 form-group">
                             <label>プラットフォーム</label>
                             <select id="ma_register_form_platform" name="platform" class="form-control">
-                              <option value="web">Web</option>
-                              <option value="ios">iOS</option>
-                              <option value="android">Android</option>
+                              <option value="1">Web</option>
+                              <option value="2">iOS</option>
+                              <option value="4">Apple Watch</option>
+                              <option value="5">Android</option>
+                              <option value="6">Mac</option>
+                              <option value="7">Windows</option>
+                              <option value="8">Linux</option>
+                              <option value="9">Chrome</option>
                             </select>
                         </div>
                         <div class="col-xs-6 form-group">
@@ -66,44 +71,48 @@
                         <div class="col-xs-6 form-group">
                             <label>カテゴリ</label>
                             <select id="ma_register_form_category" name="category" class="form-control">
-                                <option value="book">ブック</option>
-                                <option value="business">ビジネス</option>
-                                <option value="catalogs">カタログ</option>
-                                <option value="education">教育</option>
-                                <option value="entertainment">エンターテイメント</option>
-                                <option value="finance">ファイナンス</option>
-                                <option value="food">フード／ドリンク</option>
-                                <option value="game">ゲーム</option>
-                                <option value="health">ヘルスケア/フィットネス</option>
-                                <option value="lifestyle">ライフスタイル</option>
-                                <option value="medical">メディカル</option>
-                                <option value="music">ミュージック</option>
-                                <option value="navigation">ナビゲーション</option>
-                                <option value="news">ニュース</option>
-                                <option value="photo">写真/ビデオ</option>
-                                <option value="productivity">仕事効率化</option>
-                                <option value="reference">辞書/辞典/その他</option>
-                                <option value="sns">ソーシャルネットワーキング</option>
-                                <option value="sports">スポーツ</option>
-                                <option value="travel">旅行</option>
-                                <option value="utilities">ユーティリティ</option>
-                                <option value="weather">天気</option>
+                                <option value="1">ブック</option>
+                                <option value="2">ビジネス</option>
+                                <option value="3">カタログ</option>
+                                <option value="4">教育</option>
+                                <option value="5">エンターテイメント</option>
+                                <option value="6">ファイナンス</option>
+                                <option value="7">フード／ドリンク</option>
+                                <option value="8">ゲーム</option>
+                                <option value="9">ヘルスケア/フィットネス</option>
+                                <option value="10">ライフスタイル</option>
+                                <option value="11">メディカル</option>
+                                <option value="12">ミュージック</option>
+                                <option value="13">ナビゲーション</option>
+                                <option value="14">ニュース</option>
+                                <option value="15">写真/ビデオ</option>
+                                <option value="16">仕事効率化</option>
+                                <option value="17">辞書/辞典/その他</option>
+                                <option value="18">ソーシャルネットワーキング</option>
+                                <option value="19">スポーツ</option>
+                                <option value="20">旅行</option>
+                                <option value="21">ユーティリティ</option>
+                                <option value="22">天気</option>
                             </select>
                         </div>
                         <div class="col-xs-6 form-group">
                             <label>プログラミング言語</label>
                             <select id="ma_register_form_pLang" name="pLang" class="form-control">
-                                <option value="c">C</option>
-                                <option value="c#">C#</option>
-                                <option value="c++">C++</option>
-                                <option value="go">Go</option>
-                                <option value="java">Java</option>
-                                <option value="javascript">JavaScript</option>
-                                <option value="matlab">MATLAB.</option>
-                                <option value="php">PHP</option>
-                                <option value="python">Python</option>
-                                <option value="ruby">Ruby</option>
-                                <option value="sql">SQL</option>
+                                <option value="1">Java</option>
+                                <option value="2">JavaScript</option>
+                                <option value="3">Swift</option>
+                                <option value="4">Go</option>
+                                <option value="5">PHP</option>
+                                <option value="6">Python</option>
+                                <option value="7">Ruby</option>
+                                <option value="8">Perl</option>
+                                <option value="9">C</option>
+                                <option value="10">C#</option>
+                                <option value="11">C++</option>
+                                <option value="12">Scala</option>
+                                <option value="13">SQL</option>
+                                <option value="14">VB</option>
+                                <option value="15">MATLAB</option>
                             </select>
                         </div>
                         <div class="col-xs-6 form-group">
@@ -112,12 +121,11 @@
                         </div>
                     </div>
                     <hr>
-                    <h3>画像アップロード
-                    </h3>
+                    <h3>画像URL</h3>
                     <div class="row">
-                        <div class="col-xs-6 form-group">
-                            <span>画像1</span>
-                            <input id="ma_register_form_image1" data-list-name="images" name="url" class="form-control" type="text"/>
+                        <div class="col-xs-12 form-group">
+                            <span>画像1 (メイン)</span>
+                            <input id="ma_register_form_image1" data-list-name="images" name="url" class="form-control" type="text" placeholder="http://" />
                             <!--div class="input-group">
                                 <span class="input-group-btn">
                                     <span class="btn btn-primary btn-file">
@@ -127,49 +135,40 @@
                                 <input type="text" class="form-control" readonly>
                             </div-->
                             <span>画像2</span>
-                            <input id="ma_register_form_image2" data-list-name="images" name="url" class="form-control" type="text"/>
+                            <input id="ma_register_form_image2" data-list-name="images" name="url" class="form-control" type="text" placeholder="http://"/>
                             <span>画像3</span>
-                            <input id="ma_register_form_image3" data-list-name="images" name="url" class="form-control" type="text"/>
+                            <input id="ma_register_form_image3" data-list-name="images" name="url" class="form-control" type="text" placeholder="http://"/>
                         </div>
                     </div>
                     <hr>
-                    <h3>現在のメンバー構成
-                        <button id="ma_register_add_currentMember" type="button" class="btn btn-default">
-                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                        </button>
-                    </h3>
+                    <h3>現在のメンバー構成</h3>
                     <div class="row">
-                        <div class="col-xs-6 form-group">
-                            <label>名前</label>
-                            <input id="ma_register_form_currentMember1_name" name="currentMemberName" class="form-control" type="text"/>
+                        <div class="input-group ma-friend-add-suggest">
+                            <input type="text" class="form-control" id="ma_register_add_currentMember_suggest_input" placeholder="登録ユーザーの名前をタイプしてください">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default btn-primary ma-friend-add-btn" id="ma_register_add_currentMember_suggest_btn" type="button">追加</button>
+                            </span>
                         </div>
-                        <div class="col-xs-6 form-group">
-                            <label>役割</label>
-                            <input id="ma_register_form_currentMember1_role" name="currentMemberRole" class="form-control" type="text"/>
-                        </div>
+                        <div id="ma_register_add_currentMember_result"></div>
                     </div>
                     <hr>
-                    <h3>募集したいメンバー
-                        <button id="ma_register_add_wantMember" type="button" class="btn btn-default">
-                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                        </button>
-                    </h3>
+                    <h3>募集したいメンバー</h3>
                     <div class="row">
-                        <div class="col-xs-6 form-group">
-                            <label>役割</label>
-                            <input id="ma_register_form_wantMember1_role" name="wantMemberRole" class="form-control" type="text"/>
+                        <div class="col-xs-12 form-group">
+                            <button id="ma_register_add_wantMember_btn" type="button" class="btn btn-default">追加</button>
                         </div>
+                        <div id="ma_register_add_wantMember_result"></div>
                     </div>
                     <hr>
                     <h3>URL</h3>
                     <div class="row">
                         <div class="col-xs-6 form-group">
                             <label>Demo URL</label>
-                            <input id="ma_register_form_demoUrl" name="demoUrl" class="form-control" type="text"/>
+                            <input id="ma_register_form_demoUrl" name="demoUrl" class="form-control" type="text" placeholder="http://"/>
                         </div>
                         <div class="col-xs-6 form-group">
                             <label>Github URL</label>
-                            <input id="ma_register_form_githubUrl" name="githubUrl" class="form-control" type="text"/>
+                            <input id="ma_register_form_githubUrl" name="githubUrl" class="form-control" type="text" placeholder="https://" />
                         </div>
                     </div>
                     <hr>
@@ -177,19 +176,40 @@
                     <div class="row">
                         <div class="col-xs-6 form-group">
                             <label>ミーティング場所</label>
-                            <input id="ma_register_form_meetingPlace" name="meetingPlace" class="form-control" type="text"/>
+                            <select id="ma_register_form_meetingArea" name="meetingArea" class="form-control">
+                                <option value="1">渋谷</option>
+                                <option value="2">六本木</option>
+                                <option value="3">恵比寿</option>
+                                <option value="4">新宿</option>
+                                <option value="5">横浜</option>
+                                <option value="6">池袋</option>
+                                <option value="7">品川</option>
+                                <option value="8">五反田</option>
+                                <option value="9">大阪</option>
+                                <option value="10">福岡</option>
+                                <option value="11">その他</option>
+                            </select>
                         </div>
                         <div class="col-xs-6 form-group">
                             <label>ミーティング頻度</label>
-                            <input id="ma_register_form_meetingOften" name="meetingOfteh" class="form-control" type="text"/>
+                            <select id="ma_register_form_meetingOften" name="meetingOften" class="form-control">
+                                <option value="1">週１回程度</option>
+                                <option value="2">週2, 3回程度</option>
+                                <option value="3">毎日</option>
+                                <option value="4">月1回程度</option>
+                                <option value="5">数ヶ月に1回程度</option>
+                                <option value="6">不定期</option>
+                                <option value="7">なし</option>
+                                <option value="8">その他</option>
+                            </select>
                         </div>
                         <div class="col-xs-6 form-group">
                             <label>プロジェクト開始日</label>
-                            <input id="ma_register_form_projectStartDate" name="projectStartDate" class="form-control" type="date"/>
+                            <input id="ma_register_form_projectStartDate" name="projectStartDate" class="form-control" type="date" placeholder="2015-05-01"/>
                         </div>
                         <div class="col-xs-6 form-group">
                             <label>リリース予定日</label>
-                            <input id="ma_register_form_projectReleaseDate" name="projectReleaseDate" class="form-control" type="date"/>
+                            <input id="ma_register_form_projectReleaseDate" name="projectReleaseDate" class="form-control" type="date" placeholder="2015-06-01"/>
                         </div>
                     </div>
                     <hr>
@@ -210,13 +230,13 @@
                     <div class="col-md-4">
                         <div class="col">
                            <h4>MeetAppについて</h4>
-                           <ul>
-                                <li><a href="/getting_started">このサービスの使い方</a></li>
-                                <li><a href="/faq">よくある質問</a></li>
-                                <li><a href="/terms">利用規約</a></li>
-                                <li><a href="/privacy">プライバシーポリシー</a></li>
-                                <li><a href="/contacts/new">お問い合わせ</a></li>
-                            </ul>
+                               <ul>
+                                    <li><a href="/getting_started">このサービスの使い方</a></li>
+                                    <li><a href="/faq">よくある質問</a></li>
+                                    <li><a href="/terms">利用規約</a></li>
+                                    <li><a href="/privacy">プライバシーポリシー</a></li>
+                                    <li><a href="/contacts/new">お問い合わせ</a></li>
+                                </ul>
                          </div>
                     </div>
                     <div class="col-md-4">
@@ -224,13 +244,14 @@
                             <h4>職種別に探す</h4>
                             <div>
                               <ul>
-                                <li><a href="/list?occupation=1">企画</a></li>
-                                <li><a href="/list?occupation=2">デザイナー</a></li>
-                                <li><a href="/list?occupation=3">サーバーエンジニア</a></li>
-                                <li><a href="/list?occupation=4">スマートフォンエンジニア</a></li>
-                                <li><a href="/list?occupation=5">フロントエンドエンジニア</a></li>
-                                <li><a href="/list?occupation=6">インフラエンジニア</a></li>
-                                <li><a href="/list?occupation=7">おてつだい</a></li>
+                                <li><a href="/app/list?occupation=1">企画</a></li>
+                                <li><a href="/app/list?occupation=2">デザイナー</a></li>
+                                <li><a href="/app/list?occupation=3">サーバーエンジニア</a></li>
+                                <li><a href="/app/list?occupation=4">スマートフォンエンジニア</a></li>
+                                <li><a href="/app/list?occupation=5">フロントエンドエンジニア</a></li>
+                                <li><a href="/app/list?occupation=6">Webエンジニア</a></li>
+                                <li><a href="/app/list?occupation=7">インフラエンジニア</a></li>
+                                <li><a href="/app/list?occupation=8">フルスタックエンジニア</a></li>
                               </ul>
                             </div>
                         </div>
@@ -240,10 +261,16 @@
                             <h4>エリア別に探す</h4>
                             <div>
                               <ul>
-                                <li><a href="/list?area=1">渋谷</a></li>
-                                <li><a href="/list?area=2">新宿</a></li>
-                                <li><a href="/list?area=3">六本木</a></li>
-                                <li><a href="/list?area=4">福岡</a></li>
+                                <li><a href="/app/list?area=1">渋谷</a></li>
+                                <li><a href="/app/list?area=2">六本木</a></li>
+                                <li><a href="/app/list?area=3">恵比寿</a></li>
+                                <li><a href="/app/list?area=4">新宿</a></li>
+                                <li><a href="/app/list?area=5">横浜</a></li>
+                                <li><a href="/app/list?area=6">池袋</a></li>
+                                <li><a href="/app/list?area=7">品川</a></li>
+                                <li><a href="/app/list?area=8">五反田</a></li>
+                                <li><a href="/app/list?area=9">大阪</a></li>
+                                <li><a href="/app/list?area=10">福岡</a></li>
                               </ul>
                             </div>
                         </div>
@@ -256,6 +283,110 @@
             </div>
         </footer>
     </div>
+    <script>
+    // define global constants
+    var ma = {
+        config: {
+            user: {
+                id: "10152160532855662",
+                name: "Takuya Tejima"
+            }
+        },
+        constants: {
+            platforms: [
+                {id: "1", name: "Web"},
+                {id: "2", name: "iOS"},
+                {id: "4", name: "Apple Watch"},
+                {id: "5", name: "Android"},
+                {id: "6", name: "Mac"},
+                {id: "7", name: "Windows"},
+                {id: "8", name: "Linux"},
+                {id: "9", name: "Chrome"},
+                {id: "10", name: "その他"}
+            ],
+            categories: [
+                {id: "1", name: "ブック"},
+                {id: "2", name: "ビジネス"},
+                {id: "3", name: "カタログ"},
+                {id: "4", name: "教育"},
+                {id: "5", name: "エンターテイメント"},
+                {id: "6", name: "ファイナンス"},
+                {id: "7", name: "フード／ドリンク"},
+                {id: "8", name: "ゲーム"},
+                {id: "9", name: "ヘルスケア/フィットネス"},
+                {id: "10", name: "ライフスタイル"},
+                {id: "11", name: "メディカル"},
+                {id: "12", name: "ミュージック"},
+                {id: "13", name: "ナビゲーション"},
+                {id: "14", name: "ニュース"},
+                {id: "15", name: "写真/ビデオ"},
+                {id: "16", name: "仕事効率化"},
+                {id: "17", name: "辞書/辞典/その他"},
+                {id: "18", name: "ソーシャルネットワーキング"},
+                {id: "19", name: "スポーツ"},
+                {id: "20", name: "旅行"},
+                {id: "21", name: "ユーティリティ"},
+                {id: "22", name: "天気"},
+                {id: "23", name: "その他"}
+            ],
+            pLangs: [
+                {id: "1", name: "Java"},
+                {id: "2", name: "JavaScript"},
+                {id: "3", name: "Swift"},
+                {id: "4", name: "Go"},
+                {id: "5", name: "PHP"},
+                {id: "6", name: "Python"},
+                {id: "7", name: "Ruby"},
+                {id: "8", name: "Perl"},
+                {id: "9", name: "C"},
+                {id: "10", name: "C#"},
+                {id: "11", name: "C++"},
+                {id: "12", name: "Scala"},
+                {id: "13", name: "SQL"},
+                {id: "14", name: "VB"},
+                {id: "15", name: "MATLAB"},
+                {id: "16", name: "その他"}
+            ],
+            areas: [
+                {id: "1", name: "渋谷"},
+                {id: "2", name: "六本木"},
+                {id: "3", name: "恵比寿"},
+                {id: "4", name: "新宿"},
+                {id: "5", name: "横浜"},
+                {id: "6", name: "池袋"},
+                {id: "7", name: "品川"},
+                {id: "8", name: "五反田"},
+                {id: "9", name: "大阪"},
+                {id: "10", name: "福岡"},
+                {id: "11", name: "その他"}
+            ],
+            occupations: [
+                {id: "1", name: "企画"},
+                {id: "2", name: "デザイナー"},
+                {id: "3", name: "サーバーエンジニア"},
+                {id: "4", name: "スマートフォンエンジニア"},
+                {id: "5", name: "フロントエンドエンジニア"},
+                {id: "6", name: "Webエンジニア"},
+                {id: "7", name: "インフラエンジニア"},
+                {id: "8", name: "フルスタックエンジニア"},
+                {id: "9", name: "プロジェクトマネージャー"},
+                {id: "10", name: "営業"},
+                {id: "11", name: "おてつだい"},
+                {id: "12", name: "その他"}
+            ],
+            meetingOften: [
+                {id: "1", name: "週１回程度"},
+                {id: "2", name: "週2, 3回程度"},
+                {id: "3", name: "毎日"},
+                {id: "4", name: "月1回程度"},
+                {id: "5", name: "数ヶ月に1回程度"},
+                {id: "6", name: "不定期"},
+                {id: "7", name: "なし"},
+                {id: "8", name: "その他"}
+            ]
+        }
+    };
+    </script>
     <script src="/dist/main.js"></script>
 </body>
 </html>

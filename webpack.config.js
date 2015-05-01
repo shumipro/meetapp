@@ -13,10 +13,15 @@ module.exports = {
     filename: '[name].js'
   },
 
+  node: {
+    fs: "empty"
+  },
+
   devtool: 'inline-source-map',
 
   module: {
     loaders: [
+      { test: /\.handlebars$/, loader: "handlebars-loader" },
       { test: /\.js$|\.jsx$/, exclude: /node_modules|build/, loader: 'babel-loader'}
     ]
   },
