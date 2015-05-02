@@ -9,7 +9,7 @@ export default class ConstantSelect {
         })
 
         $('.ma-app-delete-btn').on('click', () => {
-            if(window.confirm('このプロジェクトを削除してもよろしいでしょうか？')){
+            if(window.confirm('この開発アイデアを削除してもよろしいでしょうか？')){
                 // TODO: delete
             }
         })
