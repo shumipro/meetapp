@@ -1,6 +1,5 @@
 import _InitBase from './_InitBase'
-import RegisterApp from '../components/RegisterApp'
-import ConstantSelect from '../components/ConstantSelect'
+import ConstantFilter from '../components/ConstantFilter'
 
 export default class Register extends _InitBase {
     constructor() {
@@ -9,7 +8,6 @@ export default class Register extends _InitBase {
 
     init() {
         super.init()
-        new RegisterApp()
-        new ConstantSelect()
+        new ConstantFilter()
     }
 }

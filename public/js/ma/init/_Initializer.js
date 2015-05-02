@@ -1,5 +1,6 @@
 import _InitBase from './_InitBase'
 import Detail from './Detail'
+import List from './List'
 import Register from './Register'
 
 module.exports = {
@@ -8,6 +9,8 @@ module.exports = {
     routeMap: {
         '/html/detail.html': Detail,
         '/app/detail/:id': Detail,
+        '/html/list.html': List,
+        '/app/list': List,
         '/html/register.html': Register,
         '/app/register': Register
     },

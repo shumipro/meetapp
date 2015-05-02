@@ -80,14 +80,14 @@ export default class RegisterApp {
             id: item.id,
             name: item.name,
             imgHtml: util.getImageHTML(item.id),
-            occupations: constants.occupations
+            occupations: constants.occupation
         }))
         this._createMemberEntry($item, $('#ma_register_add_currentMember_result'))
     }
 
     createWantMemberEntry() {
         var $item = $(wantMemberEntryTmpl({
-            occupations: constants.occupations
+            occupations: constants.occupation
         }))
         this._createMemberEntry($item, $('#ma_register_add_wantMember_result'))
     }
