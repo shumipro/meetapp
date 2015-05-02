@@ -50,7 +50,28 @@ var util = {
                 _selectedItem = null;
             }
         });
-    }   
+    },
+
+    isUrlFormat(url) {
+        if(url === ""){
+            return true
+        }
+        var regex = new RegExp(/[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi);
+        if(url.match(regex) ){
+            return true
+        }
+        return false
+    },
+
+    isISODateFormat(dateStr) {
+        if(dateStr === ""){
+            return true
+        }
+        if(dateStr.length === 10 && dateStr.match(/(\d{4})-(\d{2})-(\d{2})/)){
+            return true
+        }
+        return false
+    }
 }
 
 module.exports = util

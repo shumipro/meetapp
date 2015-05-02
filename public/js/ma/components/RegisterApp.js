@@ -72,7 +72,30 @@ export default class RegisterApp {
         // set myself at init
         this.createCurrentMemberEntry(config.user)
         // TODO: set values for edit
-
+        // var override = {
+        //     "name": "App name",
+        //     "description": "hoge",
+        //     "platform": "3",
+        //     "category": "4",
+        //     "pLang": "5",
+        //     "keywords": "keyword test",
+        //     "images": [{"url": "https://golang.org/doc/gopher/gopherbw.png"}],
+        //     "currentMembers": [
+        //         {id: "1234", name: "Tejitak", occupation: "4"},
+        //         {id: "1234", name: "kyokomiさん", occupation: "2"}
+        //     ],
+        //     "wantMembers": [
+        //         {occupation: "5"},
+        //         {occupation: "3"},
+        //     ],
+        //     "demoUrl": "http://demo.com/",
+        //     "githubUrl": "http://github.com/",
+        //     "meetingArea": "1",
+        //     "meetingOften": "1",
+        //     "projectStartDate": "2015-04-30",
+        //     "projectReleaseDate": "2015-05-30"
+        // }
+        // this.update(override)
     }
 
     createCurrentMemberEntry(item) {
@@ -100,6 +123,11 @@ export default class RegisterApp {
         $wrap.append($item)
     }
 
+    update(params) {
+        // update DOM by given parmas
+        
+    }
+
     submit() {
         var params = this.getParams()
         //  validation
@@ -125,7 +153,6 @@ export default class RegisterApp {
     }
 
     validate(params) {
-
         for(var prop in this.forms.props) {
             var info = this.forms.props[prop],
                 value = params[prop]
@@ -140,39 +167,18 @@ export default class RegisterApp {
                 }
             }
             if(info.type === "url"){
-                if(!this.isUrlFormat(value)){
+                if(!util.isUrlFormat(value)){
                     return {"error": true, "message": "URLが不正です: " + prop}
                 }
             }
             if(info.type === 'date'){
-                if(!this.isISODateFormat(value)){
+                if(!util.isISODateFormat(value)){
                     return {"error": true, "message": "日付が不正です: " + prop}
                 }
             }
 
         }
         return {"error": false}
-    }
-
-    isUrlFormat(url) {
-        if(url === ""){
-            return true
-        }
-        var regex = new RegExp(/[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi);
-        if(url.match(regex) ){
-            return true
-        }
-        return false
-    }
-
-    isISODateFormat(dateStr) {
-        if(dateStr === ""){
-            return true
-        }
-        if(dateStr.length === 10 && dateStr.match(/(\d{4})-(\d{2})-(\d{2})/)){
-            return true
-        }
-        return false
     }
 
     getParams() {
