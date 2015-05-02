@@ -12,6 +12,6 @@ export default class ConstantSelect {
             if(window.confirm('このプロジェクトを削除してもよろしいでしょうか？')){
                 // TODO: delete
             }
-        })        
+        })
     }
 }
