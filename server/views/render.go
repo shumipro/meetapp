@@ -60,6 +60,9 @@ func InitTemplates(ctx context.Context, appRoot string) context.Context {
 		"app/register",
 		"error",
 		"about",
+		"terms",
+		"privacy",
+		"contact",
 	}
 	tmplMap := make(map[string]*template.Template, 0)
 	for _, name := range pageNames {
