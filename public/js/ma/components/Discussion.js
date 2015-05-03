@@ -1,4 +1,5 @@
 import $ from 'jquery'
+import util from '../util'
 import Handlebars from 'handlebars'
 
 var html = '<li class="ma-profile-comment">' +
@@ -17,14 +18,18 @@ var tmpl = Handlebars.compile(html)
 export default class ConstantList {
     constructor() {
         this._$wrap = $('.ma-discussion-wrap')
-
-        render()
-        // TODO: check logged in
-
-        // move to login
-
-        // attach post
-
+        this._$textarea = $('#ma_detail_discussion_comment')
+        $('.ma_detail_discussion_comment_btn').on('click', () => {
+            if(util.getUserInfo()){
+                this.post()
+            }else{
+                // move to login for anonymous
+                location.href = "/login"
+            }
+        })
+        // temp
+        var discussions = window.ma_data && window.ma_data.discussions
+        render(discussions)
     }
 
     load() {
@@ -48,12 +53,12 @@ export default class ConstantList {
 
     }
 
-    render() {
+    render(discussions) {
         this._$wrap.empty()
-        for(var i = 0; i < list.length; i++) {
+        for(var i = 0; i < discussions.length; i++) {
             var $item = $(tmpl({
-                id: list[i].id,
-                name: list[i].name,
+                id: discussions[i].id,
+                name: discussions[i].name,
                 prop: prop
             }))
             $item.appendTo(this._$wrap)
@@ -77,6 +82,43 @@ export default class ConstantList {
         //     message: "hoge hoge",
         //     timestamp: "1430622775846"
         // }
+        var params = this.getParams()
+        //  validation
+        var result = this.validate(params)
+        if(result.error){
+            alert(result.message)
+            return
+        }
+        // {"name": "App name", "description": "hoge", "images": [{"url": "https://golang.org/doc/gopher/gopherbw.png"}]}
+        $.ajax({
+            url: '/api/app/discussion',
+            type: 'post',
+            contentType:"application/json; charset=utf-8",
+            dataType: 'json',
+            data: JSON.stringify(params)
+        }).done((res) => {
+            // TODO: append result
+            alert(JSON.stringify(res))
+        }).fail(() => {
+            alert("Error")
+        })
+    }
 
+    validate(params) {
+        if($.trim(params.message) === ""){
+            return {"error": true, "message": "messageが入力されていません"}
+        }
+        return {"error": false}
+    }
+
+    getParams() {
+        return {
+            appId: util.getAppDetailId(),
+            discussionInfo: {
+                userId: util.getUserInfo().id,
+                message: this._$textarea.val(),
+                timestamp: new Date().getTime()
+            }
+        }
     }
 }

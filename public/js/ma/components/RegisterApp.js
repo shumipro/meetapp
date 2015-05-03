@@ -61,7 +61,7 @@ export default class RegisterApp {
         this.$submitBtn.on('click', this.submit.bind(this))
 
         // auto complete setup
-        util.autoCompleteAddInit("/api/search_friend?q=%QUERY%", $('#ma_register_add_currentMember_suggest_input'), $('#ma_register_add_currentMember_suggest_btn'), (item) => {
+        util.autoCompleteAddInit("/api/user/search/%QUERY%", $('#ma_register_add_currentMember_suggest_input'), $('#ma_register_add_currentMember_suggest_btn'), (item) => {
             // TODO: check currentMembers already has the member
             this.createCurrentMemberEntry(item)
         })
@@ -100,9 +100,9 @@ export default class RegisterApp {
 
     createCurrentMemberEntry(item) {
         var $item = $(currentMemberEntryTmpl({
-            id: item.id,
-            name: item.name,
-            imgHtml: util.getImageHTML(item.id),
+            id: item.ID,
+            name: item.Name,
+            imgHtml: util.getImageHTML(item),
             occupations: constants.occupation
         }))
         this._createMemberEntry($item, $('#ma_register_add_currentMember_result'))
@@ -144,8 +144,8 @@ export default class RegisterApp {
             dataType: 'json',
             data: JSON.stringify(params)
         }).done((res) => {
-            if(res && res.ID){
-                location.href = '/app/detail/' + res.ID
+            if(res && res.id){
+                location.href = '/app/detail/' + res.id
             }
         }).fail(() => {
             alert("Error")
