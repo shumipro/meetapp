@@ -3,20 +3,19 @@ import autocomplete from 'jquery-autocomplete'
 import util from '../util'
 import config from '../config'
 import constants from '../constants'
+import ConstantSelect from './ConstantSelect'
 import Handlebars from 'handlebars'
-
-var FORM_PREFIX = 'ma_register_form_'
 
 var currentMemberEntryHtml = '<div class="ma-friend-add-member" data-list-name="currentMembers"><input type="hidden" name="id" value="{{id}}">' +
                       '{{{imgHtml}}}<span>{{name}}</span>' + 
-                      '<select class="form-control" name="occupation">{{#each occupations}}<option value="{{id}}">{{name}}</option>{{/each}}</select>' +
-                      '<button type="button" class="btn btn-default">削除</button>'
+                      '<select name="occupation" class="form-control ma-constant-select" data-constant="occupation"></select>'
+                      '<button type="button" class="btn btn-default ma-friend-delete-btn">削除</button>'
                       '</div>'
 var currentMemberEntryTmpl = Handlebars.compile(currentMemberEntryHtml)
 
 var recruitMemberEntryHtml = '<div class="ma-friend-add-member" data-list-name="recruitMembers">' +
-                      '<select class="form-control" name="occupation">{{#each occupations}}<option value="{{id}}">{{name}}</option>{{/each}}</select>' +
-                      '<button type="button" class="btn btn-default">削除</button>'
+                      '<select name="occupation" class="form-control ma-constant-select" data-constant="occupation"></select>'
+                      '<button type="button" class="btn btn-default ma-friend-delete-btn">削除</button>'
                       '</div>'
 var recruitMemberEntryTmpl = Handlebars.compile(recruitMemberEntryHtml)
 
@@ -57,75 +56,49 @@ export default class RegisterApp {
                 'projectReleaseDate': { type: 'date' }
             }
         }
-        this.$submitBtn = $('#ma_register_submitBtn')
-        this.$submitBtn.on('click', this.submit.bind(this))
+        $('#ma_register_submitBtn').on('click', this.submit.bind(this))
 
         // auto complete setup
         util.autoCompleteAddInit("/api/user/search/%QUERY%", $('#ma_register_add_currentMember_suggest_input'), $('#ma_register_add_currentMember_suggest_btn'), (item) => {
             // TODO: check currentMembers already has the member
             this.createCurrentMemberEntry(item)
         })
-        this.$addRecruitMember = $('#ma_register_add_recruitMember_btn')
-        this.$addRecruitMember.on("click", () => {
+        $('#ma_register_add_recruitMember_btn').on('click', () => {
             this.createRecruitMemberEntry()
         })
+        // TODO: to be removed after server templates set
         // set myself at init
         this.createCurrentMemberEntry(config.user)
-        // TODO: set values for edit
-        // var override = {
-        //     "name": "App name",
-        //     "description": "hoge",
-        //     "platform": "3",
-        //     "category": "4",
-        //     "pLang": "5",
-        //     "keywords": "keyword test",
-        //     "images": [{"url": "https://golang.org/doc/gopher/gopherbw.png"}],
-        //     "currentMembers": [
-        //         {id: "1234", name: "Tejitak", occupation: "4"},
-        //         {id: "1234", name: "kyokomiさん", occupation: "2"}
-        //     ],
-        //     "recruitMembers": [
-        //         {occupation: "5"},
-        //         {occupation: "3"},
-        //     ],
-        //     "demoUrl": "http://demo.com/",
-        //     "githubUrl": "http://github.com/",
-        //     "meetingArea": "1",
-        //     "meetingFrequency": "1",
-        //     "projectStartDate": "2015-04-30",
-        //     "projectReleaseDate": "2015-05-30"
-        // }
-        // this.update(override)
+        // attach delete button
+        var $deleteBtn = $('.ma-friend-delete-btn')
+        $deleteBtn.on('click', () => {
+            $deleteBtn.parent().remove()
+        })
     }
 
     createCurrentMemberEntry(item) {
         var $item = $(currentMemberEntryTmpl({
             id: item.ID,
             name: item.Name,
-            imgHtml: util.getImageHTML(item),
-            occupations: constants.occupation
+            imgHtml: util.getImageHTML(item)
         }))
         this._createMemberEntry($item, $('#ma_register_add_currentMember_result'))
     }
 
     createRecruitMemberEntry() {
-        var $item = $(recruitMemberEntryTmpl({
-            occupations: constants.occupation
-        }))
+        var $item = $(recruitMemberEntryTmpl({}))
         this._createMemberEntry($item, $('#ma_register_add_recruitMember_result'))
     }
 
     _createMemberEntry($item, $wrap) {
+        // attach events
         var $deleteBtn = $item.find('button')
-        $deleteBtn.on("click", () => {
+        $deleteBtn.on('click', () => {
             $deleteBtn.parent().remove()
         })
+        // create occupations select
+        new ConstantSelect($item.find('.ma-constant-select'))
         $wrap.append($item)
-    }
-
-    update(params) {
-        // update DOM by given parmas
-        
     }
 
     submit() {
@@ -136,7 +109,6 @@ export default class RegisterApp {
             alert(result.message)
             return
         }
-        // {"name": "App name", "description": "hoge", "images": [{"url": "https://golang.org/doc/gopher/gopherbw.png"}]}
         $.ajax({
             url: '/api/app/register',
             type: 'post',
