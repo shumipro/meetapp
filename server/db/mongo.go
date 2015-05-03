@@ -48,6 +48,9 @@ func getHerokuURI() (uri string, dbName string) {
 	dbName = mongoDBName
 
 	mongoURI := os.Getenv("MONGOLAB_URI")
+	if mongoURI == "" {
+		return
+	}
 	mongoInfo, err := url.Parse(mongoURI)
 	if err != nil {
 		return
