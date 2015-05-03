@@ -1,6 +1,8 @@
 package models
 
 import (
+	"time"
+
 	"golang.org/x/net/context"
 	"gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
@@ -27,6 +29,8 @@ type AppInfo struct {
 	Members       []Member         `           json:"currentMembers"`     // メンバー
 	RecruitMember []RecruitInfo    `           json:"recruitMembers"`     // 募集メンバー
 	Discussions   []DiscussionInfo `           json:"discussions"`        // 「聞いてみる」の内容
+	CreateAt      time.Time        `           json:"-"`
+	UpdateAt      time.Time        `           json:"-"`
 }
 
 // URLInfo 各種URL情報

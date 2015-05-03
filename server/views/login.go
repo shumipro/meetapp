@@ -82,7 +82,6 @@ func AuthCallback(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 
 		user = models.User{}
 		user.ID = userID
-		user.Name = "TODO:" // TODO: あとで
 
 		var fbUser models.FacebookUser
 		data, err := json.Marshal(res)
@@ -96,6 +95,10 @@ func AuthCallback(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 		user.Name = fbUser.Name // TODO: 一旦Facebookオンリーなので
 		user.ImageURL = user.IconImageURL()
 		user.FBUser = fbUser
+
+		nowTime := time.Now()
+		user.CreateAt = nowTime
+		user.UpdateAt = nowTime
 
 		// 登録する
 		if err := models.UsersTable().Upsert(ctx, user); err != nil {

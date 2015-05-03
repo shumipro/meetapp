@@ -3,6 +3,8 @@ package models
 import (
 	"fmt"
 
+	"time"
+
 	"golang.org/x/net/context"
 	"gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
@@ -13,6 +15,8 @@ type User struct {
 	Name     string       `                json:"Name"`     // ユーザー名
 	ImageURL string       `                json:"IamgeURL"` // ユーザーアイコンのURL
 	FBUser   FacebookUser `bson:"facebook" json:"FBUser"`   // Facebookのme情報
+	CreateAt time.Time    `                json:"-"`
+	UpdateAt time.Time    `                json:"-"`
 }
 
 func (u User) IconImageURL() string {

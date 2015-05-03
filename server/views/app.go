@@ -14,6 +14,7 @@ import (
 	"github.com/k0kubun/pp"
 	"github.com/shumipro/meetapp/server/models"
 	"golang.org/x/net/context"
+	"time"
 )
 
 var sortLabels = map[string]map[string]string{
@@ -121,6 +122,9 @@ func AppRegisterPost(ctx context.Context, w http.ResponseWriter, r *http.Request
 		renderer.JSON(w, 400, err)
 		return
 	}
+	nowTime := time.Now()
+	registerAppInfo.CreateAt = nowTime
+	registerAppInfo.UpdateAt = nowTime
 
 	pp.Println(registerAppInfo)
 
@@ -174,7 +178,9 @@ func AppDiscussionPost(ctx context.Context, w http.ResponseWriter, r *http.Reque
 	}
 
 	// push a discussionInfo
-	appInfo.Discussions = append(appInfo.Discussions, discussionReq.DiscussionInfo) 
+	appInfo.Discussions = append(appInfo.Discussions, discussionReq.DiscussionInfo)
+	nowTime := time.Now()
+	appInfo.UpdateAt = nowTime
 
 	if err := models.AppsCtx(ctx).Upsert(appInfo); err != nil {
 		log.Println("ERROR! register", err)
