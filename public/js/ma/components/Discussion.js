@@ -1,22 +1,7 @@
 import $ from 'jquery'
 import util from '../util'
-import Handlebars from 'handlebars'
 
-var html = '<li class="ma-profile-comment">' +
-                '<span class="ma-profile-date subtle-text">{{date}}</span>' +
-                '<a href="#">' +
-                    '<div class="ma-profile-image-wrap">' +
-                        '<img class="img-rounded ma-profile-image" src="{{imageUrl}}}">' +
-                    '</div>' +
-                '</a>' +
-                '<div class="ma-profile-message">' +
-                    '<p>{{message}}</p>' +
-                '</div>' +
-            '</li>'
-
-var tmpl = Handlebars.compile(html)
-
-export default class ConstantList {
+export default class Discussion {
     constructor() {
         this._$wrap = $('.ma-discussion-wrap')
         this._$textarea = $('#ma_detail_discussion_comment')
@@ -27,6 +12,11 @@ export default class ConstantList {
                 // move to login for anonymous
                 location.href = "/login"
             }
+        })
+        // TODO: set timestamp display
+        $('.ma-profile-date').each(function(index, span){
+            var $date = $(span)
+            $date.html($date.data('timestamp'))
         })
     }
 
@@ -45,7 +35,6 @@ export default class ConstantList {
             dataType: 'json',
             data: JSON.stringify(params)
         }).done((res) => {
-            // TODO: temp
             location.reload()
         }).fail(() => {
             alert("Error")

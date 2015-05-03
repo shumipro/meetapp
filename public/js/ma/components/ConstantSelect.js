@@ -18,7 +18,6 @@ export default class ConstantSelect {
                     if(value === defaultValue + ""){
                         selectedValue = defaultValue
                     }
-                    // options.push("<option value='" + value + "' " + (selected ? "selected='selected" : "")  + ">" + list[i].name + "</option>")
                     options.push("<option value='" + value + "' >" + list[i].name + "</option>")
                 }
                 $widget.append(options.join(''))

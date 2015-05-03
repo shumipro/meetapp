@@ -66,9 +66,6 @@ export default class RegisterApp {
         $('#ma_register_add_recruitMember_btn').on('click', () => {
             this.createRecruitMemberEntry()
         })
-        // TODO: to be removed after server templates set
-        // set myself at init
-        this.createCurrentMemberEntry(config.user)
         // attach delete button
         var $deleteBtn = $('.ma-friend-delete-btn')
         $deleteBtn.on('click', () => {
@@ -154,6 +151,7 @@ export default class RegisterApp {
     }
 
     getParams() {
+        // collect params by forms DOM
         var param = {};
         for(var prop in this.forms.props) {
             var info = this.forms.props[prop]
