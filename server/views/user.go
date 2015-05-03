@@ -14,14 +14,16 @@ import (
 */
 
 func init() {
-	kami.Get("/user/search/:keyword", UserSearchKeyword)
+	kami.Get("/api/user/search/:keyword", UserSearchKeyword)
 }
 
 func UserSearchKeyword(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	word := kami.Param(ctx, "keyword")
 
-	users := make([]models.User, 0)
-	users, _ = models.UsersTable().FindByKeyword(ctx, word)
+	users, _ := models.UsersTable().FindByKeyword(ctx, word)
+	if users == nil {
+		users = []models.User{}
+	}
 
 	renderer.JSON(w, 200, users)
 }
