@@ -94,6 +94,7 @@ func AuthCallback(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 			panic(err)
 		}
 		user.Name = fbUser.Name // TODO: 一旦Facebookオンリーなので
+		user.ImageURL = user.IconImageURL()
 		user.FBUser = fbUser
 
 		// 登録する

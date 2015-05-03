@@ -34,25 +34,25 @@ const (
 
 // AppInfo アプリ
 type AppInfo struct {
-	ID            string        `bson:"_id" json:"id"`                 // アプリID
-	Name          string        `           json:"name"`               // アプリ名
-	Description   string        `           json:"description"`        // アプリ詳細
-	Category      string        `           json:"category"`           // カテゴリ
-	Platform      string        `           json:"platform"`           // プラットフォーム
-	Language      string        `           json:"pLang"`              // プログラミング言語
-	Keywords      string        `           json:"keywords"`           // フリーキーワード
-	MainImage     string        `           json:"mainImageUrl"`       // メイン画像
-	ImageURLs     []URLInfo     `           json:"images"`             // 紹介画像URLたち
-	Area          string        `           json:"meetingArea"`        // 場所
-	StartDate     string        `           json:"projectStartDate"`   // 開始日
-	ReleaseDate   string        `           json:"projectReleaseDate"` // リリース予定日
-	GitHubURL     string        `           json:"githubUrl"`          // GitHubのURL
-	DemoURL       string        `           json:"demoUrl"`            // デモURL
-	Frequency     string        `           json:"meetingFrequency"`   // 頻度
-	StarCount     int           `           json:"starCount"`          // スター数
-	Members       []Member      `           json:"currentMembers"`     // メンバー
-	RecruitMember []RecruitInfo `           json:"recruitMembers"`     // 募集メンバー
-	Discussions    []DiscussionInfo // コメント
+	ID            string           `bson:"_id" json:"id"`                 // アプリID
+	Name          string           `           json:"name"`               // アプリ名
+	Description   string           `           json:"description"`        // アプリ詳細
+	Category      string           `           json:"category"`           // カテゴリ
+	Platform      string           `           json:"platform"`           // プラットフォーム
+	Language      string           `           json:"pLang"`              // プログラミング言語
+	Keywords      string           `           json:"keywords"`           // フリーキーワード
+	MainImage     string           `           json:"mainImageUrl"`       // メイン画像
+	ImageURLs     []URLInfo        `           json:"images"`             // 紹介画像URLたち
+	Area          string           `           json:"meetingArea"`        // 場所
+	StartDate     string           `           json:"projectStartDate"`   // 開始日
+	ReleaseDate   string           `           json:"projectReleaseDate"` // リリース予定日
+	GitHubURL     string           `           json:"githubUrl"`          // GitHubのURL
+	DemoURL       string           `           json:"demoUrl"`            // デモURL
+	Frequency     string           `           json:"meetingFrequency"`   // 頻度
+	StarCount     int              `           json:"starCount"`          // スター数
+	Members       []Member         `           json:"currentMembers"`     // メンバー
+	RecruitMember []RecruitInfo    `           json:"recruitMembers"`     // 募集メンバー
+	Discussions   []DiscussionInfo `           json:"discussions"`        // 「聞いてみる」の内容
 }
 
 // URLInfo 各種URL情報
@@ -70,9 +70,9 @@ type Member struct {
 }
 
 type DiscussionInfo struct {
-	UserID    string  `json:"userId"`    // ユーザー
-	Message   string  `json:"message"`   // コメント
-	Timestamp int64    `json:"timestamp"` // 投稿日時
+	UserID    string `json:"userId"`    // ユーザー
+	Message   string `json:"message"`   // コメント
+	Timestamp int64  `json:"timestamp"` // 投稿日時
 }
 
 // AppsContext appsのコレクション

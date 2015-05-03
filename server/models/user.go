@@ -9,9 +9,22 @@ import (
 )
 
 type User struct {
-	ID     string       `bson:"_id"      json:"id"`     // UUID自動生成
-	Name   string       `                json:"name"`   // ユーザー名
-	FBUser FacebookUser `bson:"facebook" json:"fbUser"` // Facebookのme情報
+	ID       string       `bson:"_id"      json:"ID"`       // UUID自動生成
+	Name     string       `                json:"Name"`     // ユーザー名
+	ImageURL string       `                json:"IamgeURL"` // ユーザーアイコンのURL
+	FBUser   FacebookUser `bson:"facebook" json:"FBUser"`   // Facebookのme情報
+}
+
+func (u User) IconImageURL() string {
+	if u.ImageURL != "" {
+		return u.ImageURL
+	}
+
+	if u.FBUser.ID != "" {
+		return fmt.Sprintf("http://graph.facebook.com/%s/picture?type=square", u.FBUser.ID)
+	}
+
+	return "/img/no_img.png"
 }
 
 func (u User) IsEmpty() bool {

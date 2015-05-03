@@ -36,18 +36,11 @@ func init() {
 
 type AppListResponse struct {
 	TemplateHeader
-	AppInfoList []models.AppInfo
+	AppInfoList []AppInfoView
 }
 
 func AppList(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	orderBy := r.FormValue("orderBy")
-
-	apps, err := models.AppsCtx(ctx).FindAll()
-	if err != nil {
-		log.Println("ERROR!", err)
-		renderer.JSON(w, 400, err)
-		return
-	}
 
 	preload := AppListResponse{}
 	preload.TemplateHeader = NewHeader(ctx,
@@ -56,23 +49,38 @@ func AppList(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 		"気になるアプリ開発に参加しよう",
 		false,
 	)
-	preload.AppInfoList = apps
+
+	// ViewModel変換して詰める
+	apps, err := models.AppsCtx(ctx).FindAll()
+	if err != nil {
+		log.Println("ERROR!", err)
+		renderer.JSON(w, 400, err)
+		return
+	}
+	appViews := make([]AppInfoView, len(apps))
+	for idx, app := range apps {
+		appViews[idx] = NewAppInfoView(ctx, app)
+	}
+	preload.AppInfoList = appViews
 
 	ExecuteTemplate(ctx, w, "app/list", preload)
 }
 
 type AppDetailResponse struct {
 	TemplateHeader
-	AppInfo models.AppInfo
+	AppInfo AppInfoView
 }
 
 func AppDetail(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	appID := kami.Param(ctx, "id")
-
+	// TODO: とりあえず
+	if appID == "favicon.png" {
+		return
+	}
 	appInfo, err := models.AppsCtx(ctx).FindID(appID)
 	if err != nil {
 		log.Println("ERROR!", err)
-		renderer.JSON(w, 400, err)
+		renderer.JSON(w, 400, err.Error() + appID)
 		return
 	}
 
@@ -83,7 +91,7 @@ func AppDetail(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 		appInfo.Name,
 		false,
 	)
-	preload.AppInfo = appInfo
+	preload.AppInfo = NewAppInfoView(ctx, appInfo)
 
 	ExecuteTemplate(ctx, w, "app/detail", preload)
 }
