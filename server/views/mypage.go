@@ -1,13 +1,12 @@
 package views
 
 import (
-	"log"
 	"net/http"
 
 	"github.com/guregu/kami"
-	"golang.org/x/net/context"
-	"github.com/shumipro/meetapp/server/oauth"
 	"github.com/huandu/facebook"
+	"github.com/shumipro/meetapp/server/oauth"
+	"golang.org/x/net/context"
 )
 
 func init() {
@@ -15,10 +14,6 @@ func init() {
 }
 
 func Mypage(ctx context.Context, w http.ResponseWriter, r *http.Request) {
-	preload := TemplateHeader{
-		Title: "マイページ",
-	}
-
 	a, ok := oauth.FromContext(ctx)
 	if !ok {
 		panic("login error")
@@ -34,10 +29,6 @@ func Mypage(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	}
 
 	// TODO: 変更あればUserテーブル更新
-
-	if err := FromContextTemplate(ctx, "mypage").Execute(w, preload); err != nil {
-		log.Println("ERROR!", err)
-		renderer.JSON(w, 400, err)
-		return
-	}
+	preload := NewHeader(ctx, "マイページ", "", "", false)
+	ExecuteTemplate(ctx, w, "mypage", preload)
 }

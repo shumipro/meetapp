@@ -3,9 +3,9 @@ package views
 import (
 	"net/http"
 
-	"golang.org/x/net/context"
 	"github.com/guregu/kami"
 	"github.com/shumipro/meetapp/server/models"
+	"golang.org/x/net/context"
 )
 
 /*

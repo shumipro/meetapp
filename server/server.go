@@ -33,6 +33,8 @@ func Serve() {
 
 	kami.Context = ctx
 	kami.PanicHandler = errors.PanicHandler
+
+	// middleware
 	kami.Use("/", oauth.Login)
 	kami.Use("/u/", oauth.LoginCheck) // /u以下のpathはloginチェックする
 
