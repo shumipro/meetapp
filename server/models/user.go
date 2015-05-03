@@ -4,6 +4,7 @@ import (
 	"golang.org/x/net/context"
 	"gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
+	"fmt"
 )
 
 type User struct {
@@ -14,7 +15,7 @@ type User struct {
 
 type FacebookUser struct {
 	ID          string `json:"id"`
-	Email       string `json:"email"`
+//	Email       string `json:"email"` // TODO: いろいろ怖いのでとりません
 	Name        string `json:"name"`
 	FirstName   string `json:"first_name"`
 	LastName    string `json:"last_name"`
@@ -56,6 +57,20 @@ func (t _UsersTable) FindID(ctx context.Context, userID string) (result User, er
 func (t _UsersTable) FindByFacebookID(ctx context.Context, facebookID string) (result User, err error) {
 	t.withCollection(ctx, func(c *mgo.Collection) {
 		err = c.Find(bson.M{"facebook.id": facebookID}).One(&result)
+	})
+	return
+}
+
+// db.users.find({"facebook.name": {$regex: '.*Yoko.*', $options: "i"}}, {});
+func (t _UsersTable) FindByKeyword(ctx context.Context, keyword string) (results []User, err error) {
+	regexWord :=  fmt.Sprintf(".*%s.*", keyword)
+	fmt.Println("Keyword = ", regexWord)
+
+	t.withCollection(ctx, func(c *mgo.Collection) {
+		err = c.Find(bson.M{"facebook.name": bson.M{
+			"$regex": regexWord,
+			"$options": "i",
+		}}).All(&results)
 	})
 	return
 }
