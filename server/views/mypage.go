@@ -16,6 +16,9 @@ func Mypage(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	preload := TemplateHeader{
 		Title: "マイページ",
 	}
+
+	// TODO: マイページ表示時はFacebookとかの情報とりなおしてUserテーブル更新する
+
 	if err := FromContextTemplate(ctx, "mypage").Execute(w, preload); err != nil {
 		log.Println("ERROR!", err)
 		renderer.JSON(w, 400, err)
