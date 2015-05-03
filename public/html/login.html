@@ -60,9 +60,17 @@
         <footer>
             <div class="container">
                 <div class="social">
-                    <a href="#"><i class="fa fa-twitter fa-lg"></i></a>
-                    <a href="#"><i class="fa fa-google-plus fa-lg"></i></a>
-                    <a href="#"><i class="fa fa-facebook fa-lg"></i></a>
+                    <div id="fb-root"></div>
+                    <script>(function(d, s, id) {
+                      var js, fjs = d.getElementsByTagName(s)[0];
+                      if (d.getElementById(id)) return;
+                      js = d.createElement(s); js.id = id;
+                      js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.3&appId=561154400651504";
+                      fjs.parentNode.insertBefore(js, fjs);
+                    }(document, 'script', 'facebook-jssdk'));</script>
+                        <div class="fb-like" data-href="https://meetapp-dev.herokuapp.com" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div>
+                        <a href="https://twitter.com/share" class="twitter-share-button" data-url="https://meetapp-dev.herokuapp.com/" data-via="" data-lang="en">Tweet</a>
+                        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
                 </div>
                 <div class="row">
                     <div class="col-md-4">
