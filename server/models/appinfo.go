@@ -52,6 +52,7 @@ type AppInfo struct {
 	StarCount     int           `           json:"starCount"`          // スター数
 	Members       []Member      `           json:"currentMembers"`     // メンバー
 	RecruitMember []RecruitInfo `           json:"recruitMembers"`     // 募集メンバー
+	Discussions    []DiscussionInfo // コメント
 }
 
 // URLInfo 各種URL情報
@@ -66,6 +67,12 @@ type RecruitInfo struct {
 type Member struct {
 	UserID     string `json:"id"`
 	Occupation string `json:"occupation"` // 肩書とか役割
+}
+
+type DiscussionInfo struct {
+	UserID    string  `json:"userId"`    // ユーザー
+	Message   string  `json:"message"`   // コメント
+	Timestamp int64    `json:"timestamp"` // 投稿日時
 }
 
 // AppsContext appsのコレクション

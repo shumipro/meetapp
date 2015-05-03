@@ -31,6 +31,7 @@ func init() {
 	kami.Get("/app/register", AppRegister)
 	// API
 	kami.Post("/api/app/register", AppRegisterPost)
+	kami.Post("/api/app/discussion", AppDiscussionPost)
 }
 
 type AppListResponse struct {
@@ -142,4 +143,46 @@ func AppRegisterPost(ctx context.Context, w http.ResponseWriter, r *http.Request
 	}
 
 	renderer.JSON(w, 200, registerAppInfo)
+}
+
+type DiscussionRequest struct {
+	AppID string `json:"appId"`     // アプリID
+	DiscussionInfo models.DiscussionInfo
+}
+
+func AppDiscussionPost(ctx context.Context, w http.ResponseWriter, r *http.Request) {
+	data, err := ioutil.ReadAll(r.Body)
+	if err != nil {
+		log.Println("ERROR!", err)
+		renderer.JSON(w, 400, err)
+		return
+	}
+	fmt.Println(string(data))
+
+	// convert request params to struct
+	var discussionReq DiscussionRequest
+	if err := json.Unmarshal(data, &discussionReq); err != nil {
+		log.Println("ERROR! json parse", err)
+		renderer.JSON(w, 400, err)
+		return
+	}
+
+	// get appinfo from db
+	appInfo, err := models.AppsCtx(ctx).FindID(discussionReq.AppID)
+	if err != nil {
+		log.Println("ERROR!", err)
+		renderer.JSON(w, 400, err)
+		return
+	}
+
+	// push a discussionInfo
+	appInfo.Discussions = append(appInfo.Discussions, discussionReq.DiscussionInfo) 
+
+	if err := models.AppsCtx(ctx).Upsert(appInfo); err != nil {
+		log.Println("ERROR! register", err)
+		renderer.JSON(w, 400, err)
+		return
+	}
+
+	renderer.JSON(w, 200, appInfo.Discussions)
 }

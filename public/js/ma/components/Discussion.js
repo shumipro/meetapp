@@ -13,6 +13,7 @@ var html = '<li class="ma-profile-comment">' +
                     '<p>{{message}}</p>' +
                 '</div>' +
             '</li>'
+
 var tmpl = Handlebars.compile(html)
 
 export default class ConstantList {
@@ -27,61 +28,9 @@ export default class ConstantList {
                 location.href = "/login"
             }
         })
-        // temp
-        var discussions = window.ma_data && window.ma_data.discussions
-        render(discussions)
-    }
-
-    load() {
-        // GET /api/app/discussions?appId=0d58a936-f148-404e-91a5-1762331367d8
-        // response:
-        // [{
-        //     appId: "0d58a936-f148-404e-91a5-1762331367d8",
-        //     userId: "10152160532855662",
-        //     userName: "Takuya Tejima",
-        //     message: "hoge hoge",
-        //     timestamp: "1430622775846"
-        // },
-        // {
-        //     appId: "0d58a936-f148-404e-91a5-1762331367d8",
-        //     userId: "10152160532855662",
-        //     userName: "Takuya Tejima",
-        //     message: "hoge hoge2222",
-        //     timestamp: "1430622775946"
-        // }]
-
-
-    }
-
-    render(discussions) {
-        this._$wrap.empty()
-        for(var i = 0; i < discussions.length; i++) {
-            var $item = $(tmpl({
-                id: discussions[i].id,
-                name: discussions[i].name,
-                prop: prop
-            }))
-            $item.appendTo(this._$wrap)
-        }
     }
 
     post() {
-        // POST /api/app/discussion
-        // request body (json):
-        // {
-        //     appId: "0d58a936-f148-404e-91a5-1762331367d8",
-        //     userId: "10152160532855662",
-        //     message: "hoge hoge",
-        //     timestamp: "1430622775846"
-        // }
-        // response:
-        // {
-        //     appId: "0d58a936-f148-404e-91a5-1762331367d8",
-        //     userId: "10152160532855662",
-        //     userName: "Takuya Tejima",
-        //     message: "hoge hoge",
-        //     timestamp: "1430622775846"
-        // }
         var params = this.getParams()
         //  validation
         var result = this.validate(params)
@@ -89,7 +38,6 @@ export default class ConstantList {
             alert(result.message)
             return
         }
-        // {"name": "App name", "description": "hoge", "images": [{"url": "https://golang.org/doc/gopher/gopherbw.png"}]}
         $.ajax({
             url: '/api/app/discussion',
             type: 'post',
@@ -97,15 +45,15 @@ export default class ConstantList {
             dataType: 'json',
             data: JSON.stringify(params)
         }).done((res) => {
-            // TODO: append result
-            alert(JSON.stringify(res))
+            // TODO: temp
+            location.reload()
         }).fail(() => {
             alert("Error")
         })
     }
 
     validate(params) {
-        if($.trim(params.message) === ""){
+        if($.trim(params.discussionInfo.message) === ""){
             return {"error": true, "message": "messageが入力されていません"}
         }
         return {"error": false}
@@ -115,7 +63,7 @@ export default class ConstantList {
         return {
             appId: util.getAppDetailId(),
             discussionInfo: {
-                userId: util.getUserInfo().id,
+                userId: util.getUserInfo().ID,
                 message: this._$textarea.val(),
                 timestamp: new Date().getTime()
             }
