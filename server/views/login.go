@@ -22,6 +22,7 @@ import (
 
 func init() {
 	kami.Get("/login", Login)
+	kami.Get("/logout", Logout)
 	kami.Get("/login/facebook", LoginFacebook)
 	kami.Get("/auth/callback", AuthCallback)
 }
@@ -43,6 +44,15 @@ func Login(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func Logout(ctx context.Context, w http.ResponseWriter, r *http.Request) {
+	a, _ := oauth.FromContext(ctx)
+	redisDB := db.Redis(ctx)
+	redisDB.Del("auth:"+a.AuthToken)
+	removeCookieAuthToken(w)
+
+	http.Redirect(w, r, "/login", 301)
+}
+
 func LoginFacebook(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	c := oauth.Facebook(ctx)
 	http.Redirect(w, r, c.AuthCodeURL(""), 301)
@@ -62,7 +72,6 @@ func AuthCallback(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 
 	// Redisから登録済みかを取得
 	var user models.User
-	// 新規orCache切れ
 	res, err := fb.Get("/me", fb.Params{
 		"access_token": token.AccessToken,
 	})
