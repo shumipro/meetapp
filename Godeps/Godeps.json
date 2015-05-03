@@ -11,8 +11,22 @@
 			"Rev": "f808672b87d0fb889caeff31c9ffda61ae6f6f4a"
 		},
 		{
+			"ImportPath": "github.com/huandu/facebook",
+			"Comment": "v1.5.0",
+			"Rev": "7e9d2355dfdd59266e7e6f413f12a18cbadf7fe1"
+		},
+		{
 			"ImportPath": "github.com/julienschmidt/httprouter",
 			"Rev": "8c199fb6259ffc1af525cc3ad52ee60ba8359669"
+		},
+		{
+			"ImportPath": "github.com/k0kubun/pp",
+			"Comment": "v2.1.0-3-gd41d644",
+			"Rev": "d41d6445d773ca20b8685f84734ec1924136c7f9"
+		},
+		{
+			"ImportPath": "github.com/mattn/go-colorable",
+			"Rev": "d67e0b7d1797975196499f79bcc322c08b9f218b"
 		},
 		{
 			"ImportPath": "github.com/unrolled/render",
