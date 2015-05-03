@@ -11,10 +11,13 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="/app/list">開発アイデアを探す</a></li>
-                <!-- TODO: Login してかったら -->
+
+                {{if .Config.User.IsEmpty }}
+                <!-- Login してなかったら -->
                 <li><a href="/login">アイデア登録を登録する</a></li>
                 <li><a href="/login">ログイン・登録</a></li>
-                <!-- TODO: Login してたら -->
+                {{ else }}
+                <!-- Login してたら -->
                 <li><a href="/app/register">アイデア登録を登録する</a></li>
                 <li class="dropdown">
                     <a data-toggle="dropdown" class="dropdown-toggle" role="button" href="#">
@@ -28,6 +31,7 @@
                         <li role="presentation"><a href="/logout">ログアウト</a></li>
                     </ul>
                 </li>
+                {{ end }}
             </ul>
         </div>
     </div>

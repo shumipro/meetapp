@@ -3,9 +3,9 @@ package main
 import (
 	"log"
 
+	"github.com/shumipro/meetapp/server/db"
 	"github.com/shumipro/meetapp/server/models"
 	"golang.org/x/net/context"
-	"github.com/shumipro/meetapp/server/db"
 )
 
 var mockUsers = []models.User{

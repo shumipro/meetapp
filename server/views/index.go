@@ -33,19 +33,15 @@ func Index(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	preload := IndexResponse{
-		TemplateHeader: TemplateHeader{
-			Title:      "MeetApp",
-			SubTitle:   "サブタイトル",
-			NavTitle:   "一緒にアプリを開発する仲間を探そう",
-			ShowBanner: true,
-		},
-		LastedList:  latestList,
-		PopularList: popularList,
-	}
-	if err := FromContextTemplate(ctx, "index").Execute(w, preload); err != nil {
-		log.Println("ERROR!", err)
-		renderer.JSON(w, 400, err)
-		return
-	}
+	preload := IndexResponse{}
+	preload.TemplateHeader = NewHeader(ctx,
+		"MeetApp",
+		"サブタイトル",
+		"一緒にアプリを開発する仲間を探そう",
+		true,
+	)
+	preload.LastedList = latestList
+	preload.PopularList = popularList
+
+	ExecuteTemplate(ctx, w, "index", preload)
 }

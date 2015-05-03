@@ -1,7 +1,6 @@
 package views
 
 import (
-	"log"
 	"net/http"
 
 	"time"
@@ -37,17 +36,13 @@ func Login(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	preload := TemplateHeader{
 		Title: "Login",
 	}
-	if err := FromContextTemplate(ctx, "login").Execute(w, preload); err != nil {
-		log.Println("ERROR!", err)
-		renderer.JSON(w, 400, err)
-		return
-	}
+	ExecuteTemplate(ctx, w, "login", preload)
 }
 
 func Logout(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	a, _ := oauth.FromContext(ctx)
 	redisDB := db.Redis(ctx)
-	redisDB.Del("auth:"+a.AuthToken)
+	redisDB.Del("auth:" + a.AuthToken)
 	removeCookieAuthToken(w)
 
 	http.Redirect(w, r, "/login", 301)
