@@ -106,9 +106,9 @@
                     <h3>募集したいメンバー</h3>
                     <div class="row">
                         <div class="col-xs-12 form-group">
-                            <button id="ma_register_add_wantMember_btn" type="button" class="btn btn-default">追加</button>
+                            <button id="ma_register_add_recruitMember_btn" type="button" class="btn btn-default">追加</button>
                         </div>
-                        <div id="ma_register_add_wantMember_result"></div>
+                        <div id="ma_register_add_recruitMember_result"></div>
                     </div>
                     <hr>
                     <h3>URL</h3>
@@ -127,11 +127,11 @@
                     <div class="row">
                         <div class="col-xs-6 form-group">
                             <label>ミーティング場所</label>
-                            <select id="ma_register_form_meetingArea" name="meetingArea" class="form-control ma-constant-select" data-constant="area"></select>
+                            <select id="ma_register_form_meetingArea" name="meetingArea" class="form-control ma-constant-select" data-constant="meetingArea"></select>
                         </div>
                         <div class="col-xs-6 form-group">
                             <label>ミーティング頻度</label>
-                            <select id="ma_register_form_meetingOften" name="meetingOften" class="form-control ma-constant-select" data-constant="meetingOften"></select>
+                            <select id="ma_register_form_meetingFrequency" name="meetingFrequency" class="form-control ma-constant-select" data-constant="meetingFrequency"></select>
                         </div>
                         <div class="col-xs-6 form-group">
                             <label>プロジェクト開始日</label>
@@ -181,7 +181,7 @@
                         <div class="col">
                             <h4>エリア別に探す</h4>
                             <div>
-                              <ul class="ma-constant-footer-list" data-constant="area"></ul>
+                              <ul class="ma-constant-footer-list" data-constant="meetingArea"></ul>
                             </div>
                         </div>
                     </div>
@@ -258,7 +258,7 @@ var ma = {
             {id: "16", name: "MATLAB"},
             {id: "17", name: "その他"}
         ],
-        area: [
+        meetingArea: [
             {id: "1", name: "渋谷"},
             {id: "2", name: "六本木"},
             {id: "3", name: "恵比寿"},
@@ -286,7 +286,7 @@ var ma = {
             {id: "11", name: "おてつだい"},
             {id: "12", name: "その他"}
         ],
-        meetingOften: [
+        meetingFrequency: [
             {id: "1", name: "週１回程度"},
             {id: "2", name: "週2, 3回程度"},
             {id: "3", name: "毎日"},

@@ -43,12 +43,12 @@ type AppInfo struct {
 	Keywords      string        `json:"keywords"`           // フリーキーワード
 	MainImage     string        `json:"mainImageUrl"`       // メイン画像
 	ImageURLs     []URLInfo     `json:"images"`             // 紹介画像URLたち
-	Area          string        `json:"meetingPlace"`       // 場所
+	Area          string        `json:"meetingArea"`        // 場所
 	StartDate     string        `json:"projectStartDate"`   // 開始日
 	ReleaseDate   string        `json:"projectReleaseDate"` // リリース予定日
 	GitHubURL     string        `json:"githubUrl"`          // GitHubのURL
 	DemoURL       string        `json:"demoUrl"`            // デモURL
-	Frequency     string        `json:"frequency"`          // 頻度 TODO: まだない
+	Frequency     string        `json:"meetingFrequency"`   // 頻度
 	StarCount     int           `json:"starCount"`          // スター数
 	Members       []Member      // メンバー
 	RecruitMember []RecruitInfo // 募集メンバー

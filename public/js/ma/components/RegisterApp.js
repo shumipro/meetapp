@@ -14,11 +14,11 @@ var currentMemberEntryHtml = '<div class="ma-friend-add-member" data-list-name="
                       '</div>'
 var currentMemberEntryTmpl = Handlebars.compile(currentMemberEntryHtml)
 
-var wantMemberEntryHtml = '<div class="ma-friend-add-member" data-list-name="wantMembers">' +
+var recruitMemberEntryHtml = '<div class="ma-friend-add-member" data-list-name="recruitMembers">' +
                       '<select class="form-control" name="occupation">{{#each occupations}}<option value="{{id}}">{{name}}</option>{{/each}}</select>' +
                       '<button type="button" class="btn btn-default">削除</button>'
                       '</div>'
-var wantMemberEntryTmpl = Handlebars.compile(wantMemberEntryHtml)
+var recruitMemberEntryTmpl = Handlebars.compile(recruitMemberEntryHtml)
 
 export default class RegisterApp {
     constructor() {
@@ -43,7 +43,7 @@ export default class RegisterApp {
                         'occupation': { type: 'select' }
                     }
                 },
-                'wantMembers': {
+                'recruitMembers': {
                     type: 'list',
                     props: {
                         'occupation': { type: 'select' }
@@ -52,7 +52,7 @@ export default class RegisterApp {
                 'demoUrl': { type: 'url' },
                 'githubUrl': { type: 'url' },
                 'meetingArea': { type: 'select' },
-                'meetingOften': { type: 'select' },
+                'meetingFrequency': { type: 'select' },
                 'projectStartDate': { type: 'date' },
                 'projectReleaseDate': { type: 'date' }
             }
@@ -65,9 +65,9 @@ export default class RegisterApp {
             // TODO: check currentMembers already has the member
             this.createCurrentMemberEntry(item)
         })
-        this.$addWantMember = $('#ma_register_add_wantMember_btn')
-        this.$addWantMember.on("click", () => {
-            this.createWantMemberEntry()
+        this.$addRecruitMember = $('#ma_register_add_recruitMember_btn')
+        this.$addRecruitMember.on("click", () => {
+            this.createRecruitMemberEntry()
         })
         // set myself at init
         this.createCurrentMemberEntry(config.user)
@@ -84,14 +84,14 @@ export default class RegisterApp {
         //         {id: "1234", name: "Tejitak", occupation: "4"},
         //         {id: "1234", name: "kyokomiさん", occupation: "2"}
         //     ],
-        //     "wantMembers": [
+        //     "recruitMembers": [
         //         {occupation: "5"},
         //         {occupation: "3"},
         //     ],
         //     "demoUrl": "http://demo.com/",
         //     "githubUrl": "http://github.com/",
         //     "meetingArea": "1",
-        //     "meetingOften": "1",
+        //     "meetingFrequency": "1",
         //     "projectStartDate": "2015-04-30",
         //     "projectReleaseDate": "2015-05-30"
         // }
@@ -108,11 +108,11 @@ export default class RegisterApp {
         this._createMemberEntry($item, $('#ma_register_add_currentMember_result'))
     }
 
-    createWantMemberEntry() {
-        var $item = $(wantMemberEntryTmpl({
+    createRecruitMemberEntry() {
+        var $item = $(recruitMemberEntryTmpl({
             occupations: constants.occupation
         }))
-        this._createMemberEntry($item, $('#ma_register_add_wantMember_result'))
+        this._createMemberEntry($item, $('#ma_register_add_recruitMember_result'))
     }
 
     _createMemberEntry($item, $wrap) {
