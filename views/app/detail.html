@@ -39,6 +39,11 @@
                     </div>
                 </div>
                 <div class="ma-layout-col-right">
+                    <!-- TODO: 管理者の場合のみ表示 -->
+                    <div class="ma-white-wrap text-center">
+                        <input class="ma-app-edit-btn btn btn-primary" type="button" value="開発アイデアを編集する">
+                        <input class="ma-app-delete-btn btn btn-primary" type="button" value="開発アイデアを削除する">
+                    </div>
 
                     <div class="ma-white-wrap">
                         <section>
@@ -61,9 +66,16 @@
                                 <h3>URL</h3>
                                 <div class="divider"></div>
                             </div>
+                            {{if .AppInfo.DemoURL }}
                             <dl>
-                                <dt>Demo URL:</dt><dd><a href="{{ .AppInfo.DemoURL }}">{{ .AppInfo.DemoURL }}</a></dd>
+                                <dt>Demo URL:</dt><dd><a href="{{ .AppInfo.DemoURL }}" target="_blank">{{ .AppInfo.DemoURL }}</a></dd>
                             </dl>
+                            {{end}}
+                            {{if .AppInfo.GitHubURL }}
+                            <dl>
+                                <dt>Github URL:</dt><dd><a href="{{ .AppInfo.GitHubURL }}" target="_blank">{{ .AppInfo.GitHubURL }}</a></dd>
+                            </dl>
+                            {{end}}
                         </section>
                         <section>
                             <div class="section-heading">
@@ -77,6 +89,19 @@
                             </dl>
                         </section>
                     </div>
+                    {{if .AppInfo.GitHubURL }}
+                        <div class="ma-white-wrap">
+                            <section>
+                                <div class="section-heading">
+                                    <h3>Github Issues</h3>
+                                    <div class="divider"></div>
+                                </div>
+                                <div>
+                                    <div class="ma-github-issues" data-url="{{ .AppInfo.GitHubURL }}"></div>
+                                </div>
+                            </section>
+                        </div>
+                    {{end}}
                     <div class="ma-white-wrap">
                         <section>
                             <div class="section-heading">

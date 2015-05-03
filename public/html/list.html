@@ -21,8 +21,7 @@
                 </div>
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="/app/list?orderBy=popular">プロジェクトを探す</a></li>
-                        <li><a href="/app/list?orderBy=new">新着一覧</a></li>
+                        <li><a href="/app/list">開発アイデアを探す</a></li>
                         <li><a href="/app/login">ログイン・登録</a></li>
                     </ul>
                 </div>
@@ -42,53 +41,43 @@
                     <div class="ma-filterbox">
                         <div class="section-heading">
                             <h3>プラットフォーム</h3>
-                            <div class="divider"></div>
                         </div>
-                        <ul>
-                            <li>
-                                <input type="checkbox" id="filter_platform_0">
-                                <label for="filter_platform_0">iOS</label>
-                            </li>
-                            <li>
-                                <input type="checkbox" id="filter_platform_1">
-                                <label for="filter_platform_1">Web</label>
-                            </li>
-                            <li>
-                                <input type="checkbox" id="filter_platform_2">
-                                <label for="filter_platform_2">Android</label>
-                            </li>
-                        </ul>
+                        <ul class="ma-constant-filter" data-constant="platform"></ul>
                     </div>
-
                     <div class="ma-filterbox">
                         <div class="section-heading">
                             <h3>募集職種別</h3>
-                            <div class="divider"></div>
                         </div>
-                        <ul>
-                            <li>
-                                <input type="checkbox" id="filter_occupation_0">
-                                <label for="filter_occupation_0">企画</label>
-                            </li>
-                            <li>
-                                <input type="checkbox" id="filter_occupation_1">
-                                <label for="filter_occupation_1">デザイナー</label>
-                            </li>
-                            <li>
-                                <input type="checkbox" id="filter_occupation_2">
-                                <label for="filter_occupation_2">エンジニア</label>
-                            </li>
-                        </ul>
+                        <ul class="ma-constant-filter" data-constant="occupation"></ul>
                     </div>
-
                     <div class="ma-filterbox">
                         <div class="section-heading">
                             <h3>Adsense</h3>
-                            <div class="divider"></div>
                         </div>
+                    </div>
+                    <div class="ma-filterbox">
+                        <div class="section-heading">
+                            <h3>カテゴリ別</h3>
+                        </div>
+                        <ul class="ma-constant-filter" data-constant="category"></ul>
+                    </div>
+                    <div class="ma-filterbox">
+                        <div class="section-heading">
+                            <h3>プログラミング言語別</h3>
+                        </div>
+                        <ul class="ma-constant-filter" data-constant="pLang"></ul>
+                    </div>
+                    <div class="ma-filterbox">
+                        <div class="section-heading">
+                            <h3>エリア別</h3>
+                        </div>
+                        <ul class="ma-constant-filter" data-constant="area"></ul>
                     </div>
                 </div>
                 <div class="ma-layout-col-right">
+                    <ul class="ma-app-list-item-wrap">
+                        <li><h2>検索結果がありません</h2></li>
+                    </ul>
                     <ul class="ma-app-list-item-wrap">
                         <li class="ma-app-list-item">
                             <a href="/app/detail?id=001">
@@ -266,28 +255,20 @@
                     <div class="col-md-4">
                         <div class="col">
                            <h4>MeetAppについて</h4>
-                           <ul>
-                                <li><a href="/getting_started">このサービスの使い方</a></li>
-                                <li><a href="/faq">よくある質問</a></li>
-                                <li><a href="/terms">利用規約</a></li>
-                                <li><a href="/privacy">プライバシーポリシー</a></li>
-                                <li><a href="/contacts/new">お問い合わせ</a></li>
-                            </ul>
+                               <ul>
+                                    <li><a href="/getting_started">このサービスの使い方</a></li>
+                                    <li><a href="/faq">よくある質問</a></li>
+                                    <li><a href="/terms">利用規約</a></li>
+                                    <li><a href="/privacy">プライバシーポリシー</a></li>
+                                    <li><a href="/contacts">お問い合わせ</a></li>
+                                </ul>
                          </div>
                     </div>
                     <div class="col-md-4">
                         <div class="col">
-                            <h4>職種別に探す</h4>
+                            <h4>カテゴリ別に探す</h4>
                             <div>
-                              <ul>
-                                <li><a href="/list?occupation=1">企画</a></li>
-                                <li><a href="/list?occupation=2">デザイナー</a></li>
-                                <li><a href="/list?occupation=3">サーバーエンジニア</a></li>
-                                <li><a href="/list?occupation=4">スマートフォンエンジニア</a></li>
-                                <li><a href="/list?occupation=5">フロントエンドエンジニア</a></li>
-                                <li><a href="/list?occupation=6">インフラエンジニア</a></li>
-                                <li><a href="/list?occupation=7">おてつだい</a></li>
-                              </ul>
+                              <ul class="ma-constant-footer-list" data-constant="category"></ul>
                             </div>
                         </div>
                     </div>
@@ -295,12 +276,7 @@
                         <div class="col">
                             <h4>エリア別に探す</h4>
                             <div>
-                              <ul>
-                                <li><a href="/list?area=1">渋谷</a></li>
-                                <li><a href="/list?area=2">新宿</a></li>
-                                <li><a href="/list?area=3">六本木</a></li>
-                                <li><a href="/list?area=4">福岡</a></li>
-                              </ul>
+                              <ul class="ma-constant-footer-list" data-constant="area"></ul>
                             </div>
                         </div>
                     </div>
@@ -312,6 +288,112 @@
             </div>
         </footer>
     </div>
+<script>
+// define global constants
+var ma = {
+    config: {
+        user: {
+            id: "10152160532855662",
+            name: "Takuya Tejima"
+        }
+    },
+    constants: {
+        platform: [
+            {id: "1", name: "Web"},
+            {id: "2", name: "iOS"},
+            {id: "3", name: "Android"},
+            {id: "4", name: "Mac"},
+            {id: "5", name: "Apple Watch"},
+            {id: "6", name: "Windows"},
+            {id: "7", name: "Linux"},
+            {id: "8", name: "Chrome"},
+            {id: "9", name: "その他"}
+        ],
+        category: [
+            {id: "1", name: "ブック"},
+            {id: "2", name: "ビジネス"},
+            {id: "3", name: "カタログ"},
+            {id: "4", name: "教育"},
+            {id: "5", name: "エンターテイメント"},
+            {id: "6", name: "ファイナンス"},
+            {id: "7", name: "フード"},
+            {id: "8", name: "ゲーム"},
+            {id: "9", name: "ヘルスケア"},
+            {id: "10", name: "ライフスタイル"},
+            {id: "11", name: "メディカル"},
+            {id: "12", name: "ミュージック"},
+            {id: "13", name: "ナビゲーション"},
+            {id: "14", name: "ニュース"},
+            {id: "15", name: "写真/ビデオ"},
+            {id: "16", name: "仕事効率化"},
+            {id: "17", name: "辞書/辞典"},
+            {id: "18", name: "SNS"},
+            {id: "19", name: "スポーツ"},
+            {id: "20", name: "旅行"},
+            {id: "21", name: "ユーティリティ"},
+            {id: "22", name: "天気"},
+            {id: "23", name: "その他"}
+        ],
+        pLang: [
+            {id: "1", name: "Java"},
+            {id: "2", name: "JavaScript"},
+            {id: "3", name: "Swift"},
+            {id: "4", name: "Objective-c"},
+            {id: "5", name: "Go"},
+            {id: "6", name: "PHP"},
+            {id: "7", name: "Python"},
+            {id: "8", name: "Ruby"},
+            {id: "9", name: "Perl"},
+            {id: "10", name: "C"},
+            {id: "11", name: "C#"},
+            {id: "12", name: "C++"},
+            {id: "13", name: "Scala"},
+            {id: "14", name: "SQL"},
+            {id: "15", name: "VB"},
+            {id: "16", name: "MATLAB"},
+            {id: "17", name: "その他"}
+        ],
+        area: [
+            {id: "1", name: "渋谷"},
+            {id: "2", name: "六本木"},
+            {id: "3", name: "恵比寿"},
+            {id: "4", name: "新宿"},
+            {id: "5", name: "横浜"},
+            {id: "6", name: "池袋"},
+            {id: "7", name: "品川"},
+            {id: "8", name: "五反田"},
+            {id: "9", name: "有楽町"},
+            {id: "10", name: "大阪"},
+            {id: "11", name: "福岡"},
+            {id: "12", name: "その他"}
+        ],
+        occupation: [
+            {id: "1", name: "企画"},
+            {id: "2", name: "デザイナー"},
+            {id: "3", name: "サーバーエンジニア"},
+            {id: "4", name: "スマートフォンエンジニア"},
+            {id: "5", name: "フロントエンドエンジニア"},
+            {id: "6", name: "Webエンジニア"},
+            {id: "7", name: "インフラエンジニア"},
+            {id: "8", name: "フルスタックエンジニア"},
+            {id: "9", name: "プロジェクトマネージャー"},
+            {id: "10", name: "営業"},
+            {id: "11", name: "おてつだい"},
+            {id: "12", name: "その他"}
+        ],
+        meetingOften: [
+            {id: "1", name: "週１回程度"},
+            {id: "2", name: "週2, 3回程度"},
+            {id: "3", name: "毎日"},
+            {id: "4", name: "月1回程度"},
+            {id: "5", name: "数ヶ月に1回程度"},
+            {id: "6", name: "不定期"},
+            {id: "7", name: "なし"},
+            {id: "8", name: "その他"}
+        ]
+    }
+};
+</script>
     <script src="/dist/main.js"></script>
 </body>
 </html>
