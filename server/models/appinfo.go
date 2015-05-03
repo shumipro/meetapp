@@ -6,32 +6,6 @@ import (
 	"gopkg.in/mgo.v2/bson"
 )
 
-type AppCategory string
-
-const (
-	GameCategory  AppCategory = "ゲーム"
-	WebCategory   AppCategory = "Webサービス"
-	StudyCategory AppCategory = "学習"
-)
-
-type PlatformType string
-
-const (
-	IOS     PlatformType = "iOS"
-	Android PlatformType = "Android"
-	Web     PlatformType = "Web"
-)
-
-type LanguageType string
-
-const (
-	GoLang     LanguageType = "Go"
-	Java       LanguageType = "Java"
-	JavaScript LanguageType = "JavaScript"
-	ObjectiveC LanguageType = "Objective-C"
-	Swift      LanguageType = "Swift"
-)
-
 // AppInfo アプリ
 type AppInfo struct {
 	ID            string           `bson:"_id" json:"id"`                 // アプリID
