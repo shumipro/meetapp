@@ -3,7 +3,11 @@ import config from './config'
 var util = {
 
     getUserInfo() {
-        return config.user
+        var user = config.user
+        if(!user || !user.ID) {
+            return null
+        }
+        return user
     },
 
     loadJSONP(api, callbackName) {

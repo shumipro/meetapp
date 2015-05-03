@@ -4,8 +4,13 @@
             <div class="ma-app-tile-image">
                 <img src="{{ .MainImage }}" alt="{{ .Name }}">
             </div>
-            <div class="ma-app-tile-toolbar"><span class="star">{{ .StarCount }}</span></div>
             <div class="ma-app-tile-title">{{ .Name }}</div>
+            <div class="ma-app-tile-toolbar">
+                <figure class="ma-app-star-count">
+                    <figcaption class="star">★</figcaption>
+                    <strong class="count">{{ .StarCount }}</strong>
+                </figure>
+            </div>
         </div>
     </a>
 </div>

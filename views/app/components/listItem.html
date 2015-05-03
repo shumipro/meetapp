@@ -19,7 +19,14 @@
             <div class="ma-tag">{{ .Platform }}</div>
             <div class="ma-tag">{{ .Language }}</div>
             <div class="ma-tag">{{ .Area }}</div>
-            <span class="ma-star">Star: {{ .StarCount }}</span>
+            <span class="ma-star">
+                <span class="ma-star">
+                    <figure class="ma-app-star-count">
+                        <figcaption class="star">★</figcaption>
+                        <strong class="count">{{ .StarCount }}</strong>
+                    </figure>
+                </span>
+            </span>
         </div>
     </a>
 </li>

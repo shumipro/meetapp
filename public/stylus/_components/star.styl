@@ -1,4 +1,54 @@
 /*! star */
 .ma-star-wrap
     padding 20px 0 4px 0
+    color #2196f3
     
+.ma-app-star-btn
+    padding 4px 10px
+    width 60%
+    margin-top 10px
+    background #fff
+    color #2196f3
+    trans_bounce()
+    fontsize 11px
+    font-family 'Robot'
+    font-weight bold
+    cursor pointer
+    
+    .icon
+        display inline-block
+        width 18px
+        height 18px
+        background url(/img/icon-add-star.svg)
+        position relative
+        top 1px
+        margin-right 5px
+        trans_bounce(1s)
+        
+    span
+        position relative
+        top -2px
+        font-family 'Robot Light'
+      
+    &:hover
+        transform scale(1.02)
+        background #2196f3
+        .icon
+            transform rotate(360deg)
+        span
+            color #fff
+            
+    &:active
+        background #ececec
+        
+.ma-app-star-count
+    text-align center
+    color #fbc02d
+    margin 0
+    .star
+        display inline-block
+        inline-block(.09em)
+    .count
+        display inline-block
+        inline-block(.09em)
+        margin-left 10px
