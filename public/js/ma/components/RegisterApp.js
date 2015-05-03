@@ -8,14 +8,14 @@ import Handlebars from 'handlebars'
 
 var currentMemberEntryHtml = '<div class="ma-friend-add-member" data-list-name="currentMembers"><input type="hidden" name="id" value="{{id}}">' +
                       '{{{imgHtml}}}<span>{{name}}</span>' + 
-                      '<select name="occupation" class="form-control ma-constant-select" data-constant="occupation"></select>'
-                      '<button type="button" class="btn btn-default ma-friend-delete-btn">削除</button>'
+                      '<select name="occupation" class="form-control ma-constant-select" data-constant="occupation"></select>' +
+                      '<button type="button" class="btn btn-default ma-friend-delete-btn">削除</button>' +
                       '</div>'
 var currentMemberEntryTmpl = Handlebars.compile(currentMemberEntryHtml)
 
 var recruitMemberEntryHtml = '<div class="ma-friend-add-member" data-list-name="recruitMembers">' +
-                      '<select name="occupation" class="form-control ma-constant-select" data-constant="occupation"></select>'
-                      '<button type="button" class="btn btn-default ma-friend-delete-btn">削除</button>'
+                      '<select name="occupation" class="form-control ma-constant-select" data-constant="occupation"></select>' +
+                      '<button type="button" class="btn btn-default ma-friend-delete-btn">削除</button>' +
                       '</div>'
 var recruitMemberEntryTmpl = Handlebars.compile(recruitMemberEntryHtml)
 
@@ -89,7 +89,7 @@ export default class RegisterApp {
 
     _createMemberEntry($item, $wrap) {
         // attach events
-        var $deleteBtn = $item.find('button')
+        var $deleteBtn = $item.find('.ma-friend-delete-btn')
         $deleteBtn.on('click', () => {
             $deleteBtn.parent().remove()
         })
