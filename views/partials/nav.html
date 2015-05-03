@@ -14,17 +14,17 @@
 
                 {{if .Config.User.IsEmpty }}
                 <!-- Login してなかったら -->
-                <li><a href="/login">アイデア登録を登録する</a></li>
+                <li><a href="/login">開発アイデアを登録する</a></li>
                 <li><a href="/login">ログイン・登録</a></li>
                 {{ else }}
                 <!-- Login してたら -->
-                <li><a href="/app/register">アイデア登録を登録する</a></li>
+                <li><a href="/app/register">開発アイデアを登録する</a></li>
                 <li class="dropdown">
                     <a data-toggle="dropdown" class="dropdown-toggle" role="button" href="#">
                         <span class="ma-login-username">
-                            <img class="img-rounded" src="http://graph.facebook.com/10152160532855662/picture?type=square">
+                            <img class="img-rounded" src="{{ .Config.User.IconImageURL }}">
                         </span>
-                        <span id="dropDownLoginName">Takuya Tejima</span><b class="caret"></b>
+                        <span id="dropDownLoginName">{{ .Config.User.Name }}</span><b class="caret"></b>
                     </a>
                     <ul role="menu" class="dropdown-menu ma-login-dropdown">
                         <li role="presentation"><a href="/u/mypage">マイページ</a></li>
