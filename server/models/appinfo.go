@@ -50,8 +50,8 @@ type AppInfo struct {
 	DemoURL       string        `           json:"demoUrl"`            // デモURL
 	Frequency     string        `           json:"meetingFrequency"`   // 頻度
 	StarCount     int           `           json:"starCount"`          // スター数
-	Members       []Member      // メンバー
-	RecruitMember []RecruitInfo // 募集メンバー
+	Members       []Member      `           json:"currentMembers"`     // メンバー
+	RecruitMember []RecruitInfo `           json:"recruitMembers"`     // 募集メンバー
 }
 
 // URLInfo 各種URL情報
@@ -60,14 +60,12 @@ type URLInfo struct {
 }
 
 type RecruitInfo struct {
-	Post string // 肩書とか名前
-	Num  int    // 人数
+	Occupation string `json:"occupation"` // 肩書とか役割
 }
 
 type Member struct {
-	Name         string // 名前
-	IconImageURL string
-	Post         string
+	UserID     string `json:"id"`
+	Occupation string `json:"occupation"` // 肩書とか役割
 }
 
 // AppsContext appsのコレクション

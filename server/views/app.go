@@ -13,6 +13,7 @@ import (
 	"github.com/guregu/kami"
 	"github.com/shumipro/meetapp/server/models"
 	"golang.org/x/net/context"
+	"github.com/k0kubun/pp"
 )
 
 var sortLabels = map[string]map[string]string{
@@ -122,6 +123,8 @@ func AppRegisterPost(ctx context.Context, w http.ResponseWriter, r *http.Request
 		return
 	}
 
+	pp.Println(registerAppInfo)
+
 	// TODO: 重複チェック?
 
 	registerAppInfo.ID = uuid.NewRandom().String()
@@ -130,29 +133,6 @@ func AppRegisterPost(ctx context.Context, w http.ResponseWriter, r *http.Request
 	} else {
 		// set default image
 		registerAppInfo.MainImage = "/img/no_img.png"
-	}
-	// TODO: memberと募集はrequestにないので一旦固定値
-	registerAppInfo.Members = []models.Member{
-		{
-			Name:         "kyokomi",
-			IconImageURL: "https://avatars0.githubusercontent.com/u/1456047?v=3&s=460",
-			Post:         "Gopher",
-		},
-		{
-			Name:         "tejitak",
-			IconImageURL: "http://graph.facebook.com/10152160532855662/picture?type=square",
-			Post:         "Engineer",
-		},
-	}
-	registerAppInfo.RecruitMember = []models.RecruitInfo{
-		{
-			Post: "デザイナー",
-			Num:  1,
-		},
-		{
-			Post: "企画",
-			Num:  1,
-		},
 	}
 
 	if err := models.AppsCtx(ctx).Upsert(registerAppInfo); err != nil {
