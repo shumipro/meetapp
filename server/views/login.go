@@ -98,9 +98,10 @@ func AuthCallback(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 		if err := json.Unmarshal(data, &fbUser); err != nil {
 			panic(err)
 		}
+		user.Name = fbUser.Name // TODO: 一旦Facebookオンリーなので
 		user.FBUser = fbUser
 
-		// 登録する（TODO: メアドとかは保存しないほうがいいかも...）
+		// 登録する
 		if err := models.UsersTable().Upsert(ctx, user); err != nil {
 			panic(err)
 		} else {

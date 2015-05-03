@@ -67,7 +67,7 @@ func (t _UsersTable) FindByKeyword(ctx context.Context, keyword string) (results
 	fmt.Println("Keyword = ", regexWord)
 
 	t.withCollection(ctx, func(c *mgo.Collection) {
-		err = c.Find(bson.M{"facebook.name": bson.M{
+		err = c.Find(bson.M{"name": bson.M{
 			"$regex": regexWord,
 			"$options": "i",
 		}}).All(&results)

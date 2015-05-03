@@ -9,8 +9,8 @@ import (
 )
 
 var mockUsers = []models.User{
-	{ID: "test1", Name: "TestUser1", FBUser: models.FacebookUser{ID: "facebook1", Name: "Satou Yokoyama"}},
-	{ID: "test2", Name: "TestUser2", FBUser: models.FacebookUser{ID: "facebook2", Name: "Yamada Koji"}},
+	{ID: "test1", Name: "Satou Yokoyama", FBUser: models.FacebookUser{ID: "facebook1", Name: "Satou Yokoyama"}},
+	{ID: "test2", Name: "Yamada Koji", FBUser: models.FacebookUser{ID: "facebook2", Name: "Yamada Koji"}},
 }
 
 func main() {
