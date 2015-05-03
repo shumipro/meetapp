@@ -43,7 +43,7 @@ export default class Discussion {
 
     validate(params) {
         if($.trim(params.discussionInfo.message) === ""){
-            return {"error": true, "message": "messageが入力されていません"}
+            return {"error": true, "message": "コメントが入力されていません"}
         }
         return {"error": false}
     }

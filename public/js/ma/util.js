@@ -10,13 +10,6 @@ var util = {
         return user
     },
 
-    loadJSONP(api, callbackName) {
-        var head = document.getElementsByTagName('head')[0];
-        var el = document.createElement('script');
-        el.src = api + '&callback=' + callbackName;
-        head.insertBefore(el, head.firstChild);
-    },
-
     getImageHTML(id, w, h){
         // override by fb account id
         if(id.FBUser){
