@@ -67,9 +67,9 @@ npm install -g gulp
 ```
 
 ### run npm install
-workingディレクトリで一度以下を実行
+meetappディレクトリで一度以下を実行
 ```
-npm install -g gulp
+npm install
 ```
 
 ### run gulp
