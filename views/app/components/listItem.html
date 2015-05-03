@@ -6,7 +6,7 @@
         <div class="ma-app-list-item-content">
             <div class="ma-app-list-item-title">{{ .Name }}</div>
             <section>
-                {{ .Detail }}
+                {{ .Description }}
             </section>
             <section class="ma-app-list-item-member-wrap">
                 {{range .Members }}
@@ -16,8 +16,8 @@
         </div>
         <div class="ma-app-list-item-toolbar">
             <div class="ma-tag">{{ .Category }}</div>
-            <div class="ma-tag">{{ .PlatformType }}</div>
-            <div class="ma-tag">{{ .LanguageType }}</div>
+            <div class="ma-tag">{{ .Platform }}</div>
+            <div class="ma-tag">{{ .Language }}</div>
             <div class="ma-tag">{{ .Area }}</div>
             <span class="ma-star">Star: {{ .StarCount }}</span>
         </div>

@@ -71,6 +71,12 @@ var util = {
             return true
         }
         return false
+    },
+
+    getAppDetailId(){
+        // get id from current URL
+        var result = location.pathname.match(new RegExp(/\/app\/detail\/([\w-]+)/))
+        return result && result[1] || ""
     }
 }
 
