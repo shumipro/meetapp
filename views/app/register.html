@@ -74,10 +74,9 @@
                         </div>
                         <div id="ma_register_add_currentMember_result">
                             <div class="ma-friend-add-member" data-list-name="currentMembers">
-                                <input type="hidden" name="id" value="">
-                                <!-- TODO: 現在のユーザの情報をsetする -->
-                                <img class="img-rounded" width="32px" height="32px" src="">
-                                <span>Takuya Tejima</span>
+                                <input type="hidden" name="id" value="{{ .Config.User.ID }}">
+                                <img class="img-rounded" width="32px" height="32px" src="{{ .Config.User.IconImageURL }}">
+                                <span>{{ .Config.User.Name }}</span>
                                 <select name="occupation" class="form-control ma-constant-select" data-constant="occupation"></select>
                                 <!--button type="button" class="btn btn-default ma-friend-delete-btn">削除</button-->
                             </div>

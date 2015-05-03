@@ -54,7 +54,7 @@ export default class Discussion {
             discussionInfo: {
                 userId: util.getUserInfo().ID,
                 message: this._$textarea.val(),
-                timestamp: new Date().getTime()
+                timestamp: new Date()
             }
         }
     }

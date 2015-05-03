@@ -48,9 +48,9 @@ type Member struct {
 }
 
 type DiscussionInfo struct {
-	UserID    string `json:"userId"`    // ユーザー
-	Message   string `json:"message"`   // コメント
-	Timestamp int64  `json:"timestamp"` // 投稿日時
+	UserID    string    `json:"userId"`    // ユーザー
+	Message   string    `json:"message"`   // コメント
+	Timestamp time.Time `json:"timestamp"` // 投稿日時
 }
 
 // AppsContext appsのコレクション
