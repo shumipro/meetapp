@@ -1,30 +1,51 @@
 package models
 
 import (
+	"fmt"
+
+	"time"
+
 	"golang.org/x/net/context"
 	"gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
-	"fmt"
 )
 
 type User struct {
-	ID     string       `bson:"_id"` // UUID自動生成
-	Name   string       // FacebookNameと同じ?別名？ TODO: いらないかも
-	FBUser FacebookUser `bson:"facebook"` // Facebookのme情報
+	ID       string       `bson:"_id"      json:"ID"`       // UUID自動生成
+	Name     string       `                json:"Name"`     // ユーザー名
+	ImageURL string       `                json:"IamgeURL"` // ユーザーアイコンのURL
+	FBUser   FacebookUser `bson:"facebook" json:"FBUser"`   // Facebookのme情報
+	CreateAt time.Time    `                json:"-"`
+	UpdateAt time.Time    `                json:"-"`
+}
+
+func (u User) IconImageURL() string {
+	if u.ImageURL != "" {
+		return u.ImageURL
+	}
+
+	if u.FBUser.ID != "" {
+		return fmt.Sprintf("http://graph.facebook.com/%s/picture?type=square", u.FBUser.ID)
+	}
+
+	return "/img/no_img.png"
+}
+
+func (u User) IsEmpty() bool {
+	return u.ID == ""
 }
 
 type FacebookUser struct {
 	ID          string `json:"id"`
-//	Email       string `json:"email"` // TODO: いろいろ怖いのでとりません
 	Name        string `json:"name"`
-	FirstName   string `json:"first_name"`
-	LastName    string `json:"last_name"`
+	FirstName   string `json:"firstName"`
+	LastName    string `json:"lastName"`
 	Gender      string `json:"gender"`
 	Locale      string `json:"locale"`
 	Link        string `json:"link"`
 	Verified    bool   `json:"verified"`
 	Timezone    int    `json:"timezone"`
-	UpdatedTime string `json:"updated_time"`
+	UpdatedTime string `json:"updatedTime"`
 }
 
 type _UsersTable struct {
@@ -63,12 +84,12 @@ func (t _UsersTable) FindByFacebookID(ctx context.Context, facebookID string) (r
 
 // db.users.find({"facebook.name": {$regex: '.*Yoko.*', $options: "i"}}, {});
 func (t _UsersTable) FindByKeyword(ctx context.Context, keyword string) (results []User, err error) {
-	regexWord :=  fmt.Sprintf(".*%s.*", keyword)
+	regexWord := fmt.Sprintf(".*%s.*", keyword)
 	fmt.Println("Keyword = ", regexWord)
 
 	t.withCollection(ctx, func(c *mgo.Collection) {
-		err = c.Find(bson.M{"facebook.name": bson.M{
-			"$regex": regexWord,
+		err = c.Find(bson.M{"name": bson.M{
+			"$regex":   regexWord,
 			"$options": "i",
 		}}).All(&results)
 	})

@@ -1,7 +1,7 @@
 import $ from 'jquery'
 import util from '../util'
 
-export default class ConstantSelect {
+export default class AppButtons {
     constructor() {
         // common button widgets
         $('.ma-app-edit-btn').on('click', () => {
@@ -15,15 +15,6 @@ export default class ConstantSelect {
                 alert(util.getAppDetailId())
             }
         })
-        // TODO: star button
-        $('.ma-app-star-btn').on('click', () => {
-            // check the user is already logged in
-
-            // move to login screen
-
-            // send star
-        })
-
         // set current URL for share buttons
         $('.fb-like[data-href=""]').data('href', location.href)
         $('.twitter-share-button[data-url=""]').data('href', location.href)

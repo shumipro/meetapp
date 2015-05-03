@@ -6,17 +6,40 @@ import (
 
 	"fmt"
 
+	"net/http"
+
+	"github.com/shumipro/meetapp/server/models"
 	"github.com/unrolled/render"
 	"golang.org/x/net/context"
+	"github.com/shumipro/meetapp/server/oauth"
 )
 
-// TODO: Templateの読み込みあとで別パッケージにする
+type Config struct {
+	User models.User `json:"user"`
+}
 
 type TemplateHeader struct {
 	Title      string
 	NavTitle   string
 	SubTitle   string
 	ShowBanner bool
+	Config     Config
+}
+
+func NewHeader(ctx context.Context, title, navTitle, subTitle string, showBanner bool) TemplateHeader {
+	a, _ := oauth.FromContext(ctx)
+
+	// TODO: 毎アクセスでmongoとるの微妙・・・ Serverでcacheしてもよさそう
+	user, _ := models.UsersTable().FindID(ctx, a.UserID)
+
+	h := TemplateHeader{}
+	h.Config = Config{User: user}
+
+	h.Title = title
+	h.SubTitle = subTitle
+	h.NavTitle = navTitle
+	h.ShowBanner = showBanner
+	return h
 }
 
 type templateKey string
@@ -70,4 +93,10 @@ func FromContextTemplate(ctx context.Context, name string) *template.Template {
 		panic("not template")
 	}
 	return tmpls[name]
+}
+
+func ExecuteTemplate(ctx context.Context, w http.ResponseWriter, name string, data interface{}) {
+	if err := FromContextTemplate(ctx, name).Execute(w, data); err != nil {
+		executeError(ctx, w, err)
+	}
 }

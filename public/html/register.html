@@ -100,7 +100,16 @@
                                 <button class="btn btn-default btn-primary ma-friend-add-btn" id="ma_register_add_currentMember_suggest_btn" type="button">追加</button>
                             </span>
                         </div>
-                        <div id="ma_register_add_currentMember_result"></div>
+                        <div id="ma_register_add_currentMember_result">
+                            <div class="ma-friend-add-member" data-list-name="currentMembers">
+                                <input type="hidden" name="id" value="">
+                                <!-- 現在のユーザの情報をsetする -->
+                                <img class="img-rounded" width="32px" height="32px" src="">
+                                <span>Takuya Tejima</span>
+                                <select name="occupation" class="form-control ma-constant-select" data-constant="occupation"></select>
+                                <!--button type="button" class="btn btn-default ma-friend-delete-btn">削除</button-->
+                            </div>
+                        </div>
                     </div>
                     <hr>
                     <h3>募集したいメンバー</h3>

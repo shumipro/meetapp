@@ -1,7 +1,6 @@
 package views
 
 import (
-	"log"
 	"net/http"
 
 	"time"
@@ -37,17 +36,13 @@ func Login(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	preload := TemplateHeader{
 		Title: "Login",
 	}
-	if err := FromContextTemplate(ctx, "login").Execute(w, preload); err != nil {
-		log.Println("ERROR!", err)
-		renderer.JSON(w, 400, err)
-		return
-	}
+	ExecuteTemplate(ctx, w, "login", preload)
 }
 
 func Logout(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	a, _ := oauth.FromContext(ctx)
 	redisDB := db.Redis(ctx)
-	redisDB.Del("auth:"+a.AuthToken)
+	redisDB.Del("auth:" + a.AuthToken)
 	removeCookieAuthToken(w)
 
 	http.Redirect(w, r, "/login", 301)
@@ -87,7 +82,6 @@ func AuthCallback(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 
 		user = models.User{}
 		user.ID = userID
-		user.Name = "TODO:" // TODO: あとで
 
 		var fbUser models.FacebookUser
 		data, err := json.Marshal(res)
@@ -98,9 +92,15 @@ func AuthCallback(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 		if err := json.Unmarshal(data, &fbUser); err != nil {
 			panic(err)
 		}
+		user.Name = fbUser.Name // TODO: 一旦Facebookオンリーなので
+		user.ImageURL = user.IconImageURL()
 		user.FBUser = fbUser
 
-		// 登録する（TODO: メアドとかは保存しないほうがいいかも...）
+		nowTime := time.Now()
+		user.CreateAt = nowTime
+		user.UpdateAt = nowTime
+
+		// 登録する
 		if err := models.UsersTable().Upsert(ctx, user); err != nil {
 			panic(err)
 		} else {

@@ -93,7 +93,7 @@
                             </div>
                             <dl>
                                 {{range .AppInfo.RecruitMember }}
-                                <dt>{{ .Post }}:</dt><dd>{{ .Num }}名</dd>
+                                <dt>{{ .Occupation }}</dt>
                                 {{end}}
                             </dl>
                         </section>
@@ -119,6 +119,7 @@
                             </div>
                             <div>
                                 {{range .AppInfo.Members }}
+                                <!-- TODO: userinfoをつかう -->
                                 <div class="ma-profile">
                                     <a href="#">
                                         <div class="ma-profile-image-wrap">
@@ -126,8 +127,8 @@
                                         </div>
                                         <div class="ma-profile-content-wrap">
                                             <div class="ma-profile-content">
-                                                <div class="ma-profile-name">{{ .Name }}</div>
-                                                <div class="ma-profile-title">{{ .Post }}</div>
+                                                <div class="ma-profile-name">{{ .UserID }}</div>
+                                                <div class="ma-profile-title">{{ .Occupation }}</div>
                                             </div>
                                         </div>
                                     </a>
@@ -143,28 +144,19 @@
                                 <div class="divider"></div>
                             </div>
                             <ul class="ma-list-bordered ma-discussion-wrap">
+                                {{range .AppInfo.Discussions }}
                                 <li class="ma-profile-comment">
-                                    <span class="ma-profile-date subtle-text">5/26/2014</span>
+                                    <span class="ma-profile-date subtle-text" data-timestamp="{{ .Timestamp }}"></span>
                                     <a href="#">
                                         <div class="ma-profile-image-wrap">
-                                            <img class="img-rounded ma-profile-image" src="http://graph.facebook.com/10152160532855662/picture?type=square">
+                                            <img class="img-rounded ma-profile-image" src="{{ .IconImageURL }}">
                                         </div>
                                     </a>
                                     <div class="ma-profile-message">
-                                        <p>I can't wait for this event!</p>
+                                        <p>{{ .Message }}</p>
                                     </div>
-                                </li>
-                                <li class="ma-profile-comment">
-                                    <span class="ma-profile-date subtle-text">5/27/2014</span>
-                                    <a href="#">
-                                        <div class="ma-profile-image-wrap">
-                                            <img class="img-rounded ma-profile-image" src="http://graph.facebook.com/10152160532855662/picture?type=square">
-                                        </div>
-                                    </a>
-                                    <div class="ma-profile-message">
-                                        <p>hoge<br>hoge hoge<br>Gopher!<br>How did you implement this?</p>
-                                    </div>
-                                </li>
+                                </li>                                
+                                {{end}}
                             </ul>
                             <div class="row text-center">
                                 <form class="ma-profile-comment-form">

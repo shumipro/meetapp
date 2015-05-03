@@ -2,20 +2,28 @@ import $ from 'jquery'
 import constants from '../constants'
 
 export default class ConstantSelect {
-    constructor() {
+    constructor($selects) {
         // setup options by using constants
         // e.g. <select name="platform" class="ma-constant-select" data-constant="platforms"></select>
-        var $selects = $('.ma-constant-select')
         $selects.each(function(index, select){
             var $widget = $(select),
                 prop = $widget.data('constant')
             if(prop && constants[prop]){
                 var options = [],
                     list = constants[prop]
+                var selectedValue = null
                 for(var i = 0; i < list.length; i++) {
-                    options.push("<option value='" + list[i].id + "'>" + list[i].name + "</option>")
+                    var value = list[i].id,
+                        defaultValue = $widget.data('default-value')
+                    if(value === defaultValue + ""){
+                        selectedValue = defaultValue
+                    }
+                    options.push("<option value='" + value + "' >" + list[i].name + "</option>")
                 }
                 $widget.append(options.join(''))
+                if(selectedValue){
+                    $widget.val(selectedValue)
+                }
             }
         })
     }

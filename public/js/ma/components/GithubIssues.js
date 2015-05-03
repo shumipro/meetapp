@@ -19,7 +19,7 @@ window.APICallback = (results) => {
     $widget.append($ul)
 }
 
-export default class RegisterApp {
+export default class GihubIssues {
     constructor() {
         var $widget = $(SELECTOR)
         if($widget.size() > 0){

@@ -1,12 +1,6 @@
 <script>
 // define global constants
 var ma = {
-    config: {
-        user: {
-            id: "10152160532855662",
-            name: "Takuya Tejima"
-        }
-    },
     constants: {
         platform: [
             {id: "1", name: "Web"},
@@ -103,5 +97,10 @@ var ma = {
         ]
     }
 };
+ma.config = {{ .Config }};
+
+var preload = {{ . }};
+console.log(preload);
+
 </script>
 <script src="/dist/main.js"></script>

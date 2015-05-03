@@ -1,4 +1,10 @@
+import config from './config'
+
 var util = {
+
+    getUserInfo() {
+        return config.user
+    },
 
     loadJSONP(api, callbackName) {
         var head = document.getElementsByTagName('head')[0];
@@ -8,6 +14,10 @@ var util = {
     },
 
     getImageHTML(id, w, h){
+        // override by fb account id
+        if(id.FBUser){
+            id = id.FBUser.id
+        }
         w = w || "32px", h = h || "32px";
         return "<img class='img-rounded' width='" + w + "' height='" + h + "' src='" + util.getImageURL(id) + "'/>";
     },
@@ -29,16 +39,16 @@ var util = {
                 type:'remote'
             }],
             getTitle:function(item){
-                return item['name']
+                return item['Name']
             },
             getValue:function(item){
-                return item['name']
+                return item['Name']
             },
             render: function(item, source, pid, query){
-                var id = item['id'],
-                    name = item['name'];
+                var id = item['ID'],
+                    name = item['Name'];
                 return '<div class="ma-friend-add-item' + (id == query ? ' active' : '') +
-                '" data-id="' + encodeURIComponent(id) + '">' + util.getImageHTML(id) + '<span>' +  name + '</span></div>'
+                '" data-id="' + encodeURIComponent(id) + '">' + util.getImageHTML(item) + '<span>' +  name + '</span></div>'
             }
         }).on('selected.xdsoft',function(e, data){
             _selectedItem = data;

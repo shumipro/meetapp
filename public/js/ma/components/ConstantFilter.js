@@ -5,7 +5,7 @@ import Handlebars from 'handlebars'
 var html = '<li><a href="/app/list?{{prop}}={{id}}">{{name}}</a></li>'
 var tmpl = Handlebars.compile(html)
 
-export default class ConstantList {
+export default class ConstantFilter {
     constructor() {
         // for top page
         // e.g. <div class="ma-constant-list" data-constant="platforms"></div>
