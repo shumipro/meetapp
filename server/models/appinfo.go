@@ -33,6 +33,19 @@ type AppInfo struct {
 	UpdateAt      time.Time        `           json:"-"`
 }
 
+func (a AppInfo) IsAdmin(userID string) bool {
+	for _, m := range a.Members {
+		if !m.IsAdmin {
+			continue
+		}
+
+		if m.UserID == userID {
+			return true
+		}
+	}
+	return false
+}
+
 // URLInfo 各種URL情報
 type URLInfo struct {
 	URL string `json:"url"`

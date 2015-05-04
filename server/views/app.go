@@ -70,6 +70,13 @@ type AppDetailResponse struct {
 	AppInfo AppInfoView
 }
 
+func (a AppDetailResponse) IsAdmin() bool {
+	if a.Config.User.IsEmpty() {
+		return false
+	}
+	return a.AppInfo.IsAdmin(a.Config.User.ID)
+}
+
 func AppDetail(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	appID := kami.Param(ctx, "id")
 	// TODO: とりあえず

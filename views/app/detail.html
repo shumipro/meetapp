@@ -55,11 +55,13 @@
                     </div>
                 </div>
                 <div class="ma-layout-col-right">
-                    <!-- TODO: 管理者の場合のみ表示 -->
+                    <!-- 管理者の場合のみ表示 -->
+                    {{if .IsAdmin }}
                     <div class="ma-white-wrap text-center">
                         <input class="ma-app-edit-btn btn btn-primary" type="button" value="開発アイデアを編集する">
                         <input class="ma-app-delete-btn btn btn-primary" type="button" value="開発アイデアを削除する">
                     </div>
+                    {{ end }}
 
                     <div class="ma-white-wrap">
                         <section>
