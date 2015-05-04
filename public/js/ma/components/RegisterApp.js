@@ -24,7 +24,7 @@ export default class RegisterApp {
         var form = this.forms = {
             props: {
                 'name': { type: 'text', required: true, maxLength: 20 },
-                'description': { type: 'text', maxLength: 400 },
+                'description': { type: 'text', maxLength: 1000 },
                 'platform': { type: 'select' },
                 'category': { type: 'select' },
                 'pLang': { type: 'select' },
