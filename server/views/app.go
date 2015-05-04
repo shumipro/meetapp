@@ -35,6 +35,7 @@ func init() {
 	// API
 	kami.Post("/api/app/register", AppRegisterPost)
 	kami.Post("/api/app/discussion", AppDiscussionPost)
+	kami.Delete("/api/app/delete/:id", AppDelete)
 }
 
 type AppListResponse struct {
@@ -56,9 +57,7 @@ func AppList(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	// ViewModel変換して詰める
 	apps, err := models.AppsInfoTable.FindAll(ctx)
 	if err != nil {
-		log.Println("ERROR!", err)
-		renderer.JSON(w, 400, err)
-		return
+		panic(err)
 	}
 	preload.AppInfoList = convertAppInfoViewList(ctx, apps)
 
@@ -85,9 +84,7 @@ func AppDetail(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	}
 	appInfo, err := models.AppsInfoTable.FindID(ctx, appID)
 	if err != nil {
-		log.Println("ERROR!", err)
-		renderer.JSON(w, 400, err.Error()+appID)
-		return
+		panic(err)
 	}
 
 	preload := AppDetailResponse{}
@@ -164,11 +161,39 @@ func AppRegisterPost(ctx context.Context, w http.ResponseWriter, r *http.Request
 
 	if err := models.AppsInfoTable.Upsert(ctx, registerAppInfo); err != nil {
 		log.Println("ERROR! register", err)
-		renderer.JSON(w, 400, err)
+		renderer.JSON(w, 400, err.Error())
 		return
 	}
 
 	renderer.JSON(w, 200, registerAppInfo)
+}
+
+func AppDelete(ctx context.Context, w http.ResponseWriter, r *http.Request) {
+	a, _ := oauth.FromContext(ctx)
+	appID := kami.Param(ctx, "id")
+
+	app, err := models.AppsInfoTable.FindID(ctx, appID)
+	if err != nil {
+		log.Println("ERROR!", err)
+		renderer.JSON(w, 400, err.Error())
+		return
+	}
+
+	// 管理者のみ削除可能
+	if !app.IsAdmin(a.UserID) {
+		notAdminUser := fmt.Errorf("%s", "not admin user")
+		log.Println("ERROR!", notAdminUser)
+		renderer.JSON(w, 400, notAdminUser.Error())
+		return
+	}
+
+	if err := models.AppsInfoTable.Delete(ctx, app.ID); err != nil {
+		log.Println("ERROR!", err)
+		renderer.JSON(w, 400, err.Error())
+		return
+	}
+
+	renderer.JSON(w, 200, appID)
 }
 
 type DiscussionRequest struct {
@@ -180,7 +205,7 @@ func AppDiscussionPost(ctx context.Context, w http.ResponseWriter, r *http.Reque
 	data, err := ioutil.ReadAll(r.Body)
 	if err != nil {
 		log.Println("ERROR!", err)
-		renderer.JSON(w, 400, err)
+		renderer.JSON(w, 400, err.Error())
 		return
 	}
 	fmt.Println(string(data))
@@ -189,7 +214,7 @@ func AppDiscussionPost(ctx context.Context, w http.ResponseWriter, r *http.Reque
 	var discussionReq DiscussionRequest
 	if err := json.Unmarshal(data, &discussionReq); err != nil {
 		log.Println("ERROR! json parse", err)
-		renderer.JSON(w, 400, err)
+		renderer.JSON(w, 400, err.Error())
 		return
 	}
 
@@ -197,7 +222,7 @@ func AppDiscussionPost(ctx context.Context, w http.ResponseWriter, r *http.Reque
 	appInfo, err := models.AppsInfoTable.FindID(ctx, discussionReq.AppID)
 	if err != nil {
 		log.Println("ERROR!", err)
-		renderer.JSON(w, 400, err)
+		renderer.JSON(w, 400, err.Error())
 		return
 	}
 
@@ -208,7 +233,7 @@ func AppDiscussionPost(ctx context.Context, w http.ResponseWriter, r *http.Reque
 
 	if err := models.AppsInfoTable.Upsert(ctx, appInfo); err != nil {
 		log.Println("ERROR! register", err)
-		renderer.JSON(w, 400, err)
+		renderer.JSON(w, 400, err.Error())
 		return
 	}
 

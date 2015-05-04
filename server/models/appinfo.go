@@ -140,6 +140,13 @@ func (t _AppsInfoTable) Upsert(ctx context.Context, app AppInfo) error {
 	return err
 }
 
+func (t _AppsInfoTable) Delete(ctx context.Context, appID string) (err error) {
+	t.withCollection(ctx, func(c *mgo.Collection) {
+		err = c.RemoveId(appID)
+	})
+	return
+}
+
 // document単位でatomicな更新
 func (t _AppsInfoTable) findAndModify(ctx context.Context, findQuery bson.M, query bson.M) error {
 	return findAndModify(t, ctx, findQuery, query)
