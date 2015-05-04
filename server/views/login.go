@@ -29,7 +29,7 @@ func init() {
 func Login(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	if _, ok := oauth.FromContext(ctx); ok {
 		// login済みならmypageへ
-		http.Redirect(w, r, "/u/mypage", 301)
+		http.Redirect(w, r, "/u/mypage", 302)
 		return
 	}
 
@@ -45,12 +45,12 @@ func Logout(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	redisDB.Del("auth:" + a.AuthToken)
 	removeCookieAuthToken(w)
 
-	http.Redirect(w, r, "/login", 301)
+	http.Redirect(w, r, "/login", 302)
 }
 
 func LoginFacebook(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	c := oauth.Facebook(ctx)
-	http.Redirect(w, r, c.AuthCodeURL(""), 301)
+	http.Redirect(w, r, c.AuthCodeURL(""), 302)
 }
 
 func AuthCallback(ctx context.Context, w http.ResponseWriter, r *http.Request) {
@@ -120,7 +120,7 @@ func AuthCallback(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	}
 	writeCookieAuthToken(w, token.AccessToken, token.Expiry)
 
-	http.Redirect(w, r, "/u/mypage", 301)
+	http.Redirect(w, r, "/u/mypage", 302)
 }
 
 func writeCookieAuthToken(w http.ResponseWriter, authToken string, expiry time.Time) {
