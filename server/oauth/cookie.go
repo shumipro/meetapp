@@ -6,7 +6,7 @@ import (
 )
 
 const (
-	cookieKey = "Meetup-Auth-Token"
+	cookieKey = "Meetapp-Auth-Token"
 )
 
 func readCookieAuthToken(r *http.Request) string {

@@ -10,9 +10,9 @@ import (
 
 func Login(ctx context.Context, w http.ResponseWriter, r *http.Request) context.Context {
 	// Header -> requestParam -> cookieの順番に見に行く
-	token := r.Header.Get("Meetup-Auth-Token")
+	token := r.Header.Get("Meetapp-Auth-Token")
 	if token == "" {
-		token = r.URL.Query().Get("Meetup-Auth-Token")
+		token = r.URL.Query().Get("Meetapp-Auth-Token")
 		if token == "" {
 			token = readCookieAuthToken(r)
 		}
