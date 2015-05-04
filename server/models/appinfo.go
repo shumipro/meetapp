@@ -54,59 +54,56 @@ type DiscussionInfo struct {
 }
 
 // AppsContext appsのコレクション
-type AppsContext struct {
-	context.Context
+type _AppsInfoTable struct {
 }
 
-func (ctx AppsContext) Name() string {
+func (_ _AppsInfoTable) Name() string {
 	return "apps"
 }
 
-var _ modelsContext = (*AppsContext)(nil)
+var _ modelsTable = (*_AppsInfoTable)(nil)
 
-// AppsCtx appsコレクションの取得
-func AppsCtx(ctx context.Context) AppsContext {
-	return AppsContext{ctx}
+// AppsInfoTable appInfo
+var AppsInfoTable = _AppsInfoTable{}
+
+func (t _AppsInfoTable) withCollection(ctx context.Context, fn func(c *mgo.Collection)) {
+	withDefaultCollection(ctx, t.Name(), fn)
 }
 
-func (ctx AppsContext) withCollection(fn func(c *mgo.Collection)) {
-	withDefaultCollection(ctx, ctx.Name(), fn)
-}
-
-func (ctx AppsContext) FindID(appID string) (result AppInfo, err error) {
-	ctx.withCollection(func(c *mgo.Collection) {
+func (t _AppsInfoTable) FindID(ctx context.Context, appID string) (result AppInfo, err error) {
+	t.withCollection(ctx, func(c *mgo.Collection) {
 		err = c.FindId(appID).One(&result)
 	})
 	return
 }
 
-func (ctx AppsContext) FindAll() (result []AppInfo, err error) {
-	ctx.withCollection(func(c *mgo.Collection) {
+func (t _AppsInfoTable) FindAll(ctx context.Context) (result []AppInfo, err error) {
+	t.withCollection(ctx, func(c *mgo.Collection) {
 		err = c.Find(bson.M{}).All(&result)
 	})
 	return
 }
 
-func (ctx AppsContext) FindLatest(offset int, num int) (result []AppInfo, err error) {
+func (t _AppsInfoTable) FindLatest(ctx context.Context, offset int, num int) (result []AppInfo, err error) {
 	// TODO: 条件とりあえず開始日の降順（たぶん登録日にしないと）
-	ctx.withCollection(func(c *mgo.Collection) {
-		err = c.Find(bson.M{}).Sort("startdate").Skip(offset).Limit(num).All(&result)
+	t.withCollection(ctx, func(c *mgo.Collection) {
+		err = c.Find(bson.M{}).Sort("createat").Skip(offset).Limit(num).All(&result)
 	})
 	return
 }
 
-func (ctx AppsContext) FindPopular(offset int, num int) (result []AppInfo, err error) {
+func (t _AppsInfoTable) FindPopular(ctx context.Context, offset int, num int) (result []AppInfo, err error) {
 	// TODO: 人気の条件あとで
-	ctx.withCollection(func(c *mgo.Collection) {
+	t.withCollection(ctx, func(c *mgo.Collection) {
 		err = c.Find(bson.M{}).Skip(offset).Limit(num).All(&result)
 	})
 	return
 }
 
 // Upsert 登録
-func (ctx AppsContext) Upsert(app AppInfo) error {
+func (t _AppsInfoTable) Upsert(ctx context.Context, app AppInfo) error {
 	var err error
-	ctx.withCollection(func(c *mgo.Collection) {
+	t.withCollection(ctx, func(c *mgo.Collection) {
 		var result interface{} // bson.M
 		_, err = c.FindId(app.ID).Apply(mgo.Change{
 			Update: app,
@@ -117,6 +114,6 @@ func (ctx AppsContext) Upsert(app AppInfo) error {
 }
 
 // document単位でatomicな更新
-func (ctx AppsContext) findAndModify(findQuery bson.M, query bson.M) error {
-	return findAndModify(ctx, findQuery, query)
+func (t _AppsInfoTable) findAndModify(ctx context.Context, findQuery bson.M, query bson.M) error {
+	return findAndModify(t, ctx, findQuery, query)
 }

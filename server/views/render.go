@@ -30,7 +30,7 @@ func NewHeader(ctx context.Context, title, navTitle, subTitle string, showBanner
 	a, _ := oauth.FromContext(ctx)
 
 	// TODO: 毎アクセスでmongoとるの微妙・・・ Serverでcacheしてもよさそう
-	user, _ := models.UsersTable().FindID(ctx, a.UserID)
+	user, _ := models.UsersTable.FindID(ctx, a.UserID)
 
 	h := TemplateHeader{}
 	h.Config = Config{User: user}

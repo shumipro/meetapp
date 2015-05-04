@@ -29,15 +29,23 @@ func NewAppInfoView(ctx context.Context, appInfo models.AppInfo) AppInfoView {
 	a.Members = make([]UserMember, len(a.AppInfo.Members))
 	for idx, m := range appInfo.Members {
 		// TODO: あとでIn句にして1クエリにする
-		u, _ := models.UsersTable().FindID(ctx, m.UserID)
+		u, _ := models.UsersTable.FindID(ctx, m.UserID)
 		a.Members[idx] = UserMember{Member: m, User: u}
 	}
 
 	a.Discussions = make([]UserDiscussions, len(a.AppInfo.Discussions))
 	for idx, d := range appInfo.Discussions {
 		// TODO: あとでIn句にして1クエリにする
-		u, _ := models.UsersTable().FindID(ctx, d.UserID)
+		u, _ := models.UsersTable.FindID(ctx, d.UserID)
 		a.Discussions[idx] = UserDiscussions{DiscussionInfo: d, User: u}
 	}
 	return a
+}
+
+func convertAppInfoViewList(ctx context.Context, apps []models.AppInfo) []AppInfoView {
+	appViews := make([]AppInfoView, len(apps))
+	for idx, app := range apps {
+		appViews[idx] = NewAppInfoView(ctx, app)
+	}
+	return appViews
 }

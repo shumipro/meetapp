@@ -55,12 +55,9 @@ func (_ _UsersTable) Name() string {
 	return "users"
 }
 
-// TODO: あとで...
-//var _ modelsContext = (*_UsersTable)(nil)
+var _ modelsTable = (*_UsersTable)(nil)
 
-func UsersTable() _UsersTable {
-	return _UsersTable{}
-}
+var UsersTable = _UsersTable{}
 
 func (t _UsersTable) withCollection(ctx context.Context, fn func(c *mgo.Collection)) {
 	withDefaultCollection(ctx, t.Name(), fn)

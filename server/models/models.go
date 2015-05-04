@@ -8,14 +8,14 @@ import (
 	"gopkg.in/mgo.v2/txn"
 )
 
-type modelsContext interface {
-	withCollection(fn func(c *mgo.Collection))
+type modelsTable interface {
+	withCollection(ctx context.Context, fn func(c *mgo.Collection))
 }
 
-func findAndModify(ctx modelsContext, findQuery bson.M, query bson.M) error {
+func findAndModify(t modelsTable, ctx context.Context, findQuery bson.M, query bson.M) error {
 	var result interface{}
 	var err error
-	ctx.withCollection(func(c *mgo.Collection) {
+	t.withCollection(ctx, func(c *mgo.Collection) {
 		_, err = c.Find(findQuery).Apply(mgo.Change{
 			Update: query,
 		}, &result)

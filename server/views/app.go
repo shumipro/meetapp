@@ -52,17 +52,13 @@ func AppList(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	)
 
 	// ViewModel変換して詰める
-	apps, err := models.AppsCtx(ctx).FindAll()
+	apps, err := models.AppsInfoTable.FindAll(ctx)
 	if err != nil {
 		log.Println("ERROR!", err)
 		renderer.JSON(w, 400, err)
 		return
 	}
-	appViews := make([]AppInfoView, len(apps))
-	for idx, app := range apps {
-		appViews[idx] = NewAppInfoView(ctx, app)
-	}
-	preload.AppInfoList = appViews
+	preload.AppInfoList = convertAppInfoViewList(ctx, apps)
 
 	ExecuteTemplate(ctx, w, "app/list", preload)
 }
@@ -78,7 +74,7 @@ func AppDetail(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	if appID == "favicon.png" {
 		return
 	}
-	appInfo, err := models.AppsCtx(ctx).FindID(appID)
+	appInfo, err := models.AppsInfoTable.FindID(ctx, appID)
 	if err != nil {
 		log.Println("ERROR!", err)
 		renderer.JSON(w, 400, err.Error() + appID)
@@ -138,7 +134,7 @@ func AppRegisterPost(ctx context.Context, w http.ResponseWriter, r *http.Request
 		registerAppInfo.MainImage = "/img/no_img.png"
 	}
 
-	if err := models.AppsCtx(ctx).Upsert(registerAppInfo); err != nil {
+	if err := models.AppsInfoTable.Upsert(ctx, registerAppInfo); err != nil {
 		log.Println("ERROR! register", err)
 		renderer.JSON(w, 400, err)
 		return
@@ -170,7 +166,7 @@ func AppDiscussionPost(ctx context.Context, w http.ResponseWriter, r *http.Reque
 	}
 
 	// get appinfo from db
-	appInfo, err := models.AppsCtx(ctx).FindID(discussionReq.AppID)
+	appInfo, err := models.AppsInfoTable.FindID(ctx, discussionReq.AppID)
 	if err != nil {
 		log.Println("ERROR!", err)
 		renderer.JSON(w, 400, err)
@@ -182,7 +178,7 @@ func AppDiscussionPost(ctx context.Context, w http.ResponseWriter, r *http.Reque
 	nowTime := time.Now()
 	appInfo.UpdateAt = nowTime
 
-	if err := models.AppsCtx(ctx).Upsert(appInfo); err != nil {
+	if err := models.AppsInfoTable.Upsert(ctx, appInfo); err != nil {
 		log.Println("ERROR! register", err)
 		renderer.JSON(w, 400, err)
 		return

@@ -58,7 +58,7 @@ func AuthCallback(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 		panic(err.Error())
 	}
 
-	user, err := models.UsersTable().FindByFacebookID(ctx, facebookID)
+	user, err := models.UsersTable.FindByFacebookID(ctx, facebookID)
 	if err == mgo.ErrNotFound {
 		// 新規
 		userID := uuid.New()
@@ -84,7 +84,7 @@ func AuthCallback(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 		user.UpdateAt = nowTime
 
 		// 登録する
-		if err := models.UsersTable().Upsert(ctx, user); err != nil {
+		if err := models.UsersTable.Upsert(ctx, user); err != nil {
 			panic(err)
 		} else {
 			fmt.Println("とうろくした")

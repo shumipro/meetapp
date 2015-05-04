@@ -20,13 +20,13 @@ type IndexResponse struct {
 }
 
 func Index(ctx context.Context, w http.ResponseWriter, r *http.Request) {
-	latestList, err := models.AppsCtx(ctx).FindLatest(0, 4)
+	latestList, err := models.AppsInfoTable.FindLatest(ctx, 0, 4)
 	if err != nil {
 		log.Println("ERROR!", err)
 		renderer.JSON(w, 400, err)
 		return
 	}
-	popularList, err := models.AppsCtx(ctx).FindPopular(0, 4)
+	popularList, err := models.AppsInfoTable.FindPopular(ctx, 0, 4)
 	if err != nil {
 		log.Println("ERROR!", err)
 		renderer.JSON(w, 400, err)
