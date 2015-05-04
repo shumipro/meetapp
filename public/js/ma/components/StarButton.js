@@ -15,7 +15,7 @@ export default class StarButton {
             // send star
             var params = this.getParams()
             $.ajax({
-                url: '/api/app/' + $starBtn.data('api'),
+                url: '/u/api/app/' + $starBtn.data('api'),
                 type: 'post',
                 contentType:"application/json; charset=utf-8",
                 dataType: 'json',

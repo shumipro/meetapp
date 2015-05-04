@@ -107,7 +107,7 @@ export default class RegisterApp {
             return
         }
         $.ajax({
-            url: '/api/app/register',
+            url: '/u/api/app/register',
             type: 'post',
             contentType:"application/json; charset=utf-8",
             dataType: 'json',

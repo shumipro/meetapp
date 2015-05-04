@@ -29,7 +29,7 @@ export default class Discussion {
             return
         }
         $.ajax({
-            url: '/api/app/discussion',
+            url: '/u/api/app/discussion',
             type: 'post',
             contentType:"application/json; charset=utf-8",
             dataType: 'json',

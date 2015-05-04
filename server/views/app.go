@@ -31,11 +31,11 @@ var sortLabels = map[string]map[string]string{
 func init() {
 	kami.Get("/app/detail/:id", AppDetail)
 	kami.Get("/app/list", AppList)
-	kami.Get("/app/register", AppRegister)
+	kami.Get("/u/app/register", AppRegister)
 	// API
-	kami.Post("/api/app/register", AppRegisterPost)
-	kami.Post("/api/app/discussion", AppDiscussionPost)
-	kami.Delete("/api/app/delete/:id", AppDelete)
+	kami.Post("/u/api/app/register", AppRegisterPost)
+	kami.Post("/u/api/app/discussion", AppDiscussionPost)
+	kami.Delete("/u/api/app/delete/:id", AppDelete)
 }
 
 type AppListResponse struct {
