@@ -40,22 +40,9 @@
                                 <div class="divider"></div>
                             </div>
                             <div class="row">
-                                <div class="col-md-3 col-sm-3 col-xs-6 ma-app-tile-wrap">
-                                    <a href="/app/detail?id=001">
-                                    <div class="ma-app-tile">
-                                        <div class="ma-app-tile-image">
-                                            <img src="/img/sample1.png" width="200" height="150" alt="Meet App">
-                                        </div>
-                                        <div class="ma-app-tile-title">Meet App - MeetAppは趣味アプリ開発を楽しくします</div>
-                                        <div class="ma-app-tile-toolbar">
-                                            <figure class="ma-app-star-count">
-                                                <figcaption class="star">★</figcaption>
-                                                <strong class="count">125</strong>
-                                            </figure>
-                                        </div>
-                                    </div>
-                                    </a>
-                                </div>
+                                {{range .AdminAppList}}
+                                {{ template "app/components/tile" . }}
+                                {{end}}
                             </div>
                         </section>
                         <section>
@@ -64,38 +51,9 @@
                                 <div class="divider"></div>
                             </div>
                             <div class="row">
-                                <div class="col-md-3 col-sm-3 col-xs-6 ma-app-tile-wrap">
-                                    <a href="/app/detail?id=001">
-                                    <div class="ma-app-tile">
-                                        <div class="ma-app-tile-image">
-                                            <img src="/img/sample1.png" width="200" height="150" alt="Meet App">
-                                        </div>
-                                        <div class="ma-app-tile-title">Meet App - MeetAppは趣味アプリ開発を楽しくします</div>
-                                        <div class="ma-app-tile-toolbar">
-                                            <figure class="ma-app-star-count">
-                                                <figcaption class="star">★</figcaption>
-                                                <strong class="count">125</strong>
-                                            </figure>
-                                        </div>
-                                    </div>
-                                    </a>
-                                </div>
-                                <div class="col-md-3 col-sm-3 col-xs-6 ma-app-tile-wrap">
-                                    <a href="/app/detail?id=001">
-                                    <div class="ma-app-tile">
-                                        <div class="ma-app-tile-image">
-                                            <img src="/img/sample1.png" width="200" height="150" alt="Meet App">
-                                        </div>
-                                        <div class="ma-app-tile-title">Meet App - MeetAppは趣味アプリ開発を楽しくします</div>
-                                        <div class="ma-app-tile-toolbar">
-                                            <figure class="ma-app-star-count">
-                                                <figcaption class="star">★</figcaption>
-                                                <strong class="count">125</strong>
-                                            </figure>
-                                        </div>
-                                    </div>
-                                    </a>
-                                </div>
+                                {{range .JoinAppList}}
+                                {{ template "app/components/tile" . }}
+                                {{end}}
                             </div>
                         </section>
                     </div>

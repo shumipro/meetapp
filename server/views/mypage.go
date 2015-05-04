@@ -7,15 +7,23 @@ import (
 	"github.com/huandu/facebook"
 	"github.com/shumipro/meetapp/server/oauth"
 	"golang.org/x/net/context"
+	"github.com/shumipro/meetapp/server/models"
 )
 
 func init() {
 	kami.Get("/u/mypage", Mypage)
 }
 
+type MyPageResponse struct {
+	TemplateHeader
+	AdminAppList []AppInfoView
+	JoinAppList  []AppInfoView
+}
+
 func Mypage(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	a, ok := oauth.FromContext(ctx)
 	if !ok {
+		oauth.ResetCacheAuthToken(ctx, w)
 		panic("login error")
 	}
 
@@ -24,11 +32,19 @@ func Mypage(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 		"access_token": a.AuthToken,
 	})
 	if err != nil {
-		// TODO: Facebookのトークンきれたら?
+		oauth.ResetCacheAuthToken(ctx, w)
 		panic(err)
 	}
 
-	// TODO: 変更あればUserテーブル更新
-	preload := NewHeader(ctx, "マイページ", "", "", false)
+	// TODO: Facebook情報に変更あればUserテーブル更新する
+
+	preload := MyPageResponse{}
+	preload.TemplateHeader = NewHeader(ctx, "マイページ", "", "", false)
+
+	adminApps, _ := models.AppsInfoTable.FindByAdminID(ctx, a.UserID)
+	joinApps, _ := models.AppsInfoTable.FindByJoinID(ctx, a.UserID)
+	preload.AdminAppList = convertAppInfoViewList(ctx, adminApps)
+	preload.JoinAppList = convertAppInfoViewList(ctx, joinApps)
+
 	ExecuteTemplate(ctx, w, "mypage", preload)
 }

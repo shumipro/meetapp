@@ -45,6 +45,7 @@ type RecruitInfo struct {
 type Member struct {
 	UserID     string `json:"id"`
 	Occupation string `json:"occupation"` // 肩書とか役割
+	IsAdmin    bool   `json:"isAdmin"`    // 管理者フラグ
 }
 
 type DiscussionInfo struct {
@@ -84,8 +85,21 @@ func (t _AppsInfoTable) FindAll(ctx context.Context) (result []AppInfo, err erro
 	return
 }
 
+func (t _AppsInfoTable) FindByAdminID(ctx context.Context, adminUserID string) (result []AppInfo, err error) {
+	t.withCollection(ctx, func(c *mgo.Collection) {
+		err = c.Find(bson.M{"members.userid": adminUserID, "members.isadmin": true}).All(&result)
+	})
+	return
+}
+
+func (t _AppsInfoTable) FindByJoinID(ctx context.Context, joinUserID string) (result []AppInfo, err error) {
+	t.withCollection(ctx, func(c *mgo.Collection) {
+		err = c.Find(bson.M{"members.userid": joinUserID}).Sort("createat").All(&result)
+	})
+	return
+}
+
 func (t _AppsInfoTable) FindLatest(ctx context.Context, offset int, num int) (result []AppInfo, err error) {
-	// TODO: 条件とりあえず開始日の降順（たぶん登録日にしないと）
 	t.withCollection(ctx, func(c *mgo.Collection) {
 		err = c.Find(bson.M{}).Sort("createat").Skip(offset).Limit(num).All(&result)
 	})
