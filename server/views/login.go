@@ -10,12 +10,9 @@ import (
 
 	"github.com/go-xweb/uuid"
 	"github.com/guregu/kami"
-	fb "github.com/huandu/facebook"
-	"github.com/shumipro/meetapp/server/db"
 	"github.com/shumipro/meetapp/server/models"
 	"github.com/shumipro/meetapp/server/oauth"
 	"golang.org/x/net/context"
-	"golang.org/x/oauth2"
 	"gopkg.in/mgo.v2"
 )
 
@@ -40,11 +37,7 @@ func Login(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 }
 
 func Logout(ctx context.Context, w http.ResponseWriter, r *http.Request) {
-	a, _ := oauth.FromContext(ctx)
-	redisDB := db.Redis(ctx)
-	redisDB.Del("auth:" + a.AuthToken)
-	removeCookieAuthToken(w)
-
+	oauth.ResetCacheAuthToken(ctx, w)
 	http.Redirect(w, r, "/login", 302)
 }
 
@@ -54,28 +47,18 @@ func LoginFacebook(ctx context.Context, w http.ResponseWriter, r *http.Request) 
 }
 
 func AuthCallback(ctx context.Context, w http.ResponseWriter, r *http.Request) {
-	c := oauth.Facebook(ctx)
-	redisDB := db.Redis(ctx)
-
 	code := r.FormValue("code")
-	token, err := c.Exchange(oauth2.NoContext, code)
+	token, err := oauth.GetFacebookAuthToken(ctx, code)
 	if err != nil {
-		panic(err)
+		panic(err.Error())
 	}
 
-	// TODO: kyokomi あとでリファクタします...
-
-	// Redisから登録済みかを取得
-	var user models.User
-	res, err := fb.Get("/me", fb.Params{
-		"access_token": token.AccessToken,
-	})
+	facebookID, res, err := oauth.GetFacebookMe(ctx, token.AccessToken)
 	if err != nil {
-		panic(err)
+		panic(err.Error())
 	}
 
-	facebookID := res["id"].(string)
-	user, err = models.UsersTable().FindByFacebookID(ctx, facebookID)
+	user, err := models.UsersTable().FindByFacebookID(ctx, facebookID)
 	if err == mgo.ErrNotFound {
 		// 新規
 		userID := uuid.New()
@@ -112,31 +95,11 @@ func AuthCallback(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 		fmt.Println("とうろくずみ")
 	}
 
-	// RedisでCacheしてる
-	expiry := token.Expiry.Sub(time.Now())
-	_, err = redisDB.SetEx("auth:"+token.AccessToken, expiry, user.ID).Result()
+	// RedisでCacheとCookieに書き込む
+	err = oauth.CacheAuthToken(ctx, w, user.ID, *token)
 	if err != nil {
 		panic(err)
 	}
-	writeCookieAuthToken(w, token.AccessToken, token.Expiry)
 
 	http.Redirect(w, r, "/u/mypage", 302)
-}
-
-func writeCookieAuthToken(w http.ResponseWriter, authToken string, expiry time.Time) {
-	// TODO: とりあえずCookieに焼く
-	var cookie http.Cookie
-	cookie.Path = "/"
-	cookie.Name = "Meetup-Auth-Token"
-	cookie.Expires = expiry
-	cookie.Value = authToken
-	http.SetCookie(w, &cookie)
-}
-
-func removeCookieAuthToken(w http.ResponseWriter) {
-	// TODO: とりあえずCookieに焼く
-	var cookie http.Cookie
-	cookie.Path = "/"
-	cookie.Name = "Meetup-Auth-Token"
-	http.SetCookie(w, &cookie)
 }

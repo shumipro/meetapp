@@ -3,6 +3,9 @@ package oauth
 import (
 	"github.com/shumipro/meetapp/server/db"
 	"golang.org/x/net/context"
+	"time"
+	"golang.org/x/oauth2"
+	"net/http"
 )
 
 type keyType int
@@ -36,3 +39,24 @@ func GetAccountByToken(ctx context.Context, authToken string) (Account, error) {
 	}
 	return Account{userID, authToken}, nil
 }
+
+func CacheAuthToken(ctx context.Context, w http.ResponseWriter, userID string, token oauth2.Token) error {
+	redisDB := db.Redis(ctx)
+
+	_, err := redisDB.SetEx("auth:"+token.AccessToken, token.Expiry.Sub(time.Now()), userID).Result()
+	if err != nil {
+		return err
+	}
+	writeCookieAuthToken(w, token.AccessToken, token.Expiry)
+
+	return nil
+}
+
+func ResetCacheAuthToken(ctx context.Context, w http.ResponseWriter) {
+	a, _ := FromContext(ctx)
+	redisDB := db.Redis(ctx)
+
+	redisDB.Del("auth:" + a.AuthToken)
+	removeCookieAuthToken(w)
+}
+

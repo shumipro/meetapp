@@ -14,12 +14,11 @@ func Login(ctx context.Context, w http.ResponseWriter, r *http.Request) context.
 	if token == "" {
 		token = r.URL.Query().Get("Meetup-Auth-Token")
 		if token == "" {
-			ck, err := r.Cookie("Meetup-Auth-Token")
-			if err != nil {
-				return ctx
-			}
-			token = ck.Value
+			token = readCookieAuthToken(r)
 		}
+	}
+	if token == "" {
+		return ctx
 	}
 
 	if a, err := GetAccountByToken(ctx, token); err == nil {
