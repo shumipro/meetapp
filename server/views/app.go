@@ -19,6 +19,8 @@ import (
 	"golang.org/x/net/context"
 )
 
+var notAdminError = fmt.Errorf("%s", "not admin user")
+
 var sortLabels = map[string]map[string]string{
 	"new": {
 		"title": "新着アプリ",
@@ -32,6 +34,7 @@ func init() {
 	kami.Get("/app/detail/:id", AppDetail)
 	kami.Get("/app/list", AppList)
 	kami.Get("/u/app/register", AppRegister)
+	kami.Get("/u/app/edit/:id", AppEdit)
 	// API
 	kami.Post("/u/api/app/register", AppRegisterPost)
 	kami.Post("/u/api/app/discussion", AppDiscussionPost)
@@ -79,7 +82,7 @@ func (a AppDetailResponse) IsAdmin() bool {
 func AppDetail(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	appID := kami.Param(ctx, "id")
 	// TODO: とりあえず
-	if appID == "favicon.png" {
+	if appID == "favicon.png" || appID == "" {
 		return
 	}
 	appInfo, err := models.AppsInfoTable.FindID(ctx, appID)
@@ -109,6 +112,36 @@ func AppRegister(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	ExecuteTemplate(ctx, w, "app/register", preload)
 }
 
+type AppEditResponse struct {
+	TemplateHeader
+	AppInfo AppInfoView
+}
+
+func AppEdit(ctx context.Context, w http.ResponseWriter, r *http.Request) {
+	appID := kami.Param(ctx, "id")
+
+	// TODO: とりあえず
+	if appID == "favicon.png" || appID == "" {
+		return
+	}
+
+	appInfo, err := models.AppsInfoTable.FindID(ctx, appID)
+	if err != nil {
+		panic(err)
+	}
+
+	preload := AppEditResponse{}
+	preload.TemplateHeader = NewHeader(ctx,
+		"MeetApp - アプリの編集",
+		"",
+		"アプリを登録して仲間を探そう",
+		false,
+	)
+	preload.AppInfo = NewAppInfoView(ctx, appInfo)
+
+	ExecuteTemplate(ctx, w, "app/register", preload)
+}
+
 func AppRegisterPost(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	data, err := ioutil.ReadAll(r.Body)
 	if err != nil {
@@ -118,54 +151,67 @@ func AppRegisterPost(ctx context.Context, w http.ResponseWriter, r *http.Request
 	}
 	fmt.Println(string(data))
 
-	var registerAppInfo models.AppInfo
-	if err := json.Unmarshal(data, &registerAppInfo); err != nil {
+	var regAppInfo models.AppInfo
+	if err := json.Unmarshal(data, &regAppInfo); err != nil {
 		log.Println("ERROR! json parse", err)
 		renderer.JSON(w, 400, err.Error())
 		return
 	}
 
 	a, _ := oauth.FromContext(ctx)
-	user, err := models.UsersTable.FindID(ctx, a.UserID)
-	if err != nil {
-		log.Println("ERROR!", err)
-		renderer.JSON(w, 400, err.Error())
-		return
-	}
-
-	// 管理者設定
-	for idx, m := range registerAppInfo.Members {
-		if m.UserID != user.ID {
-			continue
-		}
-		registerAppInfo.Members[idx].IsAdmin = true
-	}
 
 	// 登録時刻、更新時刻
 	nowTime := time.Now()
-	registerAppInfo.CreateAt = nowTime
-	registerAppInfo.UpdateAt = nowTime
 
-	// TODO: 重複チェック?
+	// すでに登録済み
+	if regAppInfo.ID != "" {
+		app, err := models.AppsInfoTable.FindID(ctx, regAppInfo.ID)
+		if err != nil {
+			log.Println("ERROR!", err)
+			renderer.JSON(w, 400, err.Error())
+			return
+		}
 
-	// メインの画像を設定
-	registerAppInfo.ID = uuid.NewRandom().String()
-	if len(registerAppInfo.ImageURLs) > 0 {
-		registerAppInfo.MainImage = registerAppInfo.ImageURLs[0].URL // TODO: とりあえず1件目をメインの画像にする
+		// 管理者じゃない
+		if !app.IsAdmin(a.UserID) {
+			log.Println("ERROR!", notAdminError)
+			renderer.JSON(w, 400, notAdminError.Error())
+			return
+		}
+		// 登録日だけ残して後は上書きする
+		regAppInfo.CreateAt = app.CreateAt
 	} else {
-		// set default image
-		registerAppInfo.MainImage = "/img/no_img.png"
+		regAppInfo.CreateAt = nowTime
 	}
 
-	pp.Println(registerAppInfo)
+	regAppInfo.UpdateAt = nowTime
 
-	if err := models.AppsInfoTable.Upsert(ctx, registerAppInfo); err != nil {
+	// 管理者設定
+	for idx, m := range regAppInfo.Members {
+		if m.UserID != a.UserID {
+			continue
+		}
+		regAppInfo.Members[idx].IsAdmin = true
+	}
+
+	// メインの画像を設定
+	regAppInfo.ID = uuid.NewRandom().String()
+	if len(regAppInfo.ImageURLs) > 0 {
+		regAppInfo.MainImage = regAppInfo.ImageURLs[0].URL // TODO: とりあえず1件目をメインの画像にする
+	} else {
+		// set default image
+		regAppInfo.MainImage = "/img/no_img.png"
+	}
+
+	pp.Println(regAppInfo)
+
+	if err := models.AppsInfoTable.Upsert(ctx, regAppInfo); err != nil {
 		log.Println("ERROR! register", err)
 		renderer.JSON(w, 400, err.Error())
 		return
 	}
 
-	renderer.JSON(w, 200, registerAppInfo)
+	renderer.JSON(w, 200, regAppInfo)
 }
 
 func AppDelete(ctx context.Context, w http.ResponseWriter, r *http.Request) {
@@ -181,9 +227,8 @@ func AppDelete(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 
 	// 管理者のみ削除可能
 	if !app.IsAdmin(a.UserID) {
-		notAdminUser := fmt.Errorf("%s", "not admin user")
-		log.Println("ERROR!", notAdminUser)
-		renderer.JSON(w, 400, notAdminUser.Error())
+		log.Println("ERROR!", notAdminError)
+		renderer.JSON(w, 400, notAdminError.Error())
 		return
 	}
 

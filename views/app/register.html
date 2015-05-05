@@ -134,5 +134,9 @@
         </footer>
     </div>
     {{ template "partials/scripts" . }}
+    <!-- TODO: Editページの時は以下でAppInfoとれます -->
+    {{ if .AppInfo }}
+    <script>var appInfo = {{ .AppInfo }};</script>
+    {{ end }}
 </body>
 </html>
