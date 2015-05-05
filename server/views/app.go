@@ -146,7 +146,7 @@ func AppEdit(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 func APIAppRegister(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	regAppInfo, err := readBodyAppInfo(r.Body)
 	if err != nil {
-		renderer.JSON(w, 400, "[ERROR] request param appInfo " + err.Error())
+		renderer.JSON(w, 400, "[ERROR] request param appInfo "+err.Error())
 		return
 	}
 

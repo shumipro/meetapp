@@ -47,6 +47,15 @@ func NewAppInfoView(ctx context.Context, appInfo models.AppInfo) AppInfoView {
 		a.Discussions[idx] = UserDiscussions{DiscussionInfo: d, User: u}
 	}
 
+	// sizeを3にする
+	if len(a.ImageURLs) != 3 {
+		imageURLs := make([]models.URLInfo, 3)
+		for idx, img := range a.ImageURLs {
+			imageURLs[idx] = img
+		}
+		a.ImageURLs = imageURLs
+	}
+
 	account, ok := oauth.FromContext(ctx)
 	if ok {
 		a.IsAdmin = a.AppInfo.IsAdmin(account.UserID)
