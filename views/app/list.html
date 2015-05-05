@@ -57,7 +57,7 @@
                             {{end}}
                         </ul>
                         <hr>
-                        <div class="ma-app-list-pagination">
+                        <div class="ma-app-list-pagination" data-current-page="{{ .CurrentPage }}" data-per-page="{{ .PerPageNum }}" data-total-count="{{ .TotalCount }}">
                             <nav class="pagination">
                                 <span class="prev">
                                     <a href="/app/list?page=1" rel="prev"><i class="icon-angle-left"></i>前へ</a>
