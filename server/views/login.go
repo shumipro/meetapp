@@ -30,9 +30,7 @@ func Login(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	preload := TemplateHeader{
-		Title: "Login",
-	}
+	preload := NewHeader(ctx, "Login", "", "", false)
 	ExecuteTemplate(ctx, w, "login", preload)
 }
 
