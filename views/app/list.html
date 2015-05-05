@@ -50,9 +50,9 @@
                 </div>
                 <div class="ma-layout-col-right">
                     <div class="ma-filter-by-wrap"></div>
-                    {{ with .AppInfoList }}
+                    {{ if .AppInfoList }}
                         <ul class="ma-app-list-item-wrap">
-                            {{range .}}
+                            {{range .AppInfoList}}
                             {{ template "app/components/listItem" . }}
                             {{end}}
                         </ul>
