@@ -14,6 +14,10 @@ type AppInfoView struct {
 	IsAdmin     bool              // 管理者かどうか
 }
 
+func (a AppInfoView) IsEmpty() bool {
+	return a.AppInfo.ID != ""
+}
+
 // UserMember User情報を持つMember
 type UserMember struct {
 	models.Member
