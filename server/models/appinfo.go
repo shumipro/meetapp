@@ -12,28 +12,28 @@ import (
 
 // AppInfo アプリ
 type AppInfo struct {
-	ID            string           `bson:"_id" json:"id"`                 // アプリID
-	Name          string           `           json:"name"`               // アプリ名
-	Description   string           `           json:"description"`        // アプリ詳細
-	Category      CategoryType     `           json:"category"`           // カテゴリ
-	Platform      PlatformType     `           json:"platform"`           // プラットフォーム
-	Language      LanguageType     `           json:"pLang"`              // プログラミング言語
-	Keywords      string           `           json:"keywords"`           // フリーキーワード
-	MainImage     string           `           json:"mainImageUrl"`       // メイン画像
-	ImageURLs     []URLInfo        `           json:"images"`             // 紹介画像URLたち
-	Area          AreaType         `           json:"meetingArea"`        // 場所
-	StartDate     string           `           json:"projectStartDate"`   // 開始日
-	ReleaseDate   string           `           json:"projectReleaseDate"` // リリース予定日
-	GitHubURL     string           `           json:"githubUrl"`          // GitHubのURL
-	DemoURL       string           `           json:"demoUrl"`            // デモURL
-	Frequency     string           `           json:"meetingFrequency"`   // 頻度
-	StarCount     int              `           json:"starCount"`          // スター数
-	Members       []Member         `           json:"currentMembers"`     // メンバー
-	RecruitMember []RecruitInfo    `           json:"recruitMembers"`     // 募集メンバー
-	Discussions   []DiscussionInfo `           json:"discussions"`        // 「聞いてみる」の内容
-	StarUsers     []string         `           json:"starUsers"`          // 「聞いてみる」の内容
-	CreateAt      time.Time        `           json:"-"`
-	UpdateAt      time.Time        `           json:"-"`
+	ID            string               `bson:"_id" json:"id"`                 // アプリID
+	Name          string               `           json:"name"`               // アプリ名
+	Description   string               `           json:"description"`        // アプリ詳細
+	Category      CategoryType         `           json:"category"`           // カテゴリ
+	Platform      PlatformType         `           json:"platform"`           // プラットフォーム
+	Language      LanguageType         `           json:"pLang"`              // プログラミング言語
+	Keywords      string               `           json:"keywords"`           // フリーキーワード
+	MainImage     string               `           json:"mainImageUrl"`       // メイン画像
+	ImageURLs     []URLInfo            `           json:"images"`             // 紹介画像URLたち
+	Area          AreaType             `           json:"meetingArea"`        // 場所
+	StartDate     string               `           json:"projectStartDate"`   // 開始日
+	ReleaseDate   string               `           json:"projectReleaseDate"` // リリース予定日
+	GitHubURL     string               `           json:"githubUrl"`          // GitHubのURL
+	DemoURL       string               `           json:"demoUrl"`            // デモURL
+	Frequency     MeetingFrequencyType `           json:"meetingFrequency"`   // 頻度
+	StarCount     int                  `           json:"starCount"`          // スター数
+	Members       []Member             `           json:"currentMembers"`     // メンバー
+	RecruitMember []RecruitInfo        `           json:"recruitMembers"`     // 募集メンバー
+	Discussions   []DiscussionInfo     `           json:"discussions"`        // 「聞いてみる」の内容
+	StarUsers     []string             `           json:"starUsers"`          // 「聞いてみる」の内容
+	CreateAt      time.Time            `           json:"-"`
+	UpdateAt      time.Time            `           json:"-"`
 }
 
 func (a AppInfo) FirstImageURL() string {
@@ -123,12 +123,9 @@ func (t _AppsInfoTable) FindAll(ctx context.Context) (result []AppInfo, err erro
 	return
 }
 
-type AppInfoFilter struct {
-}
-
-func (t _AppsInfoTable) FindFilter(ctx context.Context) (result []AppInfo, err error) {
+func (t _AppsInfoTable) FindFilter(ctx context.Context, filter AppInfoFilter) (result []AppInfo, err error) {
 	t.withCollection(ctx, func(c *mgo.Collection) {
-		err = c.Find(bson.M{}).All(&result)
+		err = c.Find(filter.Condition()).All(&result)
 	})
 	return
 }
