@@ -29,6 +29,10 @@
 			"Rev": "d67e0b7d1797975196499f79bcc322c08b9f218b"
 		},
 		{
+			"ImportPath": "github.com/mattn/natural",
+			"Rev": "6b2ca5c8eb9a3bbc5a04c30324d87879a92067e9"
+		},
+		{
 			"ImportPath": "github.com/unrolled/render",
 			"Rev": "a9e7a35d2194896cd9985fd068ab3735ce3bc39f"
 		},
