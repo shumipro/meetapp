@@ -12,6 +12,8 @@ import (
 	"strings"
 	"time"
 
+	"strconv"
+
 	"github.com/guregu/kami"
 	"github.com/k0kubun/pp"
 	"github.com/shumipro/meetapp/server/models"
@@ -53,13 +55,12 @@ type AppListResponse struct {
 	AppInfoList []AppInfoView
 }
 
-const pageNum = 10
+const pageNum int = 10
 
 func AppList(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	orderBy := r.FormValue("orderBy")
 
-	page := r.FormValue("page")
-	_ = page
+	page, _ := strconv.Atoi(r.FormValue("page"))
 
 	platform := r.FormValue("platform")
 	occupation := r.FormValue("occupation")
@@ -83,7 +84,7 @@ func AppList(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	)
 
 	// ViewModel変換して詰める
-	apps, err := models.AppsInfoTable.FindFilter(ctx, filter)
+	apps, err := models.AppsInfoTable.FindFilter(ctx, filter, (page-1)*pageNum, pageNum)
 	if err != nil {
 		panic(err)
 	}
