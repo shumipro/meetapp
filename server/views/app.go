@@ -12,7 +12,6 @@ import (
 	"strings"
 	"time"
 
-	"github.com/go-xweb/uuid"
 	"github.com/guregu/kami"
 	"github.com/k0kubun/pp"
 	"github.com/shumipro/meetapp/server/models"
@@ -36,12 +35,17 @@ func init() {
 	kami.Get("/app/list", AppList)
 	kami.Get("/u/app/register", AppRegister)
 	kami.Get("/u/app/edit/:id", AppEdit)
-	// API
-	kami.Post("/u/api/app/register", AppRegisterPost)
-	kami.Post("/u/api/app/discussion", AppDiscussionPost)
-	kami.Delete("/u/api/app/delete/:id", AppDelete)
-	kami.Post("/u/api/app/star/:id", AppStarPost)
-	kami.Delete("/u/api/app/star/:id", AppStarDelete)
+	// Apps API
+	//	kami.Get("/u/api/app/apps", APIAppGetAll)
+	//	kami.Get("/u/api/app/apps/:id", APIAppGet)
+	kami.Post("/u/api/app/register", APIAppRegister)   // TODO: [POST] /u/api/app/apps
+	kami.Put("/u/api/app/edit/:id", APIAppEdit)        // TODO: [PUT] /u/api/app/apps/:id
+	kami.Delete("/u/api/app/delete/:id", APIAppDelete) // TODO: [DELETE] /u/api/app/apps/:id
+	// Discussion API
+	kami.Post("/u/api/app/discussion", APIAppDiscussion)
+	// Star API
+	kami.Post("/u/api/app/star/:id", APIAppStared)
+	kami.Delete("/u/api/app/star/:id", APIAppStarDelete)
 }
 
 type AppListResponse struct {
@@ -98,19 +102,20 @@ func AppDetail(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	ExecuteTemplate(ctx, w, "app/detail", preload)
 }
 
+type AppRegisterResponse struct {
+	TemplateHeader
+	AppInfo AppInfoView
+}
+
 func AppRegister(ctx context.Context, w http.ResponseWriter, r *http.Request) {
-	preload := NewHeader(ctx,
+	preload := AppRegisterResponse{}
+	preload.TemplateHeader = NewHeader(ctx,
 		"MeetApp - アプリの登録",
 		"",
 		"アプリを登録して仲間を探そう",
 		false,
 	)
 	ExecuteTemplate(ctx, w, "app/register", preload)
-}
-
-type AppEditResponse struct {
-	TemplateHeader
-	AppInfo AppInfoView
 }
 
 func AppEdit(ctx context.Context, w http.ResponseWriter, r *http.Request) {
@@ -126,7 +131,7 @@ func AppEdit(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 		panic(err)
 	}
 
-	preload := AppEditResponse{}
+	preload := AppRegisterResponse{}
 	preload.TemplateHeader = NewHeader(ctx,
 		"MeetApp - アプリの編集",
 		"",
@@ -138,67 +143,14 @@ func AppEdit(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	ExecuteTemplate(ctx, w, "app/register", preload)
 }
 
-func AppRegisterPost(ctx context.Context, w http.ResponseWriter, r *http.Request) {
-	data, err := ioutil.ReadAll(r.Body)
+func APIAppRegister(ctx context.Context, w http.ResponseWriter, r *http.Request) {
+	regAppInfo, err := readBodyAppInfo(r.Body)
 	if err != nil {
-		log.Println("ERROR!", err)
-		renderer.JSON(w, 400, err.Error())
-		return
-	}
-	fmt.Println(string(data))
-
-	var regAppInfo models.AppInfo
-	if err := json.Unmarshal(data, &regAppInfo); err != nil {
-		log.Println("ERROR! json parse", err)
-		renderer.JSON(w, 400, err.Error())
+		renderer.JSON(w, 400, "[ERROR] request param appInfo " + err.Error())
 		return
 	}
 
-	a, _ := oauth.FromContext(ctx)
-
-	// 登録時刻、更新時刻
-	nowTime := time.Now()
-
-	// すでに登録済み
-	if regAppInfo.ID != "" {
-		app, err := models.AppsInfoTable.FindID(ctx, regAppInfo.ID)
-		if err != nil {
-			log.Println("ERROR!", err)
-			renderer.JSON(w, 400, err.Error())
-			return
-		}
-
-		// 管理者じゃない
-		if !app.IsAdmin(a.UserID) {
-			log.Println("ERROR!", notAdminError)
-			renderer.JSON(w, 400, notAdminError.Error())
-			return
-		}
-		// 登録日だけ残して後は上書きする
-		regAppInfo.CreateAt = app.CreateAt
-	} else {
-		regAppInfo.CreateAt = nowTime
-	}
-
-	regAppInfo.UpdateAt = nowTime
-
-	// 管理者設定
-	for idx, m := range regAppInfo.Members {
-		if m.UserID != a.UserID {
-			continue
-		}
-		regAppInfo.Members[idx].IsAdmin = true
-	}
-
-	// メインの画像を設定
-	regAppInfo.ID = uuid.NewRandom().String()
-	if len(regAppInfo.ImageURLs) > 0 {
-		regAppInfo.MainImage = regAppInfo.ImageURLs[0].URL // TODO: とりあえず1件目をメインの画像にする
-	} else {
-		// set default image
-		regAppInfo.MainImage = "/img/no_img.png"
-	}
-
+	regAppInfo = convertRegisterAppInfo(ctx, regAppInfo)
 	pp.Println(regAppInfo)
 
 	if err := models.AppsInfoTable.Upsert(ctx, regAppInfo); err != nil {
@@ -210,7 +162,44 @@ func AppRegisterPost(ctx context.Context, w http.ResponseWriter, r *http.Request
 	renderer.JSON(w, 200, regAppInfo)
 }
 
-func AppDelete(ctx context.Context, w http.ResponseWriter, r *http.Request) {
+func APIAppEdit(ctx context.Context, w http.ResponseWriter, r *http.Request) {
+	regAppInfo, err := readBodyAppInfo(r.Body)
+	if err != nil || regAppInfo.ID == "" {
+		renderer.JSON(w, 400, "[ERROR] request param appInfo ")
+		return
+	}
+
+	// アプリが存在しないか
+	app, err := models.AppsInfoTable.FindID(ctx, regAppInfo.ID)
+	if err != nil {
+		log.Println("ERROR!", err)
+		renderer.JSON(w, 400, err.Error())
+		return
+	}
+
+	// 管理者じゃないアプリか
+	a, _ := oauth.FromContext(ctx)
+	if !app.IsAdmin(a.UserID) {
+		log.Println("ERROR!", notAdminError)
+		renderer.JSON(w, 400, notAdminError.Error())
+		return
+	}
+
+	// 登録時と異なるのはCreateAtのみ維持する点
+	regAppInfo = convertRegisterAppInfo(ctx, regAppInfo)
+	regAppInfo.CreateAt = app.CreateAt
+	pp.Println(regAppInfo)
+
+	if err := models.AppsInfoTable.Upsert(ctx, regAppInfo); err != nil {
+		log.Println("ERROR! register", err)
+		renderer.JSON(w, 400, err.Error())
+		return
+	}
+
+	renderer.JSON(w, 200, regAppInfo)
+}
+
+func APIAppDelete(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	a, _ := oauth.FromContext(ctx)
 	appID := kami.Param(ctx, "id")
 
@@ -242,7 +231,7 @@ type DiscussionRequest struct {
 	DiscussionInfo models.DiscussionInfo
 }
 
-func AppDiscussionPost(ctx context.Context, w http.ResponseWriter, r *http.Request) {
+func APIAppDiscussion(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	data, err := ioutil.ReadAll(r.Body)
 	if err != nil {
 		log.Println("ERROR!", err)
@@ -282,7 +271,7 @@ func AppDiscussionPost(ctx context.Context, w http.ResponseWriter, r *http.Reque
 	renderer.JSON(w, 200, appInfo.Discussions)
 }
 
-func AppStarPost(ctx context.Context, w http.ResponseWriter, r *http.Request) {
+func APIAppStared(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	a, _ := oauth.FromContext(ctx)
 	appID := kami.Param(ctx, "id")
 
@@ -317,7 +306,7 @@ func AppStarPost(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	renderer.JSON(w, 200, appInfo.StarUsers)
 }
 
-func AppStarDelete(ctx context.Context, w http.ResponseWriter, r *http.Request) {
+func APIAppStarDelete(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	a, _ := oauth.FromContext(ctx)
 	appID := kami.Param(ctx, "id")
 

@@ -36,6 +36,15 @@ type AppInfo struct {
 	UpdateAt      time.Time        `           json:"-"`
 }
 
+func (a AppInfo) FirstImageURL() string {
+	if len(a.ImageURLs) > 0 {
+		return a.ImageURLs[0].URL // TODO: とりあえず1件目をメインの画像にする
+	} else {
+		// set default image
+		return "/img/no_img.png"
+	}
+}
+
 func (a AppInfo) IsAdmin(userID string) bool {
 	for _, m := range a.Members {
 		if !m.IsAdmin {
