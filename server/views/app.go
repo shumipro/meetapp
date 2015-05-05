@@ -127,6 +127,23 @@ func AppRegister(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 		"アプリを登録して仲間を探そう",
 		false,
 	)
+
+	// 自分をデフォルトメンバーとして突っ込んでおく
+	a, _ := oauth.FromContext(ctx)
+	appInfo := models.AppInfo{}
+	members := []models.Member{
+		{
+			UserID:a.UserID,
+			Occupation: "1",
+			IsAdmin: true,
+		},
+	}
+	appInfo.Members = members
+	preload.AppInfo = NewAppInfoView(ctx, appInfo)
+
+	// sizeを3にする
+	appInfo.ImageURLs = make([]models.URLInfo, 3)
+
 	ExecuteTemplate(ctx, w, "app/register", preload)
 }
 
@@ -150,6 +167,14 @@ func AppEdit(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 		"アプリを登録して仲間を探そう",
 		false,
 	)
+	// sizeを3にする
+	if len(appInfo.ImageURLs) != 3 {
+		imageURLs := make([]models.URLInfo, 3)
+		for idx, img := range appInfo.ImageURLs {
+			imageURLs[idx] = img
+		}
+		appInfo.ImageURLs = imageURLs
+	}
 	preload.AppInfo = NewAppInfoView(ctx, appInfo)
 
 	ExecuteTemplate(ctx, w, "app/register", preload)
