@@ -29,6 +29,7 @@ type AppInfo struct {
 	Members       []Member         `           json:"currentMembers"`     // メンバー
 	RecruitMember []RecruitInfo    `           json:"recruitMembers"`     // 募集メンバー
 	Discussions   []DiscussionInfo `           json:"discussions"`        // 「聞いてみる」の内容
+	StarUsers     []string 		   `           json:"starUsers"`        // 「聞いてみる」の内容
 	CreateAt      time.Time        `           json:"-"`
 	UpdateAt      time.Time        `           json:"-"`
 }

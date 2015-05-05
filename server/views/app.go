@@ -8,7 +8,8 @@ import (
 
 	"fmt"
 	"io/ioutil"
-
+	
+	"strings"
 	"time"
 
 	"github.com/go-xweb/uuid"
@@ -39,6 +40,8 @@ func init() {
 	kami.Post("/u/api/app/register", AppRegisterPost)
 	kami.Post("/u/api/app/discussion", AppDiscussionPost)
 	kami.Delete("/u/api/app/delete/:id", AppDelete)
+	kami.Post("/u/api/app/star", AppStarPost)
+	kami.Delete("/u/api/app/star", AppStarDelete)
 }
 
 type AppListResponse struct {
@@ -277,10 +280,115 @@ func AppDiscussionPost(ctx context.Context, w http.ResponseWriter, r *http.Reque
 	appInfo.UpdateAt = nowTime
 
 	if err := models.AppsInfoTable.Upsert(ctx, appInfo); err != nil {
-		log.Println("ERROR! register", err)
+		log.Println("ERROR! discussion", err)
 		renderer.JSON(w, 400, err.Error())
 		return
 	}
 
 	renderer.JSON(w, 200, appInfo.Discussions)
+}
+
+func indexOf(s []string, e string) int {
+    for i, a := range s { if strings.EqualFold(a, e) { return i } }
+    return -1
+}
+
+type StarRequest struct {
+	AppID          string `json:"appId"` // アプリID
+}
+
+func AppStarPost(ctx context.Context, w http.ResponseWriter, r *http.Request) {
+	data, err := ioutil.ReadAll(r.Body)
+	if err != nil {
+		log.Println("ERROR!", err)
+		renderer.JSON(w, 400, err.Error())
+		return
+	}
+	// fmt.Println(string(data))
+
+	// get user info
+	a, _ := oauth.FromContext(ctx)
+
+	// convert request params to struct
+	var starReq StarRequest
+	if err := json.Unmarshal(data, &starReq); err != nil {
+		log.Println("ERROR! json parse", err)
+		renderer.JSON(w, 400, err.Error())
+		return
+	}
+
+	// get appinfo from db
+	appInfo, err := models.AppsInfoTable.FindID(ctx, starReq.AppID)
+	if err != nil {
+		log.Println("ERROR!", err)
+		renderer.JSON(w, 400, err.Error())
+		return
+	}
+
+	// 重複チェック
+	if indexOf(appInfo.StarUsers, a.UserID) == -1 {
+		// push the user as starUsers
+		appInfo.StarUsers = append(appInfo.StarUsers, a.UserID)
+		// update starCount
+		appInfo.StarCount = len(appInfo.StarUsers)
+	}
+
+	nowTime := time.Now()
+	appInfo.UpdateAt = nowTime
+
+	if err := models.AppsInfoTable.Upsert(ctx, appInfo); err != nil {
+		log.Println("ERROR! star", err)
+		renderer.JSON(w, 400, err.Error())
+		return
+	}
+
+	renderer.JSON(w, 200, appInfo.StarUsers)
+}
+
+func AppStarDelete(ctx context.Context, w http.ResponseWriter, r *http.Request) {
+	data, err := ioutil.ReadAll(r.Body)
+	if err != nil {
+		log.Println("ERROR!", err)
+		renderer.JSON(w, 400, err.Error())
+		return
+	}
+	// fmt.Println(string(data))
+
+	// get user info
+	a, _ := oauth.FromContext(ctx)
+
+	// convert request params to struct
+	var starReq StarRequest
+	if err := json.Unmarshal(data, &starReq); err != nil {
+		log.Println("ERROR! json parse", err)
+		renderer.JSON(w, 400, err.Error())
+		return
+	}
+
+	// get appinfo from db
+	appInfo, err := models.AppsInfoTable.FindID(ctx, starReq.AppID)
+	if err != nil {
+		log.Println("ERROR!", err)
+		renderer.JSON(w, 400, err.Error())
+		return
+	}
+
+	index := indexOf(appInfo.StarUsers, a.UserID)
+	if index != -1 {
+		// remove the user from starUsers list
+		appInfo.StarUsers = append(appInfo.StarUsers[:index], appInfo.StarUsers[index + 1:]...)
+		// update starCount
+		appInfo.StarCount = len(appInfo.StarUsers)
+	}
+
+	nowTime := time.Now()
+	appInfo.UpdateAt = nowTime
+
+	if err := models.AppsInfoTable.Upsert(ctx, appInfo); err != nil {
+		log.Println("ERROR! star", err)
+		renderer.JSON(w, 400, err.Error())
+		return
+	}
+
+	renderer.JSON(w, 200, appInfo.StarUsers)
 }
