@@ -53,8 +53,26 @@ type AppListResponse struct {
 	AppInfoList []AppInfoView
 }
 
+const pageNum = 10
+
 func AppList(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	orderBy := r.FormValue("orderBy")
+
+	page := r.FormValue("page")
+	_ = page
+
+	platform := r.FormValue("platform")
+	occupation := r.FormValue("occupation")
+	category := r.FormValue("category")
+	pLang := r.FormValue("pLang")
+	area := r.FormValue("area")
+
+	filter := models.AppInfoFilter{}
+	filter.OccupationType = models.OccupationType(occupation)
+	filter.CategoryType = models.CategoryType(category)
+	filter.LanguageType = models.LanguageType(pLang)
+	filter.AreaType = models.AreaType(area)
+	filter.PlatformType = models.PlatformType(platform)
 
 	preload := AppListResponse{}
 	preload.TemplateHeader = NewHeader(ctx,
@@ -65,7 +83,7 @@ func AppList(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	)
 
 	// ViewModel変換して詰める
-	apps, err := models.AppsInfoTable.FindAll(ctx)
+	apps, err := models.AppsInfoTable.FindFilter(ctx, filter)
 	if err != nil {
 		panic(err)
 	}
@@ -122,7 +140,7 @@ func AppRegister(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	members := []models.Member{
 		{
 			UserID:     a.UserID,
-			Occupation: "1",
+			Occupation: models.OccupationType("1"),
 			IsAdmin:    true,
 		},
 	}

@@ -23,7 +23,8 @@ type TemplateHeader struct {
 	NavTitle   string
 	SubTitle   string
 	ShowBanner bool
-	Config     Config
+	Config     Config           `json:"config"`
+	Constants  models.Constants `json:"constants"`
 }
 
 func NewHeader(ctx context.Context, title, navTitle, subTitle string, showBanner bool) TemplateHeader {
@@ -34,11 +35,13 @@ func NewHeader(ctx context.Context, title, navTitle, subTitle string, showBanner
 
 	h := TemplateHeader{}
 	h.Config = Config{User: user}
+	h.Constants = models.AllConstants()
 
 	h.Title = title
 	h.SubTitle = subTitle
 	h.NavTitle = navTitle
 	h.ShowBanner = showBanner
+
 	return h
 }
 
