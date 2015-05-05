@@ -1,11 +1,12 @@
 package oauth
 
 import (
+	"net/http"
+	"time"
+
 	"github.com/shumipro/meetapp/server/db"
 	"golang.org/x/net/context"
-	"time"
 	"golang.org/x/oauth2"
-	"net/http"
 )
 
 type keyType int
@@ -59,4 +60,3 @@ func ResetCacheAuthToken(ctx context.Context, w http.ResponseWriter) {
 	redisDB.Del("auth:" + a.AuthToken)
 	removeCookieAuthToken(w)
 }
-

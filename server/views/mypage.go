@@ -5,9 +5,9 @@ import (
 
 	"github.com/guregu/kami"
 	"github.com/huandu/facebook"
+	"github.com/shumipro/meetapp/server/models"
 	"github.com/shumipro/meetapp/server/oauth"
 	"golang.org/x/net/context"
-	"github.com/shumipro/meetapp/server/models"
 )
 
 func init() {
