@@ -15,7 +15,7 @@ type AppInfoView struct {
 }
 
 func (a AppInfoView) IsEmpty() bool {
-	return a.AppInfo.ID != ""
+	return a.AppInfo.ID == ""
 }
 
 // UserMember User情報を持つMember
