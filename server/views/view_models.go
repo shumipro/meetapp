@@ -14,6 +14,7 @@ type AppInfoView struct {
 	IsAdmin     bool              // 管理者かどうか
 }
 
+// TODO: あとでRenameする（Emptyというよりは未登録）
 func (a AppInfoView) IsEmpty() bool {
 	return a.AppInfo.ID == ""
 }
@@ -45,15 +46,6 @@ func NewAppInfoView(ctx context.Context, appInfo models.AppInfo) AppInfoView {
 		// TODO: あとでIn句にして1クエリにする
 		u, _ := models.UsersTable.FindID(ctx, d.UserID)
 		a.Discussions[idx] = UserDiscussions{DiscussionInfo: d, User: u}
-	}
-
-	// sizeを3にする
-	if len(a.ImageURLs) != 3 {
-		imageURLs := make([]models.URLInfo, 3)
-		for idx, img := range a.ImageURLs {
-			imageURLs[idx] = img
-		}
-		a.ImageURLs = imageURLs
 	}
 
 	account, ok := oauth.FromContext(ctx)
