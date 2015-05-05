@@ -8,14 +8,18 @@ import (
 	"github.com/shumipro/meetapp/server/models"
 	"github.com/shumipro/meetapp/server/oauth"
 	"golang.org/x/net/context"
+	"log"
 )
 
 func init() {
+	kami.Get("/mypage/other/:id", MypageOther)
+
 	kami.Get("/u/mypage", Mypage)
 }
 
 type MyPageResponse struct {
 	TemplateHeader
+	User models.User
 	AdminAppList []AppInfoView
 	JoinAppList  []AppInfoView
 }
@@ -38,12 +42,41 @@ func Mypage(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 
 	// TODO: Facebook情報に変更あればUserテーブル更新する
 
+	user, err := models.UsersTable.FindID(ctx, a.UserID)
+	if err != nil {
+		log.Println(err)
+		panic(err)
+	}
+
 	preload := MyPageResponse{}
+	preload.User = user
 	preload.TemplateHeader = NewHeader(ctx, "マイページ", "", "", false)
 
 	adminApps, _ := models.AppsInfoTable.FindByAdminID(ctx, a.UserID)
 	joinApps, _ := models.AppsInfoTable.FindByJoinID(ctx, a.UserID)
 	preload.AdminAppList = convertAppInfoViewList(ctx, adminApps)
+	preload.JoinAppList = convertAppInfoViewList(ctx, joinApps)
+
+	ExecuteTemplate(ctx, w, "mypage", preload)
+}
+
+func MypageOther(ctx context.Context, w http.ResponseWriter, r *http.Request) {
+	userID := kami.Param(ctx, "id")
+	if userID == "" || userID == "favicon.png" {
+		return
+	}
+
+	user, err := models.UsersTable.FindID(ctx, userID)
+	if err != nil {
+		log.Println(err, userID)
+		panic(err)
+	}
+
+	preload := MyPageResponse{}
+	preload.User = user
+	preload.TemplateHeader = NewHeader(ctx, user.Name, "", "", false)
+
+	joinApps, _ := models.AppsInfoTable.FindByJoinID(ctx, userID)
 	preload.JoinAppList = convertAppInfoViewList(ctx, joinApps)
 
 	ExecuteTemplate(ctx, w, "mypage", preload)

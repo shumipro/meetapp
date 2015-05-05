@@ -128,7 +128,7 @@ func (t _AppsInfoTable) FindFilter(ctx context.Context, filter AppInfoFilter, of
 		query := c.Find(filter.Condition())
 
 		totalCount, _ = query.Count()
-		err = query.Skip(offset).Limit(num).All(&result)
+		err = query.Sort("updateat").Skip(offset).Limit(num).All(&result)
 	})
 	return
 }

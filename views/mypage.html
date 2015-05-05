@@ -15,13 +15,15 @@
                 <div class="ma-layout-col-left">
                     <div class="ma-infobox">
                         <div class="ma-infobox-logo">
-                            <img src="http://graph.facebook.com/10152160532855662/picture?type=square" class="sectionImg">
+                            <img src="{{ .User.IconImageURL }}" class="sectionImg">
                         </div>
                         <div class="ma-infobox-table">
                             <dl>
-                                <dt>Name:</dt><dd>tejitak</dd>
+                                <dt>Name:</dt><dd>{{ .User.Name }}</dd>
+                                <!--
                                 <dt>職種:</dt><dd>Engineer</dd>
                                 <dt>プログラミング言語:</dt><dd>Swift JavaScript</dd>
+                                -->
                             </dl>
                         </div>
                     </div>
