@@ -8,6 +8,8 @@ import (
 
 	"net/http"
 
+	"strings"
+
 	"github.com/shumipro/meetapp/server/models"
 	"github.com/shumipro/meetapp/server/oauth"
 	"github.com/unrolled/render"
@@ -25,6 +27,12 @@ type TemplateHeader struct {
 	ShowBanner bool
 	Config     Config           `json:"config"`
 	Constants  models.Constants `json:"constants"`
+}
+
+func (t TemplateHeader) EscapeNewline(text string) template.HTML {
+	safe := template.HTMLEscapeString(text)
+	safe = strings.Replace(safe, "\n", "<br />", -1)
+	return template.HTML(safe)
 }
 
 func NewHeader(ctx context.Context, title, navTitle, subTitle string, showBanner bool) TemplateHeader {

@@ -96,7 +96,7 @@ func AppList(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	}
 	preload.AppInfoList = convertAppInfoViewList(ctx, apps)
 	preload.PerPageNum = perPageNum
-	preload.CurrentPage = page +1
+	preload.CurrentPage = page + 1
 	preload.TotalCount = totalCount
 
 	ExecuteTemplate(ctx, w, "app/list", preload)
