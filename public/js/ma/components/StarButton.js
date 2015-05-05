@@ -3,7 +3,7 @@ import util from '../util'
 
 export default class StarButton {
     constructor() {
-        // TODO: star button
+        // star button
         var $starBtn = $('.ma-app-star-btn')
         $starBtn.on('click', () => {
             // check the user is already logged in
@@ -13,25 +13,16 @@ export default class StarButton {
                 return;
             }
             // send star
-            var params = this.getParams()
             $.ajax({
-                url: '/u/api/app/' + $starBtn.data('api'),
-                type: 'post',
+                url: '/u/api/app/star/' + util.getAppDetailId(),
+                type: $starBtn.data('api') === 'star' ? 'post' : 'delete',
                 contentType:"application/json; charset=utf-8",
-                dataType: 'json',
-                data: JSON.stringify(params)
+                dataType: 'json'
             }).done((res) => {
                 location.reload()
             }).fail(() => {
                 alert("Error")
             })           
         })
-    }
-
-    getParams() {
-        return {
-            appId: util.getAppDetailId(),
-            userId: util.getUserInfo().ID
-        }
     }
 }

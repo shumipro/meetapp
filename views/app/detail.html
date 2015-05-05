@@ -38,12 +38,15 @@
                         <div class="ma-star-wrap text-center">
                             <figure class="ma-app-star-count">
                                 <figcaption class="star">★</figcaption>
-                                <strong class="count">125</strong>
+                                <strong class="count">{{ .AppInfo.StarCount }}</strong>
                             </figure>
-                            <!-- TODO: まだstarしていない場合 -->
-                            <button class="ma-app-star-btn btn btn-primary" data-api="star" type="button"><i class="icon"></i><span>スターする</span></button>
-                            <!-- TODO: 既にstarしている場合 -->
-                            <button class="ma-app-star-btn btn btn-primary" data-api="unstar" type="button"><i class="icon"></i><span>はずす</span></button>
+                            {{if .AppInfo.Stared }}
+                                <!-- 既にstarしている場合 -->
+                                <button class="ma-app-star-btn btn btn-primary" data-api="unstar" type="button"><i class="icon"></i><span>はずす</span></button>
+                            {{ else }}
+                                <!-- まだstarしていない場合 -->
+                                <button class="ma-app-star-btn btn btn-primary" data-api="star" type="button"><i class="icon"></i><span>スターする</span></button>
+                            {{ end }}
                             <div class="social">
                                 <div class="fb-like" data-href="" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false"></div>
                                 <a href="https://twitter.com/share" class="twitter-share-button" data-url="" data-via="" data-lang="en">Tweet</a>
@@ -56,7 +59,7 @@
                 </div>
                 <div class="ma-layout-col-right">
                     <!-- 管理者の場合のみ表示 -->
-                    {{if .IsAdmin }}
+                    {{if .AppInfo.IsAdmin }}
                     <div class="ma-white-wrap text-center">
                         <input class="ma-app-edit-btn btn btn-primary" type="button" value="開発アイデアを編集する">
                         <input class="ma-app-delete-btn btn btn-primary" type="button" value="開発アイデアを削除する">

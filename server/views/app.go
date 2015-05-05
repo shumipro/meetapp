@@ -9,6 +9,7 @@ import (
 	"fmt"
 	"io/ioutil"
 
+	"strings"
 	"time"
 
 	"github.com/go-xweb/uuid"
@@ -39,6 +40,8 @@ func init() {
 	kami.Post("/u/api/app/register", AppRegisterPost)
 	kami.Post("/u/api/app/discussion", AppDiscussionPost)
 	kami.Delete("/u/api/app/delete/:id", AppDelete)
+	kami.Post("/u/api/app/star/:id", AppStarPost)
+	kami.Delete("/u/api/app/star/:id", AppStarDelete)
 }
 
 type AppListResponse struct {
@@ -70,13 +73,6 @@ func AppList(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 type AppDetailResponse struct {
 	TemplateHeader
 	AppInfo AppInfoView
-}
-
-func (a AppDetailResponse) IsAdmin() bool {
-	if a.Config.User.IsEmpty() {
-		return false
-	}
-	return a.AppInfo.IsAdmin(a.Config.User.ID)
 }
 
 func AppDetail(ctx context.Context, w http.ResponseWriter, r *http.Request) {
@@ -277,10 +273,86 @@ func AppDiscussionPost(ctx context.Context, w http.ResponseWriter, r *http.Reque
 	appInfo.UpdateAt = nowTime
 
 	if err := models.AppsInfoTable.Upsert(ctx, appInfo); err != nil {
-		log.Println("ERROR! register", err)
+		log.Println("ERROR! discussion", err)
 		renderer.JSON(w, 400, err.Error())
 		return
 	}
 
 	renderer.JSON(w, 200, appInfo.Discussions)
+}
+
+func AppStarPost(ctx context.Context, w http.ResponseWriter, r *http.Request) {
+	a, _ := oauth.FromContext(ctx)
+	appID := kami.Param(ctx, "id")
+
+	// get appinfo from db
+	appInfo, err := models.AppsInfoTable.FindID(ctx, appID)
+	if err != nil {
+		log.Println("ERROR!", err)
+		renderer.JSON(w, 400, err.Error())
+		return
+	}
+
+	// すでにスター済み
+	if appInfo.Stared(a.UserID) {
+		log.Println("WARN", "stared")
+		renderer.JSON(w, 200, appInfo.StarUsers)
+		return
+	}
+
+	// push the user as starUsers
+	appInfo.StarUsers = append(appInfo.StarUsers, a.UserID)
+	// update starCount
+	appInfo.StarCount = len(appInfo.StarUsers)
+
+	appInfo.UpdateAt = time.Now()
+
+	if err := models.AppsInfoTable.Upsert(ctx, appInfo); err != nil {
+		log.Println("ERROR! star", err)
+		renderer.JSON(w, 400, err.Error())
+		return
+	}
+
+	renderer.JSON(w, 200, appInfo.StarUsers)
+}
+
+func AppStarDelete(ctx context.Context, w http.ResponseWriter, r *http.Request) {
+	a, _ := oauth.FromContext(ctx)
+	appID := kami.Param(ctx, "id")
+
+	// get appinfo from db
+	appInfo, err := models.AppsInfoTable.FindID(ctx, appID)
+	if err != nil {
+		log.Println("ERROR!", err)
+		renderer.JSON(w, 400, err.Error())
+		return
+	}
+
+	// すでに削除済み
+	if !appInfo.Stared(a.UserID) {
+		log.Println("WARN!", "not stared")
+		renderer.JSON(w, 200, appInfo.StarUsers)
+		return
+	}
+
+	for idx, userID := range appInfo.StarUsers {
+		if !strings.EqualFold(userID, userID) {
+			continue
+		}
+		// remove the user from starUsers list
+		appInfo.StarUsers = append(appInfo.StarUsers[:idx], appInfo.StarUsers[idx+1:]...)
+		// update starCount
+		appInfo.StarCount = len(appInfo.StarUsers)
+		break
+	}
+
+	appInfo.UpdateAt = time.Now()
+
+	if err := models.AppsInfoTable.Upsert(ctx, appInfo); err != nil {
+		log.Println("ERROR! star", err)
+		renderer.JSON(w, 400, err.Error())
+		return
+	}
+
+	renderer.JSON(w, 200, appInfo.StarUsers)
 }

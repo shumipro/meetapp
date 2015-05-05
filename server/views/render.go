@@ -9,9 +9,9 @@ import (
 	"net/http"
 
 	"github.com/shumipro/meetapp/server/models"
+	"github.com/shumipro/meetapp/server/oauth"
 	"github.com/unrolled/render"
 	"golang.org/x/net/context"
-	"github.com/shumipro/meetapp/server/oauth"
 )
 
 type Config struct {
