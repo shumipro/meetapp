@@ -267,9 +267,10 @@ func AppDiscussionPost(ctx context.Context, w http.ResponseWriter, r *http.Reque
 		return
 	}
 
+	nowTime := time.Now()
+	discussionReq.DiscussionInfo.Timestamp = nowTime
 	// push a discussionInfo
 	appInfo.Discussions = append(appInfo.Discussions, discussionReq.DiscussionInfo)
-	nowTime := time.Now()
 	appInfo.UpdateAt = nowTime
 
 	if err := models.AppsInfoTable.Upsert(ctx, appInfo); err != nil {

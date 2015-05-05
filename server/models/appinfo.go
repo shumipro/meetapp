@@ -58,6 +58,10 @@ func (a AppInfo) Stared(userID string) bool {
 	return false
 }
 
+func (d DiscussionInfo) FormatTime() string {
+	return d.Timestamp.Format("2006-01-02 15:04")
+}
+
 // URLInfo 各種URL情報
 type URLInfo struct {
 	URL string `json:"url"`

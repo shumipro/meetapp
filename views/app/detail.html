@@ -158,7 +158,7 @@
                             <ul class="ma-list-bordered ma-discussion-wrap">
                                 {{range .AppInfo.Discussions }}
                                 <li class="ma-profile-comment">
-                                    <span class="ma-profile-date subtle-text" data-timestamp="{{ .Timestamp }}"></span>
+                                    <span class="ma-profile-date subtle-text">{{ .FormatTime }}</span>
                                     <a href="#">
                                         <div class="ma-profile-image-wrap">
                                             <img class="img-rounded ma-profile-image" src="{{ .IconImageURL }}">

@@ -13,11 +13,6 @@ export default class Discussion {
                 location.href = "/login"
             }
         })
-        // TODO: set timestamp display
-        $('.ma-profile-date').each(function(index, span){
-            var $date = $(span)
-            $date.html($date.data('timestamp'))
-        })
     }
 
     post() {
@@ -53,8 +48,7 @@ export default class Discussion {
             appId: util.getAppDetailId(),
             discussionInfo: {
                 userId: util.getUserInfo().ID,
-                message: this._$textarea.val(),
-                timestamp: new Date()
+                message: this._$textarea.val()
             }
         }
     }
