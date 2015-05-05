@@ -152,9 +152,8 @@ func (t _AppsInfoTable) FindLatest(ctx context.Context, offset int, num int) (re
 }
 
 func (t _AppsInfoTable) FindPopular(ctx context.Context, offset int, num int) (result []AppInfo, err error) {
-	// TODO: 人気の条件あとで
 	t.withCollection(ctx, func(c *mgo.Collection) {
-		err = c.Find(bson.M{}).Skip(offset).Limit(num).All(&result)
+		err = c.Find(bson.M{}).Sort("-starcount").Skip(offset).Limit(num).All(&result)
 	})
 	return
 }
