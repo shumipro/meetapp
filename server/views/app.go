@@ -40,8 +40,8 @@ func init() {
 	kami.Post("/u/api/app/register", AppRegisterPost)
 	kami.Post("/u/api/app/discussion", AppDiscussionPost)
 	kami.Delete("/u/api/app/delete/:id", AppDelete)
-	kami.Post("/u/api/app/star", AppStarPost)
-	kami.Delete("/u/api/app/star", AppStarDelete)
+	kami.Post("/u/api/app/star/:id", AppStarPost)
+	kami.Delete("/u/api/app/star/:id", AppStarDelete)
 }
 
 type AppListResponse struct {
@@ -293,32 +293,12 @@ func indexOf(s []string, e string) int {
     return -1
 }
 
-type StarRequest struct {
-	AppID          string `json:"appId"` // アプリID
-}
-
 func AppStarPost(ctx context.Context, w http.ResponseWriter, r *http.Request) {
-	data, err := ioutil.ReadAll(r.Body)
-	if err != nil {
-		log.Println("ERROR!", err)
-		renderer.JSON(w, 400, err.Error())
-		return
-	}
-	// fmt.Println(string(data))
-
-	// get user info
 	a, _ := oauth.FromContext(ctx)
-
-	// convert request params to struct
-	var starReq StarRequest
-	if err := json.Unmarshal(data, &starReq); err != nil {
-		log.Println("ERROR! json parse", err)
-		renderer.JSON(w, 400, err.Error())
-		return
-	}
+	appID := kami.Param(ctx, "id")
 
 	// get appinfo from db
-	appInfo, err := models.AppsInfoTable.FindID(ctx, starReq.AppID)
+	appInfo, err := models.AppsInfoTable.FindID(ctx, appID)
 	if err != nil {
 		log.Println("ERROR!", err)
 		renderer.JSON(w, 400, err.Error())
@@ -346,27 +326,11 @@ func AppStarPost(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 }
 
 func AppStarDelete(ctx context.Context, w http.ResponseWriter, r *http.Request) {
-	data, err := ioutil.ReadAll(r.Body)
-	if err != nil {
-		log.Println("ERROR!", err)
-		renderer.JSON(w, 400, err.Error())
-		return
-	}
-	// fmt.Println(string(data))
-
-	// get user info
 	a, _ := oauth.FromContext(ctx)
-
-	// convert request params to struct
-	var starReq StarRequest
-	if err := json.Unmarshal(data, &starReq); err != nil {
-		log.Println("ERROR! json parse", err)
-		renderer.JSON(w, 400, err.Error())
-		return
-	}
+	appID := kami.Param(ctx, "id")
 
 	// get appinfo from db
-	appInfo, err := models.AppsInfoTable.FindID(ctx, starReq.AppID)
+	appInfo, err := models.AppsInfoTable.FindID(ctx, appID)
 	if err != nil {
 		log.Println("ERROR!", err)
 		renderer.JSON(w, 400, err.Error())
