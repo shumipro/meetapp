@@ -53,6 +53,8 @@ func init() {
 type AppListResponse struct {
 	TemplateHeader
 	AppInfoList []AppInfoView
+	PageNum     int
+	MaxLength   int
 }
 
 const pageNum int = 10
@@ -61,6 +63,9 @@ func AppList(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	orderBy := r.FormValue("orderBy")
 
 	page, _ := strconv.Atoi(r.FormValue("page"))
+	if page > 0 {
+		page -= 1 // 1ページは0とする
+	}
 
 	platform := r.FormValue("platform")
 	occupation := r.FormValue("occupation")
@@ -84,11 +89,13 @@ func AppList(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	)
 
 	// ViewModel変換して詰める
-	apps, err := models.AppsInfoTable.FindFilter(ctx, filter, (page-1)*pageNum, pageNum)
+	maxLength, apps, err := models.AppsInfoTable.FindFilter(ctx, filter, page*pageNum, pageNum)
 	if err != nil {
 		panic(err)
 	}
 	preload.AppInfoList = convertAppInfoViewList(ctx, apps)
+	preload.PageNum = pageNum
+	preload.MaxLength = maxLength
 
 	ExecuteTemplate(ctx, w, "app/list", preload)
 }

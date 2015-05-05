@@ -123,9 +123,12 @@ func (t _AppsInfoTable) FindAll(ctx context.Context) (result []AppInfo, err erro
 	return
 }
 
-func (t _AppsInfoTable) FindFilter(ctx context.Context, filter AppInfoFilter, offset, num int) (result []AppInfo, err error) {
+func (t _AppsInfoTable) FindFilter(ctx context.Context, filter AppInfoFilter, offset, num int) (maxLength int, result []AppInfo, err error) {
 	t.withCollection(ctx, func(c *mgo.Collection) {
-		err = c.Find(filter.Condition()).Skip(offset).Limit(num).All(&result)
+		query := c.Find(filter.Condition())
+
+		maxLength, _ = query.Count()
+		err = query.Skip(offset).Limit(num).All(&result)
 	})
 	return
 }
