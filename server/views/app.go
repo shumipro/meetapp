@@ -8,7 +8,7 @@ import (
 
 	"fmt"
 	"io/ioutil"
-	
+
 	"strings"
 	"time"
 
@@ -73,13 +73,6 @@ func AppList(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 type AppDetailResponse struct {
 	TemplateHeader
 	AppInfo AppInfoView
-}
-
-func (a AppDetailResponse) IsAdmin() bool {
-	if a.Config.User.IsEmpty() {
-		return false
-	}
-	return a.AppInfo.IsAdmin(a.Config.User.ID)
 }
 
 func AppDetail(ctx context.Context, w http.ResponseWriter, r *http.Request) {
@@ -288,11 +281,6 @@ func AppDiscussionPost(ctx context.Context, w http.ResponseWriter, r *http.Reque
 	renderer.JSON(w, 200, appInfo.Discussions)
 }
 
-func indexOf(s []string, e string) int {
-    for i, a := range s { if strings.EqualFold(a, e) { return i } }
-    return -1
-}
-
 func AppStarPost(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	a, _ := oauth.FromContext(ctx)
 	appID := kami.Param(ctx, "id")
@@ -305,16 +293,19 @@ func AppStarPost(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// 重複チェック
-	if indexOf(appInfo.StarUsers, a.UserID) == -1 {
-		// push the user as starUsers
-		appInfo.StarUsers = append(appInfo.StarUsers, a.UserID)
-		// update starCount
-		appInfo.StarCount = len(appInfo.StarUsers)
+	// すでにスター済み
+	if appInfo.Stared(a.UserID) {
+		log.Println("WARN", "stared")
+		renderer.JSON(w, 200, appInfo.StarUsers)
+		return
 	}
 
-	nowTime := time.Now()
-	appInfo.UpdateAt = nowTime
+	// push the user as starUsers
+	appInfo.StarUsers = append(appInfo.StarUsers, a.UserID)
+	// update starCount
+	appInfo.StarCount = len(appInfo.StarUsers)
+
+	appInfo.UpdateAt = time.Now()
 
 	if err := models.AppsInfoTable.Upsert(ctx, appInfo); err != nil {
 		log.Println("ERROR! star", err)
@@ -337,16 +328,25 @@ func AppStarDelete(ctx context.Context, w http.ResponseWriter, r *http.Request) 
 		return
 	}
 
-	index := indexOf(appInfo.StarUsers, a.UserID)
-	if index != -1 {
-		// remove the user from starUsers list
-		appInfo.StarUsers = append(appInfo.StarUsers[:index], appInfo.StarUsers[index + 1:]...)
-		// update starCount
-		appInfo.StarCount = len(appInfo.StarUsers)
+	// すでに削除済み
+	if !appInfo.Stared(a.UserID) {
+		log.Println("WARN!", "not stared")
+		renderer.JSON(w, 200, appInfo.StarUsers)
+		return
 	}
 
-	nowTime := time.Now()
-	appInfo.UpdateAt = nowTime
+	for idx, userID := range appInfo.StarUsers {
+		if !strings.EqualFold(userID, userID) {
+			continue
+		}
+		// remove the user from starUsers list
+		appInfo.StarUsers = append(appInfo.StarUsers[:idx], appInfo.StarUsers[idx+1:]...)
+		// update starCount
+		appInfo.StarCount = len(appInfo.StarUsers)
+		break
+	}
+
+	appInfo.UpdateAt = time.Now()
 
 	if err := models.AppsInfoTable.Upsert(ctx, appInfo); err != nil {
 		log.Println("ERROR! star", err)

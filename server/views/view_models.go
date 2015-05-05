@@ -10,7 +10,8 @@ type AppInfoView struct {
 	models.AppInfo
 	Members     []UserMember      // models.Membersを上書きします
 	Discussions []UserDiscussions // models.Discussionsを上書きします
-	Stared bool // 現在認証されているユーザーがstarしているかどうか
+	Stared      bool              // 現在認証されているユーザーがstarしているかどうか
+	IsAdmin     bool              // 管理者かどうか
 }
 
 // UserMember User情報を持つMember
@@ -42,9 +43,11 @@ func NewAppInfoView(ctx context.Context, appInfo models.AppInfo) AppInfoView {
 		a.Discussions[idx] = UserDiscussions{DiscussionInfo: d, User: u}
 	}
 
-	auth, _ := oauth.FromContext(ctx)
-
-	a.Stared = indexOf(appInfo.StarUsers, auth.UserID) != -1
+	account, ok := oauth.FromContext(ctx)
+	if ok {
+		a.IsAdmin = a.AppInfo.IsAdmin(account.UserID)
+		a.Stared = a.AppInfo.Stared(account.UserID)
+	}
 
 	return a
 }

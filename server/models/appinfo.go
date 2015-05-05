@@ -3,6 +3,8 @@ package models
 import (
 	"time"
 
+	"strings"
+
 	"golang.org/x/net/context"
 	"gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
@@ -29,7 +31,7 @@ type AppInfo struct {
 	Members       []Member         `           json:"currentMembers"`     // メンバー
 	RecruitMember []RecruitInfo    `           json:"recruitMembers"`     // 募集メンバー
 	Discussions   []DiscussionInfo `           json:"discussions"`        // 「聞いてみる」の内容
-	StarUsers     []string 		   `           json:"starUsers"`        // 「聞いてみる」の内容
+	StarUsers     []string         `           json:"starUsers"`          // 「聞いてみる」の内容
 	CreateAt      time.Time        `           json:"-"`
 	UpdateAt      time.Time        `           json:"-"`
 }
@@ -41,6 +43,15 @@ func (a AppInfo) IsAdmin(userID string) bool {
 		}
 
 		if m.UserID == userID {
+			return true
+		}
+	}
+	return false
+}
+
+func (a AppInfo) Stared(userID string) bool {
+	for _, a := range a.StarUsers {
+		if strings.EqualFold(a, userID) {
 			return true
 		}
 	}
