@@ -5,8 +5,7 @@ export default class AppButtons {
     constructor() {
         // common button widgets
         $('.ma-app-edit-btn').on('click', () => {
-            // TODO: move to edit page
-
+            location.href = '/u/app/edit/' + util.getAppDetailId()
         })
 
         $('.ma-app-delete-btn').on('click', () => {

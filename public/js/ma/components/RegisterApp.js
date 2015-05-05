@@ -56,11 +56,19 @@ export default class RegisterApp {
                 'projectReleaseDate': { type: 'date' }
             }
         }
-        $('#ma_register_submitBtn').on('click', this.submit.bind(this))
+        this._$submit = $('#ma_register_submitBtn')
+        this._$submit.on('click', this.submit.bind(this))
 
         // auto complete setup
         util.autoCompleteAddInit("/api/user/search/%QUERY%", $('#ma_register_add_currentMember_suggest_input'), $('#ma_register_add_currentMember_suggest_btn'), (item) => {
-            // TODO: check currentMembers already has the member
+            // check currentMembers already has the member
+            var members = this.getParams().currentMembers;
+            for(var i=0; i<members.length; i++){
+                if(members[i].id === item.ID){
+                    alert("そのユーザーは既に追加されています")
+                    return;
+                }
+            }
             this.createCurrentMemberEntry(item)
         })
         $('#ma_register_add_recruitMember_btn').on('click', () => {
@@ -106,9 +114,13 @@ export default class RegisterApp {
             alert(result.message)
             return
         }
+        var appId = this._$submit.data("app-id")
+        if(appId){
+            params.id = appId
+        }
         $.ajax({
-            url: '/u/api/app/register',
-            type: 'post',
+            url: appId ? '/u/api/app/edit/' + appId : '/u/api/app/register',
+            type: appId ? 'put' : 'post',
             contentType:"application/json; charset=utf-8",
             dataType: 'json',
             data: JSON.stringify(params)
@@ -145,7 +157,15 @@ export default class RegisterApp {
                     return {"error": true, "message": "日付が不正です: " + prop}
                 }
             }
-
+            // temp
+            if(prop === "images"){
+                for(var i=0; i<value.length; i++){
+                    var img = value[i]
+                    if(!util.isUrlFormat(img.url)){
+                        return {"error": true, "message": "URLが不正です: " + prop}
+                    }
+                }
+            }
         }
         return {"error": false}
     }

@@ -121,16 +121,16 @@ func AppRegister(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	appInfo := models.AppInfo{}
 	members := []models.Member{
 		{
-			UserID:a.UserID,
+			UserID:     a.UserID,
 			Occupation: "1",
-			IsAdmin: true,
+			IsAdmin:    true,
 		},
 	}
 	appInfo.Members = members
-	preload.AppInfo = NewAppInfoView(ctx, appInfo)
-
 	// sizeを3にする
 	appInfo.ImageURLs = make([]models.URLInfo, 3)
+
+	preload.AppInfo = NewAppInfoView(ctx, appInfo)
 
 	ExecuteTemplate(ctx, w, "app/register", preload)
 }
