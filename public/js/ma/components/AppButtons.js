@@ -11,8 +11,14 @@ export default class AppButtons {
 
         $('.ma-app-delete-btn').on('click', () => {
             if(window.confirm('この開発アイデアを削除してもよろしいでしょうか？')){
-                // TODO: delete
-                alert(util.getAppDetailId())
+                $.ajax({
+                    url: '/u/api/app/delete/' + util.getAppDetailId(),
+                    type: 'delete'
+                }).done((res) => {
+                    location.href = '/'
+                }).fail(() => {
+                    alert("Error")
+                })
             }
         })
         // set current URL for share buttons
