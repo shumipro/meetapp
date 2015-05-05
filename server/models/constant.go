@@ -43,6 +43,10 @@ func convetConstant(m map[string]string) []Constant {
 
 type PlatformType string
 
+func (t PlatformType) String() string {
+	return t.Name()
+}
+
 func (t PlatformType) Name() string {
 	return platformMap[string(t)]
 }
@@ -89,6 +93,10 @@ var categoryMap = map[string]string{
 	"99": "まだ決めていない",
 }
 
+func (t CategoryType) String() string {
+	return t.Name()
+}
+
 func (t CategoryType) Name() string {
 	return categoryMap[string(t)]
 }
@@ -116,6 +124,10 @@ var pLangMap = map[string]string{
 	"99": "まだ決めていない",
 }
 
+func (t LanguageType) String() string {
+	return t.Name()
+}
+
 func (t LanguageType) Name() string {
 	return pLangMap[string(t)]
 }
@@ -136,6 +148,10 @@ var areaMap = map[string]string{
 	"11": "福岡",
 	"12": "その他",
 	"99": "まだ決めていない",
+}
+
+func (t AreaType) String() string {
+	return t.Name()
 }
 
 func (t AreaType) Name() string {
@@ -160,6 +176,10 @@ var occupationMap = map[string]string{
 	"99": "まだ決めていない",
 }
 
+func (t OccupationType) String() string {
+	return t.Name()
+}
+
 func (t OccupationType) Name() string {
 	return occupationMap[string(t)]
 }
@@ -180,4 +200,8 @@ var meetingFrequencyMap = map[string]string{
 
 func (t MeetingFrequencyType) Name() string {
 	return meetingFrequencyMap[string(t)]
+}
+
+func (t MeetingFrequencyType) String() string {
+	return t.Name()
 }
