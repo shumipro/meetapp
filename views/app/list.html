@@ -49,28 +49,35 @@
                     </div>
                 </div>
                 <div class="ma-layout-col-right">
-                    <ul class="ma-app-list-item-wrap">
-                        {{range .AppInfoList}}
+                    <div class="ma-filter-by-wrap"></div>
+                    {{ with .AppInfoList }}
+                        <ul class="ma-app-list-item-wrap">
+                            {{range .}}
                             {{ template "app/components/listItem" . }}
-                        {{end}}
-                    </ul>
-                    <hr>
-                    <div class="ma-app-list-pagination">
-                        <nav class="pagination">
-                            <span class="prev">
-                                <a href="/app/list?page=1" rel="prev"><i class="icon-angle-left"></i>前へ</a>
-                            </span>
-                            <span class="page"><a href="/app/list?page=1" rel="prev">1</a></span>
-                            <span class="page current">2</span>
-                            <span class="page"><a href="/app/list?page=3" rel="next">3</a></span>
-                            <span class="page"><a href="/app/list?page=4" rel="next">4</a></span>
-                            <span class="page"><a href="/app/list?page=5" rel="next">5</a></span>
-                            <span class="page"><a href="/app/list?page=6" rel="next">6</a></span>
-                            <span class="next">
-                                <a href="/app/list?page=3" rel="next">次へ<i class="icon-angle-right"></i></a>
-                            </span>
-                        </nav>
-                    </div>
+                            {{end}}
+                        </ul>
+                        <hr>
+                        <div class="ma-app-list-pagination">
+                            <nav class="pagination">
+                                <span class="prev">
+                                    <a href="/app/list?page=1" rel="prev"><i class="icon-angle-left"></i>前へ</a>
+                                </span>
+                                <span class="page"><a href="/app/list?page=1" rel="prev">1</a></span>
+                                <span class="page current">2</span>
+                                <span class="page"><a href="/app/list?page=3" rel="next">3</a></span>
+                                <span class="page"><a href="/app/list?page=4" rel="next">4</a></span>
+                                <span class="page"><a href="/app/list?page=5" rel="next">5</a></span>
+                                <span class="page"><a href="/app/list?page=6" rel="next">6</a></span>
+                                <span class="next">
+                                    <a href="/app/list?page=3" rel="next">次へ<i class="icon-angle-right"></i></a>
+                                </span>
+                            </nav>
+                        </div>                    
+                    {{else}}
+                        <ul class="ma-app-list-item-wrap">
+                            <li><h2>検索結果がありません</h2></li>
+                        </ul>
+                    {{end}}
                 </div>
             </div>
         </div>

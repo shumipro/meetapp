@@ -10,6 +10,12 @@ var util = {
         return user
     },
 
+    getUrlParams() {
+        var search = location.search.substring(1);
+        return search ? JSON.parse('{"' + search.replace(/&/g, '","').replace(/=/g,'":"') + '"}',
+                 function(key, value) { return key==="" ? value:decodeURIComponent(value) }) : {}
+    },
+
     getImageHTML(id, w, h){
         // override by fb account id
         if(id.FBUser){
