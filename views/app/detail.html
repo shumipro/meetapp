@@ -105,11 +105,11 @@
                                 <h3>募集中のメンバー</h3>
                                 <div class="divider"></div>
                             </div>
-                            <div>
+                            <dl>
                                 {{range .AppInfo.RecruitMember }}
-                                <div class="ma-tag">{{ .Occupation }}</div>
+                                <dt>{{ .Occupation }}</dt>
                                 {{end}}
-                            </div>
+                            </dl>
                         </section>
                     </div>
                     {{if .AppInfo.GitHubURL }}
@@ -133,9 +133,8 @@
                             </div>
                             <div>
                                 {{range .AppInfo.Members }}
-                                <!-- TODO: userinfoをつかう -->
                                 <div class="ma-profile">
-                                    <a href="#">
+                                    <a href="/mypage/other/{{ .ID }}">
                                         <div class="ma-profile-image-wrap">
                                             <img class="img-rounded ma-profile-image" src="{{ .IconImageURL }}">
                                         </div>

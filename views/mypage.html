@@ -43,28 +43,32 @@ background-position: 50% 50%;">
                         <input class="ma-profile-edit-btn btn btn-primary" type="button" value="プロフィールを編集する">
                     </div-->
                     <div class="ma-white-wrap">
+                        {{with .AdminAppList}}
                         <section>
                             <div class="section-heading">
                                 <h3>管理している開発アイデア</h3>
                                 <div class="divider"></div>
                             </div>
                             <div class="row">
-                                {{range .AdminAppList}}
+                                {{range .}}
                                 {{ template "app/components/tile" . }}
                                 {{end}}
                             </div>
                         </section>
+                        {{end}}
+                        {{with .JoinAppList}}
                         <section>
                             <div class="section-heading">
                                 <h3>参加している開発アイデア</h3>
                                 <div class="divider"></div>
                             </div>
                             <div class="row">
-                                {{range .JoinAppList}}
+                                {{range .}}
                                 {{ template "app/components/tile" . }}
                                 {{end}}
                             </div>
                         </section>
+                        {{end}}
                     </div>
                 </div>
             </div>
