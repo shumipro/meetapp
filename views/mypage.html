@@ -23,15 +23,16 @@ background-position: 50% 50%;">
                         <div class="ma-infobox-table">
                             <dl>
                                 <dt>Name:</dt><dd>{{ .User.Name }}</dd>
-
-                                {{ with .User.FBUser.Link }}
-                                <dt>Facebook:</dt><dd><a href="{{ . }}">Link</a></dd>
-                                {{ end }}
                                 <!--
                                 <dt>職種:</dt><dd>Engineer</dd>
                                 <dt>プログラミング言語:</dt><dd>Swift JavaScript</dd>
                                 -->
                             </dl>
+                            <div class="ma-sns-wrap text-center">
+                                {{ with .User.FBUser.Link }}
+                                <a href="{{ . }}" class="ma-sns-fb"></a>
+                                {{ end }}
+                            </div>
                         </div>
                     </div>
                     <div class="ma-infobox">
