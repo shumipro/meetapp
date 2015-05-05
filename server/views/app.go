@@ -53,8 +53,20 @@ type AppListResponse struct {
 	AppInfoList []AppInfoView
 }
 
+const pageNum = 10
+
 func AppList(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	orderBy := r.FormValue("orderBy")
+
+	page := r.FormValue("page")
+
+	platform := r.FormValue("platform")
+	occupation := r.FormValue("occupation")
+	category := r.FormValue("category")
+	pLang := r.FormValue("pLang")
+	area := r.FormValue("area")
+
+	pp.Println(page, orderBy, platform, occupation, category, pLang, area)
 
 	preload := AppListResponse{}
 	preload.TemplateHeader = NewHeader(ctx,

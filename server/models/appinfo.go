@@ -15,13 +15,13 @@ type AppInfo struct {
 	ID            string           `bson:"_id" json:"id"`                 // アプリID
 	Name          string           `           json:"name"`               // アプリ名
 	Description   string           `           json:"description"`        // アプリ詳細
-	Category      string           `           json:"category"`           // カテゴリ
-	Platform      string           `           json:"platform"`           // プラットフォーム
-	Language      string           `           json:"pLang"`              // プログラミング言語
+	Category      CategoryType     `           json:"category"`           // カテゴリ
+	Platform      PlatformType     `           json:"platform"`           // プラットフォーム
+	Language      LanguageType     `           json:"pLang"`              // プログラミング言語
 	Keywords      string           `           json:"keywords"`           // フリーキーワード
 	MainImage     string           `           json:"mainImageUrl"`       // メイン画像
 	ImageURLs     []URLInfo        `           json:"images"`             // 紹介画像URLたち
-	Area          string           `           json:"meetingArea"`        // 場所
+	Area          AreaType         `           json:"meetingArea"`        // 場所
 	StartDate     string           `           json:"projectStartDate"`   // 開始日
 	ReleaseDate   string           `           json:"projectReleaseDate"` // リリース予定日
 	GitHubURL     string           `           json:"githubUrl"`          // GitHubのURL
@@ -77,13 +77,13 @@ type URLInfo struct {
 }
 
 type RecruitInfo struct {
-	Occupation string `json:"occupation"` // 肩書とか役割
+	Occupation OccupationType `json:"occupation"` // 肩書とか役割
 }
 
 type Member struct {
-	UserID     string `json:"id"`
-	Occupation string `json:"occupation"` // 肩書とか役割
-	IsAdmin    bool   `json:"isAdmin"`    // 管理者フラグ
+	UserID     string         `json:"id"`
+	Occupation OccupationType `json:"occupation"` // 肩書とか役割
+	IsAdmin    bool           `json:"isAdmin"`    // 管理者フラグ
 }
 
 type DiscussionInfo struct {
@@ -117,6 +117,16 @@ func (t _AppsInfoTable) FindID(ctx context.Context, appID string) (result AppInf
 }
 
 func (t _AppsInfoTable) FindAll(ctx context.Context) (result []AppInfo, err error) {
+	t.withCollection(ctx, func(c *mgo.Collection) {
+		err = c.Find(bson.M{}).All(&result)
+	})
+	return
+}
+
+type AppInfoFilter struct {
+}
+
+func (t _AppsInfoTable) FindFilter(ctx context.Context) (result []AppInfo, err error) {
 	t.withCollection(ctx, func(c *mgo.Collection) {
 		err = c.Find(bson.M{}).All(&result)
 	})
