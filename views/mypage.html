@@ -14,8 +14,11 @@
             <div class="ma-layout clearfix">
                 <div class="ma-layout-col-left">
                     <div class="ma-infobox">
-                        <div class="ma-infobox-logo">
-                            <img src="{{ .User.IconImageURL }}" class="sectionImg">
+                        <!--<div class="ma-infobox-logo">-->
+                            <!--<img src="{{ .User.IconImageURL }}" class="sectionImg">-->
+                        <!--</div>-->
+                        <div style="background-image:url({{ .User.IconImageURL }}); height: 242px; background-size:cover; background-repeat: no-repeat;
+background-position: 50% 50%;">
                         </div>
                         <div class="ma-infobox-table">
                             <dl>
