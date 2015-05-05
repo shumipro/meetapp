@@ -17,12 +17,16 @@
                         <!--<div class="ma-infobox-logo">-->
                             <!--<img src="{{ .User.IconImageURL }}" class="sectionImg">-->
                         <!--</div>-->
-                        <div style="background-image:url({{ .User.IconImageURL }}); height: 242px; background-size:cover; background-repeat: no-repeat;
+                        <div style="background-image:url({{ .User.IconLargeImageURL }}); height: 242px; background-size:cover; background-repeat: no-repeat;
 background-position: 50% 50%;">
                         </div>
                         <div class="ma-infobox-table">
                             <dl>
                                 <dt>Name:</dt><dd>{{ .User.Name }}</dd>
+
+                                {{ with .User.FBUser.Link }}
+                                <dt>Facebook:</dt><dd><a href="{{ . }}">Link</a></dd>
+                                {{ end }}
                                 <!--
                                 <dt>職種:</dt><dd>Engineer</dd>
                                 <dt>プログラミング言語:</dt><dd>Swift JavaScript</dd>
