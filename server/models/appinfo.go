@@ -134,8 +134,16 @@ func (t _AppsInfoTable) FindFilter(ctx context.Context, filter AppInfoFilter, of
 }
 
 func (t _AppsInfoTable) FindByAdminID(ctx context.Context, adminUserID string) (result []AppInfo, err error) {
+	// db.apps.find({members: { $elemMatch: { userid: "<user_id>", isadmin: true }}}, {members: 1})
 	t.withCollection(ctx, func(c *mgo.Collection) {
-		err = c.Find(bson.M{"members.userid": adminUserID, "members.isadmin": true}).All(&result)
+		err = c.Find(bson.M{
+			"members": bson.M{
+				"$elemMatch": bson.M{
+					"userid":  adminUserID,
+					"isadmin": true,
+				},
+			},
+		}).All(&result)
 	})
 	return
 }
