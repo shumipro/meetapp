@@ -5,7 +5,7 @@
             <span class="fa fa-bars fa-lg"></span>
             </button>
             <a class="navbar-brand" href="/">
-            <img src="/img/logo.png" alt="" class="logo">
+            <img src="{{ .StaticPath }}/logo.png" alt="" class="logo">
             </a>
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -40,6 +40,6 @@
 
 <div class="tp-banner-container">
     <div class="ma-top-banner" style="{{with .ShowBanner }} {{else}}display: none;{{end}}">
-        <img src="/img/topbanner.png">
+        <img src="{{ .StaticPath }}/topbanner.png">
     </div>
 </div>

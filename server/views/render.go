@@ -27,6 +27,7 @@ type TemplateHeader struct {
 	ShowBanner bool
 	Config     Config           `json:"config"`
 	Constants  models.Constants `json:"constants"`
+	StaticPath string
 }
 
 func (t TemplateHeader) EscapeNewline(text string) template.HTML {
@@ -49,6 +50,7 @@ func NewHeader(ctx context.Context, title, navTitle, subTitle string, showBanner
 	h.SubTitle = subTitle
 	h.NavTitle = navTitle
 	h.ShowBanner = showBanner
+	h.StaticPath = "https://res.cloudinary.com/hcod0wyyv/image/upload/v1430837109" // TODO: たぶんenvから取れるはず
 
 	return h
 }
