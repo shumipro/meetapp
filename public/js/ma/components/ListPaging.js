@@ -3,13 +3,13 @@ import constants from '../constants'
 import util from '../util'
 import Handlebars from 'handlebars'
 
-var html = '<span class="prev">' +
-                '{{#if hasPrev}}<a href="/list?page={{prev}}">前へ</a>{{else}}前へ{{/if}}' +
-            '</span>' + 
-            '{{#each pages}}{{#if isCurrent}}<span class="page">{{page}}</span>{{else}}<span class="page"><a href="/list?page={{page}}">{{page}}</a></span>{{/if}}{{/each}}' +
-            '<span class="next">' +
-               '{{#if hasNext}}<a href="/list?page={{next}}">次へ</a>{{else}}次へ{{/if}}' +
-           '</span>'
+var html =  '{{#if hasPrev}}<span class="prev">' +
+                '<a href="/app/list?page={{prev}}">前へ</a>' +
+            '</span>{{/if}}' + 
+            '{{#each pages}}{{#if isCurrent}}<span class="page">{{page}}</span>{{else}}<span class="page"><a href="/app/list?page={{page}}">{{page}}</a></span>{{/if}}{{/each}}' +
+            '{{#if hasNext}}<span class="next">' +
+               '<a href="/app/list?page={{next}}">次へ</a>' +
+            '</span>{{/if}}'
 
 var tmpl = Handlebars.compile(html)
 
