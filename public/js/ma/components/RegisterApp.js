@@ -76,8 +76,8 @@ export default class RegisterApp {
         })
         // attach delete button
         var $deleteBtn = $('.ma-friend-delete-btn')
-        $deleteBtn.on('click', () => {
-            $deleteBtn.parent().remove()
+        $deleteBtn.on('click', function() {
+            $(this).parent().remove()
         })
     }
 

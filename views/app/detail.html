@@ -42,8 +42,8 @@
                             <dl>
                                 <dt>ミーティング場所:</dt><dd>{{ .AppInfo.Area }}</dd>
                                 <dt>ミーティング頻度:</dt><dd>{{ .AppInfo.Frequency }}</dd>
-                                <dt>プロジェクト開始日:</dt><dd>{{ .AppInfo.StartDate }}</dd>
-                                <dt>リリース予定日:</dt><dd>{{ .AppInfo.ReleaseDate }}</dd>
+                                <dt>プロジェクト開始日:</dt><dd>{{with .AppInfo.StartDate }}{{ . }}{{else}} - {{end}}</dd>
+                                <dt>リリース予定日:</dt><dd>{{with .AppInfo.ReleaseDate }}{{ . }}{{else}} - {{end}}</dd>
                             </dl>
                         </div>
                     </div>
@@ -89,27 +89,27 @@
                                 <h3>URL</h3>
                                 <div class="divider"></div>
                             </div>
-                            {{if .AppInfo.DemoURL }}
                             <dl>
-                                <dt>Demo URL:</dt><dd><a href="{{ .AppInfo.DemoURL }}" target="_blank">{{ .AppInfo.DemoURL }}</a></dd>
+                                <dt>Demo URL:</dt><dd>{{with .AppInfo.DemoURL }}<a href="{{ .AppInfo.DemoURL }}" target="_blank">{{ . }}</a>{{else}} - {{end}}</dd>
                             </dl>
-                            {{end}}
-                            {{if .AppInfo.GitHubURL }}
                             <dl>
-                                <dt>Github URL:</dt><dd><a href="{{ .AppInfo.GitHubURL }}" target="_blank">{{ .AppInfo.GitHubURL }}</a></dd>
+                                <dt>Github URL:</dt><dd>{{with .AppInfo.GitHubURL }}<a href="{{ .AppInfo.GitHubURL }}" target="_blank">{{ . }}</a>{{else}} - {{end}}</dd>
                             </dl>
-                            {{end}}
                         </section>
                         <section>
                             <div class="section-heading">
                                 <h3>募集中のメンバー</h3>
                                 <div class="divider"></div>
                             </div>
-                            <dl>
-                                {{range .AppInfo.RecruitMember }}
-                                <dt>{{ .Occupation }}</dt>
+                            <div>
+                                {{if .AppInfo.RecruitMember }}
+                                    {{range .AppInfo.RecruitMember }}
+                                    <div class="ma-tag">{{ .Occupation }}</div>
+                                    {{end}}
+                                {{else}}
+                                    <h4>現在メンバー募集はしていません</h4>
                                 {{end}}
-                            </dl>
+                            </div>
                         </section>
                     </div>
                     {{if .AppInfo.GitHubURL }}
