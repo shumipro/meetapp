@@ -48,11 +48,11 @@ header .navbar-default ul.dropdown-menu li a:after {
     bottom: 2px;
     z-index: 99999;
     left: 20px;
-    -webkit-border-radius: 5em;
-    -moz-border-radius: 5em;
-    -ms-border-radius: 5em;
-    -o-border-radius: 5em;
-    border-radius: 5em;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -ms-border-radius: 8px;
+    -o-border-radius: 8px;
+    border-radius: 8px;
     -webkit-transition: all 0.25s ease-in-out;
     -moz-transition: all 0.25s ease-in-out;
     -ms-transition: all 0.25s ease-in-out;
@@ -125,11 +125,11 @@ header .navbar-default .navbar-brand img {
     display: block;
     text-align: center;
     margin: 13px auto;
-    -webkit-border-radius: 5em;
-    -moz-border-radius: 5em;
-    -ms-border-radius: 5em;
-    -o-border-radius: 5em;
-    border-radius: 5em;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -ms-border-radius: 8px;
+    -o-border-radius: 8px;
+    border-radius: 8px;
 }
 
 .section-heading.inverse h1,.section-heading.inverse p {
@@ -224,11 +224,11 @@ section::before,section::after {
 }
 
 .btn {
-    -webkit-border-radius: 3em;
-    -moz-border-radius: 3em;
-    -ms-border-radius: 3em;
-    -o-border-radius: 3em;
-    border-radius: 3em;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -ms-border-radius: 8px;
+    -o-border-radius: 8px;
+    border-radius: 8px;
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
     box-shadow: none;
@@ -274,11 +274,11 @@ form .form-control {
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
     box-shadow: none;
-    -webkit-border-radius: 5em;
-    -moz-border-radius: 5em;
-    -ms-border-radius: 5em;
-    -o-border-radius: 5em;
-    border-radius: 5em;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -ms-border-radius: 8px;
+    -o-border-radius: 8px;
+    border-radius: 8px;
     height: 40px;
     line-height: 40px;
     padding: 10px 20px;
@@ -288,11 +288,11 @@ form .form-control {
 }
 
 form textarea.form-control {
-    -webkit-border-radius: 20px;
-    -moz-border-radius: 20px;
-    -ms-border-radius: 20px;
-    -o-border-radius: 20px;
-    border-radius: 20px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -ms-border-radius: 8px;
+    -o-border-radius: 8px;
+    border-radius: 8px;
     height: auto;
     line-height: normal;
 }
@@ -321,17 +321,17 @@ form textarea.form-control {
     }
 
     header .navbar-default .navbar-toggle {
-        border-radius: 5em;
+        border-radius: 8px;
         margin-top: 20px;
         margin-right: 20px;
         background: none;
         border: 2px solid #303f9f;
         color: #303f9f;
-        -webkit-border-radius: 5em;
-        -moz-border-radius: 5em;
-        -ms-border-radius: 5em;
-        -o-border-radius: 5em;
-        border-radius: 5em;
+        -webkit-border-radius: 8px;
+        -moz-border-radius: 8px;
+        -ms-border-radius: 8px;
+        -o-border-radius: 8px;
+        border-radius: 8px;
     }
 
     header .navbar-default .navbar-toggle:hover,header .navbar-default .navbar-toggle:focus {
@@ -356,7 +356,7 @@ form textarea.form-control {
 }
 
 header {
-    background: #2196f3;
+    /*background: #2196f3;*/
 }
 
 header .navbar-default {

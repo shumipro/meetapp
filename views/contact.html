@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {{ template "partials/header" . }}
+</head>
+<body>
+
+    <header>
+        {{ template "partials/nav" . }}
+    </header>
+
+    <div class="wrapper">
+        <section>
+            <div class="container">
+                <div class="section-heading">
+                    <h1>お問い合わせ</h1>
+                    <div class="divider"></div>
+                </div>
+                <div class="text-center">
+                    <p>MeetAppに関するお問い合わせは、以下のメールアドレス宛に記入をお願いします。</p>
+                    <p><a href="mailto:meetapp.info@gmail.com">meetapp.info@gmail.com</a></p>
+                </div>
+            </div>
+        </section>
+        <footer>
+            {{ template "partials/footer" . }}
+        </footer>
+    </div>
+
+    {{ template "partials/scripts" . }}
+</body>
+</html>

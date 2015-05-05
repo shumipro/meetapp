@@ -11,12 +11,13 @@ import (
 )
 
 type User struct {
-	ID       string       `bson:"_id"      json:"ID"`       // UUID自動生成
-	Name     string       `                json:"Name"`     // ユーザー名
-	ImageURL string       `                json:"IamgeURL"` // ユーザーアイコンのURL
-	FBUser   FacebookUser `bson:"facebook" json:"FBUser"`   // Facebookのme情報
-	CreateAt time.Time    `                json:"-"`
-	UpdateAt time.Time    `                json:"-"`
+	ID            string       `bson:"_id"      json:"ID"`            // UUID自動生成
+	Name          string       `                json:"Name"`          // ユーザー名
+	ImageURL      string       `                json:"IamgeURL"`      // ユーザーアイコンのURL
+	LargeImageURL string       `                json:"largeImageURL"` // ユーザーアイコンの大きいURL
+	FBUser        FacebookUser `bson:"facebook" json:"FBUser"`        // Facebookのme情報
+	CreateAt      time.Time    `                json:"-"`
+	UpdateAt      time.Time    `                json:"-"`
 }
 
 func (u User) IconImageURL() string {
@@ -26,6 +27,18 @@ func (u User) IconImageURL() string {
 
 	if u.FBUser.ID != "" {
 		return fmt.Sprintf("http://graph.facebook.com/%s/picture?type=square", u.FBUser.ID)
+	}
+
+	return "/img/no_img.png"
+}
+
+func (u User) IconLargeImageURL() string {
+	if u.LargeImageURL != "" {
+		return u.LargeImageURL
+	}
+
+	if u.FBUser.ID != "" {
+		return fmt.Sprintf("http://graph.facebook.com/%s/picture?type=large", u.FBUser.ID)
 	}
 
 	return "/img/no_img.png"
@@ -55,12 +68,9 @@ func (_ _UsersTable) Name() string {
 	return "users"
 }
 
-// TODO: あとで...
-//var _ modelsContext = (*_UsersTable)(nil)
+var _ modelsTable = (*_UsersTable)(nil)
 
-func UsersTable() _UsersTable {
-	return _UsersTable{}
-}
+var UsersTable = _UsersTable{}
 
 func (t _UsersTable) withCollection(ctx context.Context, fn func(c *mgo.Collection)) {
 	withDefaultCollection(ctx, t.Name(), fn)

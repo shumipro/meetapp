@@ -15,6 +15,19 @@
                     <div class="ma-infobox">
                         <div class="ma-infobox-logo">
                             <img src="{{ .AppInfo.MainImage }}" class="sectionImg">
+                            <div class="ma-star-wrap text-center">
+                                <figure class="ma-app-star-count">
+                                    <figcaption class="star">★</figcaption>
+                                    <strong class="count">{{ .AppInfo.StarCount }}</strong>
+                                </figure>
+                                {{if .AppInfo.Stared }}
+                                    <!-- 既にstarしている場合 -->
+                                    <button class="ma-app-star-btn btn btn-primary" data-api="unstar" type="button"><i class="icon"></i><span>はずす</span></button>
+                                {{ else }}
+                                    <!-- まだstarしていない場合 -->
+                                    <button class="ma-app-star-btn btn btn-primary" data-api="star" type="button"><i class="icon"></i><span>スターする</span></button>
+                                {{ end }}
+                            </div>
                         </div>
                         <div class="ma-infobox-table">
                             <dl>
@@ -29,14 +42,13 @@
                             <dl>
                                 <dt>ミーティング場所:</dt><dd>{{ .AppInfo.Area }}</dd>
                                 <dt>ミーティング頻度:</dt><dd>{{ .AppInfo.Frequency }}</dd>
-                                <dt>プロジェクト開始日:</dt><dd>{{ .AppInfo.StartDate }}</dd>
-                                <dt>リリース予定日:</dt><dd>{{ .AppInfo.ReleaseDate }}</dd>
+                                <dt>プロジェクト開始日:</dt><dd>{{with .AppInfo.StartDate }}{{ . }}{{else}} - {{end}}</dd>
+                                <dt>リリース予定日:</dt><dd>{{with .AppInfo.ReleaseDate }}{{ . }}{{else}} - {{end}}</dd>
                             </dl>
                         </div>
                     </div>
                     <div class="ma-infobox">
-                        <div class="ma-star-wrap text-center">
-                            <input class="ma-app-star-btn btn btn-primary btn-inverse" type="button" value="スターする">
+                        <div class="text-center">
                             <div class="social">
                                 <div class="fb-like" data-href="" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false"></div>
                                 <a href="https://twitter.com/share" class="twitter-share-button" data-url="" data-via="" data-lang="en">Tweet</a>
@@ -48,17 +60,19 @@
                     </div>
                 </div>
                 <div class="ma-layout-col-right">
-                    <!-- TODO: 管理者の場合のみ表示 -->
+                    <!-- 管理者の場合のみ表示 -->
+                    {{if .AppInfo.IsAdmin }}
                     <div class="ma-white-wrap text-center">
                         <input class="ma-app-edit-btn btn btn-primary" type="button" value="開発アイデアを編集する">
                         <input class="ma-app-delete-btn btn btn-primary" type="button" value="開発アイデアを削除する">
                     </div>
+                    {{ end }}
 
                     <div class="ma-white-wrap">
                         <section>
                             <div>
                                 <h1>{{ .AppInfo.Name }}</h1>
-                                <div class="sectionDesc">{{ .AppInfo.Description }}</div>
+                                <div class="sectionDesc">{{ .EscapeNewline .AppInfo.Description }}</div>
                             </div>
                         </section>
                         <section>
@@ -75,27 +89,27 @@
                                 <h3>URL</h3>
                                 <div class="divider"></div>
                             </div>
-                            {{if .AppInfo.DemoURL }}
                             <dl>
-                                <dt>Demo URL:</dt><dd><a href="{{ .AppInfo.DemoURL }}" target="_blank">{{ .AppInfo.DemoURL }}</a></dd>
+                                    <dt>Demo URL:</dt><dd>{{with .AppInfo.DemoURL }}<a href="{{ . }}" target="_blank">{{ . }}</a>{{else}} - {{end}}</dd>
                             </dl>
-                            {{end}}
-                            {{if .AppInfo.GitHubURL }}
                             <dl>
-                                <dt>Github URL:</dt><dd><a href="{{ .AppInfo.GitHubURL }}" target="_blank">{{ .AppInfo.GitHubURL }}</a></dd>
+                                <dt>Github URL:</dt><dd>{{with .AppInfo.GitHubURL }}<a href="{{ . }}" target="_blank">{{ . }}</a>{{else}} - {{end}}</dd>
                             </dl>
-                            {{end}}
                         </section>
                         <section>
                             <div class="section-heading">
                                 <h3>募集中のメンバー</h3>
                                 <div class="divider"></div>
                             </div>
-                            <dl>
-                                {{range .AppInfo.RecruitMember }}
-                                <dt>{{ .Occupation }}</dt>
+                            <div>
+                                {{if .AppInfo.RecruitMember }}
+                                    {{range .AppInfo.RecruitMember }}
+                                    <div class="ma-tag">{{ .Occupation }}</div>
+                                    {{end}}
+                                {{else}}
+                                    <p>現在メンバー募集はしていません</p>
                                 {{end}}
-                            </dl>
+                            </div>
                         </section>
                     </div>
                     {{if .AppInfo.GitHubURL }}
@@ -119,15 +133,14 @@
                             </div>
                             <div>
                                 {{range .AppInfo.Members }}
-                                <!-- TODO: userinfoをつかう -->
                                 <div class="ma-profile">
-                                    <a href="#">
+                                    <a href="/mypage/other/{{ .ID }}">
                                         <div class="ma-profile-image-wrap">
                                             <img class="img-rounded ma-profile-image" src="{{ .IconImageURL }}">
                                         </div>
                                         <div class="ma-profile-content-wrap">
                                             <div class="ma-profile-content">
-                                                <div class="ma-profile-name">{{ .UserID }}</div>
+                                                <div class="ma-profile-name">{{ .Name }}</div>
                                                 <div class="ma-profile-title">{{ .Occupation }}</div>
                                             </div>
                                         </div>
@@ -144,16 +157,17 @@
                                 <div class="divider"></div>
                             </div>
                             <ul class="ma-list-bordered ma-discussion-wrap">
+                                {{ $self := . }}
                                 {{range .AppInfo.Discussions }}
                                 <li class="ma-profile-comment">
-                                    <span class="ma-profile-date subtle-text" data-timestamp="{{ .Timestamp }}"></span>
+                                    <span class="ma-profile-date subtle-text">{{ .FormatTime }}</span>
                                     <a href="#">
                                         <div class="ma-profile-image-wrap">
                                             <img class="img-rounded ma-profile-image" src="{{ .IconImageURL }}">
                                         </div>
                                     </a>
                                     <div class="ma-profile-message">
-                                        <p>{{ .Message }}</p>
+                                        <p>{{ $self.EscapeNewline .Message }}</p>
                                     </div>
                                 </li>                                
                                 {{end}}

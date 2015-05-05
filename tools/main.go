@@ -19,7 +19,7 @@ func main() {
 	defer db.CloseMongoDB(ctx)
 
 	for _, user := range mockUsers {
-		if err := models.UsersTable().Upsert(ctx, user); err != nil {
+		if err := models.UsersTable.Upsert(ctx, user); err != nil {
 			log.Println(err)
 		} else {
 			log.Println("OK")

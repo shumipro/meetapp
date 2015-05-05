@@ -20,7 +20,7 @@ func init() {
 func UserSearchKeyword(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	word := kami.Param(ctx, "keyword")
 
-	users, _ := models.UsersTable().FindByKeyword(ctx, word)
+	users, _ := models.UsersTable.FindByKeyword(ctx, word)
 	if users == nil {
 		users = []models.User{}
 	}

@@ -20,5 +20,5 @@ func PanicHandler(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	fmt.Println(string(debug.Stack()))
 
 	//	renderer.JSON(w, 500, "Server Error")
-	http.Redirect(w, r, "/error", 301)
+	http.Redirect(w, r, "/error", 302)
 }

@@ -10,16 +10,15 @@ import (
 
 func Login(ctx context.Context, w http.ResponseWriter, r *http.Request) context.Context {
 	// Header -> requestParam -> cookieの順番に見に行く
-	token := r.Header.Get("Meetup-Auth-Token")
+	token := r.Header.Get("Meetapp-Auth-Token")
 	if token == "" {
-		token = r.URL.Query().Get("Meetup-Auth-Token")
+		token = r.URL.Query().Get("Meetapp-Auth-Token")
 		if token == "" {
-			ck, err := r.Cookie("Meetup-Auth-Token")
-			if err != nil {
-				return ctx
-			}
-			token = ck.Value
+			token = readCookieAuthToken(r)
 		}
+	}
+	if token == "" {
+		return ctx
 	}
 
 	if a, err := GetAccountByToken(ctx, token); err == nil {
@@ -32,7 +31,7 @@ func LoginCheck(ctx context.Context, w http.ResponseWriter, r *http.Request) con
 	_, ok := FromContext(ctx)
 	if !ok {
 		log.Println("[ERROR] Login Error 401")
-		http.Redirect(w, r, "/error", 301)
+		http.Redirect(w, r, "/error", 302)
 		return nil
 	}
 	return ctx

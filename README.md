@@ -56,4 +56,29 @@ $ git push heroku master
 
 - `xxx`: は適当にかぶらない文字列（いっそランダムでもいいけど）
 
+## Front-end Dev Setup
 
+JS/CSS(stylus)を変更する場合は以下の手順（nodeがinstallされている前提）
+
+### install gulp
+
+```
+npm install -g gulp
+```
+
+### run npm install
+meetappディレクトリで一度以下を実行
+```
+npm install
+```
+
+### run gulp
+JS/CSSを変更した場合watchしてbuildするタスク
+```
+gulp
+```
+
+JSをminifyする場合
+```
+gulp --production
+```

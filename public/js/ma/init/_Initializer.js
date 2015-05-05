@@ -12,7 +12,8 @@ module.exports = {
         '/html/list.html': List,
         '/app/list': List,
         '/html/register.html': Register,
-        '/app/register': Register
+        '/u/app/register': Register,
+        '/u/app/edit': Register
     },
 
     getInitializer() {

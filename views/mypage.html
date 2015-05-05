@@ -14,15 +14,25 @@
             <div class="ma-layout clearfix">
                 <div class="ma-layout-col-left">
                     <div class="ma-infobox">
-                        <div class="ma-infobox-logo">
-                            <img src="http://graph.facebook.com/10152160532855662/picture?type=square" class="sectionImg">
+                        <!--<div class="ma-infobox-logo">-->
+                            <!--<img src="{{ .User.IconImageURL }}" class="sectionImg">-->
+                        <!--</div>-->
+                        <div style="background-image:url({{ .User.IconLargeImageURL }}); height: 242px; background-size:cover; background-repeat: no-repeat;
+background-position: 50% 50%;">
                         </div>
                         <div class="ma-infobox-table">
                             <dl>
-                                <dt>Name:</dt><dd>tejitak</dd>
+                                <dt>Name:</dt><dd>{{ .User.Name }}</dd>
+                                <!--
                                 <dt>職種:</dt><dd>Engineer</dd>
                                 <dt>プログラミング言語:</dt><dd>Swift JavaScript</dd>
+                                -->
                             </dl>
+                            <div class="ma-sns-wrap text-center">
+                                {{ with .User.FBUser.Link }}
+                                <a href="{{ . }}" class="ma-sns-fb"></a>
+                                {{ end }}
+                            </div>
                         </div>
                     </div>
                     <div class="ma-infobox">
@@ -34,55 +44,32 @@
                         <input class="ma-profile-edit-btn btn btn-primary" type="button" value="プロフィールを編集する">
                     </div-->
                     <div class="ma-white-wrap">
+                        {{with .AdminAppList}}
                         <section>
                             <div class="section-heading">
-                                <h3>管理プロジェクト</h3>
+                                <h3>管理している開発アイデア</h3>
                                 <div class="divider"></div>
                             </div>
                             <div class="row">
-                                <div class="col-md-3 col-sm-3 col-xs-6 ma-app-tile-wrap">
-                                    <a href="/app/detail?id=001">
-                                    <div class="ma-app-tile">
-                                        <div class="ma-app-tile-image">
-                                            <img src="/img/sample1.png" width="200" height="150" alt="Meet App">
-                                        </div>
-                                        <div class="ma-app-tile-toolbar"><span class="star">Star: 18</span></div>
-                                        <div class="ma-app-tile-title">Meet App - MeetAppは趣味アプリ開発を楽しくします</div>
-                                    </div>
-                                    </a>
-                                </div>
+                                {{range .}}
+                                {{ template "app/components/tile" . }}
+                                {{end}}
                             </div>
                         </section>
+                        {{end}}
+                        {{with .JoinAppList}}
                         <section>
                             <div class="section-heading">
-                                <h3>参加プロジェクト</h3>
+                                <h3>参加している開発アイデア</h3>
                                 <div class="divider"></div>
                             </div>
                             <div class="row">
-                                <div class="col-md-3 col-sm-3 col-xs-6 ma-app-tile-wrap">
-                                    <a href="/app/detail?id=001">
-                                    <div class="ma-app-tile">
-                                        <div class="ma-app-tile-image">
-                                            <img src="/img/sample1.png" width="200" height="150" alt="Meet App">
-                                        </div>
-                                        <div class="ma-app-tile-toolbar"><span class="star">Star: 18</span></div>
-                                        <div class="ma-app-tile-title">Meet App - MeetAppは趣味アプリ開発を楽しくします</div>
-                                    </div>
-                                    </a>
-                                </div>
-                                <div class="col-md-3 col-sm-3 col-xs-6 ma-app-tile-wrap">
-                                    <a href="/app/detail?id=001">
-                                    <div class="ma-app-tile">
-                                        <div class="ma-app-tile-image">
-                                            <img src="/img/sample1.png" width="200" height="150" alt="Meet App">
-                                        </div>
-                                        <div class="ma-app-tile-toolbar"><span class="star">Star: 18</span></div>
-                                        <div class="ma-app-tile-title">Meet App - MeetAppは趣味アプリ開発を楽しくします</div>
-                                    </div>
-                                    </a>
-                                </div>
+                                {{range .}}
+                                {{ template "app/components/tile" . }}
+                                {{end}}
                             </div>
                         </section>
+                        {{end}}
                     </div>
                 </div>
             </div>

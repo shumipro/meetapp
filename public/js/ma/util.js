@@ -3,14 +3,17 @@ import config from './config'
 var util = {
 
     getUserInfo() {
-        return config.user
+        var user = config.user
+        if(!user || !user.ID) {
+            return null
+        }
+        return user
     },
 
-    loadJSONP(api, callbackName) {
-        var head = document.getElementsByTagName('head')[0];
-        var el = document.createElement('script');
-        el.src = api + '&callback=' + callbackName;
-        head.insertBefore(el, head.firstChild);
+    getUrlParams() {
+        var search = location.search.substring(1);
+        return search ? JSON.parse('{"' + search.replace(/&/g, '","').replace(/=/g,'":"') + '"}',
+                 function(key, value) { return key==="" ? value:decodeURIComponent(value) }) : {}
     },
 
     getImageHTML(id, w, h){

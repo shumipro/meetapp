@@ -13,11 +13,6 @@ export default class Discussion {
                 location.href = "/login"
             }
         })
-        // TODO: set timestamp display
-        $('.ma-profile-date').each(function(index, span){
-            var $date = $(span)
-            $date.html($date.data('timestamp'))
-        })
     }
 
     post() {
@@ -29,7 +24,7 @@ export default class Discussion {
             return
         }
         $.ajax({
-            url: '/api/app/discussion',
+            url: '/u/api/app/discussion',
             type: 'post',
             contentType:"application/json; charset=utf-8",
             dataType: 'json',
@@ -43,7 +38,7 @@ export default class Discussion {
 
     validate(params) {
         if($.trim(params.discussionInfo.message) === ""){
-            return {"error": true, "message": "messageが入力されていません"}
+            return {"error": true, "message": "コメントが入力されていません"}
         }
         return {"error": false}
     }
@@ -53,8 +48,7 @@ export default class Discussion {
             appId: util.getAppDetailId(),
             discussionInfo: {
                 userId: util.getUserInfo().ID,
-                message: this._$textarea.val(),
-                timestamp: new Date().getTime()
+                message: this._$textarea.val()
             }
         }
     }

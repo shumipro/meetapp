@@ -10,12 +10,9 @@ import (
 
 	"github.com/go-xweb/uuid"
 	"github.com/guregu/kami"
-	fb "github.com/huandu/facebook"
-	"github.com/shumipro/meetapp/server/db"
 	"github.com/shumipro/meetapp/server/models"
 	"github.com/shumipro/meetapp/server/oauth"
 	"golang.org/x/net/context"
-	"golang.org/x/oauth2"
 	"gopkg.in/mgo.v2"
 )
 
@@ -29,53 +26,37 @@ func init() {
 func Login(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	if _, ok := oauth.FromContext(ctx); ok {
 		// login済みならmypageへ
-		http.Redirect(w, r, "/u/mypage", 301)
+		http.Redirect(w, r, "/u/mypage", 302)
 		return
 	}
 
-	preload := TemplateHeader{
-		Title: "Login",
-	}
+	preload := NewHeader(ctx, "Login", "", "", false)
 	ExecuteTemplate(ctx, w, "login", preload)
 }
 
 func Logout(ctx context.Context, w http.ResponseWriter, r *http.Request) {
-	a, _ := oauth.FromContext(ctx)
-	redisDB := db.Redis(ctx)
-	redisDB.Del("auth:" + a.AuthToken)
-	removeCookieAuthToken(w)
-
-	http.Redirect(w, r, "/login", 301)
+	oauth.ResetCacheAuthToken(ctx, w)
+	http.Redirect(w, r, "/login", 302)
 }
 
 func LoginFacebook(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	c := oauth.Facebook(ctx)
-	http.Redirect(w, r, c.AuthCodeURL(""), 301)
+	http.Redirect(w, r, c.AuthCodeURL(""), 302)
 }
 
 func AuthCallback(ctx context.Context, w http.ResponseWriter, r *http.Request) {
-	c := oauth.Facebook(ctx)
-	redisDB := db.Redis(ctx)
-
 	code := r.FormValue("code")
-	token, err := c.Exchange(oauth2.NoContext, code)
+	token, err := oauth.GetFacebookAuthToken(ctx, code)
 	if err != nil {
-		panic(err)
+		panic(err.Error())
 	}
 
-	// TODO: kyokomi あとでリファクタします...
-
-	// Redisから登録済みかを取得
-	var user models.User
-	res, err := fb.Get("/me", fb.Params{
-		"access_token": token.AccessToken,
-	})
+	facebookID, res, err := oauth.GetFacebookMe(ctx, token.AccessToken)
 	if err != nil {
-		panic(err)
+		panic(err.Error())
 	}
 
-	facebookID := res["id"].(string)
-	user, err = models.UsersTable().FindByFacebookID(ctx, facebookID)
+	user, err := models.UsersTable.FindByFacebookID(ctx, facebookID)
 	if err == mgo.ErrNotFound {
 		// 新規
 		userID := uuid.New()
@@ -93,15 +74,16 @@ func AuthCallback(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 			panic(err)
 		}
 		user.Name = fbUser.Name // TODO: 一旦Facebookオンリーなので
-		user.ImageURL = user.IconImageURL()
 		user.FBUser = fbUser
+		user.ImageURL = user.IconImageURL()
+		user.LargeImageURL = user.IconLargeImageURL()
 
 		nowTime := time.Now()
 		user.CreateAt = nowTime
 		user.UpdateAt = nowTime
 
 		// 登録する
-		if err := models.UsersTable().Upsert(ctx, user); err != nil {
+		if err := models.UsersTable.Upsert(ctx, user); err != nil {
 			panic(err)
 		} else {
 			fmt.Println("とうろくした")
@@ -112,31 +94,11 @@ func AuthCallback(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 		fmt.Println("とうろくずみ")
 	}
 
-	// RedisでCacheしてる
-	expiry := token.Expiry.Sub(time.Now())
-	_, err = redisDB.SetEx("auth:"+token.AccessToken, expiry, user.ID).Result()
+	// RedisでCacheとCookieに書き込む
+	err = oauth.CacheAuthToken(ctx, w, user.ID, *token)
 	if err != nil {
 		panic(err)
 	}
-	writeCookieAuthToken(w, token.AccessToken, token.Expiry)
 
-	http.Redirect(w, r, "/u/mypage", 301)
-}
-
-func writeCookieAuthToken(w http.ResponseWriter, authToken string, expiry time.Time) {
-	// TODO: とりあえずCookieに焼く
-	var cookie http.Cookie
-	cookie.Path = "/"
-	cookie.Name = "Meetup-Auth-Token"
-	cookie.Expires = expiry
-	cookie.Value = authToken
-	http.SetCookie(w, &cookie)
-}
-
-func removeCookieAuthToken(w http.ResponseWriter) {
-	// TODO: とりあえずCookieに焼く
-	var cookie http.Cookie
-	cookie.Path = "/"
-	cookie.Name = "Meetup-Auth-Token"
-	http.SetCookie(w, &cookie)
+	http.Redirect(w, r, "/u/mypage", 302)
 }

@@ -5,6 +5,7 @@ import (
 
 	"fmt"
 
+	"github.com/huandu/facebook"
 	"golang.org/x/net/context"
 	"golang.org/x/oauth2"
 )
@@ -45,4 +46,22 @@ func WithFacebook(ctx context.Context) context.Context {
 func Facebook(ctx context.Context) *oauth2.Config {
 	conf, _ := ctx.Value(authKey("facebook")).(*oauth2.Config)
 	return conf
+}
+
+func GetFacebookAuthToken(ctx context.Context, code string) (*oauth2.Token, error) {
+	c := Facebook(ctx)
+	return c.Exchange(oauth2.NoContext, code)
+}
+
+func GetFacebookMe(ctx context.Context, authToken string) (facebookID string, res facebook.Result, err error) {
+	res, err = facebook.Get("/me", facebook.Params{
+		"access_token": authToken,
+	})
+	if err != nil {
+		return "", nil, err
+	}
+
+	facebookID = res["id"].(string)
+
+	return facebookID, res, nil
 }
