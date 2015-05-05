@@ -105,11 +105,11 @@
                                 <h3>募集中のメンバー</h3>
                                 <div class="divider"></div>
                             </div>
-                            <dl>
+                            <div>
                                 {{range .AppInfo.RecruitMember }}
-                                <dt>{{ .Occupation }}</dt>
+                                <div class="ma-tag">{{ .Occupation }}</div>
                                 {{end}}
-                            </dl>
+                            </div>
                         </section>
                     </div>
                     {{if .AppInfo.GitHubURL }}
