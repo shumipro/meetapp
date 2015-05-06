@@ -19,3 +19,7 @@ func Resources(ctx context.Context) ([]*gocloud.Resource, error) {
 func ResourceURL(ctx context.Context, fileName string) string {
 	return FromContext(ctx).Url(fileName, gocloud.ImageType)
 }
+
+func DeleteStaticImage(ctx context.Context, fileName string) error {
+	return FromContext(ctx).Delete(fileName, "", gocloud.ImageType)
+}

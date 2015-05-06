@@ -30,7 +30,7 @@
 		},
 		{
 			"ImportPath": "github.com/kyokomi/cloudinary",
-			"Rev": "66e583ab40db354950af3efaa68fce9adb9dc684"
+			"Rev": "902054da62323af1ac7753a89875d270fbccd894"
 		},
 		{
 			"ImportPath": "github.com/mattn/go-colorable",

@@ -13,9 +13,11 @@ import (
 )
 
 var cURI string
+var isDelete bool
 
 func main() {
 	flag.StringVar(&cURI, "uri", "", "")
+	flag.BoolVar(&isDelete, "delete", false, "")
 	flag.Parse()
 
 	ctx := context.Background()
@@ -33,4 +35,9 @@ func main() {
 
 	// アップロードされてるのを確認する
 	fmt.Println(cloudinary.ResourceURL(ctx, fileName))
+
+	// 削除する
+	if isDelete {
+		cloudinary.DeleteStaticImage(ctx, fileName)
+	}
 }
