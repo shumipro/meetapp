@@ -2,6 +2,7 @@ import _InitBase from './_InitBase'
 import Detail from './Detail'
 import List from './List'
 import Register from './Register'
+import MyPage from './MyPage'
 
 module.exports = {
 
@@ -13,7 +14,8 @@ module.exports = {
         '/app/list': List,
         '/html/register.html': Register,
         '/u/app/register': Register,
-        '/u/app/edit': Register
+        '/u/app/edit': Register,
+        '/u/mypage/edit/:id': MyPage
     },
 
     getInitializer() {

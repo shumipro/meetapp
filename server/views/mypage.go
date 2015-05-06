@@ -6,14 +6,15 @@ import (
 	"log"
 	"strings"
 
+	"fmt"
+	"time"
+
 	"github.com/guregu/kami"
 	"github.com/huandu/facebook"
 	"github.com/kyokomi/cloudinary"
 	"github.com/shumipro/meetapp/server/models"
 	"github.com/shumipro/meetapp/server/oauth"
 	"golang.org/x/net/context"
-	"time"
-	"fmt"
 )
 
 func init() {
