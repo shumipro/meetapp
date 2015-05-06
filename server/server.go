@@ -29,6 +29,7 @@ func Serve() {
 	defer db.CloseRedis(ctx)
 
 	ctx = oauth.WithFacebook(ctx)
+	ctx = oauth.WithTwitter(ctx)
 	ctx = cloudinary.NewContext(ctx, os.Getenv("CLOUDINARY_URL"))
 
 	// TODO: とりあえず

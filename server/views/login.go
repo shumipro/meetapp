@@ -14,13 +14,18 @@ import (
 	"github.com/shumipro/meetapp/server/oauth"
 	"golang.org/x/net/context"
 	"gopkg.in/mgo.v2"
+	"github.com/k0kubun/pp"
+	"github.com/ChimeraCoder/anaconda"
 )
 
 func init() {
 	kami.Get("/login", Login)
 	kami.Get("/logout", Logout)
 	kami.Get("/login/facebook", LoginFacebook)
-	kami.Get("/auth/callback", AuthCallback)
+	kami.Get("/login/twitter", LoginTwitter)
+	kami.Get("/auth/callback", AuthCallback) // TODO: Deprecated
+	kami.Get("/auth/facebook/callback", AuthCallback)
+	kami.Get("/auth/twitter/callback", AuthTwitterCallback)
 }
 
 func Login(ctx context.Context, w http.ResponseWriter, r *http.Request) {
@@ -44,6 +49,17 @@ func LoginFacebook(ctx context.Context, w http.ResponseWriter, r *http.Request) 
 	http.Redirect(w, r, c.AuthCodeURL(""), 302)
 }
 
+func LoginTwitter(ctx context.Context, w http.ResponseWriter, r *http.Request) {
+	c := oauth.Twitter(ctx)
+
+	requestURL, err := c.GetRequestTokenAndURL()
+	if err != nil {
+		panic(err)
+	}
+
+	http.Redirect(w, r, requestURL, 302)
+}
+
 func AuthCallback(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	code := r.FormValue("code")
 	token, err := oauth.GetFacebookAuthToken(ctx, code)
@@ -55,6 +71,8 @@ func AuthCallback(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		panic(err.Error())
 	}
+
+	// TODO: Twitterでログイン済みの考慮が必要
 
 	user, err := models.UsersTable.FindByFacebookID(ctx, facebookID)
 	if err == mgo.ErrNotFound {
@@ -101,4 +119,27 @@ func AuthCallback(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	}
 
 	http.Redirect(w, r, "/u/mypage", 302)
+}
+
+func AuthTwitterCallback(ctx context.Context, w http.ResponseWriter, r *http.Request) {
+	c := oauth.Twitter(ctx)
+
+	values := r.URL.Query()
+	verificationCode := values.Get("oauth_verifier")
+	tokenKey := values.Get("oauth_token")
+
+	accessToken, err := c.AuthorizeToken(oauth.GetTwitterToken(tokenKey), verificationCode)
+	if err != nil {
+		panic(err)
+	}
+
+	cli := anaconda.NewTwitterApi(accessToken.Token, accessToken.Secret)
+	user, err := cli.GetUsersShow(accessToken.AdditionalData["screen_name"], nil)
+	if err != nil {
+		panic(err)
+	}
+
+	// TODO: Facebookでログイン済みを考慮しないといけない
+
+	pp.Println(user)
 }
