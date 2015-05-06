@@ -48,7 +48,11 @@ func (t PlatformType) String() string {
 }
 
 func (t PlatformType) Name() string {
-	return platformMap[string(t)]
+	return platformMap[t.ID()]
+}
+
+func (t PlatformType) ID() string {
+	return string(t)
 }
 
 var platformMap = map[string]string{
@@ -98,7 +102,11 @@ func (t CategoryType) String() string {
 }
 
 func (t CategoryType) Name() string {
-	return categoryMap[string(t)]
+	return categoryMap[t.ID()]
+}
+
+func (t CategoryType) ID() string {
+	return string(t)
 }
 
 type LanguageType string
@@ -129,7 +137,11 @@ func (t LanguageType) String() string {
 }
 
 func (t LanguageType) Name() string {
-	return pLangMap[string(t)]
+	return pLangMap[t.ID()]
+}
+
+func (t LanguageType) ID() string {
+	return string(t)
 }
 
 type AreaType string
@@ -155,7 +167,11 @@ func (t AreaType) String() string {
 }
 
 func (t AreaType) Name() string {
-	return areaMap[string(t)]
+	return areaMap[t.ID()]
+}
+
+func (t AreaType) ID() string {
+	return string(t)
 }
 
 type OccupationType string
@@ -181,7 +197,11 @@ func (t OccupationType) String() string {
 }
 
 func (t OccupationType) Name() string {
-	return occupationMap[string(t)]
+	return occupationMap[t.ID()]
+}
+
+func (t OccupationType) ID() string {
+	return string(t)
 }
 
 type MeetingFrequencyType string
@@ -198,10 +218,14 @@ var meetingFrequencyMap = map[string]string{
 	"99": "まだ決めていない",
 }
 
-func (t MeetingFrequencyType) Name() string {
-	return meetingFrequencyMap[string(t)]
-}
-
 func (t MeetingFrequencyType) String() string {
 	return t.Name()
+}
+
+func (t MeetingFrequencyType) Name() string {
+	return meetingFrequencyMap[t.ID()]
+}
+
+func (t MeetingFrequencyType) ID() string {
+	return string(t)
 }
