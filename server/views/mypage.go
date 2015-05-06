@@ -77,24 +77,30 @@ func UploadImage(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	}
 	defer formFile.Close()
 
+	// Uploadする
 	fileName := fmt.Sprintf("%s_%d", a.UserID, time.Now().UnixNano())
 	if err := cloudinary.UploadStaticImage(ctx, fileName, formFile); err != nil {
 		renderer.JSON(w, 400, err)
 		return
 	}
 
-	largeImageURL := cloudinary.ResourceURL(ctx, fileName)
 	user, err := models.UsersTable.FindID(ctx, a.UserID)
 	if err != nil {
 		renderer.JSON(w, 400, err)
 		return
 	}
 
+	// 前の画像を削除する（上書きだとCDNの更新までラグがあるので）
 	if user.ImageName != "" {
-		// TODO: 古いファイルを削除する
+		if err := cloudinary.DeleteStaticImage(ctx, user.ImageName); err != nil {
+			// 失敗時にログだけ出す
+			log.Println(err)
+		}
 	}
-
 	user.ImageName = fileName
+
+	// Uploadした画像のURLを取得する
+	largeImageURL := cloudinary.ResourceURL(ctx, fileName)
 	user.LargeImageURL = largeImageURL
 	user.ImageURL = strings.Replace(largeImageURL, "image/upload", "image/upload/w_96,h_96", 1)
 
