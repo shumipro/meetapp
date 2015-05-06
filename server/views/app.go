@@ -220,8 +220,9 @@ func APIAppEdit(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+
 	// アプリが存在しないか
-	app, err := models.AppsInfoTable.FindID(ctx, regAppInfo.ID)
+	beforeApp, err := models.AppsInfoTable.FindID(ctx, regAppInfo.ID)
 	if err != nil {
 		log.Println("ERROR!", err)
 		renderer.JSON(w, 400, err.Error())
@@ -230,16 +231,13 @@ func APIAppEdit(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 
 	// 管理者じゃないアプリか
 	a, _ := oauth.FromContext(ctx)
-	if !app.IsAdmin(a.UserID) {
+	if !beforeApp.IsAdmin(a.UserID) {
 		log.Println("ERROR!", notAdminError)
 		renderer.JSON(w, 400, notAdminError.Error())
 		return
 	}
 
-	// 登録時と異なるのはIDとCreateAtのみ維持する点
-	regAppInfo = convertRegisterAppInfo(ctx, regAppInfo)
-	regAppInfo.ID = app.ID
-	regAppInfo.CreateAt = app.CreateAt
+	regAppInfo = convertEditAppInfo(ctx, regAppInfo, beforeApp)
 
 	if err := models.AppsInfoTable.Upsert(ctx, regAppInfo); err != nil {
 		log.Println("ERROR! register", err)

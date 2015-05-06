@@ -50,3 +50,14 @@ func convertRegisterAppInfo(ctx context.Context, appInfo models.AppInfo) models.
 
 	return appInfo
 }
+
+// 編集用にappInfoを加工します
+func convertEditAppInfo(ctx context.Context, appInfo, beforeApp models.AppInfo) models.AppInfo {
+	appInfo = convertRegisterAppInfo(ctx, appInfo)
+	appInfo.ID = beforeApp.ID
+	appInfo.StarCount = beforeApp.StarCount
+	appInfo.StarUsers = beforeApp.StarUsers
+	appInfo.Discussions = beforeApp.Discussions
+	appInfo.CreateAt = beforeApp.CreateAt
+	return appInfo
+}
