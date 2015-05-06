@@ -7,6 +7,10 @@
 			"Rev": "d7dce341f851128bb3fcc90b919c7138b675c16b"
 		},
 		{
+			"ImportPath": "github.com/gotsunami/go-cloudinary",
+			"Rev": "b7d418f8e8d160a25e3e3c7bb63720ea1a40844e"
+		},
+		{
 			"ImportPath": "github.com/guregu/kami",
 			"Rev": "f808672b87d0fb889caeff31c9ffda61ae6f6f4a"
 		},
@@ -23,6 +27,10 @@
 			"ImportPath": "github.com/k0kubun/pp",
 			"Comment": "v2.1.0-3-gd41d644",
 			"Rev": "d41d6445d773ca20b8685f84734ec1924136c7f9"
+		},
+		{
+			"ImportPath": "github.com/kyokomi/cloudinary",
+			"Rev": "902054da62323af1ac7753a89875d270fbccd894"
 		},
 		{
 			"ImportPath": "github.com/mattn/go-colorable",

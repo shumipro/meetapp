@@ -12,6 +12,8 @@ import (
 	"github.com/shumipro/meetapp/server/oauth"
 	"github.com/shumipro/meetapp/server/views"
 	"golang.org/x/net/context"
+	"github.com/kyokomi/cloudinary"
+	"os"
 )
 
 // Serve start Serve
@@ -27,6 +29,7 @@ func Serve() {
 	defer db.CloseRedis(ctx)
 
 	ctx = oauth.WithFacebook(ctx)
+	ctx = cloudinary.NewContext(ctx, os.Getenv("CLOUDINARY_URL"))
 
 	// TODO: とりあえず
 	ctx = views.InitTemplates(ctx, "./")
