@@ -6,7 +6,10 @@ import (
 
 	"net/http"
 
+	"os"
+
 	"github.com/guregu/kami"
+	"github.com/kyokomi/cloudinary"
 	"github.com/shumipro/meetapp/server/db"
 	"github.com/shumipro/meetapp/server/errors"
 	"github.com/shumipro/meetapp/server/oauth"
@@ -27,6 +30,7 @@ func Serve() {
 	defer db.CloseRedis(ctx)
 
 	ctx = oauth.WithFacebook(ctx)
+	ctx = cloudinary.NewContext(ctx, os.Getenv("CLOUDINARY_URL"))
 
 	// TODO: とりあえず
 	ctx = views.InitTemplates(ctx, "./")
@@ -43,6 +47,7 @@ func Serve() {
 		"/css/*css",
 		"/dist/*dist",
 		"/img/*img",
+		"/favicon.ico",
 	} {
 		kami.Get(name, func(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 			fileServer.ServeHTTP(w, r)
