@@ -15,7 +15,6 @@ import (
 	"strconv"
 
 	"github.com/guregu/kami"
-	"github.com/k0kubun/pp"
 	"github.com/shumipro/meetapp/server/models"
 	"github.com/shumipro/meetapp/server/oauth"
 	"golang.org/x/net/context"

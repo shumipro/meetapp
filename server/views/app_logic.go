@@ -2,7 +2,6 @@ package views
 
 import (
 	"encoding/json"
-	"fmt"
 	"io"
 	"io/ioutil"
 	"time"
@@ -18,7 +17,6 @@ func readBodyAppInfo(body io.ReadCloser) (models.AppInfo, error) {
 	if err != nil {
 		return models.AppInfo{}, err
 	}
-	fmt.Println(string(data))
 
 	var regAppInfo models.AppInfo
 	if err := json.Unmarshal(data, &regAppInfo); err != nil {
