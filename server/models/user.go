@@ -13,6 +13,7 @@ import (
 type User struct {
 	ID            string       `bson:"_id"      json:"ID"`            // UUID自動生成
 	Name          string       `                json:"Name"`          // ユーザー名
+	ImageName     string       `                json:"imageName"`     // アップロードしたファイル名
 	ImageURL      string       `                json:"IamgeURL"`      // ユーザーアイコンのURL
 	LargeImageURL string       `                json:"largeImageURL"` // ユーザーアイコンの大きいURL
 	FBUser        FacebookUser `bson:"facebook" json:"FBUser"`        // Facebookのme情報

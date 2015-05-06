@@ -12,6 +12,8 @@ import (
 	"github.com/shumipro/meetapp/server/models"
 	"github.com/shumipro/meetapp/server/oauth"
 	"golang.org/x/net/context"
+	"time"
+	"fmt"
 )
 
 func init() {
@@ -19,7 +21,7 @@ func init() {
 
 	kami.Get("/u/mypage", Mypage)
 	// API
-	kami.Get("/u/api/upload/image", UploadImage)
+	kami.Post("/u/api/upload/image", UploadImage)
 }
 
 type MyPageResponse struct {
@@ -75,18 +77,24 @@ func UploadImage(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	}
 	defer formFile.Close()
 
-	if err := cloudinary.UploadStaticImage(ctx, a.UserID, formFile); err != nil {
+	fileName := fmt.Sprintf("%s_%d", a.UserID, time.Now().UnixNano())
+	if err := cloudinary.UploadStaticImage(ctx, fileName, formFile); err != nil {
 		renderer.JSON(w, 400, err)
 		return
 	}
 
-	largeImageURL := cloudinary.ResourceURL(ctx, a.UserID)
+	largeImageURL := cloudinary.ResourceURL(ctx, fileName)
 	user, err := models.UsersTable.FindID(ctx, a.UserID)
 	if err != nil {
 		renderer.JSON(w, 400, err)
 		return
 	}
 
+	if user.ImageName != "" {
+		// TODO: 古いファイルを削除する
+	}
+
+	user.ImageName = fileName
 	user.LargeImageURL = largeImageURL
 	user.ImageURL = strings.Replace(largeImageURL, "image/upload", "image/upload/w_96,h_96", 1)
 
