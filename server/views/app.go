@@ -204,7 +204,6 @@ func APIAppRegister(ctx context.Context, w http.ResponseWriter, r *http.Request)
 	}
 
 	regAppInfo = convertRegisterAppInfo(ctx, regAppInfo)
-	pp.Println(regAppInfo)
 
 	if err := models.AppsInfoTable.Upsert(ctx, regAppInfo); err != nil {
 		log.Println("ERROR! register", err)
@@ -238,10 +237,10 @@ func APIAppEdit(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// 登録時と異なるのはCreateAtのみ維持する点
+	// 登録時と異なるのはIDとCreateAtのみ維持する点
 	regAppInfo = convertRegisterAppInfo(ctx, regAppInfo)
+	regAppInfo.ID = app.ID
 	regAppInfo.CreateAt = app.CreateAt
-	pp.Println(regAppInfo)
 
 	if err := models.AppsInfoTable.Upsert(ctx, regAppInfo); err != nil {
 		log.Println("ERROR! register", err)
