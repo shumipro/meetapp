@@ -34,12 +34,13 @@ var util = {
         $input.autocomplete({
             openOnFocus: false,
             appendMethod:'replace',
-            valid: function () {
+            valid: function (value, query) {
                 return true;
             },
             source:[{
                 url: url,
-                type:'remote'
+                type:'remote',
+                minLength: 1
             }],
             getTitle:function(item){
                 return item['Name']
