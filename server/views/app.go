@@ -220,7 +220,6 @@ func APIAppEdit(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-
 	// アプリが存在しないか
 	beforeApp, err := models.AppsInfoTable.FindID(ctx, regAppInfo.ID)
 	if err != nil {
