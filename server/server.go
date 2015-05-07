@@ -48,6 +48,8 @@ func Serve() {
 		"/dist/*dist",
 		"/img/*img",
 		"/favicon.ico",
+		"/robots.txt",
+		"/sitemap.xml",
 	} {
 		kami.Get(name, func(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 			fileServer.ServeHTTP(w, r)
