@@ -1,12 +1,10 @@
 package views
 
 import (
-	"net/http"
-
-	"time"
-
 	"encoding/json"
-	"fmt"
+	"log"
+	"net/http"
+	"time"
 
 	"github.com/go-xweb/uuid"
 	"github.com/guregu/kami"
@@ -86,12 +84,12 @@ func AuthCallback(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 		if err := models.UsersTable.Upsert(ctx, user); err != nil {
 			panic(err)
 		} else {
-			fmt.Println("とうろくした")
+			log.Println("とうろくした")
 		}
 	} else if err != nil {
 		panic(err)
 	} else {
-		fmt.Println("とうろくずみ")
+		log.Println("とうろくずみ")
 	}
 
 	// RedisでCacheとCookieに書き込む

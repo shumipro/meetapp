@@ -20,16 +20,28 @@
         
     .container
       display table-cell
-      height 480px
+      // height 480px
       vertical-align middle
       width 100%
     
 #ma-about-bg1
-    background-image url('/img/about_bg1.png')
-    background-size 100% 100%
+    &:before
+        content ''
+        overflow hidden
+        display block
+        background-image url('/img/about_bg1.png')
+        background-size 100% 100%
+        width 100%
+        height 100%
+        z-index -1
     
 #ma-about-bg2
-    width 100%
-    height 480px
-    background-image url('/img/about_bg2.png')
-    background-size 100% 100%
+    &:before
+        content ''
+        overflow hidden
+        display block
+        background-image url('/img/about_bg2.png')
+        background-size 100% 100%
+        width 100%
+        height 100%
+        z-index -1
