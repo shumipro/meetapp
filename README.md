@@ -78,7 +78,7 @@ JS/CSSを変更した場合watchしてbuildするタスク
 gulp
 ```
 
-JSをminifyする場合
+development用にJSをuncompressedする場合
 ```
-gulp --production
+gulp --dev
 ```
