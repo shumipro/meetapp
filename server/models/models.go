@@ -29,14 +29,14 @@ func findAndModify(t modelsTable, ctx context.Context, findQuery bson.M, query b
 func withDefaultCollection(ctx context.Context, name string, fn func(c *mgo.Collection)) {
 	m := db.MongoDB(ctx).Clone()
 	defer m.Close()
-	col := m.DB(db.DBName()).C(name)
+	col := m.DB(db.MongoDBName()).C(name)
 	fn(col)
 }
 
 func runTxCollection(ctx context.Context, ops []txn.Op) error {
 	m := db.MongoDB(ctx).Clone()
 	defer m.Close()
-	col := m.DB(db.DBName()).C("tx")
+	col := m.DB(db.MongoDBName()).C("tx")
 
 	runner := txn.NewRunner(col)
 	return runner.Run(ops, "", nil)
