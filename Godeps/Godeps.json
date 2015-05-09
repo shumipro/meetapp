@@ -24,17 +24,12 @@
 			"Rev": "8c199fb6259ffc1af525cc3ad52ee60ba8359669"
 		},
 		{
-			"ImportPath": "github.com/k0kubun/pp",
-			"Comment": "v2.1.0-3-gd41d644",
-			"Rev": "d41d6445d773ca20b8685f84734ec1924136c7f9"
-		},
-		{
 			"ImportPath": "github.com/kyokomi/cloudinary",
-			"Rev": "902054da62323af1ac7753a89875d270fbccd894"
+			"Rev": "c208155ef3de4ecadccdead80e8ef5c8aa426227"
 		},
 		{
-			"ImportPath": "github.com/mattn/go-colorable",
-			"Rev": "d67e0b7d1797975196499f79bcc322c08b9f218b"
+			"ImportPath": "github.com/kyokomi/goroku",
+			"Rev": "3ba78848abde30ce657b0723e5978e78868ad90b"
 		},
 		{
 			"ImportPath": "github.com/mattn/natural",
