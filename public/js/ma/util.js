@@ -1,4 +1,5 @@
 import config from './config'
+import constants from './constants'
 
 var util = {
 
@@ -27,6 +28,18 @@ var util = {
 
     getImageURL(id){
         return "http://graph.facebook.com/" + id + "/picture?type=square";
+    },
+
+    getConstantLabel(prop, id) {
+        var list = constants[prop]
+        if(!list){ return "" }
+        for(var i=0, len=list.length; i<len; i++){
+            var obj = list[i]
+            if(obj.id === id){
+                return obj.name;
+            }
+        }
+        return ""
     },
 
     autoCompleteAddInit(url, $input, $addBtn, addCallback){

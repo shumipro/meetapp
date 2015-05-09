@@ -1,4 +1,4 @@
-package db
+package goroku
 
 import (
 	"testing"

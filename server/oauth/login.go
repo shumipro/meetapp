@@ -8,11 +8,13 @@ import (
 	"golang.org/x/net/context"
 )
 
+const authTokenKey = "Meetapp-Auth-Token"
+
 func Login(ctx context.Context, w http.ResponseWriter, r *http.Request) context.Context {
 	// Header -> requestParam -> cookieの順番に見に行く
-	token := r.Header.Get("Meetapp-Auth-Token")
+	token := r.Header.Get(authTokenKey)
 	if token == "" {
-		token = r.URL.Query().Get("Meetapp-Auth-Token")
+		token = r.URL.Query().Get(authTokenKey)
 		if token == "" {
 			token = readCookieAuthToken(r)
 		}
@@ -33,6 +35,14 @@ func LoginCheck(ctx context.Context, w http.ResponseWriter, r *http.Request) con
 		log.Println("[ERROR] Login Error 401")
 		http.Redirect(w, r, "/error", 302)
 		return nil
+	}
+	return ctx
+}
+
+func FakeLogin(ctx context.Context, w http.ResponseWriter, r *http.Request) context.Context {
+	token := r.Header.Get(authTokenKey)
+	if token == "valid" {
+		return NewContext(ctx, Account{UserID: "validUserID", AuthToken: token})
 	}
 	return ctx
 }

@@ -6,11 +6,8 @@ import (
 
 	"net/http"
 
-	"os"
-
 	"github.com/guregu/kami"
-	"github.com/kyokomi/cloudinary"
-	"github.com/shumipro/meetapp/server/db"
+	"github.com/kyokomi/goroku"
 	"github.com/shumipro/meetapp/server/errors"
 	"github.com/shumipro/meetapp/server/oauth"
 	"github.com/shumipro/meetapp/server/views"
@@ -24,13 +21,13 @@ func Serve() {
 	log.SetFlags(log.Ldate | log.Ltime | log.Lshortfile)
 
 	ctx := context.Background()
-	ctx = db.OpenMongoDB(ctx) // insert mongoDB
-	defer db.CloseMongoDB(ctx)
-	ctx = db.OpenRedis(ctx) // insert redis
-	defer db.CloseRedis(ctx)
+	ctx = goroku.OpenMongoDB(ctx) // insert mongoDB
+	defer goroku.CloseMongoDB(ctx)
+	ctx = goroku.OpenRedis(ctx) // insert redis
+	defer goroku.CloseRedis(ctx)
 
 	ctx = oauth.WithFacebook(ctx)
-	ctx = cloudinary.NewContext(ctx, os.Getenv("CLOUDINARY_URL"))
+	ctx = goroku.NewCloudinary(ctx)
 
 	// TODO: とりあえず
 	ctx = views.InitTemplates(ctx, "./")

@@ -25,7 +25,7 @@ func main() {
     ctx = NewContext(ctx, "cloudinary://<API Key>:<API Secret>@<Cloud name>")
 
 	data, _ := ioutil.ReadFile("<imageFile>")
-	UploadStaticImage(ctx, "<name>", bytes.NewBuffer(data))
+	cloudinary.UploadStaticImage(ctx, "<name>", bytes.NewBuffer(data))
 }
 ```
 
