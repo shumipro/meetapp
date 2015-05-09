@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/shumipro/meetapp/server/db"
+	"github.com/kyokomi/goroku"
 	"golang.org/x/net/context"
 	"golang.org/x/oauth2"
 )
@@ -33,7 +33,7 @@ func FromContext(ctx context.Context) (Account, bool) {
 }
 
 func GetAccountByToken(ctx context.Context, authToken string) (Account, error) {
-	redisDB := db.Redis(ctx)
+	redisDB := goroku.Redis(ctx)
 
 	userID, err := redisDB.Get("auth:" + authToken).Result()
 	if err != nil {
@@ -43,7 +43,7 @@ func GetAccountByToken(ctx context.Context, authToken string) (Account, error) {
 }
 
 func CacheAuthToken(ctx context.Context, w http.ResponseWriter, userID string, token oauth2.Token) error {
-	redisDB := db.Redis(ctx)
+	redisDB := goroku.Redis(ctx)
 
 	_, err := redisDB.SetEx("auth:"+token.AccessToken, token.Expiry.Sub(time.Now()), userID).Result()
 	if err != nil {
@@ -57,7 +57,7 @@ func CacheAuthToken(ctx context.Context, w http.ResponseWriter, userID string, t
 
 func ResetCacheAuthToken(ctx context.Context, w http.ResponseWriter) {
 	a, _ := FromContext(ctx)
-	redisDB := db.Redis(ctx)
+	redisDB := goroku.Redis(ctx)
 
 	redisDB.Del("auth:" + a.AuthToken)
 	removeCookieAuthToken(w)
