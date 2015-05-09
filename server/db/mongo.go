@@ -25,8 +25,12 @@ func MongoDB(ctx context.Context) *mgo.Session {
 	return db
 }
 
-func DBName() string {
+func MongoDBName() string {
 	return databaseName
+}
+
+func WithMockMongoDB() {
+	databaseName = "test_" + mongoDBName
 }
 
 func OpenMongoDB(ctx context.Context) context.Context {
