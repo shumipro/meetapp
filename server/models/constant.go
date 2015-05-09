@@ -48,25 +48,30 @@ func (t PlatformType) String() string {
 }
 
 func (t PlatformType) Name() string {
-	return platformMap[string(t)]
+	return platformMap[t.ID()]
+}
+
+func (t PlatformType) ID() string {
+	return string(t)
 }
 
 var platformMap = map[string]string{
-	"1":  "Web",
-	"2":  "iOS",
-	"3":  "Android",
-	"4":  "Mac",
-	"5":  "Apple Watch",
-	"6":  "Windows",
-	"7":  "Linux",
-	"8":  "Chrome",
-	"9":  "その他",
-	"99": "まだ決めていない",
+	"0": "まだ決めていない",
+	"1": "Web",
+	"2": "iOS",
+	"3": "Android",
+	"4": "Mac",
+	"5": "Apple Watch",
+	"6": "Windows",
+	"7": "Linux",
+	"8": "Chrome",
+	"9": "その他",
 }
 
 type CategoryType string
 
 var categoryMap = map[string]string{
+	"0":  "まだ決めていない",
 	"1":  "ブック",
 	"2":  "ビジネス",
 	"3":  "カタログ",
@@ -90,7 +95,6 @@ var categoryMap = map[string]string{
 	"21": "ユーティリティ",
 	"22": "天気",
 	"23": "その他",
-	"99": "まだ決めていない",
 }
 
 func (t CategoryType) String() string {
@@ -98,12 +102,17 @@ func (t CategoryType) String() string {
 }
 
 func (t CategoryType) Name() string {
-	return categoryMap[string(t)]
+	return categoryMap[t.ID()]
+}
+
+func (t CategoryType) ID() string {
+	return string(t)
 }
 
 type LanguageType string
 
 var pLangMap = map[string]string{
+	"0":  "まだ決めていない",
 	"1":  "Java",
 	"2":  "JavaScript",
 	"3":  "Swift",
@@ -121,7 +130,6 @@ var pLangMap = map[string]string{
 	"15": "VB",
 	"16": "MATLAB",
 	"17": "その他",
-	"99": "まだ決めていない",
 }
 
 func (t LanguageType) String() string {
@@ -129,12 +137,17 @@ func (t LanguageType) String() string {
 }
 
 func (t LanguageType) Name() string {
-	return pLangMap[string(t)]
+	return pLangMap[t.ID()]
+}
+
+func (t LanguageType) ID() string {
+	return string(t)
 }
 
 type AreaType string
 
 var areaMap = map[string]string{
+	"0":  "まだ決めていない",
 	"1":  "渋谷",
 	"2":  "六本木",
 	"3":  "恵比寿",
@@ -147,7 +160,6 @@ var areaMap = map[string]string{
 	"10": "大阪",
 	"11": "福岡",
 	"12": "その他",
-	"99": "まだ決めていない",
 }
 
 func (t AreaType) String() string {
@@ -155,12 +167,17 @@ func (t AreaType) String() string {
 }
 
 func (t AreaType) Name() string {
-	return areaMap[string(t)]
+	return areaMap[t.ID()]
+}
+
+func (t AreaType) ID() string {
+	return string(t)
 }
 
 type OccupationType string
 
 var occupationMap = map[string]string{
+	"0":  "まだ決めていない",
 	"1":  "企画",
 	"2":  "デザイナー",
 	"3":  "サーバーエンジニア",
@@ -173,7 +190,6 @@ var occupationMap = map[string]string{
 	"10": "営業",
 	"11": "おてつだい",
 	"12": "その他",
-	"99": "まだ決めていない",
 }
 
 func (t OccupationType) String() string {
@@ -181,27 +197,35 @@ func (t OccupationType) String() string {
 }
 
 func (t OccupationType) Name() string {
-	return occupationMap[string(t)]
+	return occupationMap[t.ID()]
+}
+
+func (t OccupationType) ID() string {
+	return string(t)
 }
 
 type MeetingFrequencyType string
 
 var meetingFrequencyMap = map[string]string{
-	"1":  "週１回程度",
-	"2":  "週2, 3回程度",
-	"3":  "毎日",
-	"4":  "月1回程度",
-	"5":  "数ヶ月に1回程度",
-	"6":  "不定期",
-	"7":  "なし",
-	"8":  "その他",
-	"99": "まだ決めていない",
-}
-
-func (t MeetingFrequencyType) Name() string {
-	return meetingFrequencyMap[string(t)]
+	"0": "まだ決めていない",
+	"1": "週１回程度",
+	"2": "週2, 3回程度",
+	"3": "毎日",
+	"4": "月1回程度",
+	"5": "数ヶ月に1回程度",
+	"6": "不定期",
+	"7": "なし",
+	"8": "その他",
 }
 
 func (t MeetingFrequencyType) String() string {
 	return t.Name()
+}
+
+func (t MeetingFrequencyType) Name() string {
+	return meetingFrequencyMap[t.ID()]
+}
+
+func (t MeetingFrequencyType) ID() string {
+	return string(t)
 }

@@ -157,7 +157,7 @@ func (t _AppsInfoTable) FindByJoinID(ctx context.Context, joinUserID string) (re
 
 func (t _AppsInfoTable) FindLatest(ctx context.Context, offset int, num int) (result []AppInfo, err error) {
 	t.withCollection(ctx, func(c *mgo.Collection) {
-		err = c.Find(bson.M{}).Sort("createat").Skip(offset).Limit(num).All(&result)
+		err = c.Find(bson.M{}).Sort("-createat").Skip(offset).Limit(num).All(&result)
 	})
 	return
 }

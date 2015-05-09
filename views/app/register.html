@@ -23,12 +23,12 @@
                     <hr>
                     <div class="row">
                         <div class="col-xs-6 form-group">
-                            <label>アプリ名</label>
+                            <label>アプリ名 <span class="ma-required">*</span></label>
                             <input id="ma_register_form_name" name="name" class="form-control" type="text" value="{{ .AppInfo.Name }}"/>
                         </div>
                         <div class="col-xs-6 form-group">
                             <label>プラットフォーム</label>
-                            <select id="ma_register_form_platform" name="platform" class="form-control ma-constant-select" data-constant="platform" data-default-value="{{ .AppInfo.Platform }}"></select>
+                            <select id="ma_register_form_platform" name="platform" class="form-control ma-constant-select" data-constant="platform" data-default-value="{{ .AppInfo.Platform.ID }}"></select>
                         </div>
                         <div class="col-xs-6 form-group">
                             <label>説明</label>
@@ -36,11 +36,11 @@
                         </div>
                         <div class="col-xs-6 form-group">
                             <label>カテゴリ</label>
-                            <select id="ma_register_form_category" name="category" class="form-control ma-constant-select" data-constant="category" data-default-value="{{ .AppInfo.Category }}"></select>
+                            <select id="ma_register_form_category" name="category" class="form-control ma-constant-select" data-constant="category" data-default-value="{{ .AppInfo.Category.ID }}"></select>
                         </div>
                         <div class="col-xs-6 form-group">
                             <label>プログラミング言語</label>
-                            <select id="ma_register_form_pLang" name="pLang" class="form-control ma-constant-select" data-constant="pLang" data-default-value="{{ .AppInfo.Language }}"></select>
+                            <select id="ma_register_form_pLang" name="pLang" class="form-control ma-constant-select" data-constant="pLang" data-default-value="{{ .AppInfo.Language.ID }}"></select>
                         </div>
                         <div class="col-xs-6 form-group">
                             <label>キーワード</label>
@@ -71,7 +71,7 @@
                                 <input type="hidden" name="id" value="{{ .User.ID }}">
                                 <img class="img-rounded" width="32px" height="32px" src="{{ .User.IconImageURL }}">
                                 <span>{{ .User.Name }}</span>
-                                <select name="occupation" class="form-control ma-constant-select" data-constant="occupation" data-default-value="{{ .Occupation }}"></select>
+                                <select name="occupation" class="form-control ma-constant-select" data-constant="occupation" data-default-value="{{ .Occupation.ID }}"></select>
                                 {{if .IsAdmin }}{{else}}
                                 <button type="button" class="btn btn-default ma-friend-delete-btn">削除</button>
                                 {{end}}
@@ -88,7 +88,7 @@
                         <div id="ma_register_add_recruitMember_result">
                             {{range .AppInfo.RecruitMember }}
                             <div class="ma-friend-add-member" data-list-name="recruitMembers">
-                                <select name="occupation" class="form-control ma-constant-select" data-constant="occupation" data-default-value="{{ .Occupation }}"></select>
+                                <select name="occupation" class="form-control ma-constant-select" data-constant="occupation" data-default-value="{{ .Occupation.ID }}"></select>
                                 <button type="button" class="btn btn-default ma-friend-delete-btn">削除</button>
                             </div>
                             {{end}}
@@ -111,20 +111,20 @@
                     <div class="row">
                         <div class="col-xs-6 form-group">
                             <label>ミーティング場所</label>
-                            <select id="ma_register_form_meetingArea" name="meetingArea" class="form-control ma-constant-select" data-constant="area" data-default-value="{{ .AppInfo.Area }}"></select>
+                            <select id="ma_register_form_meetingArea" name="meetingArea" class="form-control ma-constant-select" data-constant="area" data-default-value="{{ .AppInfo.Area.ID }}"></select>
                         </div>
                         <div class="col-xs-6 form-group">
                             <label>ミーティング頻度</label>
-                            <select id="ma_register_form_meetingFrequency" name="meetingFrequency" class="form-control ma-constant-select" data-constant="meetingFrequency" data-default-value="{{ .AppInfo.Frequency }}"></select>
+                            <select id="ma_register_form_meetingFrequency" name="meetingFrequency" class="form-control ma-constant-select" data-constant="meetingFrequency" data-default-value="{{ .AppInfo.Frequency.ID }}"></select>
                         </div>
-                        <div class="col-xs-6 form-group">
+                        <!-- <div class="col-xs-6 form-group">
                             <label>プロジェクト開始日</label>
                             <input id="ma_register_form_projectStartDate" name="projectStartDate" class="form-control" type="date" placeholder="2015-05-01" value="{{ .AppInfo.StartDate }}" />
                         </div>
                         <div class="col-xs-6 form-group">
                             <label>リリース予定日</label>
                             <input id="ma_register_form_projectReleaseDate" name="projectReleaseDate" class="form-control" type="date" placeholder="2015-06-01" value="{{ .AppInfo.ReleaseDate }}"/>
-                        </div>
+                        </div> -->
                     </div>
                     <hr>
                     <div class="row text-center">

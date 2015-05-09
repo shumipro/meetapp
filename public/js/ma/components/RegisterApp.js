@@ -202,7 +202,7 @@ export default class RegisterApp {
                     })
                 }
             }else{
-                var $input = $('*[name="' + prop + '"]')
+                var $input = $('input[name="' + prop + '"], select[name="' + prop + '"], textarea[name="' + prop + '"]')
                 if($input.size() > 0) {
                     param[prop] = $input.val()
                 }

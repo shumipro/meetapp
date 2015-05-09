@@ -34,6 +34,7 @@ func getHerokuRedisAddr() (addr string, password string) {
 
 	redisURL := os.Getenv("REDISTOGO_URL")
 	if redisURL == "" {
+		fmt.Println("local: redis", addr, password)
 		return
 	}
 

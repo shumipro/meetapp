@@ -42,8 +42,8 @@
                             <dl>
                                 <dt>ミーティング場所:</dt><dd>{{ .AppInfo.Area }}</dd>
                                 <dt>ミーティング頻度:</dt><dd>{{ .AppInfo.Frequency }}</dd>
-                                <dt>プロジェクト開始日:</dt><dd>{{with .AppInfo.StartDate }}{{ . }}{{else}} - {{end}}</dd>
-                                <dt>リリース予定日:</dt><dd>{{with .AppInfo.ReleaseDate }}{{ . }}{{else}} - {{end}}</dd>
+                                <!-- <dt>プロジェクト開始日:</dt><dd>{{with .AppInfo.StartDate }}{{ . }}{{else}} - {{end}}</dd>
+                                <dt>リリース予定日:</dt><dd>{{with .AppInfo.ReleaseDate }}{{ . }}{{else}} - {{end}}</dd> -->
                             </dl>
                         </div>
                     </div>
@@ -51,7 +51,9 @@
                         <div class="text-center">
                             <div class="social">
                                 <div class="fb-like" data-href="" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false"></div>
-                                <a href="https://twitter.com/share" class="twitter-share-button" data-url="" data-via="" data-lang="en">Tweet</a>
+                                <div class="tw-share">
+                                    <a href="https://twitter.com/share" class="twitter-share-button" data-url="" data-via="" data-lang="en">Tweet</a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -88,7 +90,7 @@
                             <div class="row text-center">
                                 {{range .AppInfo.ImageURLs }}
                                 <div class="sectionImgWrap">
-                                    <img src="{{ .URL }}" class="sectionImg">
+                                    <a href="{{ .URL }}" target="_blank"><img src="{{ .URL }}" class="sectionImg"></a>
                                 </div>
                                 {{end}}
                             </div>
@@ -170,7 +172,7 @@
                                 {{range .AppInfo.Discussions }}
                                 <li class="ma-profile-comment">
                                     <span class="ma-profile-date subtle-text">{{ .FormatTime }}</span>
-                                    <a href="#">
+                                    <a href="/mypage/other/{{ .UserID }}">
                                         <div class="ma-profile-image-wrap">
                                             <img class="img-rounded ma-profile-image" src="{{ .IconImageURL }}">
                                         </div>

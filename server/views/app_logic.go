@@ -2,7 +2,6 @@ package views
 
 import (
 	"encoding/json"
-	"fmt"
 	"io"
 	"io/ioutil"
 	"time"
@@ -18,7 +17,6 @@ func readBodyAppInfo(body io.ReadCloser) (models.AppInfo, error) {
 	if err != nil {
 		return models.AppInfo{}, err
 	}
-	fmt.Println(string(data))
 
 	var regAppInfo models.AppInfo
 	if err := json.Unmarshal(data, &regAppInfo); err != nil {
@@ -50,5 +48,16 @@ func convertRegisterAppInfo(ctx context.Context, appInfo models.AppInfo) models.
 	// メインの画像を設定
 	appInfo.MainImage = appInfo.FirstImageURL()
 
+	return appInfo
+}
+
+// 編集用にappInfoを加工します
+func convertEditAppInfo(ctx context.Context, appInfo, beforeApp models.AppInfo) models.AppInfo {
+	appInfo = convertRegisterAppInfo(ctx, appInfo)
+	appInfo.ID = beforeApp.ID
+	appInfo.StarCount = beforeApp.StarCount
+	appInfo.StarUsers = beforeApp.StarUsers
+	appInfo.Discussions = beforeApp.Discussions
+	appInfo.CreateAt = beforeApp.CreateAt
 	return appInfo
 }

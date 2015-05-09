@@ -15,7 +15,6 @@ import (
 	"strconv"
 
 	"github.com/guregu/kami"
-	"github.com/k0kubun/pp"
 	"github.com/shumipro/meetapp/server/models"
 	"github.com/shumipro/meetapp/server/oauth"
 	"golang.org/x/net/context"
@@ -204,7 +203,6 @@ func APIAppRegister(ctx context.Context, w http.ResponseWriter, r *http.Request)
 	}
 
 	regAppInfo = convertRegisterAppInfo(ctx, regAppInfo)
-	pp.Println(regAppInfo)
 
 	if err := models.AppsInfoTable.Upsert(ctx, regAppInfo); err != nil {
 		log.Println("ERROR! register", err)
@@ -223,7 +221,7 @@ func APIAppEdit(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	}
 
 	// アプリが存在しないか
-	app, err := models.AppsInfoTable.FindID(ctx, regAppInfo.ID)
+	beforeApp, err := models.AppsInfoTable.FindID(ctx, regAppInfo.ID)
 	if err != nil {
 		log.Println("ERROR!", err)
 		renderer.JSON(w, 400, err.Error())
@@ -232,16 +230,13 @@ func APIAppEdit(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 
 	// 管理者じゃないアプリか
 	a, _ := oauth.FromContext(ctx)
-	if !app.IsAdmin(a.UserID) {
+	if !beforeApp.IsAdmin(a.UserID) {
 		log.Println("ERROR!", notAdminError)
 		renderer.JSON(w, 400, notAdminError.Error())
 		return
 	}
 
-	// 登録時と異なるのはCreateAtのみ維持する点
-	regAppInfo = convertRegisterAppInfo(ctx, regAppInfo)
-	regAppInfo.CreateAt = app.CreateAt
-	pp.Println(regAppInfo)
+	regAppInfo = convertEditAppInfo(ctx, regAppInfo, beforeApp)
 
 	if err := models.AppsInfoTable.Upsert(ctx, regAppInfo); err != nil {
 		log.Println("ERROR! register", err)

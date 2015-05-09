@@ -25,14 +25,17 @@ func MongoDB(ctx context.Context) *mgo.Session {
 	return db
 }
 
-func DBName() string {
+func MongoDBName() string {
 	return databaseName
+}
+
+func WithMockMongoDB() {
+	databaseName = "test_" + mongoDBName
 }
 
 func OpenMongoDB(ctx context.Context) context.Context {
 	uri, dbName := getHerokuURI()
 	databaseName = dbName
-	fmt.Println("mongoDB", uri, databaseName)
 
 	sesh, err := mgo.Dial(uri)
 	if err != nil {
@@ -49,6 +52,7 @@ func getHerokuURI() (uri string, dbName string) {
 
 	mongoURI := os.Getenv("MONGOLAB_URI")
 	if mongoURI == "" {
+		fmt.Println("local: mongoDB", uri, dbName)
 		return
 	}
 	mongoInfo, err := url.Parse(mongoURI)

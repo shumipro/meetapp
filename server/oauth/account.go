@@ -1,6 +1,7 @@
 package oauth
 
 import (
+	"log"
 	"net/http"
 	"time"
 
@@ -46,6 +47,7 @@ func CacheAuthToken(ctx context.Context, w http.ResponseWriter, userID string, t
 
 	_, err := redisDB.SetEx("auth:"+token.AccessToken, token.Expiry.Sub(time.Now()), userID).Result()
 	if err != nil {
+		log.Println("ERROR: Redis.SetEx", err, token, userID)
 		return err
 	}
 	writeCookieAuthToken(w, token.AccessToken, token.Expiry)

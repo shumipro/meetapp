@@ -32,7 +32,7 @@ gulp.task('stylus', function(){
 gulp.task('build', function () {
   return gulp.src(webpackConfig.entry.main[0])
     .pipe(webpack(webpackConfig))
-    .pipe(gulpif(argv.production, uglify()))
+    .pipe(gulpif(!argv.dev, uglify()))
     .pipe(gulp.dest('public/dist/'));
 });
 
