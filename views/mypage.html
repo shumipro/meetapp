@@ -63,32 +63,36 @@
                         </section>                        
                     </div>
                     <div class="ma-white-wrap">
-                        {{with .AdminAppList}}
                         <section>
                             <div class="section-heading">
                                 <h3>管理している開発アイデア</h3>
                                 <div class="divider"></div>
                             </div>
+                            {{with .AdminAppList}}
                             <div class="row">
                                 {{range .}}
                                 {{ template "app/components/tile" . }}
                                 {{end}}
                             </div>
+                            {{else}}
+                            <div class="text-center"><h4>管理している開発アイデアがありません</h4></div>
+                            {{end}}
                         </section>
-                        {{end}}
-                        {{with .JoinAppList}}
                         <section>
                             <div class="section-heading">
                                 <h3>参加している開発アイデア</h3>
                                 <div class="divider"></div>
                             </div>
+                            {{with .JoinAppList}}
                             <div class="row">
                                 {{range .}}
                                 {{ template "app/components/tile" . }}
                                 {{end}}
                             </div>
+                            {{else}}
+                            <div class="text-center"><h4>参加している開発アイデアがありません</h4></div>
+                            {{end}}
                         </section>
-                        {{end}}
                     </div>
                 </div>
             </div>
