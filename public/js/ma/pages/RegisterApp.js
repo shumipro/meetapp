@@ -204,7 +204,6 @@ export default class RegisterApp extends _FormMixin {
                 location.href = '/app/detail/' + res.id
             }
             this._requesting = false
-            this._$submit.val(this._orgSubmitLabel)
         }).fail(() => {
             alert("Error")
             this._requesting = false

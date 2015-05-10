@@ -35,6 +35,11 @@ func (t TemplateHeader) EscapeNewline(text string) template.HTML {
 	return template.HTML(safe)
 }
 
+func (t TemplateHeader) OriginalImage(url string) string {
+	// remove resize params to show original size image
+	return strings.Replace(url, "/w_160", "", 1)
+}
+
 func NewHeader(ctx context.Context, title, navTitle, subTitle string, showBanner bool) TemplateHeader {
 	a, _ := oauth.FromContext(ctx)
 

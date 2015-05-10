@@ -42,7 +42,8 @@ func UploadImage(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	// Uploadした画像のURLを取得する
 	res := UploadImageResponse{}
 	res.LargeImageURL = cloudinary.ResourceURL(ctx, fileName)
-	res.ImageURL = strings.Replace(res.LargeImageURL, "image/upload", "image/upload/w_96,h_96", 1)
+	// res.ImageURL = strings.Replace(res.LargeImageURL, "image/upload", "image/upload/w_96,h_96", 1)
+	res.ImageURL = strings.Replace(res.LargeImageURL, "image/upload", "image/upload/w_160", 1)
 
 	renderer.JSON(w, 200, res)
 }

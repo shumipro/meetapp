@@ -5,8 +5,8 @@ import (
 	"net/http"
 
 	"github.com/guregu/kami"
-	"golang.org/x/net/context"
 	"github.com/kyokomi/goroku"
+	"golang.org/x/net/context"
 )
 
 func init() {
