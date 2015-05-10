@@ -26,6 +26,9 @@ var sortLabels = map[string]map[string]string{
 	"popular": {
 		"title": "人気アプリ",
 	},
+	"updateAt": {
+		"title": "開発アイデアを探す",
+	},
 }
 
 func init() {
@@ -56,6 +59,9 @@ const perPageNum int = 10
 
 func AppList(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	orderBy := r.FormValue("orderBy")
+	if orderBy == "" {
+		orderBy = string(models.OrderByUpdateAt) // デフォルトはUpdateAt
+	}
 
 	page, _ := strconv.Atoi(r.FormValue("page"))
 	if page > 0 {
@@ -74,6 +80,7 @@ func AppList(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	filter.LanguageType = models.LanguageType(pLang)
 	filter.AreaType = models.AreaType(area)
 	filter.PlatformType = models.PlatformType(platform)
+	filter.OrderBy = models.AppInfoOrderType(orderBy)
 
 	preload := AppListResponse{}
 	preload.TemplateHeader = NewHeader(ctx,

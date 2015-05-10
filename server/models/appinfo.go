@@ -129,7 +129,7 @@ func (t _AppsInfoTable) FindFilter(ctx context.Context, filter AppInfoFilter, of
 		query := c.Find(filter.Condition())
 
 		totalCount, _ = query.Count()
-		err = query.Sort("-updateat").Skip(offset).Limit(num).All(&result)
+		err = query.Sort(filter.OrderBy.SortCondition()).Skip(offset).Limit(num).All(&result)
 	})
 	return
 }
@@ -151,21 +151,21 @@ func (t _AppsInfoTable) FindByAdminID(ctx context.Context, adminUserID string) (
 
 func (t _AppsInfoTable) FindByJoinID(ctx context.Context, joinUserID string) (result []AppInfo, err error) {
 	t.withCollection(ctx, func(c *mgo.Collection) {
-		err = c.Find(bson.M{"members.userid": joinUserID}).Sort("createat").All(&result)
+		err = c.Find(bson.M{"members.userid": joinUserID}).Sort(OrderByNew.SortCondition()).All(&result)
 	})
 	return
 }
 
 func (t _AppsInfoTable) FindLatest(ctx context.Context, offset int, num int) (result []AppInfo, err error) {
 	t.withCollection(ctx, func(c *mgo.Collection) {
-		err = c.Find(bson.M{}).Sort("-createat").Skip(offset).Limit(num).All(&result)
+		err = c.Find(bson.M{}).Sort(OrderByNew.SortCondition()).Skip(offset).Limit(num).All(&result)
 	})
 	return
 }
 
 func (t _AppsInfoTable) FindPopular(ctx context.Context, offset int, num int) (result []AppInfo, err error) {
 	t.withCollection(ctx, func(c *mgo.Collection) {
-		err = c.Find(bson.M{}).Sort("-starcount").Skip(offset).Limit(num).All(&result)
+		err = c.Find(bson.M{}).Sort(OrderByPopular.SortCondition()).Skip(offset).Limit(num).All(&result)
 	})
 	return
 }
