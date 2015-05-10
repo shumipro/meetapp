@@ -33,7 +33,7 @@ func LoginCheck(ctx context.Context, w http.ResponseWriter, r *http.Request) con
 	_, ok := FromContext(ctx)
 	if !ok {
 		log.Println("[ERROR] Login Error 401")
-		http.Redirect(w, r, "/error", 302)
+		http.Redirect(w, r, "/login", 302)
 		return nil
 	}
 	return ctx
