@@ -33,7 +33,7 @@ export default class MypageEdit extends _FormMixin {
         params.ID = user.ID
         params.ImageURL = user.ImageURL
         params.LargeImageURL = user.LargeImageURL
-        if(this._uploader.validate()){
+        if(this._uploader.getFileName() && this._uploader.validate()){
             // upload image
             this._uploader.upload().then((res) => {
                 // override images

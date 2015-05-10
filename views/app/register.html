@@ -52,7 +52,19 @@
                     <div class="row">
                         {{range .AppInfo.ImageURLs }}
                         <div class="col-xs-12 form-group">
-                            <input data-list-name="images" name="url" class="form-control" type="text" placeholder="http://" value="{{ .URL }}"/>
+                            <div class="input-group">
+                                <span class="input-group-btn">
+                                    <span class="btn btn-primary btn-file">
+                                        Browse&hellip; <input type="file" class="ma-register-form-image-file" multiple>
+                                    </span>
+                                </span>
+                                <input type="text" class="form-control ma-register-form-image-input" readonly data-list-name="images" name="url" value="{{ .URL }}">
+                            </div>
+                            {{ with .URL }}
+                            <div class="text-right">
+                                <button type="button" class="btn btn-default register-form-image-delete-btn">削除</button>
+                            </div>
+                            {{ end }}
                         </div>
                         {{end}}
                     </div>

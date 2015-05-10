@@ -62,7 +62,12 @@ export default class _FormMixin {
                             var v = $target.val()
                             if(v !== ''){
                                 obj[$target.attr('name')] = $target.val()
-                                param[prop].push(obj)
+                                var listIndex = $target.data('list-index')
+                                if(listIndex >= 0){
+                                    param[prop][listIndex] = obj
+                                }else{
+                                    param[prop].push(obj)
+                                }
                             }
                         }else{
                             // try to find children when the target itself does not have name attr
