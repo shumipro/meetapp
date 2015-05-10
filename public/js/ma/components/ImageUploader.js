@@ -7,7 +7,7 @@ export default class ImageUploader {
     }
 
     upload(){
-        var formData = new FormData();
+        var formData = new FormData()
         $.each(this._$file[0].files, function(i, file){
             formData.append('file', file)
         })
@@ -22,7 +22,18 @@ export default class ImageUploader {
     }
 
     validate(){
-        // TODO: size valdation
+        if(!this.getFileName()){
+            // fileが選択されていない
+            return false
+        }
+        $.each(this._$file[0].files, function(i, file){
+            // file size valdation by 2MB
+            if(file.size > 2000000){
+                alert('2MB以上のファイルはアップロードできません')
+                return false            
+            }
+        })
+        return true
     }
 
     getFileName(){
