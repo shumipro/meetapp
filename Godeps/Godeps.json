@@ -29,7 +29,7 @@
 		},
 		{
 			"ImportPath": "github.com/kyokomi/goroku",
-			"Rev": "3ba78848abde30ce657b0723e5978e78868ad90b"
+			"Rev": "d85e8f1c035ec67f8bfd24e0f80fed2a0b240af5"
 		},
 		{
 			"ImportPath": "github.com/mattn/natural",
@@ -61,6 +61,11 @@
 		{
 			"ImportPath": "golang.org/x/oauth2",
 			"Rev": "23f31c341b9ede4693ea642df2d2bd3c03c3bd8b"
+		},
+		{
+			"ImportPath": "gopkg.in/airbrake/gobrake.v1",
+			"Comment": "v1.1",
+			"Rev": "f12667a6c3bda272083682a04a05ee7a14e55378"
 		},
 		{
 			"ImportPath": "gopkg.in/bufio.v1",
