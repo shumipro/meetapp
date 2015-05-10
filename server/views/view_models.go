@@ -28,6 +28,7 @@ type UserMember struct {
 type UserDiscussions struct {
 	models.DiscussionInfo
 	models.User
+	Deletable bool // 削除できるかどうか
 }
 
 func NewAppInfoView(ctx context.Context, appInfo models.AppInfo) AppInfoView {
@@ -45,7 +46,7 @@ func NewAppInfoView(ctx context.Context, appInfo models.AppInfo) AppInfoView {
 	for idx, d := range appInfo.Discussions {
 		// TODO: あとでIn句にして1クエリにする
 		u, _ := models.UsersTable.FindID(ctx, d.UserID)
-		a.Discussions[idx] = UserDiscussions{DiscussionInfo: d, User: u}
+		a.Discussions[idx] = UserDiscussions{DiscussionInfo: d, User: u, Deletable: d.UserID == u.ID}
 	}
 
 	account, ok := oauth.FromContext(ctx)
