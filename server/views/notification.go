@@ -8,6 +8,7 @@ import (
 	"github.com/shumipro/meetapp/server/models"
 	"github.com/shumipro/meetapp/server/oauth"
 	"golang.org/x/net/context"
+	"gopkg.in/redis.v2"
 )
 
 func init() {
@@ -20,7 +21,12 @@ func APINotifications(ctx context.Context, w http.ResponseWriter, r *http.Reques
 	a, _ := oauth.FromContext(ctx)
 
 	notification, err := models.NotificationTable.FindID(ctx, a.UserID)
-	if err != nil {
+	if err == redis.Nil {
+		// 空の時は代わりを作ってあげる
+		notification = models.UserNotification{}
+		notification.UserID = a.UserID
+		notification.Notifications = models.Notification{}
+	} else if err != nil {
 		log.Println("ERROR!", err)
 		renderer.JSON(w, 400, err.Error())
 		return
