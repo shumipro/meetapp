@@ -5,6 +5,7 @@ import config from '../config'
 import constants from '../constants'
 import _FormMixin from '../mixins/_FormMixin'
 import ConstantSelect from '../components/ConstantSelect'
+import ImageUploader from '../components/ImageUploader'
 import Handlebars from 'handlebars'
 
 var currentMemberEntryHtml = '<div class="ma-friend-add-member" data-list-name="currentMembers"><input type="hidden" name="id" value="{{id}}">' +
@@ -81,6 +82,17 @@ export default class RegisterApp extends _FormMixin {
         $deleteBtn.on('click', function() {
             $(this).parent().remove()
         })
+        // setup image uploaders
+        this._uploaders = []
+        $('.ma-register-form-image-file').each((index, elm) => {
+            this._uploaders.push(new ImageUploader('/u/api/upload/image', elm))
+        })
+        // delete registered images
+        $('.register-form-image-delete-btn').on('click', function(){
+            var $btn = $(this)
+            $btn.parent().parent().find('input[type="text"]').val('')
+            $btn.hide()
+        })
     }
 
     createCurrentMemberEntry(item) {
@@ -116,6 +128,67 @@ export default class RegisterApp extends _FormMixin {
             alert(result.message)
             return
         }
+        var result = this.validateImages()
+        if(result.error){
+            return
+        }
+
+        var uploadList = [],
+            deferredList = []
+
+        // remove empty object from list
+        $('.ma-register-form-image-input').each((index, elm) => {
+            var $input = $(elm),
+                v = $input.val()
+            if(v){
+                var uploader = this._uploaders[index]
+                if(v.indexOf('http://') === 0 || v.indexOf('https://') === 0){
+                    // keep url already set
+                    uploader.dummy = true
+                }
+                uploadList.push(uploader)
+            }
+        })
+        uploadList.forEach((uploader, i) => {
+            var $dfd = $.Deferred()
+            if(uploader.dummy){
+                $dfd.resolve()
+            }else{
+                uploader.upload().then((res) => {
+                    // override images
+                    params.images[i].url = res.ImageURL
+                    $dfd.resolve(res)
+                })
+            }
+            deferredList.push($dfd)
+        })
+        if(this._requesting){
+            return
+        }
+        this._requesting = true
+        this._orgSubmitLabel = this._$submit.val()
+        this._$submit.val('保存中...')
+        if(deferredList.length > 0){
+            // convert array to func arguments
+            $.when.apply($, deferredList).then(() => {
+                this.postApp(params)
+            })
+        }else{
+            this.postApp(params)
+        }
+    }
+
+    validateImages(){
+        // image file size validate
+        for(var i=0; i<this._uploaders.length; i++){
+            if(!this._uploaders[i].validate()){
+                return {error: true}
+            }
+        }
+        return {error: false}
+    }
+
+    postApp(params){
         var appId = this._$submit.data("app-id")
         if(appId){
             params.id = appId
@@ -130,8 +203,12 @@ export default class RegisterApp extends _FormMixin {
             if(res && res.id){
                 location.href = '/app/detail/' + res.id
             }
+            this._requesting = false
+            this._$submit.val(this._orgSubmitLabel)
         }).fail(() => {
             alert("Error")
+            this._requesting = false
+            this._$submit.val(this._orgSubmitLabel)
         })
     }
 }

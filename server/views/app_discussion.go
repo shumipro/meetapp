@@ -6,12 +6,12 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"strconv"
 	"time"
 
 	"github.com/guregu/kami"
 	"github.com/shumipro/meetapp/server/models"
 	"golang.org/x/net/context"
-	"strconv"
 )
 
 func init() {
@@ -62,6 +62,24 @@ func APIAppDiscussion(ctx context.Context, w http.ResponseWriter, r *http.Reques
 		renderer.JSON(w, 400, err.Error())
 		return
 	}
+
+	notification := models.Notification{}
+	notification.NotificationID = discussionReq.DiscussionInfo.ID
+	notification.SourceID = discussionReq.DiscussionInfo.ID
+	notification.NotificationType = models.NotificationDiscussion
+	notification.Message = "メッセージがあります"
+	notification.IsRead = false
+
+	go func() {
+		for _, m := range appInfo.Members {
+			err := models.NotificationTable.AddNotification(ctx, m.UserID, notification)
+			if err != nil {
+				log.Println("ERROR: AddNotification", m.UserID, notification)
+				continue
+			}
+			log.Println("OK: AddNotification", m.UserID, notification)
+		}
+	}()
 
 	renderer.JSON(w, 200, appInfo.Discussions)
 }

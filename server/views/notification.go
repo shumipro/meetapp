@@ -1,0 +1,56 @@
+package views
+
+import (
+	"log"
+	"net/http"
+
+	"github.com/guregu/kami"
+	"github.com/shumipro/meetapp/server/models"
+	"github.com/shumipro/meetapp/server/oauth"
+	"golang.org/x/net/context"
+)
+
+func init() {
+	// Discussion API
+	kami.Get("/u/api/notification", APINotifications)
+	kami.Put("/u/api/notification/done", APIAllNotificationsRead)
+}
+
+func APINotifications(ctx context.Context, w http.ResponseWriter, r *http.Request) {
+	a, _ := oauth.FromContext(ctx)
+
+	notification, err := models.NotificationTable.FindID(ctx, a.UserID)
+	if err != nil {
+		log.Println("ERROR!", err)
+		renderer.JSON(w, 400, err.Error())
+		return
+	}
+
+	renderer.JSON(w, 200, notification)
+}
+
+func APIAllNotificationsRead(ctx context.Context, w http.ResponseWriter, r *http.Request) {
+	a, _ := oauth.FromContext(ctx)
+
+	notification, err := models.NotificationTable.FindID(ctx, a.UserID)
+	if err != nil {
+		log.Println("ERROR!", err, a.UserID)
+		renderer.JSON(w, 400, err.Error())
+		return
+	}
+
+	// とりあえず全部Readにする
+	for idx, _ := range notification.Notifications {
+		notification.Notifications[idx].IsRead = true
+	}
+
+	// TODO: 10件以上残さないとか？
+
+	if err := models.NotificationTable.Upsert(ctx, notification); err != nil {
+		log.Println("ERROR!", err)
+		renderer.JSON(w, 400, err.Error())
+		return
+	}
+
+	renderer.JSON(w, 200, notification)
+}

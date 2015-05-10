@@ -22,10 +22,6 @@ export default class ImageUploader {
     }
 
     validate(){
-        if(!this.getFileName()){
-            // fileが選択されていない
-            return false
-        }
         $.each(this._$file[0].files, function(i, file){
             // file size valdation by 2MB
             if(file.size > 2000000){
