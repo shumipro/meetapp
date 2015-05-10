@@ -13,6 +13,26 @@ export default class Discussion {
                 location.href = "/login"
             }
         })
+        var that = this
+        $('.ma-profile-comment-delete-btn').on('click', function(){
+            if(window.confirm('このコメントを削除してもよろしいでしょうか？')){
+                var id = $(this).data('discussion-id')
+                if(id){
+                    that.deleteDiscussion(id)
+                }
+            }
+        })
+    }
+
+    deleteDiscussion(id) {
+        $.ajax({
+            url: '/u/api/app/discussion/' + id,
+            type: 'delete'
+        }).done((res) => {
+            location.reload()
+        }).fail(() => {
+            alert("Error")
+        })
     }
 
     post() {

@@ -171,8 +171,14 @@
                                 {{ $self := . }}
                                 {{range .AppInfo.Discussions }}
                                 <li class="ma-profile-comment">
+                                    {{if .Deletable }}
+                                    <span class="ma-profile-comment-action">
+                                        <a href="javascript:;" class="ma-profile-comment-delete-btn" data-discussion-id="{{ .DiscussionInfo.ID }}">削除</a>
+                                    </span>
+                                    {{end}}
                                     <span class="ma-profile-date subtle-text">{{ .FormatTime }}</span>
                                     <a href="/mypage/other/{{ .UserID }}">
+                                        <span class="ma-profile-comment-name">{{ .Name }}</span>
                                         <div class="ma-profile-image-wrap">
                                             <img class="img-rounded ma-profile-image" src="{{ .IconImageURL }}">
                                         </div>
