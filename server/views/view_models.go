@@ -35,6 +35,12 @@ func NewAppInfoView(ctx context.Context, appInfo models.AppInfo) AppInfoView {
 	a := AppInfoView{}
 	a.AppInfo = appInfo
 
+	account, ok := oauth.FromContext(ctx)
+	if ok {
+		a.IsAdmin = a.AppInfo.IsAdmin(account.UserID)
+		a.Stared = a.AppInfo.Stared(account.UserID)
+	}
+
 	a.Members = make([]UserMember, len(a.AppInfo.Members))
 	for idx, m := range appInfo.Members {
 		// TODO: あとでIn句にして1クエリにする
@@ -46,13 +52,7 @@ func NewAppInfoView(ctx context.Context, appInfo models.AppInfo) AppInfoView {
 	for idx, d := range appInfo.Discussions {
 		// TODO: あとでIn句にして1クエリにする
 		u, _ := models.UsersTable.FindID(ctx, d.UserID)
-		a.Discussions[idx] = UserDiscussions{DiscussionInfo: d, User: u, Deletable: d.UserID == u.ID}
-	}
-
-	account, ok := oauth.FromContext(ctx)
-	if ok {
-		a.IsAdmin = a.AppInfo.IsAdmin(account.UserID)
-		a.Stared = a.AppInfo.Stared(account.UserID)
+		a.Discussions[idx] = UserDiscussions{DiscussionInfo: d, User: u, Deletable: d.UserID == account.ID}
 	}
 
 	return a
