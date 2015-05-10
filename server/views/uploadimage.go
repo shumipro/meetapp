@@ -36,8 +36,7 @@ func UploadImage(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	// Uploadする
 	fileName := fmt.Sprintf("%s_%d", a.UserID, time.Now().UnixNano())
 	if err := cloudinary.UploadStaticImage(ctx, fileName, formFile); err != nil {
-		renderer.JSON(w, 400, err.Error())
-		return
+		panic(err)
 	}
 
 	// Uploadした画像のURLを取得する

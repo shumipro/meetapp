@@ -30,7 +30,7 @@ func Login(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	}
 
 	preload := NewHeader(ctx, "Login", "", "", false)
-	ExecuteTemplate(ctx, w, "login", preload)
+	ExecuteTemplate(ctx, w, r, "login", preload)
 }
 
 func Logout(ctx context.Context, w http.ResponseWriter, r *http.Request) {

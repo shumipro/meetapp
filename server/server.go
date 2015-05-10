@@ -29,6 +29,8 @@ func Serve() {
 	ctx = oauth.WithFacebook(ctx)
 	ctx = goroku.NewCloudinary(ctx)
 
+	ctx = goroku.NewAirbrake(ctx, "production")
+
 	// TODO: とりあえず
 	ctx = views.InitTemplates(ctx, "./")
 
