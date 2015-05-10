@@ -2,7 +2,7 @@
 @media (max-width: 768px)
 
     .ma-layout-wrap
-        padding 20px
+        padding 20px 12px
 
         /* list page */     
         .ma-layout
@@ -32,6 +32,9 @@
                 .ma-app-list-item-toolbar
                     position static
                     
+        .ma-white-wrap
+            padding 20px 12px
+            
         /* Table */
         dl
             dt
@@ -83,11 +86,16 @@
             
     /* tile */
     .ma-app-tile-wrap
+        .ma-app-tile
+            min-width 120px
+
         .ma-app-tile-image
             height 100px
+            line-height 100px
 
             img 
-                max-height 100px
+                max-width 118px
+                max-height 98px
 
     /* edit */
     .ma-app-edit-btn,

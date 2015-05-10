@@ -30,15 +30,6 @@ export default class _FormMixin {
                     return {"error": true, "message": "日付が不正です: " + prop}
                 }
             }
-            // temp
-            if(prop === "images"){
-                for(var i=0; i<value.length; i++){
-                    var img = value[i]
-                    if(!util.isUrlFormat(img.url)){
-                        return {"error": true, "message": "URLが不正です: " + prop}
-                    }
-                }
-            }
         }
         return {"error": false}
     }

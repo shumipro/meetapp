@@ -7,10 +7,6 @@ export default class Notifications {
         this._$link = $('.ma-nav-notification-link')
         this._$badge = this._$link.find('.badge')
         this._$dropdown = $('.ma-nav-notification-dropdown')
-        // attach events
-        this._$link.on('click', ()=> {
-            this.read()
-        })
         // load data
         if(util.getUserInfo()){
             this.load()
@@ -21,10 +17,9 @@ export default class Notifications {
         $.ajax({
             url: '/u/api/notification'
         }).done((res) => {
-            console.log(res)
             this.render(res)
         }).fail(() => {
-            alert("Error")
+            // alert("Error")
         })
     }
 
@@ -37,7 +32,7 @@ export default class Notifications {
         }).done((res) => {
             this._$badge.removeClass('ma-unread-badge').html(0)
         }).fail(() => {
-            alert("Error")
+            // alert("Error")
         })
     }
 
@@ -72,5 +67,9 @@ export default class Notifications {
             this._$badge.addClass('ma-unread-badge').html(unreadCount)
         }
         this._$wrap.css('visibility', 'visible')
+        // attach event once
+        this._$link.one('click', ()=> {
+            this.read()
+        })
     }
 }

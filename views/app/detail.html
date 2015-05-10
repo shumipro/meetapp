@@ -88,9 +88,10 @@
                         </section>
                         <section>
                             <div class="row text-center">
+                                {{ $self := . }}
                                 {{range .AppInfo.ImageURLs }}
                                 <div class="sectionImgWrap">
-                                    <a href="{{ .URL }}" target="_blank"><img src="{{ .URL }}" class="sectionImg"></a>
+                                    <a href="{{ $self.OriginalImage .URL }}" target="_blank"><img src="{{ .URL }}" class="sectionImg"></a>
                                 </div>
                                 {{end}}
                             </div>
@@ -168,7 +169,6 @@
                                 <div class="divider"></div>
                             </div>
                             <ul class="ma-list-bordered ma-discussion-wrap">
-                                {{ $self := . }}
                                 {{range .AppInfo.Discussions }}
                                 <li class="ma-profile-comment">
                                     {{if .Deletable }}
