@@ -15,6 +15,7 @@ func init() {
 	kami.Get("/mypage/other/:id", MypageOther)
 
 	kami.Get("/u/mypage", Mypage)
+	kami.Get("/u/mypage/edit", MypageEdit)
 }
 
 type MyPageResponse struct {
@@ -80,4 +81,24 @@ func MypageOther(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	preload.JoinAppList = convertAppInfoViewList(ctx, joinApps)
 
 	ExecuteTemplate(ctx, w, "mypage", preload)
+}
+
+func MypageEdit(ctx context.Context, w http.ResponseWriter, r *http.Request) {
+	a, ok := oauth.FromContext(ctx)
+	if !ok {
+		oauth.ResetCacheAuthToken(ctx, w)
+		panic("login error")
+	}
+
+	user, err := models.UsersTable.FindID(ctx, a.UserID)
+	if err != nil {
+		log.Println(err)
+		panic(err)
+	}
+
+	preload := MyPageResponse{}
+	preload.User = user
+	preload.TemplateHeader = NewHeader(ctx, "マイページの編集", "", "", false)
+
+	ExecuteTemplate(ctx, w, "mypageEdit", preload)
 }

@@ -66,6 +66,7 @@ func InitTemplates(ctx context.Context, appRoot string) context.Context {
 		"index",
 		"login",
 		"mypage",
+		"mypageEdit",
 		"app/detail",
 		"app/list",
 		"app/register",

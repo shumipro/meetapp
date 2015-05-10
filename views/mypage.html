@@ -14,15 +14,12 @@
             <div class="ma-layout clearfix">
                 <div class="ma-layout-col-left">
                     <div class="ma-infobox">
-                        <!--<div class="ma-infobox-logo">-->
-                            <!--<img src="{{ .User.IconImageURL }}" class="sectionImg">-->
-                        <!--</div>-->
-                        <div style="background-image:url({{ .User.IconLargeImageURL }}); height: 242px; background-size:cover; background-repeat: no-repeat;
-background-position: 50% 50%;">
+                        <div class="ma-infobox-profile-image" style="background-image:url({{ .User.IconLargeImageURL }});">
                         </div>
                         <div class="ma-infobox-table">
                             <dl>
-                                <dt>Name:</dt><dd>{{ .User.Name }}</dd>
+                                <dt>名前:</dt><dd>{{ .User.Name }}</dd>
+                                <dt>ひとこと:</dt><dd>{{with .User.Comment }}{{ . }}{{else}} - {{end}}</dd>
                                 <!--
                                 <dt>職種:</dt><dd>Engineer</dd>
                                 <dt>プログラミング言語:</dt><dd>Swift JavaScript</dd>
@@ -35,11 +32,6 @@ background-position: 50% 50%;">
                             </div>
                         </div>
                     </div>
-                    <!-- TODO: MyPage編集画面で画像アップロード機能実装予定 -->
-                    <!--form class="ma-image-upload-form" name="imageUploadForm" method="post" action="">
-                        <input type="file" name="file" />
-                        <input type="submit" class="ma-image-upload-btn" value="アップロードする" />
-                    </form-->
                     <div style="margin-bottom: 20px;">
                         <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
                         <!-- meetapp-mypage1 -->
@@ -54,9 +46,22 @@ background-position: 50% 50%;">
                     </div>
                 </div>
                 <div class="ma-layout-col-right">
-                    <!--div class="ma-white-wrap text-center">
-                        <input class="ma-profile-edit-btn btn btn-primary" type="button" value="プロフィールを編集する">
-                    </div-->
+                    <!-- 自分であるかどうかはとりあえずAdminAppListをcheck -->
+                    {{with .AdminAppList}}
+                    <div class="ma-white-wrap text-center">
+                        <a href="/u/mypage/edit" class="ma-profile-edit-btn btn btn-primary">プロフィールを編集する</a>
+                    </div>
+                    {{end}}
+                    <div class="ma-white-wrap">
+                        <section>
+                            <dl>
+                                <dt>ウェブサイトURL:</dt><dd>{{with .User.HomePageURL }}<a href="{{ . }}" target="_blank">{{ . }}</a>{{else}} - {{end}}</dd>
+                            </dl>
+                            <dl>
+                                <dt>Github URL:</dt><dd>{{with .User.GitHubURL }}<a href="{{ . }}" target="_blank">{{ . }}</a>{{else}} - {{end}}</dd>
+                            </dl>
+                        </section>                        
+                    </div>
                     <div class="ma-white-wrap">
                         {{with .AdminAppList}}
                         <section>

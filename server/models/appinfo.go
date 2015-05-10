@@ -87,6 +87,7 @@ type Member struct {
 }
 
 type DiscussionInfo struct {
+	ID        string    `json:"id"`        // ディスカッションID
 	UserID    string    `json:"userId"`    // ユーザー
 	Message   string    `json:"message"`   // コメント
 	Timestamp time.Time `json:"timestamp"` // 投稿日時
@@ -128,7 +129,7 @@ func (t _AppsInfoTable) FindFilter(ctx context.Context, filter AppInfoFilter, of
 		query := c.Find(filter.Condition())
 
 		totalCount, _ = query.Count()
-		err = query.Sort("updateat").Skip(offset).Limit(num).All(&result)
+		err = query.Sort(filter.OrderBy.SortCondition()).Skip(offset).Limit(num).All(&result)
 	})
 	return
 }
@@ -150,21 +151,21 @@ func (t _AppsInfoTable) FindByAdminID(ctx context.Context, adminUserID string) (
 
 func (t _AppsInfoTable) FindByJoinID(ctx context.Context, joinUserID string) (result []AppInfo, err error) {
 	t.withCollection(ctx, func(c *mgo.Collection) {
-		err = c.Find(bson.M{"members.userid": joinUserID}).Sort("createat").All(&result)
+		err = c.Find(bson.M{"members.userid": joinUserID}).Sort(OrderByNew.SortCondition()).All(&result)
 	})
 	return
 }
 
 func (t _AppsInfoTable) FindLatest(ctx context.Context, offset int, num int) (result []AppInfo, err error) {
 	t.withCollection(ctx, func(c *mgo.Collection) {
-		err = c.Find(bson.M{}).Sort("-createat").Skip(offset).Limit(num).All(&result)
+		err = c.Find(bson.M{}).Sort(OrderByNew.SortCondition()).Skip(offset).Limit(num).All(&result)
 	})
 	return
 }
 
 func (t _AppsInfoTable) FindPopular(ctx context.Context, offset int, num int) (result []AppInfo, err error) {
 	t.withCollection(ctx, func(c *mgo.Collection) {
-		err = c.Find(bson.M{}).Sort("-starcount").Skip(offset).Limit(num).All(&result)
+		err = c.Find(bson.M{}).Sort(OrderByPopular.SortCondition()).Skip(offset).Limit(num).All(&result)
 	})
 	return
 }
@@ -185,6 +186,34 @@ func (t _AppsInfoTable) Upsert(ctx context.Context, app AppInfo) error {
 func (t _AppsInfoTable) Delete(ctx context.Context, appID string) (err error) {
 	t.withCollection(ctx, func(c *mgo.Collection) {
 		err = c.RemoveId(appID)
+	})
+	return
+}
+
+func (t _AppsInfoTable) DeleteDiscussionByID(ctx context.Context, discussionID string) (err error) {
+	t.withCollection(ctx, func(c *mgo.Collection) {
+		var appInfo AppInfo
+		err = c.Find(bson.M{"discussions.id": discussionID}).One(&appInfo)
+		if err != nil {
+			return
+		}
+
+		// TODO: findAndModifyにしたさある
+		// 入れ子のarrayのpullを書くのが大変だった
+
+		discussions := appInfo.Discussions
+		for idx, d := range appInfo.Discussions {
+			if d.ID != discussionID {
+				continue
+			}
+
+			// remove the user from starUsers list
+			discussions = append(discussions[:idx], discussions[idx+1:]...)
+			break
+		}
+		appInfo.Discussions = discussions
+
+		err = t.Upsert(ctx, appInfo)
 	})
 	return
 }
