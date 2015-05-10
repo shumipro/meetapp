@@ -87,6 +87,7 @@ type Member struct {
 }
 
 type DiscussionInfo struct {
+	ID        string    `json:"id"`        // ディスカッションID
 	UserID    string    `json:"userId"`    // ユーザー
 	Message   string    `json:"message"`   // コメント
 	Timestamp time.Time `json:"timestamp"` // 投稿日時
@@ -185,6 +186,34 @@ func (t _AppsInfoTable) Upsert(ctx context.Context, app AppInfo) error {
 func (t _AppsInfoTable) Delete(ctx context.Context, appID string) (err error) {
 	t.withCollection(ctx, func(c *mgo.Collection) {
 		err = c.RemoveId(appID)
+	})
+	return
+}
+
+func (t _AppsInfoTable) DeleteDiscussionByID(ctx context.Context, discussionID string) (err error) {
+	t.withCollection(ctx, func(c *mgo.Collection) {
+		var appInfo AppInfo
+		err = c.Find(bson.M{"discussions.id": discussionID}).One(&appInfo)
+		if err != nil {
+			return
+		}
+
+		// TODO: findAndModifyにしたさある
+		// 入れ子のarrayのpullを書くのが大変だった
+
+		discussions := appInfo.Discussions
+		for idx, d := range appInfo.Discussions {
+			if d.ID != discussionID {
+				continue
+			}
+
+			// remove the user from starUsers list
+			discussions = append(discussions[:idx], discussions[idx+1:]...)
+			break
+		}
+		appInfo.Discussions = discussions
+
+		err = t.Upsert(ctx, appInfo)
 	})
 	return
 }

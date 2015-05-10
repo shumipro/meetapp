@@ -4,10 +4,7 @@ import (
 	"log"
 	"net/http"
 
-	"encoding/json"
-
 	"fmt"
-	"io/ioutil"
 
 	"strings"
 	"time"
@@ -42,8 +39,6 @@ func init() {
 	kami.Post("/u/api/app/register", APIAppRegister)   // TODO: [POST] /u/api/app/apps
 	kami.Put("/u/api/app/edit/:id", APIAppEdit)        // TODO: [PUT] /u/api/app/apps/:id
 	kami.Delete("/u/api/app/delete/:id", APIAppDelete) // TODO: [DELETE] /u/api/app/apps/:id
-	// Discussion API
-	kami.Post("/u/api/app/discussion", APIAppDiscussion)
 	// Star API
 	kami.Post("/u/api/app/star/:id", APIAppStared)
 	kami.Delete("/u/api/app/star/:id", APIAppStarDelete)
@@ -272,51 +267,6 @@ func APIAppDelete(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	}
 
 	renderer.JSON(w, 200, appID)
-}
-
-type DiscussionRequest struct {
-	AppID          string `json:"appId"` // アプリID
-	DiscussionInfo models.DiscussionInfo
-}
-
-func APIAppDiscussion(ctx context.Context, w http.ResponseWriter, r *http.Request) {
-	data, err := ioutil.ReadAll(r.Body)
-	if err != nil {
-		log.Println("ERROR!", err)
-		renderer.JSON(w, 400, err.Error())
-		return
-	}
-	fmt.Println(string(data))
-
-	// convert request params to struct
-	var discussionReq DiscussionRequest
-	if err := json.Unmarshal(data, &discussionReq); err != nil {
-		log.Println("ERROR! json parse", err)
-		renderer.JSON(w, 400, err.Error())
-		return
-	}
-
-	// get appinfo from db
-	appInfo, err := models.AppsInfoTable.FindID(ctx, discussionReq.AppID)
-	if err != nil {
-		log.Println("ERROR!", err)
-		renderer.JSON(w, 400, err.Error())
-		return
-	}
-
-	nowTime := time.Now()
-	discussionReq.DiscussionInfo.Timestamp = nowTime
-	// push a discussionInfo
-	appInfo.Discussions = append(appInfo.Discussions, discussionReq.DiscussionInfo)
-	appInfo.UpdateAt = nowTime
-
-	if err := models.AppsInfoTable.Upsert(ctx, appInfo); err != nil {
-		log.Println("ERROR! discussion", err)
-		renderer.JSON(w, 400, err.Error())
-		return
-	}
-
-	renderer.JSON(w, 200, appInfo.Discussions)
 }
 
 func APIAppStared(ctx context.Context, w http.ResponseWriter, r *http.Request) {
