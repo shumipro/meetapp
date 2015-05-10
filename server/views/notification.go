@@ -44,7 +44,8 @@ func APIAllNotificationsRead(ctx context.Context, w http.ResponseWriter, r *http
 		notification.Notifications[idx].IsRead = true
 	}
 
-	// TODO: 10件以上残さないとか？
+	// 10件以上残さない
+	notification.TrimNotification(10)
 
 	if err := models.NotificationTable.Upsert(ctx, notification); err != nil {
 		log.Println("ERROR!", err)

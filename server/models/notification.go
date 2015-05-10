@@ -16,11 +16,19 @@ type UserNotification struct {
 	Notifications []Notification
 }
 
+func (u *UserNotification) TrimNotification(length int) {
+	trimIdx := len(u.Notifications) - length
+	if trimIdx > 0 {
+		u.Notifications = u.Notifications[trimIdx:]
+	}
+}
+
 type Notification struct {
 	NotificationID   string           // 連番 time.Now.UnixNanoかな
 	NotificationType NotificationType // 通知の区分
 	SourceID         string           // 通知の元になったID
 	Message          string           // 通知メッセージ
+	DetailURL        string           // この通知の詳細を見たいときに飛ばすURL
 	IsRead           bool             // 既読
 }
 
@@ -52,9 +60,9 @@ func (t _NotificationTable) AddNotification(ctx context.Context, userID string, 
 			return
 		}
 		result.Notifications = append(result.Notifications, notification)
+		result.TrimNotification(10)
 	})
-
-	if result.UserID != userID {
+	if err != nil {
 		return
 	}
 
