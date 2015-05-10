@@ -14,8 +14,11 @@ type User struct {
 	ID            string       `bson:"_id"      json:"ID"`            // UUID自動生成
 	Name          string       `                json:"Name"`          // ユーザー名
 	ImageName     string       `                json:"ImageName"`     // アップロードしたファイル名
-	ImageURL      string       `                json:"IamgeURL"`      // ユーザーアイコンのURL
+	ImageURL      string       `                json:"ImageURL"`      // ユーザーアイコンのURL
 	LargeImageURL string       `                json:"LargeImageURL"` // ユーザーアイコンの大きいURL
+	Comment       string       `             	json:"Comment"`         // ひとこと
+	HomePageURL   string       `             	json:"HomePageURL"`     // ウェブサイトURL
+	GitHubURL     string       `             	json:"GitHubURL"`       // Github URL
 	FBUser        FacebookUser `bson:"facebook" json:"FBUser"`        // Facebookのme情報
 	CreateAt      time.Time    `                json:"-"`
 	UpdateAt      time.Time    `                json:"-"`

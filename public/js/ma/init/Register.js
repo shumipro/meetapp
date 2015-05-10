@@ -1,6 +1,6 @@
 import $ from 'jquery'
 import _InitBase from './_InitBase'
-import RegisterApp from '../components/RegisterApp'
+import RegisterApp from '../pages/RegisterApp'
 import ConstantSelect from '../components/ConstantSelect'
 
 export default class Register extends _InitBase {

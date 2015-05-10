@@ -1,6 +1,6 @@
 import $ from 'jquery'
 import _InitBase from './_InitBase'
-import ImageUploader from '../components/ImageUploader'
+import MypageEdit from '../pages/MypageEdit'
 
 export default class MyPage extends _InitBase {
     constructor() {
@@ -9,6 +9,6 @@ export default class MyPage extends _InitBase {
 
     init() {
         super.init()
-        new ImageUploader('/u/api/upload/image')
+        new MypageEdit()
     }
 }

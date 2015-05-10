@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {{ template "partials/header" . }}
+</head>
+<body>
+
+    <header>
+        {{ template "partials/nav" . }}
+    </header>
+
+    <div class="wrapper">
+        <div class="ma-layout-wrap">
+            <div class="ma-layout clearfix">
+                <div class="ma-layout-col-left">
+                    <div class="ma-infobox">
+                        <div class="ma-infobox-profile-image" style="background-image:url({{ .User.IconLargeImageURL }});">
+                        </div>
+                        <div class="ma-infobox-table-white">
+                            <div class="col-xs-12 form-group">
+                                <label>プロフィール画像を変更する</label>
+                                <div class="input-group">
+                                    <span class="input-group-btn">
+                                        <span class="btn btn-primary btn-file">
+                                            Browse&hellip; <input type="file" id="ma-mypage-edit-profile-image-file" multiple>
+                                        </span>
+                                    </span>
+                                    <input type="text" class="form-control" readonly id="ma-mypage-edit-profile-image-input">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="margin-bottom: 20px;">
+                        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                        <!-- meetapp-mypage1 -->
+                        <ins class="adsbygoogle"
+                             style="display:block"
+                             data-ad-client="ca-pub-9926247110273834"
+                             data-ad-slot="3543549304"
+                             data-ad-format="auto"></ins>
+                        <script>
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                        </script>
+                    </div>
+                </div>
+                <div class="ma-layout-col-right">
+                    <div class="ma-white-wrap text-center">
+                        <a href="javascript:;" class="ma-profile-edit-update-btn btn btn-primary">プロフィールを更新する</a>
+                        <a href="/u/mypage" class="ma-profile-edit-cancel-btn btn btn-primary">キャンセルする</a>
+                    </div>
+                    <div class="ma-white-wrap">
+                        <div class="row">
+                            <div class="col-xs-12 form-group">
+                                <label>名前 <span class="ma-required">*</span></label>
+                                <input id="ma_mypage_edit_form_name" name="Name" class="form-control" type="text" value="{{ .User.Name }}"/>
+                            </div>
+                            <div class="col-xs-12 form-group">
+                                <label>ひとこと</label>
+                                <input id="ma_mypage_edit_form_comment" name="Comment" class="form-control" type="text" value="{{ .User.Comment }}"/>
+                            </div>
+                            <div class="col-xs-12 form-group">
+                                <label>ウェブサイトURL</label>
+                                <input id="ma_mypage_edit_form_homepageUrl" name="HomePageURL" class="form-control" type="text" placeholder="http://" value="{{ .User.HomePageURL }}"/>
+                            </div>
+                            <div class="col-xs-12 form-group">
+                                <label>Github URL</label>
+                                <input id="ma_mypage_edit_form_githubUrl" name="GitHubURL" class="form-control" type="text" placeholder="https://github.com/owner/repo" value="{{ .User.GitHubURL }}"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer>
+            {{ template "partials/footer" . }}
+        </footer>
+    </div>
+    
+    {{ template "partials/scripts" . }}
+</body>
+</html>
