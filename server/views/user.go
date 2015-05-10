@@ -70,8 +70,7 @@ func UserProfileUpdate(ctx context.Context, w http.ResponseWriter, r *http.Reque
 	user.CreateAt = beforeUser.CreateAt
 	user.UpdateAt = time.Now()
 	if err := models.UsersTable.Upsert(ctx, user); err != nil {
-		renderer.JSON(w, 400, err.Error())
-		return
+		panic(err)
 	}
 
 	renderer.JSON(w, 200, user)

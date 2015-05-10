@@ -57,9 +57,7 @@ func APIAppDiscussion(ctx context.Context, w http.ResponseWriter, r *http.Reques
 	appInfo.UpdateAt = nowTime
 
 	if err := models.AppsInfoTable.Upsert(ctx, appInfo); err != nil {
-		log.Println("ERROR! discussion", err)
-		renderer.JSON(w, 400, err.Error())
-		return
+		panic(err)
 	}
 
 	notification := models.Notification{}
@@ -81,8 +79,7 @@ func APIAppDiscussion(ctx context.Context, w http.ResponseWriter, r *http.Reques
 
 			err := models.NotificationTable.AddNotification(ctx, m.UserID, notification)
 			if err != nil {
-				log.Println("ERROR: AddNotification", m.UserID, notification)
-				continue
+				panic(err)
 			}
 			log.Println("OK: AddNotification", m.UserID, notification)
 		}

@@ -110,8 +110,8 @@ func FromContextTemplate(ctx context.Context, name string) *template.Template {
 	return tmpls[name]
 }
 
-func ExecuteTemplate(ctx context.Context, w http.ResponseWriter, name string, data interface{}) {
+func ExecuteTemplate(ctx context.Context, w http.ResponseWriter, r *http.Request, name string, data interface{}) {
 	if err := FromContextTemplate(ctx, name).Execute(w, data); err != nil {
-		executeError(ctx, w, err)
+		executeError(ctx, w, r, err)
 	}
 }

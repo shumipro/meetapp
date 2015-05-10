@@ -54,9 +54,7 @@ func APIAllNotificationsRead(ctx context.Context, w http.ResponseWriter, r *http
 	notification.TrimNotification(10)
 
 	if err := models.NotificationTable.Upsert(ctx, notification); err != nil {
-		log.Println("ERROR!", err)
-		renderer.JSON(w, 400, err.Error())
-		return
+		panic(err)
 	}
 
 	renderer.JSON(w, 200, notification)

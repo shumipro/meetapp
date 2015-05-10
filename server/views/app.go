@@ -100,7 +100,7 @@ func AppList(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	preload.CurrentPage = page + 1
 	preload.TotalCount = totalCount
 
-	ExecuteTemplate(ctx, w, "app/list", preload)
+	ExecuteTemplate(ctx, w, r, "app/list", preload)
 }
 
 type AppDetailResponse struct {
@@ -116,7 +116,8 @@ func AppDetail(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	}
 	appInfo, err := models.AppsInfoTable.FindID(ctx, appID)
 	if err != nil {
-		panic(err)
+		renderer.JSON(w, 400, "[ERROR] request param appInfo "+err.Error())
+		return
 	}
 
 	preload := AppDetailResponse{}
@@ -128,7 +129,7 @@ func AppDetail(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	)
 	preload.AppInfo = NewAppInfoView(ctx, appInfo)
 
-	ExecuteTemplate(ctx, w, "app/detail", preload)
+	ExecuteTemplate(ctx, w, r, "app/detail", preload)
 }
 
 type AppRegisterResponse struct {
@@ -161,7 +162,7 @@ func AppRegister(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 
 	preload.AppInfo = NewAppInfoView(ctx, appInfo)
 
-	ExecuteTemplate(ctx, w, "app/register", preload)
+	ExecuteTemplate(ctx, w, r, "app/register", preload)
 }
 
 func AppEdit(ctx context.Context, w http.ResponseWriter, r *http.Request) {
@@ -174,7 +175,8 @@ func AppEdit(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 
 	appInfo, err := models.AppsInfoTable.FindID(ctx, appID)
 	if err != nil {
-		panic(err)
+		renderer.JSON(w, 400, "[ERROR] request param appInfo "+err.Error())
+		return
 	}
 
 	preload := AppRegisterResponse{}
@@ -194,7 +196,7 @@ func AppEdit(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	}
 	preload.AppInfo = NewAppInfoView(ctx, appInfo)
 
-	ExecuteTemplate(ctx, w, "app/register", preload)
+	ExecuteTemplate(ctx, w, r, "app/register", preload)
 }
 
 func APIAppRegister(ctx context.Context, w http.ResponseWriter, r *http.Request) {
@@ -207,9 +209,7 @@ func APIAppRegister(ctx context.Context, w http.ResponseWriter, r *http.Request)
 	regAppInfo = convertRegisterAppInfo(ctx, regAppInfo)
 
 	if err := models.AppsInfoTable.Upsert(ctx, regAppInfo); err != nil {
-		log.Println("ERROR! register", err)
-		renderer.JSON(w, 400, err.Error())
-		return
+		panic(err)
 	}
 
 	renderer.JSON(w, 200, regAppInfo)
@@ -241,9 +241,7 @@ func APIAppEdit(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	regAppInfo = convertEditAppInfo(ctx, regAppInfo, beforeApp)
 
 	if err := models.AppsInfoTable.Upsert(ctx, regAppInfo); err != nil {
-		log.Println("ERROR! register", err)
-		renderer.JSON(w, 400, err.Error())
-		return
+		panic(err)
 	}
 
 	renderer.JSON(w, 200, regAppInfo)
@@ -268,9 +266,7 @@ func APIAppDelete(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	}
 
 	if err := models.AppsInfoTable.Delete(ctx, app.ID); err != nil {
-		log.Println("ERROR!", err)
-		renderer.JSON(w, 400, err.Error())
-		return
+		panic(err)
 	}
 
 	renderer.JSON(w, 200, appID)
@@ -303,9 +299,7 @@ func APIAppStared(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	appInfo.UpdateAt = time.Now()
 
 	if err := models.AppsInfoTable.Upsert(ctx, appInfo); err != nil {
-		log.Println("ERROR! star", err)
-		renderer.JSON(w, 400, err.Error())
-		return
+		panic(err)
 	}
 
 	renderer.JSON(w, 200, appInfo.StarUsers)
@@ -344,9 +338,7 @@ func APIAppStarDelete(ctx context.Context, w http.ResponseWriter, r *http.Reques
 	appInfo.UpdateAt = time.Now()
 
 	if err := models.AppsInfoTable.Upsert(ctx, appInfo); err != nil {
-		log.Println("ERROR! star", err)
-		renderer.JSON(w, 400, err.Error())
-		return
+		panic(err)
 	}
 
 	renderer.JSON(w, 200, appInfo.StarUsers)

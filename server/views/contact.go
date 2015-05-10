@@ -13,5 +13,5 @@ func init() {
 
 func Constact(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	preload := NewHeader(ctx, "Constact", "", "", false)
-	ExecuteTemplate(ctx, w, "contact", preload)
+	ExecuteTemplate(ctx, w, r, "contact", preload)
 }

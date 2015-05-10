@@ -58,7 +58,7 @@ func Mypage(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	preload.AdminAppList = convertAppInfoViewList(ctx, adminApps)
 	preload.JoinAppList = convertAppInfoViewList(ctx, joinApps)
 
-	ExecuteTemplate(ctx, w, "mypage", preload)
+	ExecuteTemplate(ctx, w, r, "mypage", preload)
 }
 
 func MypageOther(ctx context.Context, w http.ResponseWriter, r *http.Request) {
@@ -80,7 +80,7 @@ func MypageOther(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	joinApps, _ := models.AppsInfoTable.FindByJoinID(ctx, userID)
 	preload.JoinAppList = convertAppInfoViewList(ctx, joinApps)
 
-	ExecuteTemplate(ctx, w, "mypage", preload)
+	ExecuteTemplate(ctx, w, r, "mypage", preload)
 }
 
 func MypageEdit(ctx context.Context, w http.ResponseWriter, r *http.Request) {
@@ -100,5 +100,5 @@ func MypageEdit(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	preload.User = user
 	preload.TemplateHeader = NewHeader(ctx, "マイページの編集", "", "", false)
 
-	ExecuteTemplate(ctx, w, "mypageEdit", preload)
+	ExecuteTemplate(ctx, w, r, "mypageEdit", preload)
 }

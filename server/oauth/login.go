@@ -6,6 +6,8 @@ import (
 	"log"
 
 	"golang.org/x/net/context"
+	"github.com/kyokomi/goroku"
+	"errors"
 )
 
 const authTokenKey = "Meetapp-Auth-Token"
@@ -32,7 +34,8 @@ func Login(ctx context.Context, w http.ResponseWriter, r *http.Request) context.
 func LoginCheck(ctx context.Context, w http.ResponseWriter, r *http.Request) context.Context {
 	_, ok := FromContext(ctx)
 	if !ok {
-		log.Println("[ERROR] Login Error 401")
+		log.Println("[ERROR] Login Error 401 send airbrake")
+		go goroku.Airbrake(ctx).Notify(errors.New("[ERROR] Login Error 401"), r)
 		http.Redirect(w, r, "/login", 302)
 		return nil
 	}
