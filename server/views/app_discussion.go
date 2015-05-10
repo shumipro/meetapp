@@ -2,7 +2,6 @@ package views
 
 import (
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -11,6 +10,7 @@ import (
 
 	"github.com/guregu/kami"
 	"github.com/shumipro/meetapp/server/models"
+	"github.com/shumipro/meetapp/server/oauth"
 	"golang.org/x/net/context"
 )
 
@@ -32,7 +32,6 @@ func APIAppDiscussion(ctx context.Context, w http.ResponseWriter, r *http.Reques
 		renderer.JSON(w, 400, err.Error())
 		return
 	}
-	fmt.Println(string(data))
 
 	// convert request params to struct
 	var discussionReq DiscussionRequest
@@ -71,9 +70,15 @@ func APIAppDiscussion(ctx context.Context, w http.ResponseWriter, r *http.Reques
 	notification.Message = "新着メッセージ: " + discussionReq.DiscussionInfo.Message
 	notification.IsRead = false
 
+	a, _ := oauth.FromContext(ctx)
 	// ディスカッションの結果として同期する必要ないので非同期処理する
 	go func() {
 		for _, m := range appInfo.Members {
+			// 自分は通知しない
+			if m.UserID == a.UserID {
+				continue
+			}
+
 			err := models.NotificationTable.AddNotification(ctx, m.UserID, notification)
 			if err != nil {
 				log.Println("ERROR: AddNotification", m.UserID, notification)
