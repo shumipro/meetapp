@@ -25,7 +25,7 @@ func APINotifications(ctx context.Context, w http.ResponseWriter, r *http.Reques
 		// 空の時は代わりを作ってあげる
 		notification = models.UserNotification{}
 		notification.UserID = a.UserID
-		notification.Notifications = models.Notification{}
+		notification.Notifications = []models.Notification{}
 	} else if err != nil {
 		log.Println("ERROR!", err)
 		renderer.JSON(w, 400, err.Error())
