@@ -68,7 +68,7 @@ func APIAppDiscussion(ctx context.Context, w http.ResponseWriter, r *http.Reques
 	notification.SourceID = discussionReq.DiscussionInfo.ID
 	notification.NotificationType = models.NotificationDiscussion
 	notification.DetailURL = "/app/detail/" + appInfo.ID
-	notification.Message = "メッセージがあります" // TODO: とりあえず固定文
+	notification.Message = "新着メッセージ: " + discussionReq.DiscussionInfo.Message
 	notification.IsRead = false
 
 	// ディスカッションの結果として同期する必要ないので非同期処理する

@@ -16,6 +16,13 @@ type UserNotification struct {
 	Notifications []Notification
 }
 
+func (u *UserNotification) TrimNotification(length int) {
+	trimIdx := len(u.Notifications) - length
+	if trimIdx > 0 {
+		u.Notifications = u.Notifications[trimIdx:]
+	}
+}
+
 type Notification struct {
 	NotificationID   string           // 連番 time.Now.UnixNanoかな
 	NotificationType NotificationType // 通知の区分
@@ -53,6 +60,7 @@ func (t _NotificationTable) AddNotification(ctx context.Context, userID string, 
 			return
 		}
 		result.Notifications = append(result.Notifications, notification)
+		result.TrimNotification(10)
 	})
 	if err != nil {
 		return
