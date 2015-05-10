@@ -19,7 +19,7 @@ export default class Notifications {
         }).done((res) => {
             this.render(res)
         }).fail(() => {
-            alert("Error")
+            // alert("Error")
         })
     }
 
@@ -32,7 +32,7 @@ export default class Notifications {
         }).done((res) => {
             this._$badge.removeClass('ma-unread-badge').html(0)
         }).fail(() => {
-            alert("Error")
+            // alert("Error")
         })
     }
 
