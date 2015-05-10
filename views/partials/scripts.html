@@ -1,6 +1,8 @@
 <script>
 // define global constants
-var ma = {{ . }};
+var ma = {};
+ma.config = {{ .Config }};
+ma.constants = {{ .Constants }};
 ma.messages = {
     constants: {
         platform: "プラットフォーム",
