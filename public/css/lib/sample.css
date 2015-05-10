@@ -301,6 +301,7 @@ form textarea.form-control {
     .logo {
         width: 100px;
         height: auto;
+        margin-left: 8px;
     }
 
     .slick-next {
