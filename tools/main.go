@@ -3,7 +3,7 @@ package main
 import (
 	"log"
 
-	"github.com/shumipro/meetapp/server/db"
+	"github.com/kyokomi/goroku"
 	"github.com/shumipro/meetapp/server/models"
 	"golang.org/x/net/context"
 )
@@ -15,8 +15,8 @@ var mockUsers = []models.User{
 
 func main() {
 	ctx := context.Background()
-	ctx = db.OpenMongoDB(ctx) // insert mongoDB
-	defer db.CloseMongoDB(ctx)
+	ctx = goroku.OpenMongoDB(ctx) // insert mongoDB
+	defer goroku.CloseMongoDB(ctx)
 
 	for _, user := range mockUsers {
 		if err := models.UsersTable.Upsert(ctx, user); err != nil {

@@ -13,7 +13,7 @@ import (
 	"reflect"
 
 	"github.com/guregu/kami"
-	"github.com/shumipro/meetapp/server/db"
+	"github.com/kyokomi/goroku"
 	"github.com/shumipro/meetapp/server/models"
 	"github.com/shumipro/meetapp/server/oauth"
 	"golang.org/x/net/context"
@@ -21,11 +21,11 @@ import (
 
 func TestUserProfileUpdate(t *testing.T) {
 	ctx := context.Background()
-	ctx = db.OpenMongoDB(ctx)
-	db.WithMockMongoDB()
-	mongoDB := db.MongoDB(ctx)
+	ctx = goroku.OpenMongoDB(ctx)
+	goroku.WithMockMongoDB()
+	mongoDB := goroku.MongoDB(ctx)
 	defer func() {
-		mongoDB.DB(db.MongoDBName()).DropDatabase()
+		mongoDB.DB(goroku.MongoDBName()).DropDatabase()
 		mongoDB.Close()
 	}()
 
