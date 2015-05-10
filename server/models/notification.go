@@ -21,6 +21,7 @@ type Notification struct {
 	NotificationType NotificationType // 通知の区分
 	SourceID         string           // 通知の元になったID
 	Message          string           // 通知メッセージ
+	DetailURL        string           // この通知の詳細を見たいときに飛ばすURL
 	IsRead           bool             // 既読
 }
 
@@ -53,8 +54,7 @@ func (t _NotificationTable) AddNotification(ctx context.Context, userID string, 
 		}
 		result.Notifications = append(result.Notifications, notification)
 	})
-
-	if result.UserID != userID {
+	if err != nil {
 		return
 	}
 

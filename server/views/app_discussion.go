@@ -67,9 +67,11 @@ func APIAppDiscussion(ctx context.Context, w http.ResponseWriter, r *http.Reques
 	notification.NotificationID = discussionReq.DiscussionInfo.ID
 	notification.SourceID = discussionReq.DiscussionInfo.ID
 	notification.NotificationType = models.NotificationDiscussion
-	notification.Message = "メッセージがあります"
+	notification.DetailURL = "/app/detail/" + appInfo.ID
+	notification.Message = "メッセージがあります" // TODO: とりあえず固定文
 	notification.IsRead = false
 
+	// ディスカッションの結果として同期する必要ないので非同期処理する
 	go func() {
 		for _, m := range appInfo.Members {
 			err := models.NotificationTable.AddNotification(ctx, m.UserID, notification)
