@@ -28,7 +28,6 @@ type MyPageResponse struct {
 func Mypage(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	a, ok := oauth.FromContext(ctx)
 	if !ok {
-		oauth.ResetCacheAuthToken(ctx, w)
 		panic("login error")
 	}
 
@@ -37,8 +36,7 @@ func Mypage(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 		"access_token": a.AuthToken,
 	})
 	if err != nil {
-		oauth.ResetCacheAuthToken(ctx, w)
-		panic(err)
+		log.Println(err)
 	}
 
 	// TODO: Facebook情報に変更あればUserテーブル更新する
@@ -87,7 +85,6 @@ func MypageOther(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 func MypageEdit(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	a, ok := oauth.FromContext(ctx)
 	if !ok {
-		oauth.ResetCacheAuthToken(ctx, w)
 		panic("login error")
 	}
 

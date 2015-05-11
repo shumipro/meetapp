@@ -12,7 +12,6 @@ import (
 	"github.com/shumipro/meetapp/server/oauth"
 	"golang.org/x/net/context"
 	"gopkg.in/mgo.v2"
-	"gopkg.in/redis.v2"
 )
 
 func init() {
@@ -34,7 +33,7 @@ func Login(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 }
 
 func Logout(ctx context.Context, w http.ResponseWriter, r *http.Request) {
-	oauth.ResetCacheAuthToken(ctx, w)
+	oauth.ResetCacheAuthToken(ctx, w, r)
 	http.Redirect(w, r, "/login", 302)
 }
 
@@ -94,12 +93,9 @@ func AuthCallback(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	}
 
 	// RedisでCacheとCookieに書き込む
-	_, err = oauth.GetAccountByToken(ctx, token.AccessToken)
-	if err == redis.Nil {
-		err = oauth.CacheAuthToken(ctx, w, user.ID, *token)
-		if err != nil {
-			panic(err)
-		}
+	err = oauth.CacheAuthToken(ctx, w, r, user.ID, *token)
+	if err != nil {
+		panic(err)
 	}
 
 	http.Redirect(w, r, "/u/mypage", 302)

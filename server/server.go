@@ -31,6 +31,9 @@ func Serve() {
 
 	ctx = goroku.NewAirbrake(ctx, "production")
 
+	ctx = oauth.NewSessionStore(ctx)
+	defer oauth.CloseSessionStore(ctx)
+
 	// TODO: とりあえず
 	ctx = views.InitTemplates(ctx, "./")
 
