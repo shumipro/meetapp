@@ -1,11 +1,8 @@
 package oauth
 
 import (
-	"log"
 	"net/http"
-	"time"
 
-	"github.com/kyokomi/goroku"
 	"golang.org/x/net/context"
 	"golang.org/x/oauth2"
 )
@@ -32,33 +29,14 @@ func FromContext(ctx context.Context) (Account, bool) {
 	return u, ok
 }
 
-func GetAccountByToken(ctx context.Context, authToken string) (Account, error) {
-	redisDB := goroku.Redis(ctx)
-
-	userID, err := redisDB.Get("auth:" + authToken).Result()
-	if err != nil {
-		return Account{}, err
-	}
-	return Account{userID, authToken}, nil
+func GetAccountByToken(ctx context.Context, r *http.Request) (Account, error) {
+	return readSessionAuthToken(ctx, r)
 }
 
-func CacheAuthToken(ctx context.Context, w http.ResponseWriter, userID string, token oauth2.Token) error {
-	redisDB := goroku.Redis(ctx)
-
-	_, err := redisDB.SetEx("auth:"+token.AccessToken, token.Expiry.Sub(time.Now()), userID).Result()
-	if err != nil {
-		log.Println("ERROR: Redis.SetEx", err, token, userID)
-		return err
-	}
-	writeCookieAuthToken(w, token.AccessToken, token.Expiry)
-
-	return nil
+func CacheAuthToken(ctx context.Context, w http.ResponseWriter, r *http.Request, userID string, token oauth2.Token) error {
+	return writeSessionAuthToken(ctx, w, r, Account{userID, token.AccessToken})
 }
 
-func ResetCacheAuthToken(ctx context.Context, w http.ResponseWriter) {
-	a, _ := FromContext(ctx)
-	redisDB := goroku.Redis(ctx)
-
-	redisDB.Del("auth:" + a.AuthToken)
-	removeCookieAuthToken(w)
+func ResetCacheAuthToken(ctx context.Context, w http.ResponseWriter, r *http.Request) {
+	removeSessionAuthToken(ctx, w, r)
 }

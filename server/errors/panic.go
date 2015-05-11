@@ -6,9 +6,9 @@ import (
 	"runtime/debug"
 
 	"github.com/guregu/kami"
+	"github.com/kyokomi/goroku"
 	"github.com/unrolled/render"
 	"golang.org/x/net/context"
-	"github.com/kyokomi/goroku"
 )
 
 var renderer = render.New(render.Options{})
