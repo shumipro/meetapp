@@ -70,7 +70,8 @@ func MypageOther(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	user, err := models.UsersTable.FindID(ctx, userID)
 	if err != nil {
 		log.Println(err, userID)
-		panic(err)
+		renderer.JSON(w, 400, err.Error())
+		return
 	}
 
 	preload := MyPageResponse{}
