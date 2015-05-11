@@ -8,7 +8,7 @@ import (
 func TestGetHerokuRedisAddr(t *testing.T) {
 	os.Setenv("REDISTOGO_URL", "redis://redistogo:<password>@mummichog.redistogo.com:11068/")
 
-	addr, password := getHerokuRedisAddr()
+	addr, password := GetHerokuRedisAddr()
 	if addr != "mummichog.redistogo.com:11068" {
 		t.Errorf("ERROR: addr %s != %s", addr, "mummichog.redistogo.com:11068")
 	}

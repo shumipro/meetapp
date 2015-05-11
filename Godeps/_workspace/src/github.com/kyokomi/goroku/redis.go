@@ -19,7 +19,7 @@ func Redis(ctx context.Context) *redis.Client {
 }
 
 func OpenRedis(ctx context.Context) context.Context {
-	addr, password := getHerokuRedisAddr()
+	addr, password := GetHerokuRedisAddr()
 	client := redis.NewTCPClient(&redis.Options{
 		Addr:     addr,
 		Password: password,
@@ -28,7 +28,7 @@ func OpenRedis(ctx context.Context) context.Context {
 	return ctx
 }
 
-func getHerokuRedisAddr() (addr string, password string) {
+func GetHerokuRedisAddr() (addr string, password string) {
 	addr = fmt.Sprintf("%s:%d", "localhost", 6379)
 	password = ""
 
