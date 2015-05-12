@@ -62,10 +62,6 @@ func (t _NotificationTable) AddNotification(ctx context.Context, userID string, 
 		result.Notifications = append(result.Notifications, notification)
 		result.TrimNotification(10)
 	})
-	if err != nil {
-		return
-	}
-
 	return t.Upsert(ctx, result)
 }
 
