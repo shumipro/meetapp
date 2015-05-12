@@ -63,6 +63,7 @@
                         </section>                        
                     </div>
                     <div class="ma-white-wrap">
+                        {{if .IsMe }}
                         <section>
                             <div class="section-heading">
                                 <h3>管理している開発アイデア</h3>
@@ -78,6 +79,7 @@
                             <div class="text-center"><h4>管理している開発アイデアがありません</h4></div>
                             {{end}}
                         </section>
+                        {{end}}
                         <section>
                             <div class="section-heading">
                                 <h3>参加している開発アイデア</h3>

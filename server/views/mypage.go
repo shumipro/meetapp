@@ -78,7 +78,10 @@ func MypageOther(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	preload.User = user
 	preload.TemplateHeader = NewHeader(ctx, user.Name, "", "", false)
 
+	// loginしている状態のみ他人のページとして自分を見に来たときに管理アイデアを表示
+	adminApps, _ := models.AppsInfoTable.FindByAdminID(ctx, userID)
 	joinApps, _ := models.AppsInfoTable.FindByJoinID(ctx, userID)
+	preload.AdminAppList = convertAppInfoViewList(ctx, adminApps)
 	preload.JoinAppList = convertAppInfoViewList(ctx, joinApps)
 
 	// loginしてる状態でotherが自分のページであればIsMeにtrueをセット
