@@ -23,6 +23,7 @@ type MyPageResponse struct {
 	User         models.User
 	AdminAppList []AppInfoView
 	JoinAppList  []AppInfoView
+	IsMe         bool
 }
 
 func Mypage(ctx context.Context, w http.ResponseWriter, r *http.Request) {
@@ -55,6 +56,7 @@ func Mypage(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	joinApps, _ := models.AppsInfoTable.FindByJoinID(ctx, a.UserID)
 	preload.AdminAppList = convertAppInfoViewList(ctx, adminApps)
 	preload.JoinAppList = convertAppInfoViewList(ctx, joinApps)
+	preload.IsMe = true
 
 	ExecuteTemplate(ctx, w, r, "mypage", preload)
 }
@@ -78,6 +80,10 @@ func MypageOther(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 
 	joinApps, _ := models.AppsInfoTable.FindByJoinID(ctx, userID)
 	preload.JoinAppList = convertAppInfoViewList(ctx, joinApps)
+
+	// loginしてる状態でotherが自分のページであればIsMeにtrueをセット
+	a, ok := oauth.FromContext(ctx)
+	preload.IsMe = ok && userID == a.UserID
 
 	ExecuteTemplate(ctx, w, r, "mypage", preload)
 }

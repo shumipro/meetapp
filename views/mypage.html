@@ -46,8 +46,8 @@
                     </div>
                 </div>
                 <div class="ma-layout-col-right">
-                    <!-- loginしている場合に表示 -->
-                    {{if not .Config.User.IsEmpty }}
+                    <!-- loginしていて対象が自分の場合に表示 -->
+                    {{if .IsMe }}
                     <div class="ma-white-wrap text-center">
                         <a href="/u/mypage/edit" class="ma-profile-edit-btn btn btn-primary">プロフィールを編集する</a>
                     </div>
