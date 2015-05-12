@@ -39,7 +39,14 @@ func APIAllNotificationsRead(ctx context.Context, w http.ResponseWriter, r *http
 	a, _ := oauth.FromContext(ctx)
 
 	notification, err := models.NotificationTable.FindID(ctx, a.UserID)
-	if err != nil {
+	if err == mgo.ErrNotFound {
+		// 空の時は代わりをつくる
+		notification = models.UserNotification{}
+		notification.UserID = a.UserID
+		notification.Notifications = []models.Notification{}
+		renderer.JSON(w, 200, notification)
+		return
+	} else if err != nil {
 		log.Println("ERROR!", err, a.UserID)
 		renderer.JSON(w, 400, err.Error())
 		return

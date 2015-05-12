@@ -49,19 +49,27 @@ func (t _NotificationTable) withCollection(ctx context.Context, fn func(c *mgo.C
 	withDefaultCollection(ctx, t.Name(), fn)
 }
 
-func (t _NotificationTable) AddNotification(ctx context.Context, userID string, notification Notification) (err error) {
+func (t _NotificationTable) AddNotification(ctx context.Context, userID string, notification Notification) error {
 	var result UserNotification
+	var err error
 	t.withCollection(ctx, func(c *mgo.Collection) {
 		err = c.FindId(userID).One(&result)
 		if err == mgo.ErrNotFound {
 			result.UserID = userID
 			result.Notifications = []Notification{}
+			err = nil // NotFoundは新規なのでOK
 		} else if err != nil {
 			return
 		}
+
 		result.Notifications = append(result.Notifications, notification)
 		result.TrimNotification(10)
 	})
+
+	if err != nil {
+		return err
+	}
+
 	return t.Upsert(ctx, result)
 }
 
