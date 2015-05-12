@@ -79,9 +79,11 @@ func APIAppDiscussion(ctx context.Context, w http.ResponseWriter, r *http.Reques
 
 			err := models.NotificationTable.AddNotification(ctx, m.UserID, notification)
 			if err != nil {
-				panic(err)
+				// 非同期処理なのでpanicしない
+				log.Println("ERROR!", err)
+			} else {
+				log.Println("OK: AddNotification", m.UserID, notification)
 			}
-			log.Println("OK: AddNotification", m.UserID, notification)
 		}
 	}()
 
