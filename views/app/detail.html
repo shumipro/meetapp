@@ -36,6 +36,7 @@
                                 <dt>プラットフォーム:</dt><dd>{{ .AppInfo.Platform }}</dd>
                                 <dt>カテゴリ:</dt><dd>{{ .AppInfo.Category }}</dd>
                                 <dt>プログラミング言語:</dt><dd>{{ .AppInfo.Language }}</dd>
+                                <dt>キーワード:</dt><dd>{{with .AppInfo.Keywords }}{{ . }}{{else}} - {{end}}</dd>
                                 <dt>アイデア作成日:</dt><dd>{{ .FormatTimeToDate .AppInfo.CreateAt }}</dd>
                             </dl>
                         </div>
