@@ -3,6 +3,7 @@ package views
 import (
 	"html/template"
 	"path/filepath"
+	"time"
 
 	"fmt"
 
@@ -38,6 +39,10 @@ func (t TemplateHeader) EscapeNewline(text string) template.HTML {
 func (t TemplateHeader) OriginalImage(url string) string {
 	// remove resize params to show original size image
 	return strings.Replace(url, "/w_160", "", 1)
+}
+
+func (t TemplateHeader) FormatTimeToDate(time time.Time) string {
+	return time.Format("2006-01-02")
 }
 
 func NewHeader(ctx context.Context, title, navTitle, subTitle string, showBanner bool) TemplateHeader {

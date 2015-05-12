@@ -14,7 +14,9 @@
                 <div class="ma-layout-col-left">
                     <div class="ma-infobox">
                         <div class="ma-infobox-logo">
-                            <img src="{{ .AppInfo.MainImage }}" class="sectionImg">
+                            <a href="{{ .OriginalImage .AppInfo.MainImage }}" target="_blank">
+                                <img src="{{ .AppInfo.MainImage }}" class="sectionImg">
+                            </a>
                             <div class="ma-star-wrap text-center">
                                 <figure class="ma-app-star-count">
                                     <figcaption class="star">★</figcaption>
@@ -34,6 +36,7 @@
                                 <dt>プラットフォーム:</dt><dd>{{ .AppInfo.Platform }}</dd>
                                 <dt>カテゴリ:</dt><dd>{{ .AppInfo.Category }}</dd>
                                 <dt>プログラミング言語:</dt><dd>{{ .AppInfo.Language }}</dd>
+                                <dt>アイデア作成日:</dt><dd>{{ .FormatTimeToDate .AppInfo.CreateAt }}</dd>
                             </dl>
                         </div>
                     </div>
