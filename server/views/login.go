@@ -46,7 +46,9 @@ func AuthCallback(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	code := r.FormValue("code")
 	token, err := oauth.GetFacebookAuthToken(ctx, code)
 	if err != nil {
-		panic(err.Error())
+		log.Println("[ERROR] GetFacebookAuthToken", err)
+		http.Redirect(w, r, "/error", 302)
+		return
 	}
 
 	facebookID, res, err := oauth.GetFacebookMe(ctx, token.AccessToken)

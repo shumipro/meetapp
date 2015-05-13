@@ -11,12 +11,12 @@ import (
 
 	"strings"
 
+	"github.com/microcosm-cc/bluemonday"
+	"github.com/russross/blackfriday"
 	"github.com/shumipro/meetapp/server/models"
 	"github.com/shumipro/meetapp/server/oauth"
 	"github.com/unrolled/render"
 	"golang.org/x/net/context"
-	"github.com/russross/blackfriday"
-	"github.com/microcosm-cc/bluemonday"
 )
 
 type Config struct {
