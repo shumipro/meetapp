@@ -15,6 +15,8 @@ import (
 	"github.com/shumipro/meetapp/server/oauth"
 	"github.com/unrolled/render"
 	"golang.org/x/net/context"
+	"github.com/russross/blackfriday"
+	"github.com/microcosm-cc/bluemonday"
 )
 
 type Config struct {
@@ -34,6 +36,13 @@ func (t TemplateHeader) EscapeNewline(text string) template.HTML {
 	safe := template.HTMLEscapeString(text)
 	safe = strings.Replace(safe, "\n", "<br />", -1)
 	return template.HTML(safe)
+}
+
+// TODO: render時じゃなくて、登録/更新時にMongoDBにつっこんでおくべきだと思うけど一旦これで
+func (t TemplateHeader) Markdown(text string) template.HTML {
+	safe := template.HTMLEscapeString(text)
+	unsafe := blackfriday.MarkdownCommon([]byte(safe))
+	return template.HTML(string(bluemonday.UGCPolicy().SanitizeBytes(unsafe)))
 }
 
 func (t TemplateHeader) OriginalImage(url string) string {
