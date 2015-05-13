@@ -61,6 +61,19 @@
 			"Rev": "6b2ca5c8eb9a3bbc5a04c30324d87879a92067e9"
 		},
 		{
+			"ImportPath": "github.com/microcosm-cc/bluemonday",
+			"Rev": "fcd0f5074e55df204568c7419509fb59ddcad228"
+		},
+		{
+			"ImportPath": "github.com/russross/blackfriday",
+			"Comment": "v1.2-69-g4bed88b",
+			"Rev": "4bed88b4fd00fbb66b49b0f38ed3dd0b902ab515"
+		},
+		{
+			"ImportPath": "github.com/shurcooL/sanitized_anchor_name",
+			"Rev": "8e87604bec3c645a4eeaee97dfec9f25811ff20d"
+		},
+		{
 			"ImportPath": "github.com/unrolled/render",
 			"Rev": "a9e7a35d2194896cd9985fd068ab3735ce3bc39f"
 		},
@@ -81,6 +94,10 @@
 		},
 		{
 			"ImportPath": "golang.org/x/net/context",
+			"Rev": "ff8eb9a34a5cbb9941ffc6f84a19a8014c2646ad"
+		},
+		{
+			"ImportPath": "golang.org/x/net/html",
 			"Rev": "ff8eb9a34a5cbb9941ffc6f84a19a8014c2646ad"
 		},
 		{
