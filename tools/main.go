@@ -13,6 +13,13 @@ var mockUsers = []models.User{
 	{ID: "test2", Name: "Yamada Koji", FBUser: models.FacebookUser{ID: "facebook2", Name: "Yamada Koji"}},
 }
 
+var mockNotifications = []models.UserNotification{
+	{UserID: "test1", Notifications: []models.Notification{
+		{"1", models.NotificationDiscussion, "1", "Messasge", "Hoge", false},
+	}},
+}
+
+
 func main() {
 	ctx := context.Background()
 	ctx = goroku.OpenMongoDB(ctx) // insert mongoDB
@@ -20,6 +27,14 @@ func main() {
 
 	for _, user := range mockUsers {
 		if err := models.UsersTable.Upsert(ctx, user); err != nil {
+			log.Println(err)
+		} else {
+			log.Println("OK")
+		}
+	}
+
+	for _, notification := range mockNotifications {
+		if err := models.NotificationTable.Upsert(ctx, notification); err != nil {
 			log.Println(err)
 		} else {
 			log.Println("OK")
