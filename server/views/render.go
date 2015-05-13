@@ -20,7 +20,8 @@ import (
 )
 
 type Config struct {
-	User models.User `json:"user"`
+	User         models.User             `json:"user"`
+	Notification models.UserNotification `json:"notification"`
 }
 
 type TemplateHeader struct {
@@ -57,11 +58,11 @@ func (t TemplateHeader) FormatTimeToDate(time time.Time) string {
 func NewHeader(ctx context.Context, title, navTitle, subTitle string, showBanner bool) TemplateHeader {
 	a, _ := oauth.FromContext(ctx)
 
-	// TODO: 毎アクセスでmongoとるの微妙・・・ Serverでcacheしてもよさそう
 	user, _ := models.UsersTable.FindID(ctx, a.UserID)
+	nt := models.NotificationTable.MustFindID(ctx, a.UserID)
 
 	h := TemplateHeader{}
-	h.Config = Config{User: user}
+	h.Config = Config{User: user, Notification: nt}
 	h.Constants = models.AllConstants()
 
 	h.Title = title
