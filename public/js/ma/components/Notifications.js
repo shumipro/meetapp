@@ -14,13 +14,7 @@ export default class Notifications {
     }
 
     load(){
-        $.ajax({
-            url: '/u/api/notification'
-        }).done((res) => {
-            this.render(res)
-        }).fail(() => {
-            // alert("Error")
-        })
+        this.render(util.getNotification())
     }
 
     read(){
@@ -69,7 +63,9 @@ export default class Notifications {
         this._$wrap.css('visibility', 'visible')
         // attach event once
         this._$link.one('click', ()=> {
-            this.read()
+            if(unreadCount > 0) {
+                this.read()
+            }
         })
     }
 }

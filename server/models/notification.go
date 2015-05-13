@@ -73,6 +73,15 @@ func (t _NotificationTable) AddNotification(ctx context.Context, userID string, 
 	return t.Upsert(ctx, result)
 }
 
+func (t _NotificationTable) MustFindID(ctx context.Context, userID string) UserNotification {
+	notification, err := t.FindID(ctx, userID)
+	if err != nil {
+		notification.UserID = userID
+		notification.Notifications = []Notification{}
+	}
+	return notification
+}
+
 func (t _NotificationTable) FindID(ctx context.Context, userID string) (result UserNotification, err error) {
 	t.withCollection(ctx, func(c *mgo.Collection) {
 		err = c.FindId(userID).One(&result)

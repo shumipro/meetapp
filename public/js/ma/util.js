@@ -11,6 +11,14 @@ var util = {
         return user
     },
 
+    getNotification() {
+        var notification = config.notification
+        if(!notification || !notification.UserID) {
+            return null
+        }
+        return notification
+    },
+
     getUrlParams() {
         var search = location.search.substring(1);
         return search ? JSON.parse('{"' + search.replace(/&/g, '","').replace(/=/g,'":"') + '"}',

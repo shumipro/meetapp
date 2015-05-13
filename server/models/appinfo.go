@@ -1,6 +1,8 @@
 package models
 
 import (
+	"fmt"
+	"math/rand"
 	"time"
 
 	"strings"
@@ -40,8 +42,8 @@ func (a AppInfo) FirstImageURL() string {
 	if len(a.ImageURLs) > 0 {
 		return a.ImageURLs[0].URL // TODO: とりあえず1件目をメインの画像にする
 	} else {
-		// set default image
-		return "/img/no_img.png"
+		// set default image with random
+		return fmt.Sprintf("/img/no_img/no_img_%d.png", rand.Intn(5))
 	}
 }
 

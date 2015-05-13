@@ -33,7 +33,7 @@ func (u User) IconImageURL() string {
 		return fmt.Sprintf("http://graph.facebook.com/%s/picture?type=square", u.FBUser.ID)
 	}
 
-	return "/img/no_img.png"
+	return "/img/no_img/no_img_1.png"
 }
 
 func (u User) IconLargeImageURL() string {
@@ -45,7 +45,7 @@ func (u User) IconLargeImageURL() string {
 		return fmt.Sprintf("http://graph.facebook.com/%s/picture?type=large", u.FBUser.ID)
 	}
 
-	return "/img/no_img.png"
+	return "/img/no_img/no_img_1.png"
 }
 
 func (u User) IsEmpty() bool {
