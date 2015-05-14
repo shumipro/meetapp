@@ -35,7 +35,7 @@ var util = {
     },
 
     getImageURL(id){
-        return "http://graph.facebook.com/" + id + "/picture?type=square";
+        return "https://graph.facebook.com/" + id + "/picture?type=square";
     },
 
     getConstantLabel(prop, id) {
