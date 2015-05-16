@@ -212,6 +212,22 @@ func APIAppRegister(ctx context.Context, w http.ResponseWriter, r *http.Request)
 		panic(err)
 	}
 
+	go func() {
+		// Initialize the Twitter Client
+		twclient, err := oauth.NewTwitterClient()
+		if err != nil {
+			log.Printf("Failed to initialize twitter client: %s.", err)
+			return
+		}
+
+		id, err := twclient.Tweet(fmt.Sprintf("開発アイデアが新規登録されました: MeetApp - %s https://meetapp.tokyo/app/detail/%s #meetapp", regAppInfo.Name, regAppInfo.ID))
+		if err != nil {
+			log.Printf("Failed to post a tweet for %s: %s.", regAppInfo.ID, err)
+			return
+		}
+		log.Printf("Successfully posted a tweet %s.", id)
+	}()
+
 	renderer.JSON(w, 200, regAppInfo)
 }
 
