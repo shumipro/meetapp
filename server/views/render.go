@@ -25,12 +25,12 @@ type Config struct {
 }
 
 type TemplateHeader struct {
-	Title      string
-	NavTitle   string
-	SubTitle   string
-	ShowBanner bool
-	Config     Config           `json:"config"`
-	Constants  models.Constants `json:"constants"`
+	Title       string
+	Description string
+	SubTitle    string
+	ShowBanner  bool
+	Config      Config           `json:"config"`
+	Constants   models.Constants `json:"constants"`
 }
 
 func (t TemplateHeader) EscapeNewline(text string) template.HTML {
@@ -55,7 +55,7 @@ func (t TemplateHeader) FormatTimeToDate(time time.Time) string {
 	return time.Format("2006-01-02")
 }
 
-func NewHeader(ctx context.Context, title, navTitle, subTitle string, showBanner bool) TemplateHeader {
+func NewHeader(ctx context.Context, title, description, subTitle string, showBanner bool) TemplateHeader {
 	a, _ := oauth.FromContext(ctx)
 
 	user, _ := models.UsersTable.FindID(ctx, a.UserID)
@@ -67,7 +67,7 @@ func NewHeader(ctx context.Context, title, navTitle, subTitle string, showBanner
 
 	h.Title = title
 	h.SubTitle = subTitle
-	h.NavTitle = navTitle
+	h.Description = description
 	h.ShowBanner = showBanner
 
 	return h

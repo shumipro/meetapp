@@ -31,7 +31,7 @@ func Index(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	preload := IndexResponse{}
 	preload.TemplateHeader = NewHeader(ctx,
 		"MeetApp - 開発アイデアを実現する仲間を探そう",
-		"サブタイトル",
+		"",
 		"一緒にアプリを開発する仲間を探そう",
 		true,
 	)
