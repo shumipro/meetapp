@@ -50,11 +50,11 @@
 		},
 		{
 			"ImportPath": "github.com/kyokomi/cloudinary",
-			"Rev": "c208155ef3de4ecadccdead80e8ef5c8aa426227"
+			"Rev": "6011b82259902b38c08c4647a79f828c665a3c51"
 		},
 		{
 			"ImportPath": "github.com/kyokomi/goroku",
-			"Rev": "1aac9cc83ed02e3c372f64711f1f4914360000c1"
+			"Rev": "b16a8ccdb59c1b1f91d403d019919a37dda67c26"
 		},
 		{
 			"ImportPath": "github.com/mattn/natural",

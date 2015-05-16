@@ -19,10 +19,18 @@ type mongodb string
 
 var databaseName string
 
-func MongoDB(ctx context.Context) *mgo.Session {
-	key := mongodb(mongoDBName)
-	db, _ := ctx.Value(key).(*mgo.Session)
+func MustMongoDB(ctx context.Context) (*mgo.Session) {
+	db, ok := MongoDB(ctx)
+	if !ok {
+		panic("not found mongoDB")
+	}
 	return db
+}
+
+func MongoDB(ctx context.Context) (*mgo.Session, bool) {
+	key := mongodb(mongoDBName)
+	session, ok := ctx.Value(key).(*mgo.Session)
+	return session, ok
 }
 
 func MongoDBName() string {
@@ -34,7 +42,7 @@ func WithMockMongoDB() {
 }
 
 func OpenMongoDB(ctx context.Context) context.Context {
-	uri, dbName := getHerokuURI()
+	uri, dbName := getHerokuMongoURI()
 	databaseName = dbName
 
 	sesh, err := mgo.Dial(uri)
@@ -45,7 +53,7 @@ func OpenMongoDB(ctx context.Context) context.Context {
 	return ctx
 }
 
-func getHerokuURI() (uri string, dbName string) {
+func getHerokuMongoURI() (uri string, dbName string) {
 	// default
 	uri = fmt.Sprintf("%s:%d", "localhost", 27017)
 	dbName = mongoDBName
@@ -66,7 +74,7 @@ func getHerokuURI() (uri string, dbName string) {
 }
 
 func CloseMongoDB(ctx context.Context) context.Context {
-	sesh := MongoDB(ctx)
+	sesh, _ := MongoDB(ctx)
 	if sesh == nil {
 		fmt.Println("not found mongoDB")
 	}
