@@ -1,10 +1,12 @@
 package server
 
 import (
+	"fmt"
 	"log"
-	"runtime"
-
 	"net/http"
+	"net/url"
+	"runtime"
+	"strings"
 
 	"github.com/guregu/kami"
 	"github.com/kyokomi/goroku"
@@ -41,6 +43,7 @@ func Serve() {
 	kami.PanicHandler = errors.PanicHandler
 
 	// middleware
+	kami.Use("/", secureRedirect)
 	kami.Use("/", oauth.Login)
 	kami.Use("/u/", oauth.LoginCheck) // /u以下のpathはloginチェックする
 
@@ -61,4 +64,37 @@ func Serve() {
 	log.Println("Starting server...")
 	log.Println("GOMAXPROCS: ", cpus)
 	kami.Serve()
+}
+
+func secureRedirect(ctx context.Context, w http.ResponseWriter, r *http.Request) context.Context {
+	if isHttps(r) {
+		return ctx
+	}
+
+	if r.Header.Get("X-Forwarded-Proto") == "" {
+		return ctx
+	}
+
+	url, err := url.Parse("https://" + r.Host + r.RequestURI)
+	if err != nil {
+		return ctx
+	}
+	url.RawQuery = r.URL.RawQuery
+	r.URL = url
+	fmt.Println(url.String())
+	http.Redirect(w, r, url.String(), 302) // TODO: 301?
+	return nil
+}
+
+func isHttps(r *http.Request) bool {
+	if r.URL.Scheme == "https" {
+		return true
+	}
+	if strings.HasPrefix(r.Proto, "HTTPS") {
+		return true
+	}
+	if r.Header.Get("X-Forwarded-Proto") == "https" {
+		return true
+	}
+	return false
 }
