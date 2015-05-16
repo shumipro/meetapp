@@ -1,4 +1,4 @@
-@import url(http://fonts.googleapis.com/css?family=Lato:300,400,700,900);
+@import url(https://fonts.googleapis.com/css?family=Lato:300,400,700,900);
 
 body {
     font-family: 'Lato',Arial;
@@ -89,6 +89,14 @@ header .navbar-default .navbar-brand {
 header .navbar-default .navbar-brand img {
     width: auto;
     max-height: 63px;
+}
+
+header .ma-nav-mobile {
+    display: none;
+}
+
+header .navbar-default .ma-nav-mobile-menu {
+    display: none;
 }
 
 .scrollpoint {
@@ -321,23 +329,85 @@ form textarea.form-control {
         border-bottom: 3px solid #303F9F;
     }
 
-    header .navbar-default .navbar-toggle {
+    /*header .navbar-default .navbar-toggle {
         border-radius: 8px;
-        margin-top: 20px;
-        margin-right: 20px;
+        margin-top: 10px;
+        margin-right: 10px;
         background: none;
-        border: 2px solid #303f9f;
+        border: none;
         color: #303f9f;
         -webkit-border-radius: 8px;
         -moz-border-radius: 8px;
         -ms-border-radius: 8px;
         -o-border-radius: 8px;
         border-radius: 8px;
+    }*/
+
+    header .ma-nav-mobile {
+        display: block;
+        float: right;
+        position: relative;
     }
 
-    header .navbar-default .navbar-toggle:hover,header .navbar-default .navbar-toggle:focus {
-        background: none;
+    header .ma-nav-mobile .fa-bars {
+        display: inline-block;
+        margin-top: 4px;
+        margin-right: 4px;
     }
+
+    header .ma-nav-mobile .ma-nav-mobile-toggle {
+        position: relative;
+        top: 16px;
+        right: 12px;
+        width: 36px;
+    }
+
+    /* only show logged in users in mobile nav */
+    header .navbar-default .ma-nav-login-profile-image　{
+        display: none;
+    }
+
+    header .ma-nav-mobile .ma-nav-mobile-dropdown {
+        display: none;
+        position: absolute;
+        top: 18px;
+        right: 64px;
+    }
+
+    /* login user */
+
+    header .ma-nav-login.navbar-default {
+        border: none;
+    }
+
+    header .ma-nav-login.navbar-default .ma-nav-mobile .fa-bars {
+        display: none;
+    }
+
+    header .ma-nav-login.navbar-default .ma-nav-login-profile-image {
+        display: block;
+    }
+
+    header .ma-nav-login.navbar-default .ma-nav-login-profile-image .img-rounded {
+        width: 26px;
+        height: 26px;
+    }
+
+    header .ma-nav-login.navbar-default .ma-nav-mobile-menu {
+        display: block;
+    }
+
+    header .ma-nav-login.navbar-default .ma-nav-pc-menu {
+        display: none;
+    }
+
+    header .ma-nav-login.navbar-default .ma-nav-mobile .ma-nav-mobile-dropdown {
+        display: block;
+    }
+
+    /*header .navbar-default:hover,header .navbar-default:focus {
+        background: none;
+    }*/
 
     header .navbar-default ul.navbar-nav {
         /*padding-top: 0;*/
@@ -470,9 +540,9 @@ form .form-control:focus {
 }
 
 @media screen and (max-width: 640px) {
-    header .navbar-default .navbar-toggle:hover,header .navbar-default .navbar-toggle:focus {
+    /*header .navbar-default .navbar-toggle:hover,header .navbar-default .navbar-toggle:focus {
         background: none;
-    }
+    }*/
 
     header .navbar-default ul.navbar-nav li a {
         color: #ffffff;

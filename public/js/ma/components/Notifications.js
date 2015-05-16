@@ -60,6 +60,10 @@ export default class Notifications {
         if(unreadCount > 0){
             this._$badge.addClass('ma-unread-badge').html(unreadCount)
         }
+        // show default message for no notifications
+        if(list.length === 0){
+            this._$dropdown.append($('<li role="presentation"><a href="javascript:;">通知はありません</a></li>'))
+        }
         this._$wrap.css('visibility', 'visible')
         // attach event once
         this._$link.one('click', ()=> {

@@ -78,14 +78,18 @@
                             </span>
                         </div>
                         <div id="ma_register_add_currentMember_result">
+                            {{ $self := . }}
                             {{range .AppInfo.Members }}
                             <div class="ma-friend-add-member" data-list-name="currentMembers">
                                 <input type="hidden" name="id" value="{{ .User.ID }}">
                                 <img class="img-rounded" width="32px" height="32px" src="{{ .User.IconImageURL }}">
                                 <span>{{ .User.Name }}</span>
                                 <select name="occupation" class="form-control ma-constant-select" data-constant="occupation" data-default-value="{{ .Occupation.ID }}"></select>
-                                {{if .IsAdmin }}{{else}}
-                                <button type="button" class="btn btn-default ma-friend-delete-btn">削除</button>
+                                <!-- check admin flag -->
+                                <label><input type="checkbox" class="form-control" name="isAdmin" {{if .IsAdmin }}checked="checked"{{end}} {{if eq .User.ID $self.Config.User.ID }}disabled="disabled"{{end}}>管理者</label>
+                                <!-- とりあえずAdminは削除できない -->
+                                {{if not .IsAdmin}}
+                                    <button type="button" class="btn btn-default ma-friend-delete-btn">削除</button>
                                 {{end}}
                             </div>
                             {{end}}
