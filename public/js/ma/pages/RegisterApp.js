@@ -11,6 +11,7 @@ import Handlebars from 'handlebars'
 var currentMemberEntryHtml = '<div class="ma-friend-add-member" data-list-name="currentMembers"><input type="hidden" name="id" value="{{id}}">' +
                       '{{{imgHtml}}}<span>{{name}}</span>' + 
                       '<select name="occupation" class="form-control ma-constant-select" data-constant="occupation"></select>' +
+                      '<label><input type="checkbox" class="form-control" name="isAdmin">管理者</label>' +
                       '<button type="button" class="btn btn-default ma-friend-delete-btn">削除</button>' +
                       '</div>'
 var currentMemberEntryTmpl = Handlebars.compile(currentMemberEntryHtml)
@@ -42,7 +43,8 @@ export default class RegisterApp extends _FormMixin {
                     type: 'list',
                     props: {
                         'id': { type: 'text' },
-                        'occupation': { type: 'select' }
+                        'occupation': { type: 'select' },
+                        'isAdmin': { type: 'checkbox'}
                     }
                 },
                 'recruitMembers': {

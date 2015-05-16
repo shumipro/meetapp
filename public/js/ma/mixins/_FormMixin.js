@@ -65,7 +65,11 @@ export default class _FormMixin {
                             var $children = $target.find('*[name]')
                             $children.each(function(index, child){
                                 var $child = $(child)
-                                obj[$child.attr('name')] = $child.val()
+                                if($child.attr('type') == 'checkbox'){
+                                    obj[$child.attr('name')] = $child.prop('checked')
+                                }else{
+                                    obj[$child.attr('name')] = $child.val()
+                                }
                             });
                             param[prop].push(obj)
                         }
