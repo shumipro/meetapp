@@ -23,7 +23,7 @@ func TestUserProfileUpdate(t *testing.T) {
 	ctx := context.Background()
 	ctx = goroku.OpenMongoDB(ctx)
 	goroku.WithMockMongoDB()
-	mongoDB := goroku.MongoDB(ctx)
+	mongoDB, _ := goroku.MongoDB(ctx)
 	defer func() {
 		mongoDB.DB(goroku.MongoDBName()).DropDatabase()
 		mongoDB.Close()

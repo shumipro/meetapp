@@ -21,7 +21,10 @@ func PanicHandler(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	fmt.Println(string(debug.Stack()))
 
 	// send airbrake
-	go goroku.Airbrake(ctx).Notify(exception, r)
+	airbrake, ok := goroku.Airbrake(ctx)
+	if ok {
+		go airbrake.Notify(exception, r)
+	}
 
 	//	renderer.JSON(w, 500, "Server Error")
 	http.Redirect(w, r, "/error", 302)
