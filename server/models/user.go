@@ -30,7 +30,7 @@ func (u User) IconImageURL() string {
 	}
 
 	if u.FBUser.ID != "" {
-		return fmt.Sprintf("http://graph.facebook.com/%s/picture?type=square", u.FBUser.ID)
+		return fmt.Sprintf("https://graph.facebook.com/%s/picture?type=square", u.FBUser.ID)
 	}
 
 	return "/img/no_img/no_img_1.png"
@@ -42,7 +42,7 @@ func (u User) IconLargeImageURL() string {
 	}
 
 	if u.FBUser.ID != "" {
-		return fmt.Sprintf("http://graph.facebook.com/%s/picture?type=large", u.FBUser.ID)
+		return fmt.Sprintf("https://graph.facebook.com/%s/picture?type=large", u.FBUser.ID)
 	}
 
 	return "/img/no_img/no_img_1.png"
