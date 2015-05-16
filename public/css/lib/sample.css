@@ -358,8 +358,10 @@ form textarea.form-control {
     header .ma-nav-mobile .ma-nav-mobile-toggle {
         position: relative;
         top: 16px;
-        right: 12px;
-        width: 36px;
+        right: 4px;
+        display: block;
+        border: none;
+        background: none;
     }
 
     /* only show logged in users in mobile nav */

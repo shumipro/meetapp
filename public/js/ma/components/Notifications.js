@@ -8,12 +8,10 @@ export default class Notifications {
         this._$badge = this._$link.find('.badge')
         this._$dropdown = $('.ma-nav-notification-dropdown')
         // load data
-        if(util.getUserInfo()){
-            this.load()
+        if(!util.getUserInfo()){
+            this._$wrap.hide()
+           return 
         }
-    }
-
-    load(){
         this.render(util.getNotification())
     }
 
