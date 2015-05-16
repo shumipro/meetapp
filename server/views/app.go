@@ -123,7 +123,7 @@ func AppDetail(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	preload := AppDetailResponse{}
 	preload.TemplateHeader = NewHeader(ctx,
 		"MeetApp - "+appInfo.Name,
-		appInfo.Name,
+		appInfo.Description,
 		appInfo.Name,
 		false,
 	)
