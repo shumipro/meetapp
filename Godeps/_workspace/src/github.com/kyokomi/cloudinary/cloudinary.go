@@ -8,18 +8,22 @@ import (
 )
 
 func UploadStaticImage(ctx context.Context, fileName string, data io.Reader) error {
-	_, err := FromContext(ctx).UploadStaticImage(fileName, data, "")
+	c, _ := FromContext(ctx)
+	_, err := c.UploadStaticImage(fileName, data, "")
 	return err
 }
 
 func Resources(ctx context.Context) ([]*gocloud.Resource, error) {
-	return FromContext(ctx).Resources(gocloud.ImageType)
+	c, _ := FromContext(ctx)
+	return c.Resources(gocloud.ImageType)
 }
 
 func ResourceURL(ctx context.Context, fileName string) string {
-	return FromContext(ctx).Url(fileName, gocloud.ImageType)
+	c, _ := FromContext(ctx)
+	return c.Url(fileName, gocloud.ImageType)
 }
 
 func DeleteStaticImage(ctx context.Context, fileName string) error {
-	return FromContext(ctx).Delete(fileName, "", gocloud.ImageType)
+	c, _ := FromContext(ctx)
+	return c.Delete(fileName, "", gocloud.ImageType)
 }

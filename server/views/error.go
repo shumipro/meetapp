@@ -34,6 +34,8 @@ func executeError(ctx context.Context, w http.ResponseWriter, r *http.Request, e
 }
 
 func sendAirbrake(ctx context.Context, err error, r *http.Request) {
-	air := goroku.Airbrake(ctx)
-	go air.Notify(err, r)
+	air, ok := goroku.Airbrake(ctx)
+	if ok {
+		go air.Notify(err, r)
+	}
 }

@@ -6,11 +6,11 @@ import (
 	"os"
 )
 
-func TestMongoURL(t *testing.T) {
+func TestGetHerokuMongoURI(t *testing.T) {
 	mongoURI := "mongodb://dbuser:dbpassword@xxxxxxx.mongolab.com:61371/xxxxxxxxxxx13694st"
 	os.Setenv("MONGOLAB_URI", mongoURI)
 
-	uri, dbName := getHerokuURI()
+	uri, dbName := getHerokuMongoURI()
 	if uri != mongoURI {
 		t.Errorf("ERROR: uri %s != %s", uri, mongoURI)
 	}

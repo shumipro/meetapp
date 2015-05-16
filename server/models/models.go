@@ -27,14 +27,14 @@ func findAndModify(t modelsTable, ctx context.Context, findQuery bson.M, query b
 }
 
 func withDefaultCollection(ctx context.Context, name string, fn func(c *mgo.Collection)) {
-	m := goroku.MongoDB(ctx).Clone()
+	m := goroku.MustMongoDB(ctx).Clone()
 	defer m.Close()
 	col := m.DB(goroku.MongoDBName()).C(name)
 	fn(col)
 }
 
 func runTxCollection(ctx context.Context, ops []txn.Op) error {
-	m := goroku.MongoDB(ctx).Clone()
+	m := goroku.MustMongoDB(ctx).Clone()
 	defer m.Close()
 	col := m.DB(goroku.MongoDBName()).C("tx")
 
