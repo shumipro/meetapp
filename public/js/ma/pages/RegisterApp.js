@@ -27,7 +27,7 @@ export default class RegisterApp extends _FormMixin {
         super()
         this.forms = {
             props: {
-                'name': { type: 'text', required: true, maxLength: 20 },
+                'name': { type: 'text', required: true, maxLength: 30 },
                 'description': { type: 'text', maxLength: 1000 },
                 'platform': { type: 'select' },
                 'category': { type: 'select' },
