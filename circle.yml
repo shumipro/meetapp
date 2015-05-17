@@ -18,7 +18,7 @@ test:
     - go test -v ./... -race
 
 deployment:
-  staging:
+  production:
     branch: master
     commands:
       - cloudinarycmd -dir public/img -prepend img -uri $CLOUDINARY_URL
