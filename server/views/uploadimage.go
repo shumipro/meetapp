@@ -26,6 +26,8 @@ type UploadImageResponse struct {
 func UploadImage(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	a, _ := oauth.FromContext(ctx)
 
+	path := r.FormValue("path")
+
 	formFile, _, err := r.FormFile("file")
 	if err != nil {
 		renderer.JSON(w, 400, err.Error())
@@ -35,7 +37,8 @@ func UploadImage(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 
 	// Uploadする
 	fileName := fmt.Sprintf("%s_%d", a.UserID, time.Now().UnixNano())
-	if err := cloudinary.UploadStaticImage(ctx, fileName, formFile); err != nil {
+	c, _ := cloudinary.FromContext(ctx)
+	if _, err := c.UploadStaticImage(fileName, formFile, path); err != nil {
 		panic(err)
 	}
 
@@ -44,7 +47,6 @@ func UploadImage(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	url := cloudinary.ResourceURL(ctx, fileName)
 	url = strings.Replace(url, "http://", "https://", 1) // TODO: むりやり...
 	res.LargeImageURL = url
-	// res.ImageURL = strings.Replace(res.LargeImageURL, "image/upload", "image/upload/w_96,h_96", 1)
 	res.ImageURL = strings.Replace(res.LargeImageURL, "image/upload", "image/upload/w_160", 1)
 
 	renderer.JSON(w, 200, res)

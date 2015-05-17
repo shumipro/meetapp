@@ -18,7 +18,7 @@
             </div>
             <!-- 共通ロゴ -->
             <a class="navbar-brand" href="/">
-            <img src="/img/logo.png" alt="" class="logo">
+            <img src="{{ .Config.StaticPath }}/img/logo.png" alt="" class="logo">
             </a>
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -62,6 +62,6 @@
 
 <div class="tp-banner-container">
     <div class="ma-top-banner" style="{{with .ShowBanner }} {{else}}display: none;{{end}}">
-        <img src="/img/topbanner.png">
+        <img src="{{ .Config.StaticPath }}/img/topbanner.png">
     </div>
 </div>

@@ -156,7 +156,7 @@ export default class RegisterApp extends _FormMixin {
             if(uploader.dummy){
                 $dfd.resolve()
             }else{
-                uploader.upload().then((res) => {
+                uploader.upload("apps").then((res) => {
                     // override images
                     params.images[i].url = res.ImageURL
                     $dfd.resolve(res)
