@@ -1,15 +1,13 @@
 package views
 
 import (
-	"html/template"
-	"path/filepath"
-	"time"
-
 	"fmt"
-
+	"html/template"
 	"net/http"
-
+	"os"
+	"path/filepath"
 	"strings"
+	"time"
 
 	"github.com/microcosm-cc/bluemonday"
 	"github.com/russross/blackfriday"
@@ -19,7 +17,14 @@ import (
 	"golang.org/x/net/context"
 )
 
+var staticPath string
+
+func init() {
+	staticPath = os.Getenv("STATIC_URL")
+}
+
 type Config struct {
+	StaticPath   string                  `json:"static_path"`
 	User         models.User             `json:"user"`
 	Notification models.UserNotification `json:"notification"`
 }
@@ -62,7 +67,11 @@ func NewHeader(ctx context.Context, title, description, subTitle string, showBan
 	nt := models.NotificationTable.MustFindID(ctx, a.UserID)
 
 	h := TemplateHeader{}
-	h.Config = Config{User: user, Notification: nt}
+	h.Config = Config{}
+	h.Config.User = user
+	h.Config.Notification = nt
+	h.Config.StaticPath = staticPath
+
 	h.Constants = models.AllConstants()
 
 	h.Title = title
