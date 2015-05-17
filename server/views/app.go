@@ -117,7 +117,7 @@ func AppDetail(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	}
 	appInfo, err := models.AppsInfoTable.FindID(ctx, appID)
 	if err != nil {
-		executeError(ctx, w, r, err)
+		http.Redirect(w, r, "/error", 302)
 		return
 	}
 
@@ -176,7 +176,7 @@ func AppEdit(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 
 	appInfo, err := models.AppsInfoTable.FindID(ctx, appID)
 	if err != nil {
-		executeError(ctx, w, r, err)
+		http.Redirect(w, r, "/error", 302)
 		return
 	}
 
