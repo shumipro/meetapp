@@ -6,11 +6,13 @@ export default class ImageUploader {
         this._$file = $(selector)
     }
 
-    upload(){
+    upload(path){
         var formData = new FormData()
         $.each(this._$file[0].files, function(i, file){
             formData.append('file', file)
         })
+        formData.append('path', path)
+
         return $.ajax({
             url: this._api,
             method: 'post',
