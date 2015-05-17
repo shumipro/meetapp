@@ -28,6 +28,7 @@ func WithCloudinary(ctx context.Context, service *gocloud.Service) context.Conte
 	return context.WithValue(ctx, cloudinaryKey, service)
 }
 
-func FromContext(ctx context.Context) *gocloud.Service {
-	return ctx.Value(cloudinaryKey).(*gocloud.Service)
+func FromContext(ctx context.Context) (*gocloud.Service, bool) {
+	c, ok := ctx.Value(cloudinaryKey).(*gocloud.Service)
+	return c, ok
 }

@@ -12,6 +12,7 @@ import (
 	"github.com/kyokomi/goroku"
 	"github.com/shumipro/meetapp/server/errors"
 	"github.com/shumipro/meetapp/server/oauth"
+	"github.com/shumipro/meetapp/server/twitter"
 	"github.com/shumipro/meetapp/server/views"
 	"golang.org/x/net/context"
 )
@@ -27,14 +28,14 @@ func Serve() {
 	defer goroku.CloseMongoDB(ctx)
 	ctx = goroku.OpenRedis(ctx) // insert redis
 	defer goroku.CloseRedis(ctx)
-
-	ctx = oauth.WithFacebook(ctx)
 	ctx = goroku.NewCloudinary(ctx)
-
 	ctx = goroku.NewAirbrake(ctx, "production")
 
+	ctx = oauth.WithFacebook(ctx)
 	ctx = oauth.NewSessionStore(ctx)
 	defer oauth.CloseSessionStore(ctx)
+
+	ctx = twitter.NewContext(ctx)
 
 	// TODO: とりあえず
 	ctx = views.InitTemplates(ctx, "./")

@@ -5,7 +5,7 @@ import (
 	"net/http"
 
 	"github.com/guregu/kami"
-	"github.com/kyokomi/goroku"
+	"github.com/shumipro/meetapp/server/errors"
 	"golang.org/x/net/context"
 )
 
@@ -22,7 +22,7 @@ func executeError(ctx context.Context, w http.ResponseWriter, r *http.Request, e
 
 	if err != nil {
 		log.Println("ERROR!", err)
-		sendAirbrake(ctx, err, r)
+		errors.SendAirbrake(ctx, err, r)
 		preload.SubTitle = err.Error()
 	}
 
@@ -31,9 +31,4 @@ func executeError(ctx context.Context, w http.ResponseWriter, r *http.Request, e
 		renderer.JSON(w, 400, err.Error())
 		return
 	}
-}
-
-func sendAirbrake(ctx context.Context, err error, r *http.Request) {
-	air := goroku.Airbrake(ctx)
-	go air.Notify(err, r)
 }

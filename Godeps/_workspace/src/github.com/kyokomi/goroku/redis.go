@@ -12,10 +12,18 @@ import (
 
 type redisDB string
 
-func Redis(ctx context.Context) *redis.Client {
-	key := redisDB("default")
-	db, _ := ctx.Value(key).(*redis.Client)
+func MustRedis(ctx context.Context) (*redis.Client) {
+	db, ok := Redis(ctx)
+	if !ok {
+		panic("not found redis")
+	}
 	return db
+}
+
+func Redis(ctx context.Context) (*redis.Client, bool) {
+	key := redisDB("default")
+	db, ok := ctx.Value(key).(*redis.Client)
+	return db, ok
 }
 
 func OpenRedis(ctx context.Context) context.Context {
@@ -51,7 +59,7 @@ func GetHerokuRedisAddr() (addr string, password string) {
 }
 
 func CloseRedis(ctx context.Context) context.Context {
-	client := Redis(ctx)
+	client, _ := Redis(ctx)
 	if client == nil {
 		return ctx
 	}

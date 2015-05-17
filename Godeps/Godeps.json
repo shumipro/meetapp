@@ -3,9 +3,29 @@
 	"GoVersion": "go1.4.2",
 	"Deps": [
 		{
+			"ImportPath": "github.com/ChimeraCoder/anaconda",
+			"Rev": "43c8983871857d9851044eacc0e60785ad11d123"
+		},
+		{
+			"ImportPath": "github.com/ChimeraCoder/tokenbucket",
+			"Rev": "c5a927568de7aad8a58127d80bcd36ca4e71e454"
+		},
+		{
 			"ImportPath": "github.com/boj/redistore",
 			"Comment": "v1-2-g0cd5558",
 			"Rev": "0cd55584b172cefd31c4cb84e2904585d898c7b2"
+		},
+		{
+			"ImportPath": "github.com/dustin/go-jsonpointer",
+			"Rev": "75939f54b39e7dafae879e61f65438dadc5f288c"
+		},
+		{
+			"ImportPath": "github.com/dustin/gojson",
+			"Rev": "af16e0e771e2ed110f2785564ae33931de8829e4"
+		},
+		{
+			"ImportPath": "github.com/garyburd/go-oauth/oauth",
+			"Rev": "3131beb69b81ff119923bdefbf029318f1f53794"
 		},
 		{
 			"ImportPath": "github.com/garyburd/redigo/internal",
@@ -50,11 +70,11 @@
 		},
 		{
 			"ImportPath": "github.com/kyokomi/cloudinary",
-			"Rev": "c208155ef3de4ecadccdead80e8ef5c8aa426227"
+			"Rev": "6011b82259902b38c08c4647a79f828c665a3c51"
 		},
 		{
 			"ImportPath": "github.com/kyokomi/goroku",
-			"Rev": "1aac9cc83ed02e3c372f64711f1f4914360000c1"
+			"Rev": "b16a8ccdb59c1b1f91d403d019919a37dda67c26"
 		},
 		{
 			"ImportPath": "github.com/mattn/natural",
