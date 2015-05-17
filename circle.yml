@@ -18,9 +18,11 @@ test:
     - go test -v ./... -race
 
 deployment:
-  staging:
+  static:
     branch: master
     commands:
-      - cloudinarycmd -dir public/img -prepend img -uri $CLOUDINARY_URL
+      - $GOPATH/bin/cloudinarycmd -dir public/img -prepend img -uri $CLOUDINARY_URL
+  production:
+    branch: master
     heroku:
       appname: meetapp-dev
