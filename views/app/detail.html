@@ -19,12 +19,6 @@
                             </a>
                             <div class="ma-star-wrap text-center">
                                 <div>
-                                    <figure class="ma-app-star-count">
-                                        <figcaption class="star">★</figcaption>
-                                        <strong class="count">{{ .AppInfo.StarCount }}</strong>
-                                    </figure>
-                                </div>
-                                <div>
                                 {{if .AppInfo.Stared }}
                                     <!-- 既にstarしている場合 -->
                                     <button class="ma-app-star-btn btn btn-primary" data-api="unstar" type="button"><i class="icon"></i><span>はずす</span></button>
@@ -32,6 +26,19 @@
                                     <!-- まだstarしていない場合 -->
                                     <button class="ma-app-star-btn btn btn-primary" data-api="star" type="button"><i class="icon"></i><span>スターする</span></button>
                                 {{ end }}
+                                </div>
+                                <div>
+                                    <figure class="ma-app-star-count">
+                                        <figcaption class="star">★</figcaption>
+                                        <strong class="count">{{ .AppInfo.StarCount }}</strong>
+                                    </figure>
+                                </div>
+                                <div class="ma-star-user-list-wrap">
+                                    {{range .AppInfo.StarUsers }}
+                                    <a href="/mypage/other/{{ .ID }}" title="{{ .Name }}">
+                                        <img class="img-rounded ma-star-user-image" src="{{ .IconImageURL }}">
+                                    </a>
+                                    {{end}}
                                 </div>
                             </div>
                         </div>
