@@ -1,4 +1,5 @@
 import $ from 'jquery'
+import messages from '../messages'
 import util from '../util'
 
 export default class _FormMixin {
@@ -12,22 +13,23 @@ export default class _FormMixin {
                 value = params[prop]
             if(info.required){
                 if($.trim(value) === ""){
-                    return {"error": true, "message": "必須項目が入力されていません: " + prop}
+                    return {"error": true, "message": "必須項目が入力されていません: " + (messages.props && messages.props[prop] || prop)}
                 }
             }
             if(info.maxLength){
                 if(value.length > info.maxLength){
-                    return {"error": true, "message": "入力されたデータが長すぎます: " + prop}
+                    var label = (messages.props && messages.props[prop] || prop) + "は" + info.maxLength + "文字以内で入力してください"
+                    return {"error": true, "message": "入力された文字数が多すぎます: " + label}
                 }
             }
             if(info.type === "url"){
                 if(!util.isUrlFormat(value)){
-                    return {"error": true, "message": "URLが不正です: " + prop}
+                    return {"error": true, "message": "URLが不正です: " + (messages.props && messages.props[prop] || prop)}
                 }
             }
             if(info.type === 'date'){
                 if(!util.isISODateFormat(value)){
-                    return {"error": true, "message": "日付が不正です: " + prop}
+                    return {"error": true, "message": "日付が不正です: " + (messages.props && messages.props[prop] || prop)}
                 }
             }
         }
