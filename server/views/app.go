@@ -117,7 +117,7 @@ func AppDetail(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	}
 	appInfo, err := models.AppsInfoTable.FindID(ctx, appID)
 	if err != nil {
-		renderer.JSON(w, 400, "[ERROR] request param appInfo "+err.Error())
+		executeError(ctx, w, r, err)
 		return
 	}
 
@@ -176,7 +176,7 @@ func AppEdit(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 
 	appInfo, err := models.AppsInfoTable.FindID(ctx, appID)
 	if err != nil {
-		renderer.JSON(w, 400, "[ERROR] request param appInfo "+err.Error())
+		executeError(ctx, w, r, err)
 		return
 	}
 
