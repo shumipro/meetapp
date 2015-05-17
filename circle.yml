@@ -1,5 +1,6 @@
 checkout:
   post:
+    - rm -rf $HOME/.go_workspace/src/github.com/kyokomi/*
     - rm -rf $HOME/.go_workspace/src/github.com/shumipro/*
     - mkdir -p $HOME/.go_workspace/src/github.com/shumipro
     - ln -snf $HOME/$CIRCLE_PROJECT_REPONAME $HOME/.go_workspace/src/github.com/shumipro
@@ -7,6 +8,8 @@ checkout:
 dependencies:
   pre:
     - go get -t -d -v ./...
+    - go get github.com/kyokomi/cloudinary/cloudinarycmd
+    - go install github.com/kyokomi/cloudinary/cloudinarycmd
   override:
     - go build -v
 
@@ -17,5 +20,7 @@ test:
 deployment:
   staging:
     branch: master
+    commands:
+      - cloudinarycmd -dir public/img -prepend img -uri $CLOUDINARY_URL
     heroku:
       appname: meetapp-dev
