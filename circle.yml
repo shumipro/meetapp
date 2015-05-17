@@ -18,10 +18,10 @@ test:
     - go test -v ./... -race
 
 deployment:
-  static:
+  staging:
     branch: master
     commands:
-      - $GOPATH/bin/cloudinarycmd -dir public/img -prepend img -uri $CLOUDINARY_URL
+      - cloudinarycmd -dir public/img -prepend img -uri $CLOUDINARY_URL
   production:
     branch: master
     heroku:
