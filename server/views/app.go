@@ -14,6 +14,7 @@ import (
 	"github.com/guregu/kami"
 	"github.com/shumipro/meetapp/server/models"
 	"github.com/shumipro/meetapp/server/oauth"
+	"github.com/shumipro/meetapp/server/twitter"
 	"golang.org/x/net/context"
 )
 
@@ -207,20 +208,30 @@ func APIAppRegister(ctx context.Context, w http.ResponseWriter, r *http.Request)
 	}
 
 	regAppInfo = convertRegisterAppInfo(ctx, regAppInfo)
-
 	if err := models.AppsInfoTable.Upsert(ctx, regAppInfo); err != nil {
 		panic(err)
 	}
 
 	go func() {
+		defer func() {
+			if err := recover(); err != nil {
+				log.Println(err)
+			}
+		}()
+
 		// Initialize the Twitter Client
-		twclient, err := oauth.NewTwitterClient()
-		if err != nil {
+		twClient, ok := twitter.FromContext(ctx)
+		if !ok {
 			log.Printf("Failed to initialize twitter client: %s.", err)
 			return
 		}
 
-		id, err := twclient.Tweet(fmt.Sprintf("開発アイデアが新規登録されました: MeetApp - %s https://meetapp.tokyo/app/detail/%s #meetapp", regAppInfo.Name, regAppInfo.ID))
+		message := fmt.Sprintf(
+			"開発アイデアが新規登録されました: MeetApp - %s https://meetapp.tokyo/app/detail/%s #meetapp",
+			regAppInfo.Name,
+			regAppInfo.ID,
+		)
+		id, err := twClient.Tweet(message)
 		if err != nil {
 			log.Printf("Failed to post a tweet for %s: %s.", regAppInfo.ID, err)
 			return
