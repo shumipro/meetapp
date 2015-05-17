@@ -71,6 +71,12 @@ func APIAppDiscussion(ctx context.Context, w http.ResponseWriter, r *http.Reques
 	a, _ := oauth.FromContext(ctx)
 	// ディスカッションの結果として同期する必要ないので非同期処理する
 	go func() {
+		defer func() {
+			if err := recover(); err != nil {
+				log.Println(err)
+			}
+		}()
+
 		for _, m := range appInfo.Members {
 			// 自分は通知しない
 			if m.UserID == a.UserID {
