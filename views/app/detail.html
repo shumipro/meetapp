@@ -98,7 +98,7 @@
                         <section>
                             <div>
                                 <h1>{{ .AppInfo.Name }}</h1>
-                                <div class="sectionDesc">{{ .Markdown .AppInfo.Description }}</div>
+                                <div class="sectionDesc  ma-mark-down">{{ .Markdown .AppInfo.Description }}</div>
                             </div>
                         </section>
                         <section>
@@ -198,8 +198,8 @@
                                             <img class="img-rounded ma-profile-image" src="{{ .IconImageURL }}">
                                         </div>
                                     </a>
-                                    <div class="ma-profile-message">
-                                        <p>{{ $self.Markdown .Message }}</p>
+                                    <div class="ma-profile-message ma-mark-down">
+                                        {{ $self.Markdown .Message }}
                                     </div>
                                 </li>                                
                                 {{end}}

@@ -22,7 +22,4 @@ deployment:
     branch: master
     commands:
       - cloudinarycmd -dir public/img -prepend img -uri $CLOUDINARY_URL
-  production:
-    branch: master
-    heroku:
-      appname: meetapp-dev
+      - git push git@heroku.com:meetapp-dev.git $CIRCLE_SHA1:master
