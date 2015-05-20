@@ -7,6 +7,13 @@ vendor(prp, args..., prefix='')
     {prefix}-ms-{prp} args
     {prefix}{prp} args
 
+vendor-value(prp, args..., prefix='')
+    {prefix}{prp} -webkit- + args
+    {prefix}{prp} -moz- + args
+    {prefix}{prp} -o- + args
+    {prefix}{prp} -ms- + args
+    {prefix}{prp} args
+
 border-radius()
     vendor('border-radius', arguments)
 

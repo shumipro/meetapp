@@ -3,6 +3,7 @@ package views
 import (
 	"fmt"
 	"html/template"
+	"log"
 	"net/http"
 	"os"
 	"path/filepath"
@@ -25,6 +26,12 @@ func StaticPath() string {
 
 func init() {
 	staticPath = os.Getenv("STATIC_URL")
+
+	// set "/" as default
+	if staticPath == "" {
+		staticPath = "/"
+	}
+	log.Println("staticPath is " + staticPath)
 }
 
 type Config struct {
@@ -38,8 +45,8 @@ type TemplateHeader struct {
 	Description string
 	SubTitle    string
 	ShowBanner  bool
-	OgURL    string
-	OgImageURL    string
+	OgURL       string
+	OgImageURL  string
 	Config      Config           `json:"config"`
 	Constants   models.Constants `json:"constants"`
 }
@@ -86,6 +93,7 @@ func NewHeader(ctx context.Context, title, description, subTitle string, showBan
 	h.ShowBanner = showBanner
 	h.OgURL = ogURL
 	h.OgImageURL = ogImageURL
+	log.Println("output is " + h.Config.StaticPath)
 
 	return h
 }
