@@ -18,7 +18,7 @@ func Error(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 }
 
 func executeError(ctx context.Context, w http.ResponseWriter, r *http.Request, err error) {
-	preload := NewHeader(ctx, "Error", "", "", false)
+	preload := NewHeader(ctx, "Error", "", "", false, "", "")
 
 	if err != nil {
 		log.Println("ERROR!", err)
