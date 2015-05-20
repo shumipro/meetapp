@@ -34,6 +34,8 @@ func Index(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 		"",
 		"一緒にアプリを開発する仲間を探そう",
 		true,
+		"",
+		"",
 	)
 	preload.LastedList = latestList
 	preload.PopularList = popularList

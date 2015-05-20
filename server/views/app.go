@@ -89,6 +89,8 @@ func AppList(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 		"",
 		"気になるアプリ開発に参加しよう",
 		false,
+		"",
+		"",
 	)
 
 	// ViewModel変換して詰める
@@ -127,6 +129,9 @@ func AppDetail(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 		appInfo.Description,
 		appInfo.Name,
 		false,
+		// set current relative URL
+		r.URL.RequestURI(),
+		appInfo.MainImage,
 	)
 	preload.AppInfo = NewAppInfoView(ctx, appInfo)
 
@@ -145,6 +150,8 @@ func AppRegister(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 		"",
 		"アプリを登録して仲間を探そう",
 		false,
+		"",
+		"",
 	)
 
 	// 自分をデフォルトメンバーとして突っ込んでおく
@@ -186,6 +193,8 @@ func AppEdit(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 		"",
 		"アプリを登録して仲間を探そう",
 		false,
+		"",
+		"",
 	)
 	// sizeを3にする
 	if len(appInfo.ImageURLs) != 3 {
