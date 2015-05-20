@@ -50,7 +50,7 @@ func Mypage(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 
 	preload := MyPageResponse{}
 	preload.User = user
-	preload.TemplateHeader = NewHeader(ctx, "マイページ", "", "", false, "", "",)
+	preload.TemplateHeader = NewHeader(ctx, "マイページ", "", "", false, "", "")
 
 	adminApps, _ := models.AppsInfoTable.FindByAdminID(ctx, a.UserID)
 	joinApps, _ := models.AppsInfoTable.FindByJoinID(ctx, a.UserID)
@@ -76,7 +76,7 @@ func MypageOther(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 
 	preload := MyPageResponse{}
 	preload.User = user
-	preload.TemplateHeader = NewHeader(ctx, user.Name, "", "", false, "", "",)
+	preload.TemplateHeader = NewHeader(ctx, user.Name, "", "", false, "", "")
 
 	// loginしている状態のみ他人のページとして自分を見に来たときに管理アイデアを表示
 	adminApps, _ := models.AppsInfoTable.FindByAdminID(ctx, userID)
@@ -105,7 +105,7 @@ func MypageEdit(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 
 	preload := MyPageResponse{}
 	preload.User = user
-	preload.TemplateHeader = NewHeader(ctx, "マイページの編集", "", "", false, "", "",)
+	preload.TemplateHeader = NewHeader(ctx, "マイページの編集", "", "", false, "", "")
 
 	ExecuteTemplate(ctx, w, r, "mypageEdit", preload)
 }

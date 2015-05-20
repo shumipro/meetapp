@@ -8,7 +8,7 @@
 <meta name="keywords" content="meetapp, 趣味, 開発, アプリ, プログラミング, サービス, 求人, 企画, エンジニア, デザイナー, hobby, app, development, job, engineer, designer">
 <meta property="og:title" content="{{ .Title }}">
 <!-- og:image OgImageURL があればセットする (w_160をつけたサイズではFBで200px以下としてerrorになるのでoriginalサイズのURLを指定) -->
-<meta property="og:image" content="{{if .OgImageURL }}{{ .OriginalImage .OgImageURL }}{{else}}{{ .Config.StaticPath }}/img/about_bg1.png{{end}}">
+<meta property="og:image" content="{{if .OgImageURL }}{{ .OriginalImage .OgImageURL }}{{else}}{{ .Config.StaticPath }}img/about_bg1.png{{end}}">
 <!-- og:url OgURL (relative URL) があればセットする -->
 <meta property="og:url" content="https://meetapp.tokyo{{with .OgURL }}{{ . }}{{end}}">
 <meta property="og:type" content="article">

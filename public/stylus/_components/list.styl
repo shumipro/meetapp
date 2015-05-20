@@ -49,8 +49,8 @@
         color #666
         
     .ma-app-list-item-description        
-        height: 58px;
-        overflow: hidden;
+        height 58px
+        overflow hidden
         
     .ma-app-list-item-toolbar
         position absolute
@@ -83,3 +83,34 @@
     
     .ma-tag
         margin-right 8px
+        
+.ma-constant-icon-list
+    margin 20px auto
+    text-align center
+    vendor-value('display', flex)
+    // vendor('flex-direction', row)
+    vendor('flex-wrap', wrap)
+    
+    .ma-constant-icon-list-item
+        max-width 230px
+        padding 0 8px
+        vendor-value('display', flex)
+        vendor('flex', 0 0 210px)
+        // vendor('align-items', center)
+        vendor('justify-content', center)
+
+        img
+            width 60px
+            height 60px
+
+    .ma-constant-icon-list-title
+        font-size 16px
+        color #666
+    
+    // for top page
+    &.section-container
+        vendor('justify-content', space-between)
+
+        .ma-constant-icon-list-item    
+            margin-bottom 20px
+    

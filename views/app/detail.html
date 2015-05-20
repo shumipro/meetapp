@@ -130,9 +130,8 @@
                             </div>
                             <div>
                                 {{if .AppInfo.RecruitMember }}
-                                    {{range .AppInfo.RecruitMember }}
-                                    <div class="ma-tag">{{ .Occupation }}</div>
-                                    {{end}}
+                                    <!-- create values e.g. data-values="0,4,2," -->
+                                    <div class="ma-constant-icon-list" data-constant="occupation" data-values="{{range .AppInfo.RecruitMember }}{{ .Occupation.ID }},{{end}}"></div>
                                 {{else}}
                                     <p>現在メンバー募集はしていません</p>
                                 {{end}}

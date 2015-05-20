@@ -49,9 +49,9 @@ func convertRegisterAppInfo(ctx context.Context, appInfo models.AppInfo) models.
 
 	// メインの画像を設定
 	appInfo.MainImage = appInfo.FirstImageURL()
-	if(appInfo.MainImage == "") {
+	if appInfo.MainImage == "" {
 		// set default image with random
-		appInfo.MainImage = StaticPath() + fmt.Sprintf("/img/no_img/no_img_%d.png", rand.Intn(5))
+		appInfo.MainImage = StaticPath() + fmt.Sprintf("img/no_img/no_img_%d.png", rand.Intn(5))
 	}
 
 	return appInfo
