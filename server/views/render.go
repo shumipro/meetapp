@@ -3,7 +3,6 @@ package views
 import (
 	"fmt"
 	"html/template"
-	"log"
 	"net/http"
 	"os"
 	"path/filepath"
@@ -31,7 +30,6 @@ func init() {
 	if staticPath == "" {
 		staticPath = "/"
 	}
-	log.Println("staticPath is " + staticPath)
 }
 
 type Config struct {
@@ -93,7 +91,6 @@ func NewHeader(ctx context.Context, title, description, subTitle string, showBan
 	h.ShowBanner = showBanner
 	h.OgURL = ogURL
 	h.OgImageURL = ogImageURL
-	log.Println("output is " + h.Config.StaticPath)
 
 	return h
 }

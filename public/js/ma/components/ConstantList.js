@@ -12,7 +12,7 @@ var listTmpl = Handlebars.compile(listHtml)
 
 var iconListHtml = '<div class="ma-constant-icon-list-item">' +
             '<a href="/app/list?{{prop}}={{id}}">' + 
-            '<img src="' + config.static_path + 'img/occupation/{{id}}.png">' + 
+            '<div><img src="' + config.static_path + 'img/occupation/{{id}}.png"></div>' + 
             '<div class="ma-constant-icon-list-title">{{name}}</div>' +
             '</a>'
             '</div>'

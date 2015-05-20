@@ -87,7 +87,11 @@
 .ma-constant-icon-list
     margin 20px auto
     text-align center
-    vendor-value('display', flex)
+    // vendor-value('display', flex)
+    display -webkit-box
+    display -ms-flexbox
+    display -webkit-flex
+    display flex
     // vendor('flex-direction', row)
     vendor('flex-wrap', wrap)
     
