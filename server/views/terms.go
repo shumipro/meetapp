@@ -12,6 +12,6 @@ func init() {
 }
 
 func Terms(ctx context.Context, w http.ResponseWriter, r *http.Request) {
-	preload := NewHeader(ctx, "Terms", "", "", false)
+	preload := NewHeader(ctx, "Terms", "", "", false, "", "")
 	ExecuteTemplate(ctx, w, r, "terms", preload)
 }

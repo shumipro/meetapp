@@ -12,6 +12,6 @@ func init() {
 }
 
 func Privacy(ctx context.Context, w http.ResponseWriter, r *http.Request) {
-	preload := NewHeader(ctx, "Privacy", "", "", false)
+	preload := NewHeader(ctx, "Privacy", "", "", false, "", "")
 	ExecuteTemplate(ctx, w, r, "privacy", preload)
 }

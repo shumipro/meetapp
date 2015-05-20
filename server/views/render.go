@@ -19,6 +19,10 @@ import (
 
 var staticPath string
 
+func StaticPath() string {
+	return staticPath
+}
+
 func init() {
 	staticPath = os.Getenv("STATIC_URL")
 }
@@ -34,6 +38,8 @@ type TemplateHeader struct {
 	Description string
 	SubTitle    string
 	ShowBanner  bool
+	OgURL    string
+	OgImageURL    string
 	Config      Config           `json:"config"`
 	Constants   models.Constants `json:"constants"`
 }
@@ -60,7 +66,7 @@ func (t TemplateHeader) FormatTimeToDate(time time.Time) string {
 	return time.Format("2006-01-02")
 }
 
-func NewHeader(ctx context.Context, title, description, subTitle string, showBanner bool) TemplateHeader {
+func NewHeader(ctx context.Context, title, description, subTitle string, showBanner bool, ogURL string, ogImageURL string) TemplateHeader {
 	a, _ := oauth.FromContext(ctx)
 
 	user, _ := models.UsersTable.FindID(ctx, a.UserID)
@@ -70,7 +76,7 @@ func NewHeader(ctx context.Context, title, description, subTitle string, showBan
 	h.Config = Config{}
 	h.Config.User = user
 	h.Config.Notification = nt
-	h.Config.StaticPath = staticPath
+	h.Config.StaticPath = StaticPath()
 
 	h.Constants = models.AllConstants()
 
@@ -78,6 +84,8 @@ func NewHeader(ctx context.Context, title, description, subTitle string, showBan
 	h.SubTitle = subTitle
 	h.Description = description
 	h.ShowBanner = showBanner
+	h.OgURL = ogURL
+	h.OgImageURL = ogImageURL
 
 	return h
 }
