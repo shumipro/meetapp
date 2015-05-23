@@ -12,7 +12,7 @@ var listTmpl = Handlebars.compile(listHtml)
 
 var iconListHtml = '<div class="ma-constant-icon-list-item">' +
             '<a href="/app/list?{{prop}}={{id}}">' + 
-            '<div><img src="' + config.static_path + 'img/occupation/{{id}}.png"></div>' + 
+            '<div><img src="' + config.static_path + 'img/{{prop}}/{{id}}.png"></div>' + 
             '<div class="ma-constant-icon-list-title">{{name}}</div>' +
             '</a>'
             '</div>'
@@ -68,7 +68,6 @@ export default class ConstantList {
      * list: [{"id":"0","name":"まだ決めていない"},{"id":"1","name":"渋谷"}...]
      */
     _filterListByValues(list, valuesStr) {
-        console.log(valuesStr)
         if(valuesStr === undefined || valuesStr === ""){
             return list
         }
