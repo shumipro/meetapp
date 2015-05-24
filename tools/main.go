@@ -2,6 +2,7 @@ package main
 
 import (
 	"log"
+	"time"
 
 	"github.com/kyokomi/goroku"
 	"github.com/shumipro/meetapp/server/models"
@@ -15,10 +16,9 @@ var mockUsers = []models.User{
 
 var mockNotifications = []models.UserNotification{
 	{UserID: "test1", Notifications: []models.Notification{
-		{"1", models.NotificationDiscussion, "1", "Messasge", "Hoge", false},
+		{"1", models.NotificationDiscussion, "1", "Messasge", "Hoge", false, time.Now()},
 	}},
 }
-
 
 func main() {
 	ctx := context.Background()
