@@ -10,7 +10,7 @@ import (
 
 	"github.com/guregu/kami"
 	"github.com/shumipro/meetapp/server/models"
-	"github.com/shumipro/meetapp/server/oauth"
+	"github.com/shumipro/meetapp/server/notification"
 	"golang.org/x/net/context"
 )
 
@@ -60,38 +60,7 @@ func APIAppDiscussion(ctx context.Context, w http.ResponseWriter, r *http.Reques
 		panic(err)
 	}
 
-	notification := models.Notification{}
-	notification.NotificationID = discussionReq.DiscussionInfo.ID
-	notification.SourceID = discussionReq.DiscussionInfo.ID
-	notification.NotificationType = models.NotificationDiscussion
-	notification.DetailURL = "/app/detail/" + appInfo.ID
-	notification.Message = "新着メッセージ: " + discussionReq.DiscussionInfo.Message
-	notification.IsRead = false
-
-	a, _ := oauth.FromContext(ctx)
-	// ディスカッションの結果として同期する必要ないので非同期処理する
-	go func() {
-		defer func() {
-			if err := recover(); err != nil {
-				log.Println(err)
-			}
-		}()
-
-		for _, m := range appInfo.Members {
-			// 自分は通知しない
-			if m.UserID == a.UserID {
-				continue
-			}
-
-			err := models.NotificationTable.AddNotification(ctx, m.UserID, notification)
-			if err != nil {
-				// 非同期処理なのでpanicしない
-				log.Println("ERROR!", err)
-			} else {
-				log.Println("OK: AddNotification", m.UserID, notification)
-			}
-		}
-	}()
+	notification.SendDiscussion(ctx, discussionReq.DiscussionInfo, appInfo)
 
 	renderer.JSON(w, 200, appInfo.Discussions)
 }
