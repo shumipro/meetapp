@@ -38,8 +38,13 @@ $ godep get
 
 ※FakeLogin的なのを実装して、いずれ指定無しで動くようにします...
 
-- `FACEBOOK_APPID`
-- `FACEBOOK_SECRET`
+- `FACEBOOK_APPID`: 開発用に作成したFB AppのAppID
+- `FACEBOOK_SECRET`: 開発用に作成したFB AppのSECRET
+- `BASE_URL`: FB AuthのcallbackでアクセスするURL (localhostはダメだったと思うのでhostsで適当にドメインを指定)
+- `CLOUDINARY_URL`: 開発用に取得したcloudinaryのURL (アカウントのページに表示されているcloudinary://から始まるURL)
+- (optional) `AIRBRAKE_PROJECT_ID`: 開発用に取得したAirbrakeのID
+- (optional) `AIRBRAKE_API_KEY`: 開発用に取得したAirbrakeのkey
+- (optional) `STATIC_URL`: staticリソース(imgなど)のベースURL (開発時はブランクでok)
 
 ### try
 
