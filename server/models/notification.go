@@ -1,6 +1,8 @@
 package models
 
 import (
+	"time"
+
 	"golang.org/x/net/context"
 	"gopkg.in/mgo.v2"
 )
@@ -9,6 +11,7 @@ type NotificationType int
 
 const (
 	NotificationDiscussion NotificationType = 1
+	NotificationStar       NotificationType = 2
 )
 
 type UserNotification struct {
@@ -30,6 +33,7 @@ type Notification struct {
 	Message          string           // 通知メッセージ
 	DetailURL        string           // この通知の詳細を見たいときに飛ばすURL
 	IsRead           bool             // 既読
+	CreatedAt        time.Time        // 送信時間
 }
 
 // AppsContext appsのコレクション
