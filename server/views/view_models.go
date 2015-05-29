@@ -59,6 +59,7 @@ func NewAppInfoView(ctx context.Context, appInfo models.AppInfo) AppInfoView {
 	// starしたユーザーの一覧表示用
 	a.StarUsers = make([]models.User, len(a.AppInfo.StarUsers))
 	for idx, s := range appInfo.StarUsers {
+		// TODO: あとでIn句にして1クエリにする
 		u, _ := models.UsersTable.FindID(ctx, s)
 		a.StarUsers[idx] = u
 	}
