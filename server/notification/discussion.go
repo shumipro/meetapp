@@ -25,24 +25,7 @@ func SendDiscussion(ctx context.Context, discussion models.DiscussionInfo, appIn
 	notification.CreatedAt = nowTime
 
 	a, _ := oauth.FromContext(ctx)
-	// TODO: あとで共通化する
-	// ディスカッションの結果として同期する必要ないので非同期処理する
-	go func() {
-		defer func() {
-			if err := recover(); err != nil {
-				log.Println(err)
-			}
-		}()
-
-		for _, m := range appInfo.Members {
-			// 自分は通知しない
-			if m.UserID == a.UserID {
-				continue
-			}
-
-			sendNotification(ctx, m.UserID, notification)
-		}
-	}()
+	go sendAppInfoMembers(ctx, a.UserID, appInfo, notification)
 }
 
 func SendStar(ctx context.Context, user models.User, appInfo models.AppInfo) {
@@ -60,23 +43,23 @@ func SendStar(ctx context.Context, user models.User, appInfo models.AppInfo) {
 	notification.CreatedAt = nowTime
 
 	a, _ := oauth.FromContext(ctx)
-	// ディスカッションの結果として同期する必要ないので非同期処理する
-	go func() {
-		defer func() {
-			if err := recover(); err != nil {
-				log.Println(err)
-			}
-		}()
+	go sendAppInfoMembers(ctx, a.UserID, appInfo, notification)
+}
 
-		for _, m := range appInfo.Members {
-			// 自分は通知しない
-			if m.UserID == a.UserID {
-				continue
-			}
-
-			sendNotification(ctx, m.UserID, notification)
+func sendAppInfoMembers(ctx context.Context, myUserID string, appInfo models.AppInfo, notification models.Notification) {
+	defer func() {
+		if err := recover(); err != nil {
+			log.Println(err)
 		}
 	}()
+
+	for _, m := range appInfo.Members {
+		if m.UserID == myUserID {
+			continue
+		}
+
+		sendNotification(ctx, m.UserID, notification)
+	}
 }
 
 func sendNotification(ctx context.Context, userID string, notification models.Notification) {
@@ -105,7 +88,7 @@ func generateMessage(notification models.NotificationType, message string) strin
 	case models.NotificationDiscussion:
 		return "新着メッセージ: " + message
 	case models.NotificationStar:
-		return message + "さんが「いいね」しました。"
+		return "いいね: " + message
 	default:
 		return ""
 	}

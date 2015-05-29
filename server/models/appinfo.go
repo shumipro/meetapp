@@ -38,7 +38,7 @@ type AppInfo struct {
 
 func (a AppInfo) FirstImageURL() string {
 	if len(a.ImageURLs) > 0 {
-		return a.ImageURLs[0].URL // TODO: とりあえず1件目をメインの画像にする
+		return a.ImageURLs[0].URL // とりあえず1件目をメインの画像にする
 	} else {
 		return ""
 	}
