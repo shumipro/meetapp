@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Lato:300,400,700,900);
+/*@import url('https://fonts.googleapis.com/css?family=Lato:300,400,700,900');*/
 
 body {
     font-family: 'Lato',Arial;
@@ -305,7 +305,7 @@ form textarea.form-control {
     line-height: normal;
 }
 
-@media screen and (max-width: 640px) {
+@media screen and (max-width: 768px) {
     .logo {
         width: 100px;
         height: auto;
@@ -541,7 +541,7 @@ form .form-control:focus {
     /*color: #999999;*/
 }
 
-@media screen and (max-width: 640px) {
+@media screen and (max-width: 768px) {
     /*header .navbar-default .navbar-toggle:hover,header .navbar-default .navbar-toggle:focus {
         background: none;
     }*/
@@ -582,4 +582,15 @@ form .form-control:focus {
 
 .feature.text-left {
     padding-left: 40px;
+}
+
+@media screen and (min-width: 768px) {
+    .navbar .container {
+        width: 100%;
+        padding: 0 15px;
+        margin: 0;
+    }
+    .navbar>.container .navbar-brand {
+        margin-left: 0;
+    }
 }
