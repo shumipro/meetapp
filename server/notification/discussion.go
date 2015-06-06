@@ -37,7 +37,7 @@ func SendStar(ctx context.Context, user models.User, appInfo models.AppInfo) {
 	notification.NotificationID = id
 	notification.SourceID = user.ID
 	notification.NotificationType = notificationType
-	notification.DetailURL = generateURL(notificationType, user.ID)
+	notification.DetailURL = generateURL(notificationType, appInfo.ID)
 	notification.Message = generateMessage(notificationType, user.Name)
 	notification.IsRead = false
 	notification.CreatedAt = nowTime
@@ -77,7 +77,7 @@ func generateURL(notification models.NotificationType, sourceID string) string {
 	case models.NotificationDiscussion:
 		return "/app/detail/" + sourceID
 	case models.NotificationStar:
-		return "/mypage/other/" + sourceID
+		return "/app/detail/" + sourceID
 	default:
 		return ""
 	}
