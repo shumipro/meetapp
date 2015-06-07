@@ -57,7 +57,7 @@
 		},
 		{
 			"ImportPath": "github.com/guregu/kami",
-			"Rev": "f808672b87d0fb889caeff31c9ffda61ae6f6f4a"
+			"Rev": "812da62f883f094d3ed38dbdf4294341d357a2ab"
 		},
 		{
 			"ImportPath": "github.com/huandu/facebook",
@@ -70,7 +70,7 @@
 		},
 		{
 			"ImportPath": "github.com/kyokomi/cloudinary",
-			"Rev": "6011b82259902b38c08c4647a79f828c665a3c51"
+			"Rev": "b4d50f43b0e717259ac085007ed2592ea87b2b3c"
 		},
 		{
 			"ImportPath": "github.com/kyokomi/goroku",
@@ -83,6 +83,10 @@
 		{
 			"ImportPath": "github.com/microcosm-cc/bluemonday",
 			"Rev": "fcd0f5074e55df204568c7419509fb59ddcad228"
+		},
+		{
+			"ImportPath": "github.com/mrjones/oauth",
+			"Rev": "ce4e16c43ec593b54ca3568b43ae89fe161f4c9e"
 		},
 		{
 			"ImportPath": "github.com/russross/blackfriday",

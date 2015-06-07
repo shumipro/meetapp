@@ -10,8 +10,8 @@ import (
 	"golang.org/x/net/context"
 
 	"github.com/shumipro/meetapp/server/constants"
+	"github.com/shumipro/meetapp/server/login"
 	"github.com/shumipro/meetapp/server/models"
-	"github.com/shumipro/meetapp/server/oauth"
 	"github.com/shumipro/meetapp/server/twitter"
 )
 
@@ -149,7 +149,7 @@ func AppRegister(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	)
 
 	// 自分をデフォルトメンバーとして突っ込んでおく
-	a, _ := oauth.FromContext(ctx)
+	a, _ := login.FromContext(ctx)
 	appInfo := models.AppInfo{}
 	members := []models.Member{
 		{
@@ -261,7 +261,7 @@ func APIAppEdit(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	}
 
 	// 管理者じゃないアプリか
-	a, _ := oauth.FromContext(ctx)
+	a, _ := login.FromContext(ctx)
 	if !beforeApp.IsAdmin(a.UserID) {
 		log.Println("ERROR!", notAdminError)
 		renderer.JSON(w, 400, notAdminError.Error())
@@ -278,7 +278,7 @@ func APIAppEdit(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 }
 
 func APIAppDelete(ctx context.Context, w http.ResponseWriter, r *http.Request) {
-	a, _ := oauth.FromContext(ctx)
+	a, _ := login.FromContext(ctx)
 	appID := kami.Param(ctx, "id")
 
 	app, err := models.AppsInfoTable.FindID(ctx, appID)

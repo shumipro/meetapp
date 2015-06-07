@@ -1,14 +1,18 @@
 package oauth
 
 import (
+	"fmt"
 	"os"
 
-	"fmt"
-
-	"github.com/huandu/facebook"
 	"golang.org/x/net/context"
 	"golang.org/x/oauth2"
 )
+
+const facebookAuthCallbackURL = "auth/callback"
+
+var facebookAuthScope = []string{
+	"public_profile",
+}
 
 type authKey string
 
@@ -26,7 +30,7 @@ func WithFacebook(ctx context.Context) context.Context {
 		baseURL = "http://localhost:8000/"
 	}
 
-	callBackURL := baseURL + "auth/callback"
+	callBackURL := baseURL + facebookAuthCallbackURL
 
 	fmt.Println(callBackURL)
 
@@ -38,7 +42,7 @@ func WithFacebook(ctx context.Context) context.Context {
 			AuthURL:  "https://www.facebook.com/dialog/oauth",
 			TokenURL: "https://graph.facebook.com/oauth/access_token",
 		},
-		Scopes: []string{"public_profile"},
+		Scopes: facebookAuthScope,
 	}
 	return context.WithValue(ctx, authKey("facebook"), conf)
 }
@@ -51,17 +55,4 @@ func Facebook(ctx context.Context) *oauth2.Config {
 func GetFacebookAuthToken(ctx context.Context, code string) (*oauth2.Token, error) {
 	c := Facebook(ctx)
 	return c.Exchange(oauth2.NoContext, code)
-}
-
-func GetFacebookMe(ctx context.Context, authToken string) (facebookID string, res facebook.Result, err error) {
-	res, err = facebook.Get("/me", facebook.Params{
-		"access_token": authToken,
-	})
-	if err != nil {
-		return "", nil, err
-	}
-
-	facebookID = res["id"].(string)
-
-	return facebookID, res, nil
 }

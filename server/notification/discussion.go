@@ -5,8 +5,8 @@ import (
 	"strconv"
 	"time"
 
+	"github.com/shumipro/meetapp/server/login"
 	"github.com/shumipro/meetapp/server/models"
-	"github.com/shumipro/meetapp/server/oauth"
 	"golang.org/x/net/context"
 )
 
@@ -24,7 +24,7 @@ func SendDiscussion(ctx context.Context, discussion models.DiscussionInfo, appIn
 	notification.IsRead = false
 	notification.CreatedAt = nowTime
 
-	a, _ := oauth.FromContext(ctx)
+	a, _ := login.FromContext(ctx)
 	go sendAppInfoMembers(ctx, a.UserID, appInfo, notification)
 }
 
@@ -42,7 +42,7 @@ func SendStar(ctx context.Context, user models.User, appInfo models.AppInfo) {
 	notification.IsRead = false
 	notification.CreatedAt = nowTime
 
-	a, _ := oauth.FromContext(ctx)
+	a, _ := login.FromContext(ctx)
 	go sendAppInfoMembers(ctx, a.UserID, appInfo, notification)
 }
 

@@ -15,8 +15,8 @@ import (
 	"golang.org/x/net/context"
 
 	"github.com/shumipro/meetapp/server/constants"
+	"github.com/shumipro/meetapp/server/login"
 	"github.com/shumipro/meetapp/server/models"
-	"github.com/shumipro/meetapp/server/oauth"
 )
 
 var staticPath string
@@ -74,7 +74,7 @@ func (t TemplateHeader) FormatTimeToDate(time time.Time) string {
 }
 
 func NewHeader(ctx context.Context, title, description, subTitle string, showBanner bool, ogURL string, ogImageURL string) TemplateHeader {
-	a, _ := oauth.FromContext(ctx)
+	a, _ := login.FromContext(ctx)
 
 	user, _ := models.UsersTable.FindID(ctx, a.UserID)
 	nt := models.NotificationTable.MustFindID(ctx, a.UserID)

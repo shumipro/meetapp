@@ -10,11 +10,13 @@ import (
 
 	"github.com/guregu/kami"
 	"github.com/kyokomi/goroku"
+	"golang.org/x/net/context"
+
 	"github.com/shumipro/meetapp/server/errors"
+	"github.com/shumipro/meetapp/server/login"
 	"github.com/shumipro/meetapp/server/oauth"
 	"github.com/shumipro/meetapp/server/twitter"
 	"github.com/shumipro/meetapp/server/views"
-	"golang.org/x/net/context"
 )
 
 // Serve start Serve
@@ -31,9 +33,11 @@ func Serve() {
 	ctx = goroku.NewCloudinary(ctx)
 	ctx = goroku.NewAirbrake(ctx, "production")
 
+	ctx = oauth.WithTwitter(ctx)
 	ctx = oauth.WithFacebook(ctx)
-	ctx = oauth.NewSessionStore(ctx)
-	defer oauth.CloseSessionStore(ctx)
+
+	ctx = login.NewSessionStore(ctx)
+	defer login.CloseSessionStore(ctx)
 
 	ctx = twitter.NewContext(ctx)
 
@@ -45,8 +49,8 @@ func Serve() {
 
 	// middleware
 	kami.Use("/", secureRedirect)
-	kami.Use("/", oauth.Login)
-	kami.Use("/u/", oauth.LoginCheck) // /u以下のpathはloginチェックする
+	kami.Use("/", login.Login)
+	kami.Use("/u/", login.LoginCheck) // /u以下のpathはloginチェックする
 
 	fileServer := http.FileServer(http.Dir("public"))
 	for _, name := range []string{

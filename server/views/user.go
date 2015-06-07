@@ -10,8 +10,8 @@ import (
 
 	"github.com/guregu/kami"
 	"github.com/kyokomi/cloudinary"
+	"github.com/shumipro/meetapp/server/login"
 	"github.com/shumipro/meetapp/server/models"
-	"github.com/shumipro/meetapp/server/oauth"
 	"golang.org/x/net/context"
 )
 
@@ -38,7 +38,7 @@ func UserSearchKeyword(ctx context.Context, w http.ResponseWriter, r *http.Reque
 
 // UserProfileUpdate ユーザーのプロフィール更新API
 func UserProfileUpdate(ctx context.Context, w http.ResponseWriter, r *http.Request) {
-	a, _ := oauth.FromContext(ctx)
+	a, _ := login.FromContext(ctx)
 
 	user, err := readBodyUser(r.Body)
 	if err != nil {
@@ -67,6 +67,7 @@ func UserProfileUpdate(ctx context.Context, w http.ResponseWriter, r *http.Reque
 
 	// Userテーブル更新する（一部は以前の情報をそのまま）
 	user.FBUser = beforeUser.FBUser
+	user.TwitterUser = beforeUser.TwitterUser
 	user.CreateAt = beforeUser.CreateAt
 	user.UpdateAt = time.Now()
 	if err := models.UsersTable.Upsert(ctx, user); err != nil {

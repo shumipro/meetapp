@@ -1,4 +1,4 @@
-package oauth
+package login
 
 import (
 	"log"
@@ -50,12 +50,11 @@ func readSessionAuthToken(ctx context.Context, r *http.Request) (Account, error)
 	}
 
 	userID, _ := session.Values["UserID"].(string)
-	authToken, _ := session.Values["AuthToken"].(string)
-	if userID == "" || authToken == "" {
+	if userID == "" {
 		return Account{}, errors.New("not login")
 	}
 
-	return Account{userID, authToken}, nil
+	return Account{userID}, nil
 }
 
 func writeSessionAuthToken(ctx context.Context, w http.ResponseWriter, r *http.Request, account Account) error {
@@ -65,7 +64,6 @@ func writeSessionAuthToken(ctx context.Context, w http.ResponseWriter, r *http.R
 		return err
 	}
 	session.Values["UserID"] = account.UserID
-	session.Values["AuthToken"] = account.AuthToken
 	if err := session.Save(r, w); err != nil {
 		log.Println(err)
 		return err

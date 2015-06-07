@@ -1,8 +1,8 @@
 package views
 
 import (
+	"github.com/shumipro/meetapp/server/login"
 	"github.com/shumipro/meetapp/server/models"
-	"github.com/shumipro/meetapp/server/oauth"
 	"golang.org/x/net/context"
 )
 
@@ -36,7 +36,7 @@ func NewAppInfoView(ctx context.Context, appInfo models.AppInfo) AppInfoView {
 	a := AppInfoView{}
 	a.AppInfo = appInfo
 
-	account, ok := oauth.FromContext(ctx)
+	account, ok := login.FromContext(ctx)
 	if ok {
 		a.IsAdmin = a.AppInfo.IsAdmin(account.UserID)
 		a.Stared = a.AppInfo.Stared(account.UserID)
