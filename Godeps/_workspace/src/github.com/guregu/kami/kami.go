@@ -8,16 +8,13 @@ import (
 	"golang.org/x/net/context"
 )
 
-// HandleFn is a kami-compatible handler function.
-type HandleFn func(context.Context, http.ResponseWriter, *http.Request)
-
 var (
 	// Context is the root "god object" from which every request's context will derive
 	Context = context.Background()
 
 	// PanicHandler will, if set, be called on panics.
 	// You can use kami.Exception(ctx) within the panic handler to get panic details.
-	PanicHandler HandleFn
+	PanicHandler HandlerType
 	// LogHandler will, if set, wrap every request and be called at the very end.
 	LogHandler func(context.Context, mutil.WriterProxy, *http.Request)
 )
@@ -35,52 +32,52 @@ func Handler() http.Handler {
 }
 
 // Handle registers an arbitrary method handler under the given path.
-func Handle(method, path string, handle HandleFn) {
-	routes.Handle(method, path, bless(handle))
+func Handle(method, path string, handler HandlerType) {
+	routes.Handle(method, path, bless(wrap(handler)))
 }
 
 // Get registers a GET handler under the given path.
-func Get(path string, handle HandleFn) {
-	Handle("GET", path, handle)
+func Get(path string, handler HandlerType) {
+	Handle("GET", path, handler)
 }
 
 // Post registers a POST handler under the given path.
-func Post(path string, handle HandleFn) {
-	Handle("POST", path, handle)
+func Post(path string, handler HandlerType) {
+	Handle("POST", path, handler)
 }
 
 // Put registers a PUT handler under the given path.
-func Put(path string, handle HandleFn) {
-	Handle("PUT", path, handle)
+func Put(path string, handler HandlerType) {
+	Handle("PUT", path, handler)
 }
 
 // Patch registers a PATCH handler under the given path.
-func Patch(path string, handle HandleFn) {
-	Handle("PATCH", path, handle)
+func Patch(path string, handler HandlerType) {
+	Handle("PATCH", path, handler)
 }
 
 // Head registers a HEAD handler under the given path.
-func Head(path string, handle HandleFn) {
-	Handle("HEAD", path, handle)
+func Head(path string, handler HandlerType) {
+	Handle("HEAD", path, handler)
 }
 
 // Delete registers a DELETE handler under the given path.
-func Delete(path string, handle HandleFn) {
-	Handle("DELETE", path, handle)
+func Delete(path string, handler HandlerType) {
+	Handle("DELETE", path, handler)
 }
 
 // NotFound registers a special handler for unregistered (404) paths.
 // If handle is nil, use the default http.NotFound behavior.
-func NotFound(handle HandleFn) {
+func NotFound(handler HandlerType) {
 	// set up the default handler if needed
 	// we need to bless this so middleware will still run for a 404 request
-	if handle == nil {
-		handle = func(_ context.Context, w http.ResponseWriter, r *http.Request) {
+	if handler == nil {
+		handler = HandlerFunc(func(_ context.Context, w http.ResponseWriter, r *http.Request) {
 			http.NotFound(w, r)
-		}
+		})
 	}
 
-	h := bless(handle)
+	h := bless(wrap(handler))
 	routes.NotFound = func(w http.ResponseWriter, r *http.Request) {
 		h(w, r, nil)
 	}
@@ -89,7 +86,7 @@ func NotFound(handle HandleFn) {
 // bless is the meat of kami.
 // It wraps a HandleFn into an httprouter compatible request,
 // in order to run all the middleware and other special handlers.
-func bless(k HandleFn) httprouter.Handle {
+func bless(k ContextHandler) httprouter.Handle {
 	return func(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
 		ctx := Context
 		if len(params) > 0 {
@@ -108,7 +105,7 @@ func bless(k HandleFn) httprouter.Handle {
 			defer func() {
 				if err := recover(); err != nil {
 					ctx = newContextWithException(ctx, err)
-					PanicHandler(ctx, writer, r)
+					wrap(PanicHandler).ServeHTTPContext(ctx, writer, r)
 
 					if LogHandler != nil && !ranLogHandler {
 						LogHandler(ctx, proxy, r)
@@ -121,7 +118,7 @@ func bless(k HandleFn) httprouter.Handle {
 
 		ctx, ok := run(ctx, writer, r)
 		if ok {
-			k(ctx, writer, r)
+			k.ServeHTTPContext(ctx, writer, r)
 		}
 
 		if LogHandler != nil {
