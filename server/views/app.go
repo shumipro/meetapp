@@ -7,10 +7,12 @@ import (
 	"strconv"
 
 	"github.com/guregu/kami"
+	"golang.org/x/net/context"
+
+	"github.com/shumipro/meetapp/server/constants"
 	"github.com/shumipro/meetapp/server/models"
 	"github.com/shumipro/meetapp/server/oauth"
 	"github.com/shumipro/meetapp/server/twitter"
-	"golang.org/x/net/context"
 )
 
 var notAdminError = fmt.Errorf("%s", "not admin user")
@@ -68,11 +70,11 @@ func AppList(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	area := r.FormValue("area")
 
 	filter := models.AppInfoFilter{}
-	filter.OccupationType = models.OccupationType(occupation)
-	filter.CategoryType = models.CategoryType(category)
-	filter.LanguageType = models.LanguageType(pLang)
-	filter.AreaType = models.AreaType(area)
-	filter.PlatformType = models.PlatformType(platform)
+	filter.OccupationType = constants.OccupationType(occupation)
+	filter.CategoryType = constants.CategoryType(category)
+	filter.LanguageType = constants.LanguageType(pLang)
+	filter.AreaType = constants.AreaType(area)
+	filter.PlatformType = constants.PlatformType(platform)
 	filter.OrderBy = models.AppInfoOrderType(orderBy)
 
 	preload := AppListResponse{}
@@ -152,7 +154,7 @@ func AppRegister(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	members := []models.Member{
 		{
 			UserID:     a.UserID,
-			Occupation: models.OccupationType("1"),
+			Occupation: constants.OccupationType("1"),
 			IsAdmin:    true,
 		},
 	}
