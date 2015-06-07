@@ -67,6 +67,7 @@ func UserProfileUpdate(ctx context.Context, w http.ResponseWriter, r *http.Reque
 
 	// Userテーブル更新する（一部は以前の情報をそのまま）
 	user.FBUser = beforeUser.FBUser
+	user.TwitterUser = beforeUser.TwitterUser
 	user.CreateAt = beforeUser.CreateAt
 	user.UpdateAt = time.Now()
 	if err := models.UsersTable.Upsert(ctx, user); err != nil {
