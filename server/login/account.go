@@ -1,10 +1,9 @@
-package oauth
+package login
 
 import (
 	"net/http"
 
 	"golang.org/x/net/context"
-	"golang.org/x/oauth2"
 )
 
 type keyType int
@@ -12,12 +11,7 @@ type keyType int
 var accountKey keyType = 0
 
 type Account struct {
-	UserID    string
-	AuthToken string
-}
-
-type responseUserID struct {
-	UserID int64 `json:"id"`
+	UserID string
 }
 
 func NewContext(ctx context.Context, a Account) context.Context {
@@ -29,12 +23,12 @@ func FromContext(ctx context.Context) (Account, bool) {
 	return u, ok
 }
 
-func GetAccountByToken(ctx context.Context, r *http.Request) (Account, error) {
+func GetAccountBySession(ctx context.Context, r *http.Request) (Account, error) {
 	return readSessionAuthToken(ctx, r)
 }
 
-func CacheAuthToken(ctx context.Context, w http.ResponseWriter, r *http.Request, userID string, token oauth2.Token) error {
-	return writeSessionAuthToken(ctx, w, r, Account{userID, token.AccessToken})
+func CacheLoginAccount(ctx context.Context, w http.ResponseWriter, r *http.Request, userID string) error {
+	return writeSessionAuthToken(ctx, w, r, Account{userID})
 }
 
 func ResetCacheAuthToken(ctx context.Context, w http.ResponseWriter, r *http.Request) {

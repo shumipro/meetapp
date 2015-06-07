@@ -5,8 +5,8 @@ import (
 	"strconv"
 	"time"
 
+	"github.com/shumipro/meetapp/server/login"
 	"github.com/shumipro/meetapp/server/models"
-	"github.com/shumipro/meetapp/server/oauth"
 	"golang.org/x/net/context"
 )
 
@@ -24,7 +24,7 @@ func SendDiscussion(ctx context.Context, discussion models.DiscussionInfo, appIn
 	notification.IsRead = false
 	notification.CreatedAt = nowTime
 
-	a, _ := oauth.FromContext(ctx)
+	a, _ := login.FromContext(ctx)
 	go sendAppInfoMembers(ctx, a.UserID, appInfo, notification)
 }
 
@@ -37,12 +37,12 @@ func SendStar(ctx context.Context, user models.User, appInfo models.AppInfo) {
 	notification.NotificationID = id
 	notification.SourceID = user.ID
 	notification.NotificationType = notificationType
-	notification.DetailURL = generateURL(notificationType, user.ID)
+	notification.DetailURL = generateURL(notificationType, appInfo.ID)
 	notification.Message = generateMessage(notificationType, user.Name)
 	notification.IsRead = false
 	notification.CreatedAt = nowTime
 
-	a, _ := oauth.FromContext(ctx)
+	a, _ := login.FromContext(ctx)
 	go sendAppInfoMembers(ctx, a.UserID, appInfo, notification)
 }
 
@@ -77,7 +77,7 @@ func generateURL(notification models.NotificationType, sourceID string) string {
 	case models.NotificationDiscussion:
 		return "/app/detail/" + sourceID
 	case models.NotificationStar:
-		return "/mypage/other/" + sourceID
+		return "/app/detail/" + sourceID
 	default:
 		return ""
 	}

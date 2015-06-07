@@ -11,10 +11,12 @@ import (
 
 	"github.com/microcosm-cc/bluemonday"
 	"github.com/russross/blackfriday"
-	"github.com/shumipro/meetapp/server/models"
-	"github.com/shumipro/meetapp/server/oauth"
 	"github.com/unrolled/render"
 	"golang.org/x/net/context"
+
+	"github.com/shumipro/meetapp/server/constants"
+	"github.com/shumipro/meetapp/server/login"
+	"github.com/shumipro/meetapp/server/models"
 )
 
 var staticPath string
@@ -45,8 +47,8 @@ type TemplateHeader struct {
 	ShowBanner  bool
 	OgURL       string
 	OgImageURL  string
-	Config      Config           `json:"config"`
-	Constants   models.Constants `json:"constants"`
+	Config      Config              `json:"config"`
+	Constants   constants.Constants `json:"constants"`
 }
 
 func (t TemplateHeader) EscapeNewline(text string) template.HTML {
@@ -72,7 +74,7 @@ func (t TemplateHeader) FormatTimeToDate(time time.Time) string {
 }
 
 func NewHeader(ctx context.Context, title, description, subTitle string, showBanner bool, ogURL string, ogImageURL string) TemplateHeader {
-	a, _ := oauth.FromContext(ctx)
+	a, _ := login.FromContext(ctx)
 
 	user, _ := models.UsersTable.FindID(ctx, a.UserID)
 	nt := models.NotificationTable.MustFindID(ctx, a.UserID)
@@ -83,7 +85,7 @@ func NewHeader(ctx context.Context, title, description, subTitle string, showBan
 	h.Config.Notification = nt
 	h.Config.StaticPath = StaticPath()
 
-	h.Constants = models.AllConstants()
+	h.Constants = constants.AllConstants()
 
 	h.Title = title
 	h.SubTitle = subTitle

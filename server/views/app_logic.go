@@ -9,8 +9,8 @@ import (
 	"time"
 
 	"github.com/go-xweb/uuid"
+	"github.com/shumipro/meetapp/server/login"
 	"github.com/shumipro/meetapp/server/models"
-	"github.com/shumipro/meetapp/server/oauth"
 	"golang.org/x/net/context"
 )
 
@@ -39,7 +39,7 @@ func convertRegisterAppInfo(ctx context.Context, appInfo models.AppInfo) models.
 	appInfo.UpdateAt = nowTime
 
 	// 管理者設定
-	a, _ := oauth.FromContext(ctx)
+	a, _ := login.FromContext(ctx)
 	for idx, m := range appInfo.Members {
 		if m.UserID != a.UserID {
 			continue

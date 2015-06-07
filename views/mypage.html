@@ -29,6 +29,9 @@
                                 {{ with .User.FBUser.Link }}
                                 <a href="{{ . }}" class="ma-sns-fb"></a>
                                 {{ end }}
+                                {{ with .User.TwitterUser.ScreenName }}
+                                <a href="https://twitter.com/{{ . }}" class="ma-sns-tw"></a>
+                                {{ end }}
                             </div>
                         </div>
                     </div>

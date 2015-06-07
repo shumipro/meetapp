@@ -5,6 +5,7 @@ import (
 
 	"strings"
 
+	"github.com/shumipro/meetapp/server/constants"
 	"golang.org/x/net/context"
 	"gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
@@ -12,28 +13,28 @@ import (
 
 // AppInfo アプリ
 type AppInfo struct {
-	ID            string               `bson:"_id" json:"id"`                 // アプリID
-	Name          string               `           json:"name"`               // アプリ名
-	Description   string               `           json:"description"`        // アプリ詳細
-	Category      CategoryType         `           json:"category"`           // カテゴリ
-	Platform      PlatformType         `           json:"platform"`           // プラットフォーム
-	Language      LanguageType         `           json:"pLang"`              // プログラミング言語
-	Keywords      string               `           json:"keywords"`           // フリーキーワード
-	MainImage     string               `           json:"mainImageUrl"`       // メイン画像
-	ImageURLs     []URLInfo            `           json:"images"`             // 紹介画像URLたち
-	Area          AreaType             `           json:"meetingArea"`        // 場所
-	StartDate     string               `           json:"projectStartDate"`   // 開始日
-	ReleaseDate   string               `           json:"projectReleaseDate"` // リリース予定日
-	GitHubURL     string               `           json:"githubUrl"`          // GitHubのURL
-	DemoURL       string               `           json:"demoUrl"`            // デモURL
-	Frequency     MeetingFrequencyType `           json:"meetingFrequency"`   // 頻度
-	StarCount     int                  `           json:"starCount"`          // スター数
-	Members       []Member             `           json:"currentMembers"`     // メンバー
-	RecruitMember []RecruitInfo        `           json:"recruitMembers"`     // 募集メンバー
-	Discussions   []DiscussionInfo     `           json:"discussions"`        // 「聞いてみる」の内容
-	StarUsers     []string             `           json:"starUsers"`          // 「聞いてみる」の内容
-	CreateAt      time.Time            `           json:"-"`
-	UpdateAt      time.Time            `           json:"-"`
+	ID            string                         `bson:"_id" json:"id"`                 // アプリID
+	Name          string                         `           json:"name"`               // アプリ名
+	Description   string                         `           json:"description"`        // アプリ詳細
+	Category      constants.CategoryType         `           json:"category"`           // カテゴリ
+	Platform      constants.PlatformType         `           json:"platform"`           // プラットフォーム
+	Language      constants.LanguageType         `           json:"pLang"`              // プログラミング言語
+	Keywords      string                         `           json:"keywords"`           // フリーキーワード
+	MainImage     string                         `           json:"mainImageUrl"`       // メイン画像
+	ImageURLs     []URLInfo                      `           json:"images"`             // 紹介画像URLたち
+	Area          constants.AreaType             `           json:"meetingArea"`        // 場所
+	StartDate     string                         `           json:"projectStartDate"`   // 開始日
+	ReleaseDate   string                         `           json:"projectReleaseDate"` // リリース予定日
+	GitHubURL     string                         `           json:"githubUrl"`          // GitHubのURL
+	DemoURL       string                         `           json:"demoUrl"`            // デモURL
+	Frequency     constants.MeetingFrequencyType `           json:"meetingFrequency"`   // 頻度
+	StarCount     int                            `           json:"starCount"`          // スター数
+	Members       []Member                       `           json:"currentMembers"`     // メンバー
+	RecruitMember []RecruitInfo                  `           json:"recruitMembers"`     // 募集メンバー
+	Discussions   []DiscussionInfo               `           json:"discussions"`        // 「聞いてみる」の内容
+	StarUsers     []string                       `           json:"starUsers"`          // 「聞いてみる」の内容
+	CreateAt      time.Time                      `           json:"-"`
+	UpdateAt      time.Time                      `           json:"-"`
 }
 
 func (a AppInfo) FirstImageURL() string {
@@ -76,13 +77,13 @@ type URLInfo struct {
 }
 
 type RecruitInfo struct {
-	Occupation OccupationType `json:"occupation"` // 肩書とか役割
+	Occupation constants.OccupationType `json:"occupation"` // 肩書とか役割
 }
 
 type Member struct {
-	UserID     string         `json:"id"`
-	Occupation OccupationType `json:"occupation"` // 肩書とか役割
-	IsAdmin    bool           `json:"isAdmin"`    // 管理者フラグ
+	UserID     string                   `json:"id"`
+	Occupation constants.OccupationType `json:"occupation"` // 肩書とか役割
+	IsAdmin    bool                     `json:"isAdmin"`    // 管理者フラグ
 }
 
 type DiscussionInfo struct {

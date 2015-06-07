@@ -1,6 +1,10 @@
 package models
 
-import "gopkg.in/mgo.v2/bson"
+import (
+	"gopkg.in/mgo.v2/bson"
+
+	"github.com/shumipro/meetapp/server/constants"
+)
 
 type AppInfoOrderType string
 
@@ -11,11 +15,11 @@ const (
 )
 
 type AppInfoFilter struct {
-	OccupationType OccupationType
-	CategoryType   CategoryType
-	PlatformType   PlatformType
-	LanguageType   LanguageType
-	AreaType       AreaType
+	OccupationType constants.OccupationType
+	CategoryType   constants.CategoryType
+	PlatformType   constants.PlatformType
+	LanguageType   constants.LanguageType
+	AreaType       constants.AreaType
 	OrderBy        AppInfoOrderType
 }
 

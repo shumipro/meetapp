@@ -5,10 +5,10 @@ import (
 	"net/http"
 
 	"github.com/guregu/kami"
-	"github.com/huandu/facebook"
-	"github.com/shumipro/meetapp/server/models"
-	"github.com/shumipro/meetapp/server/oauth"
 	"golang.org/x/net/context"
+
+	"github.com/shumipro/meetapp/server/login"
+	"github.com/shumipro/meetapp/server/models"
 )
 
 func init() {
@@ -27,17 +27,9 @@ type MyPageResponse struct {
 }
 
 func Mypage(ctx context.Context, w http.ResponseWriter, r *http.Request) {
-	a, ok := oauth.FromContext(ctx)
+	a, ok := login.FromContext(ctx)
 	if !ok {
 		panic("login error")
-	}
-
-	// マイページ表示時はFacebookとかの情報とりなおしてUserテーブル更新する
-	_, err := facebook.Get("/me", facebook.Params{
-		"access_token": a.AuthToken,
-	})
-	if err != nil {
-		log.Println(err)
 	}
 
 	// TODO: Facebook情報に変更あればUserテーブル更新する
@@ -85,14 +77,14 @@ func MypageOther(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	preload.JoinAppList = convertAppInfoViewList(ctx, joinApps)
 
 	// loginしてる状態でotherが自分のページであればIsMeにtrueをセット
-	a, ok := oauth.FromContext(ctx)
+	a, ok := login.FromContext(ctx)
 	preload.IsMe = ok && userID == a.UserID
 
 	ExecuteTemplate(ctx, w, r, "mypage", preload)
 }
 
 func MypageEdit(ctx context.Context, w http.ResponseWriter, r *http.Request) {
-	a, ok := oauth.FromContext(ctx)
+	a, ok := login.FromContext(ctx)
 	if !ok {
 		panic("login error")
 	}
