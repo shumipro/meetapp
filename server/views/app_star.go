@@ -7,9 +7,9 @@ import (
 	"time"
 
 	"github.com/guregu/kami"
+	"github.com/shumipro/meetapp/server/login"
 	"github.com/shumipro/meetapp/server/models"
 	"github.com/shumipro/meetapp/server/notification"
-	"github.com/shumipro/meetapp/server/oauth"
 	"golang.org/x/net/context"
 )
 
@@ -20,7 +20,7 @@ func init() {
 }
 
 func APIAppStared(ctx context.Context, w http.ResponseWriter, r *http.Request) {
-	a, _ := oauth.FromContext(ctx)
+	a, _ := login.FromContext(ctx)
 	appID := kami.Param(ctx, "id")
 
 	// get appinfo from db
@@ -62,7 +62,7 @@ func APIAppStared(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 }
 
 func APIAppStarDelete(ctx context.Context, w http.ResponseWriter, r *http.Request) {
-	a, _ := oauth.FromContext(ctx)
+	a, _ := login.FromContext(ctx)
 	appID := kami.Param(ctx, "id")
 
 	// get appinfo from db

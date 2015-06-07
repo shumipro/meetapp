@@ -4,8 +4,8 @@ import (
 	"net/http"
 
 	"github.com/guregu/kami"
+	"github.com/shumipro/meetapp/server/login"
 	"github.com/shumipro/meetapp/server/models"
-	"github.com/shumipro/meetapp/server/oauth"
 	"golang.org/x/net/context"
 )
 
@@ -16,14 +16,14 @@ func init() {
 }
 
 func APINotifications(ctx context.Context, w http.ResponseWriter, r *http.Request) {
-	a, _ := oauth.FromContext(ctx)
+	a, _ := login.FromContext(ctx)
 
 	notification := models.NotificationTable.MustFindID(ctx, a.UserID)
 	renderer.JSON(w, 200, notification)
 }
 
 func APIAllNotificationsRead(ctx context.Context, w http.ResponseWriter, r *http.Request) {
-	a, _ := oauth.FromContext(ctx)
+	a, _ := login.FromContext(ctx)
 
 	notification := models.NotificationTable.MustFindID(ctx, a.UserID)
 

@@ -2,7 +2,6 @@ package models
 
 import (
 	"fmt"
-
 	"time"
 
 	"github.com/ChimeraCoder/anaconda"
@@ -12,15 +11,15 @@ import (
 )
 
 type User struct {
-	ID            string       `bson:"_id"      json:"ID"`            // UUID自動生成
-	Name          string       `                json:"Name"`          // ユーザー名
-	ImageName     string       `                json:"ImageName"`     // アップロードしたファイル名
-	ImageURL      string       `                json:"ImageURL"`      // ユーザーアイコンのURL
-	LargeImageURL string       `                json:"LargeImageURL"` // ユーザーアイコンの大きいURL
-	Comment       string       `             	json:"Comment"`         // ひとこと
-	HomePageURL   string       `             	json:"HomePageURL"`     // ウェブサイトURL
-	GitHubURL     string       `             	json:"GitHubURL"`       // Github URL
-	FBUser        FacebookUser `bson:"facebook" json:"FBUser"`        // Facebookのme情報
+	ID            string        `bson:"_id"      json:"ID"`            // UUID自動生成
+	Name          string        `                json:"Name"`          // ユーザー名
+	ImageName     string        `                json:"ImageName"`     // アップロードしたファイル名
+	ImageURL      string        `                json:"ImageURL"`      // ユーザーアイコンのURL
+	LargeImageURL string        `                json:"LargeImageURL"` // ユーザーアイコンの大きいURL
+	Comment       string        `             	 json:"Comment"`        // ひとこと
+	HomePageURL   string        `             	 json:"HomePageURL"`    // ウェブサイトURL
+	GitHubURL     string        `             	 json:"GitHubURL"`      // Github URL
+	FBUser        FacebookUser  `bson:"facebook" json:"FBUser"`        // Facebookのme情報
 	TwitterUser   anaconda.User `bson:"twitter"  json:"TwitterUser"`   // Twitterのshows情報
 	CreateAt      time.Time     `                json:"-"`
 	UpdateAt      time.Time     `                json:"-"`
@@ -98,7 +97,7 @@ func (t _UsersTable) FindByFacebookID(ctx context.Context, facebookID string) (r
 	return
 }
 
-func (t _UsersTable) FindByTwitterID(ctx context.Context, twitterID string) (result User, err error) {
+func (t _UsersTable) FindByTwitterID(ctx context.Context, twitterID int64) (result User, err error) {
 	t.withCollection(ctx, func(c *mgo.Collection) {
 		err = c.Find(bson.M{"twitter.id": twitterID}).One(&result)
 	})

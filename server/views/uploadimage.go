@@ -9,7 +9,7 @@ import (
 
 	"github.com/guregu/kami"
 	"github.com/kyokomi/cloudinary"
-	"github.com/shumipro/meetapp/server/oauth"
+	"github.com/shumipro/meetapp/server/login"
 	"golang.org/x/net/context"
 )
 
@@ -25,7 +25,7 @@ type UploadImageResponse struct {
 
 // UploadImage Cloudinaryに画像をUploadして画像のURLを返すAPI
 func UploadImage(ctx context.Context, w http.ResponseWriter, r *http.Request) {
-	a, _ := oauth.FromContext(ctx)
+	a, _ := login.FromContext(ctx)
 
 	dirPath := r.FormValue("path")
 

@@ -1,6 +1,8 @@
 package constants
+
 import (
 	"sort"
+
 	"github.com/mattn/natural"
 )
 

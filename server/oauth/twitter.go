@@ -1,14 +1,15 @@
 package oauth
 
 import (
+	"fmt"
 	"os"
 
-	"fmt"
-
-	"golang.org/x/net/context"
-	"github.com/mrjones/oauth"
 	"github.com/ChimeraCoder/anaconda"
+	"github.com/mrjones/oauth"
+	"golang.org/x/net/context"
 )
+
+const twitterAuthCallbackURL = "auth/twitter/callback"
 
 var twitterTokens map[string]*oauth.RequestToken
 
@@ -23,7 +24,9 @@ type TwitterOAuth struct {
 
 func (t TwitterOAuth) GetRequestTokenAndURL() (string, error) {
 	token, requestURL, err := t.GetRequestTokenAndUrl(t.callBackURL)
-	addTwitterToken(token)
+	if token != nil {
+		addTwitterToken(token)
+	}
 	return requestURL, err
 }
 
@@ -41,17 +44,17 @@ func WithTwitter(ctx context.Context) context.Context {
 	if baseURL == "" {
 		baseURL = "http://localhost:8000/"
 	}
-	callBackURL := baseURL + "auth/twitter/callback"
+	callBackURL := baseURL + twitterAuthCallbackURL
 	fmt.Println(cKey, cSecret, callBackURL)
-
-	anaconda.SetConsumerKey(cKey)
-	anaconda.SetConsumerSecret(cSecret)
 
 	consumer := oauth.NewConsumer(cKey, cSecret, oauth.ServiceProvider{
 		RequestTokenUrl:   "https://api.twitter.com/oauth/request_token",
 		AuthorizeTokenUrl: "https://api.twitter.com/oauth/authorize",
 		AccessTokenUrl:    "https://api.twitter.com/oauth/access_token",
 	})
+
+	anaconda.SetConsumerKey(cKey)
+	anaconda.SetConsumerSecret(cSecret)
 
 	t := TwitterOAuth{consumer, callBackURL}
 	return context.WithValue(ctx, authKey("twitter"), t)
@@ -66,6 +69,6 @@ func addTwitterToken(token *oauth.RequestToken) {
 	twitterTokens[token.Token] = token
 }
 
-func GetTwitterToken(token string) (*oauth.RequestToken) {
+func GetTwitterToken(token string) *oauth.RequestToken {
 	return twitterTokens[token]
 }
