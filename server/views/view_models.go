@@ -10,6 +10,7 @@ type AppInfoView struct {
 	models.AppInfo
 	Members     []UserMember      // models.Membersを上書きします
 	Discussions []UserDiscussions // models.Discussionsを上書きします
+	StarUsers   []models.User     // models.Discussionsを上書きします
 	Stared      bool              // 現在認証されているユーザーがstarしているかどうか
 	IsAdmin     bool              // 管理者かどうか
 }
@@ -28,11 +29,18 @@ type UserMember struct {
 type UserDiscussions struct {
 	models.DiscussionInfo
 	models.User
+	Deletable bool // 削除できるかどうか
 }
 
 func NewAppInfoView(ctx context.Context, appInfo models.AppInfo) AppInfoView {
 	a := AppInfoView{}
 	a.AppInfo = appInfo
+
+	account, ok := oauth.FromContext(ctx)
+	if ok {
+		a.IsAdmin = a.AppInfo.IsAdmin(account.UserID)
+		a.Stared = a.AppInfo.Stared(account.UserID)
+	}
 
 	a.Members = make([]UserMember, len(a.AppInfo.Members))
 	for idx, m := range appInfo.Members {
@@ -45,13 +53,15 @@ func NewAppInfoView(ctx context.Context, appInfo models.AppInfo) AppInfoView {
 	for idx, d := range appInfo.Discussions {
 		// TODO: あとでIn句にして1クエリにする
 		u, _ := models.UsersTable.FindID(ctx, d.UserID)
-		a.Discussions[idx] = UserDiscussions{DiscussionInfo: d, User: u}
+		a.Discussions[idx] = UserDiscussions{DiscussionInfo: d, User: u, Deletable: d.UserID == account.UserID}
 	}
 
-	account, ok := oauth.FromContext(ctx)
-	if ok {
-		a.IsAdmin = a.AppInfo.IsAdmin(account.UserID)
-		a.Stared = a.AppInfo.Stared(account.UserID)
+	// starしたユーザーの一覧表示用
+	a.StarUsers = make([]models.User, len(a.AppInfo.StarUsers))
+	for idx, s := range appInfo.StarUsers {
+		// TODO: あとでIn句にして1クエリにする
+		u, _ := models.UsersTable.FindID(ctx, s)
+		a.StarUsers[idx] = u
 	}
 
 	return a

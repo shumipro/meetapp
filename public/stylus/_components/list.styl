@@ -4,7 +4,7 @@
 
 .ma-list-bordered li
   margin 0
-  padding 8px 0
+  padding 12px 0 4px 0
   border-top 1px solid #e5e5e1
   
   &:first-child
@@ -33,10 +33,11 @@
         float left
         width 160px
         height 160px
+        line-height 160px
+        text-align center
         
         img
-            width 100%
-            height 100%
+            max-width 160px
             max-height 160px
             border-radius(8px)
             
@@ -48,12 +49,12 @@
         color #666
         
     .ma-app-list-item-description        
-        height: 58px;
-        overflow: hidden;
+        height 58px
+        overflow hidden
         
     .ma-app-list-item-toolbar
         position absolute
-        bottom 20px
+        bottom 0px
         right 40px
         
         .ma-app-star-count
@@ -82,3 +83,38 @@
     
     .ma-tag
         margin-right 8px
+        
+.ma-constant-icon-list
+    margin 20px auto
+    text-align center
+    // vendor-value('display', flex)
+    display -webkit-box
+    display -ms-flexbox
+    display -webkit-flex
+    display flex
+    // vendor('flex-direction', row)
+    vendor('flex-wrap', wrap)
+    
+    .ma-constant-icon-list-item
+        max-width 230px
+        padding 0 8px
+        vendor-value('display', flex)
+        vendor('flex', 0 0 210px)
+        // vendor('align-items', center)
+        vendor('justify-content', center)
+
+        img
+            width 60px
+            height 60px
+
+    .ma-constant-icon-list-title
+        font-size 16px
+        color #666
+    
+    // for top page
+    &.section-container
+        vendor('justify-content', space-between)
+
+        .ma-constant-icon-list-item    
+            margin-bottom 20px
+    

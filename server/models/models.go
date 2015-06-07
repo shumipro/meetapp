@@ -1,7 +1,7 @@
 package models
 
 import (
-	"github.com/shumipro/meetapp/server/db"
+	"github.com/kyokomi/goroku"
 	"golang.org/x/net/context"
 	"gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
@@ -27,16 +27,16 @@ func findAndModify(t modelsTable, ctx context.Context, findQuery bson.M, query b
 }
 
 func withDefaultCollection(ctx context.Context, name string, fn func(c *mgo.Collection)) {
-	m := db.MongoDB(ctx).Clone()
+	m := goroku.MustMongoDB(ctx).Clone()
 	defer m.Close()
-	col := m.DB(db.MongoDBName()).C(name)
+	col := m.DB(goroku.MongoDBName()).C(name)
 	fn(col)
 }
 
 func runTxCollection(ctx context.Context, ops []txn.Op) error {
-	m := db.MongoDB(ctx).Clone()
+	m := goroku.MustMongoDB(ctx).Clone()
 	defer m.Close()
-	col := m.DB(db.MongoDBName()).C("tx")
+	col := m.DB(goroku.MongoDBName()).C("tx")
 
 	runner := txn.NewRunner(col)
 	return runner.Run(ops, "", nil)

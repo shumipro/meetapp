@@ -1,18 +1,18 @@
 package server
 
 import (
+	"fmt"
 	"log"
-	"runtime"
-
 	"net/http"
-
-	"os"
+	"net/url"
+	"runtime"
+	"strings"
 
 	"github.com/guregu/kami"
-	"github.com/kyokomi/cloudinary"
-	"github.com/shumipro/meetapp/server/db"
+	"github.com/kyokomi/goroku"
 	"github.com/shumipro/meetapp/server/errors"
 	"github.com/shumipro/meetapp/server/oauth"
+	"github.com/shumipro/meetapp/server/twitter"
 	"github.com/shumipro/meetapp/server/views"
 	"golang.org/x/net/context"
 )
@@ -24,14 +24,18 @@ func Serve() {
 	log.SetFlags(log.Ldate | log.Ltime | log.Lshortfile)
 
 	ctx := context.Background()
-	ctx = db.OpenMongoDB(ctx) // insert mongoDB
-	defer db.CloseMongoDB(ctx)
-	ctx = db.OpenRedis(ctx) // insert redis
-	defer db.CloseRedis(ctx)
+	ctx = goroku.OpenMongoDB(ctx) // insert mongoDB
+	defer goroku.CloseMongoDB(ctx)
+	ctx = goroku.OpenRedis(ctx) // insert redis
+	defer goroku.CloseRedis(ctx)
+	ctx = goroku.NewCloudinary(ctx)
+	ctx = goroku.NewAirbrake(ctx, "production")
 
 	ctx = oauth.WithFacebook(ctx)
-	ctx = oauth.WithTwitter(ctx)
-	ctx = cloudinary.NewContext(ctx, os.Getenv("CLOUDINARY_URL"))
+	ctx = oauth.NewSessionStore(ctx)
+	defer oauth.CloseSessionStore(ctx)
+
+	ctx = twitter.NewContext(ctx)
 
 	// TODO: とりあえず
 	ctx = views.InitTemplates(ctx, "./")
@@ -40,6 +44,7 @@ func Serve() {
 	kami.PanicHandler = errors.PanicHandler
 
 	// middleware
+	kami.Use("/", secureRedirect)
 	kami.Use("/", oauth.Login)
 	kami.Use("/u/", oauth.LoginCheck) // /u以下のpathはloginチェックする
 
@@ -60,4 +65,37 @@ func Serve() {
 	log.Println("Starting server...")
 	log.Println("GOMAXPROCS: ", cpus)
 	kami.Serve()
+}
+
+func secureRedirect(ctx context.Context, w http.ResponseWriter, r *http.Request) context.Context {
+	if isHttps(r) {
+		return ctx
+	}
+
+	if r.Header.Get("X-Forwarded-Proto") == "" {
+		return ctx
+	}
+
+	url, err := url.Parse("https://" + r.Host + r.RequestURI)
+	if err != nil {
+		return ctx
+	}
+	url.RawQuery = r.URL.RawQuery
+	r.URL = url
+	fmt.Println(url.String())
+	http.Redirect(w, r, url.String(), 302) // TODO: 301?
+	return nil
+}
+
+func isHttps(r *http.Request) bool {
+	if r.URL.Scheme == "https" {
+		return true
+	}
+	if strings.HasPrefix(r.Proto, "HTTPS") {
+		return true
+	}
+	if r.Header.Get("X-Forwarded-Proto") == "https" {
+		return true
+	}
+	return false
 }

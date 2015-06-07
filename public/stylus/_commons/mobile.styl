@@ -2,7 +2,7 @@
 @media (max-width: 768px)
 
     .ma-layout-wrap
-        padding 20px
+        padding 20px 12px
 
         /* list page */     
         .ma-layout
@@ -32,6 +32,9 @@
                 .ma-app-list-item-toolbar
                     position static
                     
+        .ma-white-wrap
+            padding 20px 12px
+            
         /* Table */
         dl
             dt
@@ -60,20 +63,17 @@
     .FbBtnLabel
         font-size 13px
      
-    /* resized backgroud */   
-    .ma-top-banner
-        background-image url('/img/mobile/top_bg1.png')
-
+    /* resized backgroud */
     .ma-section-bg
         height 240px
         
     #ma-about-bg1
         &:before
-            background-image url('/img/mobile/about_bg1.png')
+            background-image url('https://res.cloudinary.com/hcod0wyyv/image/upload/img/mobile/about_bg1.png')
         
     #ma-about-bg2
         &:before
-            background-image url('/img/mobile/about_bg2.png')
+            background-image url('https://res.cloudinary.com/hcod0wyyv/image/upload/img/mobile/about_bg2.png')
 
     /* register */
     form
@@ -83,12 +83,30 @@
             
     /* tile */
     .ma-app-tile-wrap
+        .ma-app-tile
+            min-width 120px
+
         .ma-app-tile-image
             height 100px
+            line-height 100px
 
             img 
-                max-height 100px
+                max-width 118px
+                max-height 98px
 
     /* edit */
-    .ma-app-edit-btn
+    .ma-app-edit-btn,
+    .ma-profile-edit-update-btn
         margin-bottom 16px
+        
+    /* occupation icons */
+    .ma-constant-icon-list
+        .ma-constant-icon-list-item
+            vendor('flex', 0 0 132px)
+        
+            img
+                width 48px
+                height 48px
+
+    .ma-constant-icon-list-title
+        font-size 14px

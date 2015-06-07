@@ -1,7 +1,6 @@
 package views
 
 import (
-	"log"
 	"net/http"
 
 	"github.com/guregu/kami"
@@ -22,26 +21,24 @@ type IndexResponse struct {
 func Index(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	latestList, err := models.AppsInfoTable.FindLatest(ctx, 0, 4)
 	if err != nil {
-		log.Println("ERROR!", err)
-		renderer.JSON(w, 400, err)
-		return
+		panic(err)
 	}
 	popularList, err := models.AppsInfoTable.FindPopular(ctx, 0, 4)
 	if err != nil {
-		log.Println("ERROR!", err)
-		renderer.JSON(w, 400, err)
-		return
+		panic(err)
 	}
 
 	preload := IndexResponse{}
 	preload.TemplateHeader = NewHeader(ctx,
 		"MeetApp - 開発アイデアを実現する仲間を探そう",
-		"サブタイトル",
+		"",
 		"一緒にアプリを開発する仲間を探そう",
 		true,
+		"",
+		"",
 	)
 	preload.LastedList = latestList
 	preload.PopularList = popularList
 
-	ExecuteTemplate(ctx, w, "index", preload)
+	ExecuteTemplate(ctx, w, r, "index", preload)
 }

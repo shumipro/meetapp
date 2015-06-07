@@ -11,6 +11,14 @@ var util = {
         return user
     },
 
+    getNotification() {
+        var notification = config.notification
+        if(!notification || !notification.UserID) {
+            return null
+        }
+        return notification
+    },
+
     getUrlParams() {
         var search = location.search.substring(1);
         return search ? JSON.parse('{"' + search.replace(/&/g, '","').replace(/=/g,'":"') + '"}',
@@ -27,7 +35,7 @@ var util = {
     },
 
     getImageURL(id){
-        return "http://graph.facebook.com/" + id + "/picture?type=square";
+        return "https://graph.facebook.com/" + id + "/picture?type=square";
     },
 
     getConstantLabel(prop, id) {
@@ -83,7 +91,7 @@ var util = {
         if(url === "" || url === undefined){
             return true
         }
-        var regex = new RegExp(/[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi);
+        var regex = new RegExp(/[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,5}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi);
         if(url.match(regex) ){
             return true
         }

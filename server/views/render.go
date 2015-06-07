@@ -1,32 +1,54 @@
 package views
 
 import (
-	"html/template"
-	"path/filepath"
-
 	"fmt"
-
+	"html/template"
 	"net/http"
-
+	"os"
+	"path/filepath"
 	"strings"
+	"time"
 
-	"github.com/shumipro/meetapp/server/models"
-	"github.com/shumipro/meetapp/server/oauth"
+	"github.com/microcosm-cc/bluemonday"
+	"github.com/russross/blackfriday"
 	"github.com/unrolled/render"
 	"golang.org/x/net/context"
+
+	"github.com/shumipro/meetapp/server/constants"
+	"github.com/shumipro/meetapp/server/models"
+	"github.com/shumipro/meetapp/server/oauth"
 )
 
+var staticPath string
+
+func StaticPath() string {
+	return staticPath
+}
+
+func init() {
+	staticPath = os.Getenv("STATIC_URL")
+
+	// set "/" as default
+	if staticPath == "" {
+		staticPath = "/"
+	}
+}
+
 type Config struct {
-	User models.User `json:"user"`
+	StaticPath   string                  `json:"static_path"`
+	User         models.User             `json:"user"`
+	Notification models.UserNotification `json:"notification"`
 }
 
 type TemplateHeader struct {
-	Title      string
-	NavTitle   string
-	SubTitle   string
-	ShowBanner bool
-	Config     Config           `json:"config"`
-	Constants  models.Constants `json:"constants"`
+	Title       string
+	Description string
+	SubTitle    string
+	ShowBanner  bool
+	OgURL       string
+	OgImageURL  string
+	Config      Config              `json:"config"`
+	Constants   constants.Constants `json:"constants"`
 }
 
 func (t TemplateHeader) EscapeNewline(text string) template.HTML {
@@ -35,20 +57,42 @@ func (t TemplateHeader) EscapeNewline(text string) template.HTML {
 	return template.HTML(safe)
 }
 
-func NewHeader(ctx context.Context, title, navTitle, subTitle string, showBanner bool) TemplateHeader {
+// TODO: render時じゃなくて、登録/更新時にMongoDBにつっこんでおくべきだと思うけど一旦これで
+func (t TemplateHeader) Markdown(text string) template.HTML {
+	safe := template.HTMLEscapeString(text)
+	unsafe := blackfriday.MarkdownCommon([]byte(safe))
+	return template.HTML(string(bluemonday.UGCPolicy().SanitizeBytes(unsafe)))
+}
+
+func (t TemplateHeader) OriginalImage(url string) string {
+	// remove resize params to show original size image
+	return strings.Replace(url, "/w_160", "", 1)
+}
+
+func (t TemplateHeader) FormatTimeToDate(time time.Time) string {
+	return time.Format("2006-01-02")
+}
+
+func NewHeader(ctx context.Context, title, description, subTitle string, showBanner bool, ogURL string, ogImageURL string) TemplateHeader {
 	a, _ := oauth.FromContext(ctx)
 
-	// TODO: 毎アクセスでmongoとるの微妙・・・ Serverでcacheしてもよさそう
 	user, _ := models.UsersTable.FindID(ctx, a.UserID)
+	nt := models.NotificationTable.MustFindID(ctx, a.UserID)
 
 	h := TemplateHeader{}
-	h.Config = Config{User: user}
-	h.Constants = models.AllConstants()
+	h.Config = Config{}
+	h.Config.User = user
+	h.Config.Notification = nt
+	h.Config.StaticPath = StaticPath()
+
+	h.Constants = constants.AllConstants()
 
 	h.Title = title
 	h.SubTitle = subTitle
-	h.NavTitle = navTitle
+	h.Description = description
 	h.ShowBanner = showBanner
+	h.OgURL = ogURL
+	h.OgImageURL = ogImageURL
 
 	return h
 }
@@ -66,6 +110,7 @@ func InitTemplates(ctx context.Context, appRoot string) context.Context {
 		"index",
 		"login",
 		"mypage",
+		"mypageEdit",
 		"app/detail",
 		"app/list",
 		"app/register",
@@ -109,8 +154,8 @@ func FromContextTemplate(ctx context.Context, name string) *template.Template {
 	return tmpls[name]
 }
 
-func ExecuteTemplate(ctx context.Context, w http.ResponseWriter, name string, data interface{}) {
+func ExecuteTemplate(ctx context.Context, w http.ResponseWriter, r *http.Request, name string, data interface{}) {
 	if err := FromContextTemplate(ctx, name).Execute(w, data); err != nil {
-		executeError(ctx, w, err)
+		executeError(ctx, w, r, err)
 	}
 }

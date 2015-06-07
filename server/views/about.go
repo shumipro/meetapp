@@ -12,6 +12,6 @@ func init() {
 }
 
 func About(ctx context.Context, w http.ResponseWriter, r *http.Request) {
-	preload := NewHeader(ctx, "About", "", "", false)
-	ExecuteTemplate(ctx, w, "about", preload)
+	preload := NewHeader(ctx, "About", "", "", false, "", "")
+	ExecuteTemplate(ctx, w, r, "about", preload)
 }

@@ -1,17 +1,31 @@
-<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+<nav class="navbar navbar-default navbar-fixed-top {{if not .Config.User.IsEmpty }}ma-nav-login{{end}}" role="navigation">
     <div class="container">
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-            <span class="fa fa-bars fa-lg"></span>
-            </button>
+            <!-- mobileで表示されるglobal menu -->
+            <div class="ma-nav-mobile">
+                <!-- mobileで表示されるnotification -->
+                <span class="ma-nav-mobile-dropdown dropdown ma-nav-notification" style="visibility: hidden;">
+                    <a data-toggle="dropdown" class="ma-nav-notification-link dropdown-toggle" role="button" href="javascript:;"><span class="badge">0</span></a>
+                    <ul role="menu" class="dropdown-menu pull-right ma-nav-notification-dropdown"></ul>
+                </span>
+                <!-- mobileでprofile画像dropdown -->
+                <button class="ma-nav-mobile-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="fa fa-bars fa-lg">Menu <b class="caret"></b></span>
+                    <span class="ma-nav-login-profile-image">
+                        <img class="img-rounded" src="{{ .Config.User.IconImageURL }}"><b class="caret"></b>
+                    </span>
+                </button>
+            </div>
+            <!-- 共通ロゴ -->
             <a class="navbar-brand" href="/">
-            <img src="/img/logo.png" alt="" class="logo">
+            <img src="{{ .Config.StaticPath }}img/logo.png" alt="" class="logo">
             </a>
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <!-- PCではglobal nav, mobileではdropdonメニューとして表示 -->
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="/about">使い方</a></li>
-                <li><a href="/app/list?orderBy=new">開発アイデアを探す</a></li>
+                <li><a href="/app/list">開発アイデアを探す</a></li>
 
                 {{if .Config.User.IsEmpty }}
                 <!-- Login してなかったら -->
@@ -20,7 +34,12 @@
                 {{ else }}
                 <!-- Login してたら -->
                 <li><a href="/u/app/register">開発アイデアを登録する</a></li>
-                <li class="dropdown">
+                <li class="ma-nav-pc-menu ma-nav-notification" style="visibility: hidden;">
+                    <a data-toggle="dropdown" class="ma-nav-notification-link dropdown-toggle" role="button" href="javascript:;"><span class="badge">0</span></a>
+                    <ul role="menu" class="dropdown-menu ma-nav-notification-dropdown"></ul>
+                </li>
+                <!-- PCではdropdown表示 -->
+                <li class="ma-nav-pc-menu dropdown">
                     <a data-toggle="dropdown" class="dropdown-toggle" role="button" href="#">
                         <span class="ma-login-username">
                             <img class="img-rounded" src="{{ .Config.User.IconImageURL }}">
@@ -32,6 +51,9 @@
                         <li role="presentation"><a href="/logout">ログアウト</a></li>
                     </ul>
                 </li>
+                <!-- mobileで表示 -->
+                <li class="ma-nav-mobile-menu" role="presentation"><a href="/u/mypage">マイページ</a></li>
+                <li class="ma-nav-mobile-menu" role="presentation"><a href="/logout">ログアウト</a></li>
                 {{ end }}
             </ul>
         </div>
@@ -40,6 +62,6 @@
 
 <div class="tp-banner-container">
     <div class="ma-top-banner" style="{{with .ShowBanner }} {{else}}display: none;{{end}}">
-        <img src="/img/topbanner.png">
+        <img src="{{ .Config.StaticPath }}img/topbanner.jpg">
     </div>
 </div>

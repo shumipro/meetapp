@@ -33,12 +33,12 @@ func Login(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	preload := NewHeader(ctx, "Login", "", "", false)
-	ExecuteTemplate(ctx, w, "login", preload)
+	preload := NewHeader(ctx, "Login", "", "", false, "", "")
+	ExecuteTemplate(ctx, w, r, "login", preload)
 }
 
 func Logout(ctx context.Context, w http.ResponseWriter, r *http.Request) {
-	oauth.ResetCacheAuthToken(ctx, w)
+	oauth.ResetCacheAuthToken(ctx, w, r)
 	http.Redirect(w, r, "/login", 302)
 }
 
@@ -62,7 +62,9 @@ func AuthCallback(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	code := r.FormValue("code")
 	token, err := oauth.GetFacebookAuthToken(ctx, code)
 	if err != nil {
-		panic(err.Error())
+		log.Println("[ERROR] GetFacebookAuthToken", err)
+		http.Redirect(w, r, "/error", 302)
+		return
 	}
 
 	facebookID, res, err := oauth.GetFacebookMe(ctx, token.AccessToken)
@@ -111,7 +113,7 @@ func AuthCallback(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	}
 
 	// RedisでCacheとCookieに書き込む
-	err = oauth.CacheAuthToken(ctx, w, user.ID, *token)
+	err = oauth.CacheAuthToken(ctx, w, r, user.ID, *token)
 	if err != nil {
 		panic(err)
 	}

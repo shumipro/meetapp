@@ -1,23 +1,18 @@
 package views
 
 import (
+	"fmt"
 	"log"
 	"net/http"
-
-	"encoding/json"
-
-	"fmt"
-	"io/ioutil"
-
-	"strings"
-	"time"
-
 	"strconv"
 
 	"github.com/guregu/kami"
+	"golang.org/x/net/context"
+
+	"github.com/shumipro/meetapp/server/constants"
 	"github.com/shumipro/meetapp/server/models"
 	"github.com/shumipro/meetapp/server/oauth"
-	"golang.org/x/net/context"
+	"github.com/shumipro/meetapp/server/twitter"
 )
 
 var notAdminError = fmt.Errorf("%s", "not admin user")
@@ -28,6 +23,9 @@ var sortLabels = map[string]map[string]string{
 	},
 	"popular": {
 		"title": "人気アプリ",
+	},
+	"updateAt": {
+		"title": "開発アイデアを探す",
 	},
 }
 
@@ -42,11 +40,6 @@ func init() {
 	kami.Post("/u/api/app/register", APIAppRegister)   // TODO: [POST] /u/api/app/apps
 	kami.Put("/u/api/app/edit/:id", APIAppEdit)        // TODO: [PUT] /u/api/app/apps/:id
 	kami.Delete("/u/api/app/delete/:id", APIAppDelete) // TODO: [DELETE] /u/api/app/apps/:id
-	// Discussion API
-	kami.Post("/u/api/app/discussion", APIAppDiscussion)
-	// Star API
-	kami.Post("/u/api/app/star/:id", APIAppStared)
-	kami.Delete("/u/api/app/star/:id", APIAppStarDelete)
 }
 
 type AppListResponse struct {
@@ -61,6 +54,9 @@ const perPageNum int = 10
 
 func AppList(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	orderBy := r.FormValue("orderBy")
+	if orderBy == "" {
+		orderBy = string(models.OrderByUpdateAt) // デフォルトはUpdateAt
+	}
 
 	page, _ := strconv.Atoi(r.FormValue("page"))
 	if page > 0 {
@@ -74,11 +70,12 @@ func AppList(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	area := r.FormValue("area")
 
 	filter := models.AppInfoFilter{}
-	filter.OccupationType = models.OccupationType(occupation)
-	filter.CategoryType = models.CategoryType(category)
-	filter.LanguageType = models.LanguageType(pLang)
-	filter.AreaType = models.AreaType(area)
-	filter.PlatformType = models.PlatformType(platform)
+	filter.OccupationType = constants.OccupationType(occupation)
+	filter.CategoryType = constants.CategoryType(category)
+	filter.LanguageType = constants.LanguageType(pLang)
+	filter.AreaType = constants.AreaType(area)
+	filter.PlatformType = constants.PlatformType(platform)
+	filter.OrderBy = models.AppInfoOrderType(orderBy)
 
 	preload := AppListResponse{}
 	preload.TemplateHeader = NewHeader(ctx,
@@ -86,6 +83,8 @@ func AppList(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 		"",
 		"気になるアプリ開発に参加しよう",
 		false,
+		"",
+		"",
 	)
 
 	// ViewModel変換して詰める
@@ -98,7 +97,7 @@ func AppList(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	preload.CurrentPage = page + 1
 	preload.TotalCount = totalCount
 
-	ExecuteTemplate(ctx, w, "app/list", preload)
+	ExecuteTemplate(ctx, w, r, "app/list", preload)
 }
 
 type AppDetailResponse struct {
@@ -114,19 +113,23 @@ func AppDetail(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	}
 	appInfo, err := models.AppsInfoTable.FindID(ctx, appID)
 	if err != nil {
-		panic(err)
+		http.Redirect(w, r, "/error", 302)
+		return
 	}
 
 	preload := AppDetailResponse{}
 	preload.TemplateHeader = NewHeader(ctx,
 		"MeetApp - "+appInfo.Name,
-		appInfo.Name,
+		appInfo.Description,
 		appInfo.Name,
 		false,
+		// set current relative URL
+		r.URL.RequestURI(),
+		appInfo.MainImage,
 	)
 	preload.AppInfo = NewAppInfoView(ctx, appInfo)
 
-	ExecuteTemplate(ctx, w, "app/detail", preload)
+	ExecuteTemplate(ctx, w, r, "app/detail", preload)
 }
 
 type AppRegisterResponse struct {
@@ -141,6 +144,8 @@ func AppRegister(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 		"",
 		"アプリを登録して仲間を探そう",
 		false,
+		"",
+		"",
 	)
 
 	// 自分をデフォルトメンバーとして突っ込んでおく
@@ -149,7 +154,7 @@ func AppRegister(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	members := []models.Member{
 		{
 			UserID:     a.UserID,
-			Occupation: models.OccupationType("1"),
+			Occupation: constants.OccupationType("1"),
 			IsAdmin:    true,
 		},
 	}
@@ -159,7 +164,7 @@ func AppRegister(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 
 	preload.AppInfo = NewAppInfoView(ctx, appInfo)
 
-	ExecuteTemplate(ctx, w, "app/register", preload)
+	ExecuteTemplate(ctx, w, r, "app/register", preload)
 }
 
 func AppEdit(ctx context.Context, w http.ResponseWriter, r *http.Request) {
@@ -172,7 +177,8 @@ func AppEdit(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 
 	appInfo, err := models.AppsInfoTable.FindID(ctx, appID)
 	if err != nil {
-		panic(err)
+		http.Redirect(w, r, "/error", 302)
+		return
 	}
 
 	preload := AppRegisterResponse{}
@@ -181,6 +187,8 @@ func AppEdit(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 		"",
 		"アプリを登録して仲間を探そう",
 		false,
+		"",
+		"",
 	)
 	// sizeを3にする
 	if len(appInfo.ImageURLs) != 3 {
@@ -192,7 +200,7 @@ func AppEdit(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	}
 	preload.AppInfo = NewAppInfoView(ctx, appInfo)
 
-	ExecuteTemplate(ctx, w, "app/register", preload)
+	ExecuteTemplate(ctx, w, r, "app/register", preload)
 }
 
 func APIAppRegister(ctx context.Context, w http.ResponseWriter, r *http.Request) {
@@ -203,12 +211,36 @@ func APIAppRegister(ctx context.Context, w http.ResponseWriter, r *http.Request)
 	}
 
 	regAppInfo = convertRegisterAppInfo(ctx, regAppInfo)
-
 	if err := models.AppsInfoTable.Upsert(ctx, regAppInfo); err != nil {
-		log.Println("ERROR! register", err)
-		renderer.JSON(w, 400, err.Error())
-		return
+		panic(err)
 	}
+
+	go func() {
+		defer func() {
+			if err := recover(); err != nil {
+				log.Println(err)
+			}
+		}()
+
+		// Initialize the Twitter Client
+		twClient, ok := twitter.FromContext(ctx)
+		if !ok {
+			log.Printf("Failed to initialize twitter client: %s.", err)
+			return
+		}
+
+		message := fmt.Sprintf(
+			"開発アイデアが新規登録されました: MeetApp - %s https://meetapp.tokyo/app/detail/%s #meetapp",
+			regAppInfo.Name,
+			regAppInfo.ID,
+		)
+		id, err := twClient.Tweet(message)
+		if err != nil {
+			log.Printf("Failed to post a tweet for %s: %s.", regAppInfo.ID, err)
+			return
+		}
+		log.Printf("Successfully posted a tweet %s.", id)
+	}()
 
 	renderer.JSON(w, 200, regAppInfo)
 }
@@ -239,9 +271,7 @@ func APIAppEdit(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	regAppInfo = convertEditAppInfo(ctx, regAppInfo, beforeApp)
 
 	if err := models.AppsInfoTable.Upsert(ctx, regAppInfo); err != nil {
-		log.Println("ERROR! register", err)
-		renderer.JSON(w, 400, err.Error())
-		return
+		panic(err)
 	}
 
 	renderer.JSON(w, 200, regAppInfo)
@@ -266,131 +296,8 @@ func APIAppDelete(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	}
 
 	if err := models.AppsInfoTable.Delete(ctx, app.ID); err != nil {
-		log.Println("ERROR!", err)
-		renderer.JSON(w, 400, err.Error())
-		return
+		panic(err)
 	}
 
 	renderer.JSON(w, 200, appID)
-}
-
-type DiscussionRequest struct {
-	AppID          string `json:"appId"` // アプリID
-	DiscussionInfo models.DiscussionInfo
-}
-
-func APIAppDiscussion(ctx context.Context, w http.ResponseWriter, r *http.Request) {
-	data, err := ioutil.ReadAll(r.Body)
-	if err != nil {
-		log.Println("ERROR!", err)
-		renderer.JSON(w, 400, err.Error())
-		return
-	}
-	fmt.Println(string(data))
-
-	// convert request params to struct
-	var discussionReq DiscussionRequest
-	if err := json.Unmarshal(data, &discussionReq); err != nil {
-		log.Println("ERROR! json parse", err)
-		renderer.JSON(w, 400, err.Error())
-		return
-	}
-
-	// get appinfo from db
-	appInfo, err := models.AppsInfoTable.FindID(ctx, discussionReq.AppID)
-	if err != nil {
-		log.Println("ERROR!", err)
-		renderer.JSON(w, 400, err.Error())
-		return
-	}
-
-	nowTime := time.Now()
-	discussionReq.DiscussionInfo.Timestamp = nowTime
-	// push a discussionInfo
-	appInfo.Discussions = append(appInfo.Discussions, discussionReq.DiscussionInfo)
-	appInfo.UpdateAt = nowTime
-
-	if err := models.AppsInfoTable.Upsert(ctx, appInfo); err != nil {
-		log.Println("ERROR! discussion", err)
-		renderer.JSON(w, 400, err.Error())
-		return
-	}
-
-	renderer.JSON(w, 200, appInfo.Discussions)
-}
-
-func APIAppStared(ctx context.Context, w http.ResponseWriter, r *http.Request) {
-	a, _ := oauth.FromContext(ctx)
-	appID := kami.Param(ctx, "id")
-
-	// get appinfo from db
-	appInfo, err := models.AppsInfoTable.FindID(ctx, appID)
-	if err != nil {
-		log.Println("ERROR!", err)
-		renderer.JSON(w, 400, err.Error())
-		return
-	}
-
-	// すでにスター済み
-	if appInfo.Stared(a.UserID) {
-		log.Println("WARN", "stared")
-		renderer.JSON(w, 200, appInfo.StarUsers)
-		return
-	}
-
-	// push the user as starUsers
-	appInfo.StarUsers = append(appInfo.StarUsers, a.UserID)
-	// update starCount
-	appInfo.StarCount = len(appInfo.StarUsers)
-
-	appInfo.UpdateAt = time.Now()
-
-	if err := models.AppsInfoTable.Upsert(ctx, appInfo); err != nil {
-		log.Println("ERROR! star", err)
-		renderer.JSON(w, 400, err.Error())
-		return
-	}
-
-	renderer.JSON(w, 200, appInfo.StarUsers)
-}
-
-func APIAppStarDelete(ctx context.Context, w http.ResponseWriter, r *http.Request) {
-	a, _ := oauth.FromContext(ctx)
-	appID := kami.Param(ctx, "id")
-
-	// get appinfo from db
-	appInfo, err := models.AppsInfoTable.FindID(ctx, appID)
-	if err != nil {
-		log.Println("ERROR!", err)
-		renderer.JSON(w, 400, err.Error())
-		return
-	}
-
-	// すでに削除済み
-	if !appInfo.Stared(a.UserID) {
-		log.Println("WARN!", "not stared")
-		renderer.JSON(w, 200, appInfo.StarUsers)
-		return
-	}
-
-	for idx, userID := range appInfo.StarUsers {
-		if !strings.EqualFold(userID, userID) {
-			continue
-		}
-		// remove the user from starUsers list
-		appInfo.StarUsers = append(appInfo.StarUsers[:idx], appInfo.StarUsers[idx+1:]...)
-		// update starCount
-		appInfo.StarCount = len(appInfo.StarUsers)
-		break
-	}
-
-	appInfo.UpdateAt = time.Now()
-
-	if err := models.AppsInfoTable.Upsert(ctx, appInfo); err != nil {
-		log.Println("ERROR! star", err)
-		renderer.JSON(w, 400, err.Error())
-		return
-	}
-
-	renderer.JSON(w, 200, appInfo.StarUsers)
 }

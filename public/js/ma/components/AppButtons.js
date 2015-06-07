@@ -20,8 +20,5 @@ export default class AppButtons {
                 })
             }
         })
-        // set current URL for share buttons
-        $('.fb-like[data-href=""]').data('href', location.href)
-        $('.twitter-share-button[data-url=""]').data('href', location.href)
     }
 }

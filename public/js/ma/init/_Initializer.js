@@ -15,7 +15,7 @@ module.exports = {
         '/html/register.html': Register,
         '/u/app/register': Register,
         '/u/app/edit': Register,
-        '/u/mypage/edit/:id': MyPage
+        '/u/mypage/edit': MyPage
     },
 
     getInitializer() {

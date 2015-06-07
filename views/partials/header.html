@@ -2,13 +2,20 @@
 <title>{{ .Title }}</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-<meta name="description" content="MeetAppは趣味でサクッと気軽にアイデアを実現する開発仲間を見つけるサービスを提供します。あなたの開発アイデアを実現するデザイナーやエンジニアの仲間を探そう">
-<meta property="og:description" content="MeetAppは趣味でサクッと気軽にアイデアを実現する開発仲間を見つけるサービスを提供します。あなたの開発アイデアを実現するデザイナーやエンジニアの仲間を探そう">
-<meta name="keywords" content="meetapp, 趣味, 開発, 求人, 企画, エンジニア, デザイナー, hobby, development, job, engineer, designer">
-<meta property="og:title" content="MeetApp - 開発アイデアを実現する仲間を探そう">
-<meta property="og:image" content="https://meetapp.tokyo/img/logo.png">
-<meta property="og:url" content="https://meetapp.tokyo/">
+<!-- og:descriptionには Description があればセットする -->
+<meta name="description" content="{{with .Description }}{{ . }}{{else}}MeetAppは趣味でアプリ・サービスの開発をしたいデザイナー・エンジニアと、開発のアイデアを持っている企画者のマッチングサービスです。MeetAppであなたの開発アイデアを実現する仲間を探しましょう。{{end}}">
+<meta property="og:description" content="{{with .Description }}{{ . }}{{else}}MeetAppは趣味でアプリ・サービスの開発をしたいデザイナー・エンジニアと、開発のアイデアを持っている企画者のマッチングサービスです。MeetAppであなたの開発アイデアを実現する仲間を探しましょう。{{end}}">
+<meta name="keywords" content="meetapp, 趣味, 開発, アプリ, プログラミング, サービス, 求人, 企画, エンジニア, デザイナー, hobby, app, development, job, engineer, designer">
+<meta property="og:title" content="{{ .Title }}">
+<!-- og:image OgImageURL があればセットする (w_160をつけたサイズではFBで200px以下としてerrorになるのでoriginalサイズのURLを指定) -->
+<meta property="og:image" content="{{if .OgImageURL }}{{ .OriginalImage .OgImageURL }}{{else}}{{ .Config.StaticPath }}img/topbanner.jpg{{end}}">
+<!-- og:url OgURL (relative URL) があればセットする -->
+<meta property="og:url" content="https://meetapp.tokyo{{with .OgURL }}{{ . }}{{end}}">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="MeetApp">
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@meetapp_tokyo" />
+<link href="https://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext" rel="stylesheet" type="text/css">
 <link rel="shortcut icon" href="/favicon.ico">
 <link rel="stylesheet" href="/css/main.css">

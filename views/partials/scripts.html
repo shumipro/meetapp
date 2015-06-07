@@ -1,6 +1,8 @@
 <script>
 // define global constants
-var ma = {{ . }};
+var ma = {};
+ma.config = {{ .Config }};
+ma.constants = {{ .Constants }};
 ma.messages = {
     constants: {
         platform: "プラットフォーム",
@@ -9,6 +11,29 @@ ma.messages = {
         meetingArea: "エリア",
         occupation: "募集職種",
         meetingFrequency: "ミーティング頻度"
+    },
+    props: {
+        // register
+        name: "アプリ名",
+        description: "説明",
+        platform: "プラットフォーム",
+        category: "カテゴリ",
+        pLang: "プログラミング言語",
+        keywords: "キーワード",
+        images: "画像URL",
+        currentMembers: "現在のメンバー構成",
+        recruitMembers: "募集したいメンバー",
+        demoUrl: "Demo URL",
+        githubUrl: "Github URL",
+        meetingArea: "ミーティング場所",
+        meetingFrequency: "ミーティング頻度",
+        projectStartDate: "プロジェクト開始日",
+        projectReleaseDate: "リリース予定日",
+        // mypage edit
+        Name: "名前",
+        Comment: "ひとこと",
+        HomePageURL: "ウェブサイトURL",
+        GitHubURL: "Github URL"
     }
 };
 </script>
