@@ -84,6 +84,8 @@ func AuthFacebookCallback(ctx context.Context, w http.ResponseWriter, r *http.Re
 		panic(err)
 	}
 
+	// TODO: ごちゃごちゃしてるのでいずれリファクタする
+
 	var a login.Account
 	var user models.User
 	var userAuth models.UserAuth
@@ -101,6 +103,10 @@ func AuthFacebookCallback(ctx context.Context, w http.ResponseWriter, r *http.Re
 		fmt.Println("新規登録")
 		// 新規登録
 		user = registerUser(fbUser.Name)
+		user.FBUser = fbUser
+		user.ImageURL = user.IconImageURL()
+		user.LargeImageURL = user.IconLargeImageURL()
+
 		userAuth.UserID = user.ID
 	} else {
 		userAuth, _ = models.UserAuthTable.FindID(ctx, user.ID)
@@ -150,6 +156,8 @@ func AuthTwitterCallback(ctx context.Context, w http.ResponseWriter, r *http.Req
 		panic(err)
 	}
 
+	// TODO: ごちゃごちゃしてるのでいずれリファクタする
+
 	var a login.Account
 	var user models.User
 	var userAuth models.UserAuth
@@ -165,6 +173,10 @@ func AuthTwitterCallback(ctx context.Context, w http.ResponseWriter, r *http.Req
 	} else if err == mgo.ErrNotFound {
 		// 新規登録
 		user = registerUser(twUser.Name)
+		user.TwitterUser = twUser
+		user.ImageURL = user.IconImageURL()
+		user.LargeImageURL = user.IconLargeImageURL()
+
 		userAuth.UserID = user.ID
 	} else {
 		userAuth, _ = models.UserAuthTable.FindID(ctx, user.ID)
@@ -199,10 +211,7 @@ func AuthTwitterCallback(ctx context.Context, w http.ResponseWriter, r *http.Req
 func registerUser(name string) models.User {
 	user := models.User{}
 	user.ID = uuid.New()
-
 	user.Name = name
-	user.ImageURL = user.IconImageURL()
-	user.LargeImageURL = user.IconLargeImageURL()
 
 	nowTime := time.Now()
 	user.CreateAt = nowTime
