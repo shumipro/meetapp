@@ -1,6 +1,7 @@
 package models
 
 import (
+	"html/template"
 	"time"
 
 	"strings"
@@ -16,6 +17,7 @@ type AppInfo struct {
 	ID            string                         `bson:"_id" json:"id"`                 // アプリID
 	Name          string                         `           json:"name"`               // アプリ名
 	Description   string                         `           json:"description"`        // アプリ詳細
+	DescriptionMD template.HTML                  `           json:"description_md"`     // アプリ詳細 （Markdown）
 	Category      constants.CategoryType         `           json:"category"`           // カテゴリ
 	Platform      constants.PlatformType         `           json:"platform"`           // プラットフォーム
 	Language      constants.LanguageType         `           json:"pLang"`              // プログラミング言語
@@ -87,10 +89,11 @@ type Member struct {
 }
 
 type DiscussionInfo struct {
-	ID        string    `json:"id"`        // ディスカッションID
-	UserID    string    `json:"userId"`    // ユーザー
-	Message   string    `json:"message"`   // コメント
-	Timestamp time.Time `json:"timestamp"` // 投稿日時
+	ID        string        `json:"id"`        // ディスカッションID
+	UserID    string        `json:"userId"`    // ユーザー
+	Message   string        `json:"message"`   // コメント
+	MessageMD template.HTML `json:"messageMD"` // コメント
+	Timestamp time.Time     `json:"timestamp"` // 投稿日時
 }
 
 // AppsContext appsのコレクション
