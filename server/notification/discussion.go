@@ -56,7 +56,7 @@ func SendJoin(ctx context.Context, user models.User, appInfo models.AppInfo) {
 	notification.SourceID = user.ID
 	notification.NotificationType = notificationType
 	notification.DetailURL = generateURL(notificationType, user.ID)
-	notification.Message = generateMessage(notificationType, user.Name)
+	notification.Message = generateMessage(notificationType, appInfo.Name+"に"+user.Name+"さんが興味をもっています")
 	notification.IsRead = false
 	notification.CreatedAt = nowTime
 
