@@ -8,7 +8,11 @@ import (
 	"math/rand"
 	"time"
 
+	"html/template"
+
 	"github.com/go-xweb/uuid"
+	"github.com/microcosm-cc/bluemonday"
+	"github.com/russross/blackfriday"
 	"github.com/shumipro/meetapp/server/login"
 	"github.com/shumipro/meetapp/server/models"
 	"golang.org/x/net/context"
@@ -54,6 +58,13 @@ func convertRegisterAppInfo(ctx context.Context, appInfo models.AppInfo) models.
 		appInfo.MainImage = StaticPath() + fmt.Sprintf("img/no_img/no_img_%d.png", rand.Intn(5))
 	}
 
+	// Markdown
+	if appInfo.Description != "" {
+		safe := template.HTMLEscapeString(appInfo.Description)
+		unsafe := blackfriday.MarkdownCommon([]byte(safe))
+		appInfo.DescriptionMD = template.HTML(string(bluemonday.UGCPolicy().SanitizeBytes(unsafe)))
+	}
+
 	return appInfo
 }
 
@@ -65,5 +76,6 @@ func convertEditAppInfo(ctx context.Context, appInfo, beforeApp models.AppInfo) 
 	appInfo.StarUsers = beforeApp.StarUsers
 	appInfo.Discussions = beforeApp.Discussions
 	appInfo.CreateAt = beforeApp.CreateAt
+
 	return appInfo
 }

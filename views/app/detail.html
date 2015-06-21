@@ -98,7 +98,11 @@
                         <section>
                             <div>
                                 <h1>{{ .AppInfo.Name }}</h1>
+                                {{ if .AppInfo.DescriptionMD }}
+                                <div class="sectionDesc  ma-mark-down">{{ .AppInfo.DescriptionMD }}</div>
+                                {{ else }}
                                 <div class="sectionDesc  ma-mark-down">{{ .Markdown .AppInfo.Description }}</div>
+                                {{ end }}
                             </div>
                         </section>
                         <section>
@@ -208,9 +212,13 @@
                                         </div>
                                     </a>
                                     <div class="ma-profile-message ma-mark-down">
-                                        {{ $self.Markdown .Message }}
+                                        {{ if .MessageMD }}
+                                        <div class="sectionDesc  ma-mark-down">{{ .MessageMD }}</div>
+                                        {{ else }}
+                                        <div class="sectionDesc  ma-mark-down">{{ $self.Markdown .Message }}</div>
+                                        {{ end }}
                                     </div>
-                                </li>                                
+                                </li>
                                 {{end}}
                             </ul>
                             <div class="row text-center">

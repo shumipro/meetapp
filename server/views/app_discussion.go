@@ -12,6 +12,9 @@ import (
 	"github.com/shumipro/meetapp/server/models"
 	"github.com/shumipro/meetapp/server/notification"
 	"golang.org/x/net/context"
+	"html/template"
+	"github.com/russross/blackfriday"
+	"github.com/microcosm-cc/bluemonday"
 )
 
 func init() {
@@ -52,6 +55,15 @@ func APIAppDiscussion(ctx context.Context, w http.ResponseWriter, r *http.Reques
 	nowTime := time.Now()
 	discussionReq.DiscussionInfo.ID = strconv.FormatInt(time.Now().UnixNano(), 10)
 	discussionReq.DiscussionInfo.Timestamp = nowTime
+
+	// Message To Markdown
+	message := discussionReq.DiscussionInfo.Message
+	if message != "" {
+		safe := template.HTMLEscapeString(message)
+		unsafe := blackfriday.MarkdownCommon([]byte(safe))
+		discussionReq.DiscussionInfo.MessageMD = template.HTML(string(bluemonday.UGCPolicy().SanitizeBytes(unsafe)))
+	}
+
 	// push a discussionInfo
 	appInfo.Discussions = append(appInfo.Discussions, discussionReq.DiscussionInfo)
 	appInfo.UpdateAt = nowTime
