@@ -46,6 +46,24 @@ func SendStar(ctx context.Context, user models.User, appInfo models.AppInfo) {
 	go sendAppInfoMembers(ctx, a.UserID, appInfo, notification)
 }
 
+func SendJoin(ctx context.Context, user models.User, appInfo models.AppInfo) {
+	notificationType := models.NotificationJoin
+	nowTime := time.Now()
+	id := strconv.FormatInt(nowTime.UnixNano(), 10)
+
+	notification := models.Notification{}
+	notification.NotificationID = id
+	notification.SourceID = user.ID
+	notification.NotificationType = notificationType
+	notification.DetailURL = generateURL(notificationType, user.ID)
+	notification.Message = generateMessage(notificationType, appInfo.Name+"に"+user.Name+"さんが興味をもっています")
+	notification.IsRead = false
+	notification.CreatedAt = nowTime
+
+	a, _ := login.FromContext(ctx)
+	go sendAppInfoMembers(ctx, a.UserID, appInfo, notification)
+}
+
 func sendAppInfoMembers(ctx context.Context, myUserID string, appInfo models.AppInfo, notification models.Notification) {
 	defer func() {
 		if err := recover(); err != nil {
@@ -78,6 +96,8 @@ func generateURL(notification models.NotificationType, sourceID string) string {
 		return "/app/detail/" + sourceID
 	case models.NotificationStar:
 		return "/app/detail/" + sourceID
+	case models.NotificationJoin:
+		return "/mypage/other/" + sourceID
 	default:
 		return ""
 	}
@@ -89,6 +109,8 @@ func generateMessage(notification models.NotificationType, message string) strin
 		return "新着メッセージ: " + message
 	case models.NotificationStar:
 		return "いいね: " + message
+	case models.NotificationJoin:
+		return "興味あり: " + message
 	default:
 		return ""
 	}

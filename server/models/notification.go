@@ -12,6 +12,7 @@ type NotificationType int
 const (
 	NotificationDiscussion NotificationType = 1
 	NotificationStar       NotificationType = 2
+	NotificationJoin       NotificationType = 3
 )
 
 type UserNotification struct {

@@ -80,15 +80,18 @@ func APIAppStarDelete(ctx context.Context, w http.ResponseWriter, r *http.Reques
 		return
 	}
 
+	var deleteIdx = -1
 	for idx, userID := range appInfo.StarUsers {
-		if !strings.EqualFold(userID, userID) {
-			continue
+		if strings.EqualFold(a.UserID, userID) {
+			deleteIdx = idx
+			break
 		}
+	}
+	if deleteIdx >= 0 {
 		// remove the user from starUsers list
-		appInfo.StarUsers = append(appInfo.StarUsers[:idx], appInfo.StarUsers[idx+1:]...)
+		appInfo.StarUsers = append(appInfo.StarUsers[:deleteIdx], appInfo.StarUsers[deleteIdx+1:]...)
 		// update starCount
 		appInfo.StarCount = len(appInfo.StarUsers)
-		break
 	}
 
 	appInfo.UpdateAt = time.Now()
