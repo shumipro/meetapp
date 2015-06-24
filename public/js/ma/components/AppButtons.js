@@ -23,19 +23,28 @@ export default class AppButtons {
 
         // 興味ありボタン
         $('.ma-join-btn').on('click', () => {
-            if(util.getUserInfo()){
-                $.ajax({
-                    url: '/u/api/app/join/' + util.getAppDetailId(),
-                    type: 'post'
-                }).done((res) => {
-                    alert('開発アイデアに興味をもっていただきありがとうございます。管理者の方からのご連絡をお待ち下さい。')
-                }).fail(() => {
-                    alert("Error")
-                })            
-            }else{
-                // move to login for anonymous
-                location.href = "/login"
+            var _requesting = false
+            return () => {
+                if(util.getUserInfo()){
+                    if(_requesting){
+                        return
+                    }
+                    $.ajax({
+                        url: '/u/api/app/join/' + util.getAppDetailId(),
+                        type: 'post'
+                    }).done((res) => {
+                        alert('開発アイデアに興味をもっていただきありがとうございます。管理者の方からのご連絡をお待ち下さい。')
+                        _requesting = false
+                    }).fail(() => {
+                        alert("Error")
+                        _requesting = false
+                    })            
+                    _requesting = true
+                }else{
+                    // move to login for anonymous
+                    location.href = "/login"
+                }
             }
-        })
+        }())
     }
 }
