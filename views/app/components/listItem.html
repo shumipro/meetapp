@@ -6,7 +6,11 @@
         <div class="ma-app-list-item-content">
             <div class="ma-app-list-item-title">{{ .Name }}</div>
             <section class="ma-app-list-item-description">
+                {{ if .DescriptionMD }}
+                {{ .DescriptionMD }}
+                {{ else }}
                 {{ .Description }}
+                {{ end }}
             </section>
             <section class="ma-app-list-item-member-wrap">
                 {{range .Members }}
