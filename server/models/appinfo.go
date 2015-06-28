@@ -20,7 +20,7 @@ type AppInfo struct {
 	Category      constants.CategoryType         `           json:"category"`           // カテゴリ
 	Platform      constants.PlatformType         `           json:"platform"`           // プラットフォーム
 	Language      constants.LanguageType         `           json:"pLang"`              // プログラミング言語
-	ProjectState  constants.ProjectState         `           json:"proejctState"`       // プロジェクトの状態
+	ProjectState  constants.ProjectState         `           json:"projectState"`       // プロジェクトの状態
 	Keywords      string                         `           json:"keywords"`           // フリーキーワード
 	MainImage     string                         `           json:"mainImageUrl"`       // メイン画像
 	ImageURLs     []URLInfo                      `           json:"images"`             // 紹介画像URLたち

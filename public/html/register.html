@@ -143,13 +143,17 @@
                             <select id="ma_register_form_meetingFrequency" name="meetingFrequency" class="form-control ma-constant-select" data-constant="meetingFrequency"></select>
                         </div>
                         <div class="col-xs-6 form-group">
+                            <label>プロジェクトステータス</label>
+                            <select id="ma_register_form_projectState" name="projectState" class="form-control ma-constant-select" data-constant="projectState"></select>
+                        </div>
+                        <!--div class="col-xs-6 form-group">
                             <label>プロジェクト開始日</label>
                             <input id="ma_register_form_projectStartDate" name="projectStartDate" class="form-control" type="date" placeholder="2015-05-01"/>
                         </div>
                         <div class="col-xs-6 form-group">
                             <label>リリース予定日</label>
                             <input id="ma_register_form_projectReleaseDate" name="projectReleaseDate" class="form-control" type="date" placeholder="2015-06-01"/>
-                        </div>
+                        </div-->
                     </div>
                     <hr>
                     <div class="row text-center">
@@ -318,6 +322,12 @@ var ma = {
             {id: "7", name: "なし"},
             {id: "8", name: "その他"},
             {id: "0", name: "まだ決めていない"}
+        ],
+        projectState: [
+            {id: "1", name: "募集中"},
+            {id: "2", name: "募集完了"},
+            {id: "3", name: "開発完了"},
+            {id: "4", name: " 一時休止"}
         ]
     }
 };

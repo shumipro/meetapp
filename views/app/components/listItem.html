@@ -1,7 +1,12 @@
 <li class="ma-app-list-item">
     <a href="/app/detail/{{ .ID }}">
         <div class="ma-app-list-item-image">
-            <img src="{{ .MainImage }}" alt="{{ .Name }}">
+            <div class="ma-image-ribon">
+                <img src="{{ .MainImage }}" alt="{{ .Name }}">
+                {{if eq .AppInfo.ProjectState.ID "1" }}
+                <p><span>募集中</span></p>
+                {{end}}
+            </div>
         </div>
         <div class="ma-app-list-item-content">
             <div class="ma-app-list-item-title">{{ .Name }}</div>
