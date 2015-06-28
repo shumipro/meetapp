@@ -31,6 +31,7 @@ var sortLabels = map[string]map[string]string{
 
 func init() {
 	kami.Get("/app/detail/:id", AppDetail)
+	kami.Get("/app/api/detail/:id", APIAppDetail)
 	kami.Get("/app/list", AppList)
 	kami.Get("/u/app/register", AppRegister)
 	kami.Get("/u/app/edit/:id", AppEdit)
@@ -105,13 +106,25 @@ type AppDetailResponse struct {
 	AppInfo AppInfoView
 }
 
+func APIAppDetail(ctx context.Context, w http.ResponseWriter, r *http.Request) {
+	appID := kami.Param(ctx, "id")
+
+	appInfo, err := appDetail(ctx, appID)
+	if err != nil {
+		renderer.JSON(w, 400, err.Error())
+		return
+	}
+	renderer.JSON(w, 200, appInfo)
+}
+
 func AppDetail(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	appID := kami.Param(ctx, "id")
 	// TODO: とりあえず
 	if appID == "favicon.png" || appID == "" {
 		return
 	}
-	appInfo, err := models.AppsInfoTable.FindID(ctx, appID)
+
+	appInfo, err := appDetail(ctx, appID)
 	if err != nil {
 		http.Redirect(w, r, "/error", 302)
 		return
@@ -127,9 +140,17 @@ func AppDetail(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 		r.URL.RequestURI(),
 		appInfo.MainImage,
 	)
-	preload.AppInfo = NewAppInfoView(ctx, appInfo)
+	preload.AppInfo = appInfo
 
 	ExecuteTemplate(ctx, w, r, "app/detail", preload)
+}
+
+func appDetail(ctx context.Context, appID string) (AppInfoView, error) {
+	appInfo, err := models.AppsInfoTable.FindID(ctx, appID)
+	if err != nil {
+		return AppInfoView{}, err
+	}
+	return NewAppInfoView(ctx, appInfo), nil
 }
 
 type AppRegisterResponse struct {

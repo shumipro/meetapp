@@ -57,6 +57,7 @@ export default class RegisterApp extends _FormMixin {
                 'githubUrl': { type: 'url' },
                 'meetingArea': { type: 'select' },
                 'meetingFrequency': { type: 'select' },
+                'projectState': { type: 'select' },
                 'projectStartDate': { type: 'date' },
                 'projectReleaseDate': { type: 'date' }
             }

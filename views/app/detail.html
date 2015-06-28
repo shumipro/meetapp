@@ -14,9 +14,14 @@
                 <div class="ma-layout-col-left">
                     <div class="ma-infobox">
                         <div class="ma-infobox-logo">
-                            <a href="{{ .OriginalImage .AppInfo.MainImage }}" target="_blank">
-                                <img src="{{ .AppInfo.MainImage }}" class="sectionImg">
-                            </a>
+                            <div class="ma-image-ribon">
+                                <a href="{{ .OriginalImage .AppInfo.MainImage }}" target="_blank">
+                                    <img src="{{ .AppInfo.MainImage }}" class="sectionImg">
+                                    {{if eq .AppInfo.ProjectState.ID "1" }}
+                                    <p><span>募集中</span></p>
+                                    {{end}}
+                                </a>
+                            </div>
                             <div class="ma-star-wrap text-center">
                                 <div>
                                 {{if .AppInfo.Stared }}
@@ -57,6 +62,7 @@
                             <dl>
                                 <dt>ミーティング場所:</dt><dd>{{ .AppInfo.Area }}</dd>
                                 <dt>ミーティング頻度:</dt><dd>{{ .AppInfo.Frequency }}</dd>
+                                <dt>プロジェクトステータス:</dt><dd>{{ .AppInfo.ProjectState }}</dd>
                                 <!-- <dt>プロジェクト開始日:</dt><dd>{{with .AppInfo.StartDate }}{{ . }}{{else}} - {{end}}</dd>
                                 <dt>リリース予定日:</dt><dd>{{with .AppInfo.ReleaseDate }}{{ . }}{{else}} - {{end}}</dd> -->
                             </dl>
