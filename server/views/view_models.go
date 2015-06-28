@@ -64,6 +64,11 @@ func NewAppInfoView(ctx context.Context, appInfo models.AppInfo) AppInfoView {
 		a.StarUsers[idx] = u
 	}
 
+	// projectStateあと追加なので未設定の場合は募集中にする対応
+	if string(a.ProjectState) == "" {
+		a.ProjectState = "1" // "募集中"
+	}
+
 	return a
 }
 
