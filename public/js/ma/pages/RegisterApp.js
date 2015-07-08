@@ -96,6 +96,20 @@ export default class RegisterApp extends _FormMixin {
             $btn.parent().parent().find('input[type="text"]').val('')
             $btn.hide()
         })
+        // setup markdown preview
+        $('.ma-markdown-preview-link').on('click', () => {
+            $('.ma-markdown-preview-input-container').toggle()
+            $('.ma-markdown-preview-display-container').toggle()
+            // call POST API
+            var data = $('#ma_register_form_description').val()
+            this.postPreview(data).then((res) => {
+                $('.ma-markdown-preview-display').html(res)
+            })
+        })
+        $('.ma-markdown-preview-back-link').on('click', () => {
+            $('.ma-markdown-preview-input-container').toggle()
+            $('.ma-markdown-preview-display-container').toggle()
+        })
     }
 
     createCurrentMemberEntry(item) {
@@ -211,6 +225,14 @@ export default class RegisterApp extends _FormMixin {
             alert("Error")
             this._requesting = false
             this._$submit.val(this._orgSubmitLabel)
+        })
+    }
+
+    postPreview(data) {
+        return $.ajax({
+            url: '/markdown/preview',
+            type: 'post',
+            data: data
         })
     }
 }
