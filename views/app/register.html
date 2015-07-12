@@ -31,8 +31,16 @@
                             <select id="ma_register_form_platform" name="platform" class="form-control ma-constant-select" data-constant="platform" data-default-value="{{ .AppInfo.Platform.ID }}"></select>
                         </div>
                         <div class="col-xs-6 form-group">
-                            <label>説明 (Markdown記法が使用できます)</label>
-                            <textarea id="ma_register_form_description" name="description" class="form-control" rows="8">{{ .AppInfo.Description }}</textarea>
+                            <div class="ma-markdown-preview-input-container">
+                                <label>説明 (Markdown記法が使用できます)</label>
+                                <a class="ma-right-text ma-markdown-preview-link" href="javascript:;">プレビュー</a>
+                                <textarea id="ma_register_form_description" name="description" class="form-control" rows="10">{{ .AppInfo.Description }}</textarea>
+                            </div>
+                            <div class="ma-markdown-preview-display-container" style="display: none;">
+                                <label>説明 (Markdown記法が使用できます)</label>
+                                <a class="ma-right-text ma-markdown-preview-back-link" href="javascript:;">入力に戻る</a>
+                                <div class="ma-markdown-preview-display sectionDesc ma-mark-down"></div>
+                            </div>
                         </div>
                         <div class="col-xs-6 form-group">
                             <label>カテゴリ</label>
