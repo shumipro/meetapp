@@ -5,7 +5,7 @@ import (
 	"net/http"
 
 	"github.com/guregu/kami"
-	"github.com/shumipro/meetapp/server/errors"
+	"github.com/kyokomi/goroku"
 	"golang.org/x/net/context"
 )
 
@@ -22,7 +22,9 @@ func executeError(ctx context.Context, w http.ResponseWriter, r *http.Request, e
 
 	if err != nil {
 		log.Println("ERROR!", err)
-		errors.SendAirbrake(ctx, err, r)
+		if airbrake, ok := goroku.Airbrake(ctx); ok {
+			airbrake.Notify(err, r)
+		}
 		preload.SubTitle = err.Error()
 	}
 
