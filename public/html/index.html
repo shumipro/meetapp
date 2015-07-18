@@ -1,53 +1,77 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-<title>MeetApp</title>
+<title>MeetApp - 開発アイデアを実現する仲間を探そう</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-<link rel="shortcut icon" href="favicon.png">
+
+<meta name="description" content="MeetAppは趣味でアプリ・サービスの開発をしたいデザイナー・エンジニアと、開発のアイデアを持っている企画者のマッチングサービスです。MeetAppであなたの開発アイデアを実現する仲間を探しましょう。">
+<meta property="og:description" content="MeetAppは趣味でアプリ・サービスの開発をしたいデザイナー・エンジニアと、開発のアイデアを持っている企画者のマッチングサービスです。MeetAppであなたの開発アイデアを実現する仲間を探しましょう。">
+<meta name="keywords" content="meetapp, 趣味, 開発, アプリ, プログラミング, サービス, 求人, 企画, エンジニア, デザイナー, hobby, app, development, job, engineer, designer">
+<meta property="og:title" content="MeetApp - 開発アイデアを実現する仲間を探そう">
+
+<meta property="og:image" content="/img/topbanner.jpg">
+
+<meta property="og:url" content="https://meetapp.tokyo">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="MeetApp">
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@meetapp_tokyo" />
+<link href="https://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+<link rel="shortcut icon" href="/favicon.ico">
 <link rel="stylesheet" href="/css/main.css">
+
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="fa fa-bars fa-lg"></span>
-                    </button>
-                    <a class="navbar-brand" href="/">
-                    <img src="/img/logo.png" alt="" class="logo">
-                    </a>
-                </div>
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a href="/about">使い方</a></li>
-                        <li><a href="/app/list">開発アイデアを探す</a></li>
-                        <li><a href="/app/login">ログイン・登録</a></li>
-                        <li class="dropdown">
-                            <a data-toggle="dropdown" class="dropdown-toggle" role="button" href="#">
-                                <span class="ma-login-username">
-                                    <img class="img-rounded" src="https://graph.facebook.com/10152160532855662/picture?type=square">
-                                </span>
-                                <span id="dropDownLoginName">Takuya Tejima</span><b class="caret"></b>
-                            </a>
-                            <ul role="menu" class="dropdown-menu ma-login-dropdown">
-                                <li role="presentation"><a href="/mypage">マイページ</a></li>
-                                <li role="presentation"><a href="/app/register">アイデア登録</a></li>
-                                <li role="presentation"><a href="/logout">ログアウト</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
+        <nav class="navbar navbar-default navbar-fixed-top " role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            
+            <div class="ma-nav-mobile">
+                
+                <span class="ma-nav-mobile-dropdown dropdown ma-nav-notification" style="visibility: hidden;">
+                    <a data-toggle="dropdown" class="ma-nav-notification-link dropdown-toggle" role="button" href="javascript:;"><span class="badge">0</span></a>
+                    <ul role="menu" class="dropdown-menu pull-right ma-nav-notification-dropdown"></ul>
+                </span>
+                
+                <button class="ma-nav-mobile-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="fa fa-bars fa-lg">Menu <b class="caret"></b></span>
+                    <span class="ma-nav-login-profile-image">
+                        <img class="img-rounded" src="/img/no_img/no_img_1.png"><b class="caret"></b>
+                    </span>
+                </button>
             </div>
-        </nav>
-
-        <div class="tp-banner-container">
-            <div class="ma-top-banner">
-                <img src="/img/topbanner.png">
-            </div>
+            
+            <a class="navbar-brand" href="/">
+            <img src="/img/logo.png" alt="" class="logo">
+            </a>
         </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/about">使い方</a></li>
+                <li><a href="/app/list">開発アイデアを探す</a></li>
+
+                
+                
+                <li><a href="/login">開発アイデアを登録する</a></li>
+                <li><a href="/login">ログイン・登録</a></li>
+                
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="tp-banner-container">
+    <div class="ma-top-banner" style=" ">
+        <img src="/img/topbanner.jpg">
+    </div>
+</div>
+
     </header>
 
     <div class="wrapper">
@@ -58,70 +82,94 @@
                     <div class="divider"></div>
                 </div>
                 <div class="row">
-                    <div class="col-md-3 col-sm-3 col-xs-6 ma-app-tile-wrap">
-                        <a href="/app/detail?id=001">
-                        <div class="ma-app-tile">
-                            <div class="ma-app-tile-image">
-                                <img src="/img/sample1.png" width="200" height="150" alt="Meet App">
-                            </div>
-                            <div class="ma-app-tile-title">Meet App - MeetAppは趣味アプリ開発を楽しくします</div>
-                            <div class="ma-app-tile-toolbar">
-                                <figure class="ma-app-star-count">
-                                    <figcaption class="star">★</figcaption>
-                                    <strong class="count">125</strong>
-                                </figure>
-                            </div>
-                        </div>
-                        </a>
-                    </div>
-                    <div class="col-md-3 col-sm-3 col-xs-6 ma-app-tile-wrap">
-                        <a href="/app/detail?id=001">
-                        <div class="ma-app-tile">
-                            <div class="ma-app-tile-image">
-                                <img src="/img/sample1.png" width="200" height="150" alt="Meet App">
-                            </div>
-                            <div class="ma-app-tile-title">Meet App - MeetAppは趣味アプリ開発を楽しくします</div>
-                            <div class="ma-app-tile-toolbar">
-                                <figure class="ma-app-star-count">
-                                    <figcaption class="star">★</figcaption>
-                                    <strong class="count">125</strong>
-                                </figure>
-                            </div>
-                        </div>
-                        </a>
-                    </div>
-                    <div class="col-md-3 col-sm-3 col-xs-6 ma-app-tile-wrap">
-                        <a href="/app/detail?id=001">
-                        <div class="ma-app-tile">
-                            <div class="ma-app-tile-image">
-                                <img src="/img/sample1.png" width="200" height="150" alt="Meet App">
-                            </div>
-                            <div class="ma-app-tile-title">Meet App - MeetAppは趣味アプリ開発を楽しくします</div>
-                            <div class="ma-app-tile-toolbar">
-                                <figure class="ma-app-star-count">
-                                    <figcaption class="star">★</figcaption>
-                                    <strong class="count">125</strong>
-                                </figure>
-                            </div>
-                        </div>
-                        </a>
-                    </div>
-                    <div class="col-md-3 col-sm-3 col-xs-6 ma-app-tile-wrap">
-                        <a href="/app/detail?id=001">
-                        <div class="ma-app-tile">
-                            <div class="ma-app-tile-image">
-                                <img src="/img/sample1.png" width="200" height="150" alt="Meet App">
-                            </div>
-                            <div class="ma-app-tile-title">Meet App - MeetAppは趣味アプリ開発を楽しくします</div>
-                            <div class="ma-app-tile-toolbar">
-                                <figure class="ma-app-star-count">
-                                    <figcaption class="star">★</figcaption>
-                                    <strong class="count">125</strong>
-                                </figure>
-                            </div>
-                        </div>
-                        </a>
-                    </div>
+                    
+                        <div class="col-md-3 col-sm-3 col-xs-6 ma-app-tile-wrap">
+    <a href="/app/detail/b1a1d5ff-e9e2-4695-9070-30c5dc7bb2a6">
+        <div class="ma-app-tile">
+            <div class="ma-app-tile-image">
+                <img src="/img/no_img/no_img_1.png" alt="募集〜">
+            </div>
+            <div class="ma-app-tile-title">募集〜</div>
+            <div class="ma-app-tile-toolbar">
+                <figure class="ma-app-star-count">
+                    <figcaption class="star">★</figcaption>
+                    <strong class="count">0</strong>
+                </figure>
+                <span class="ma-app-comment-count">
+                    <img class="comment" src="https://res.cloudinary.com/hcod0wyyv/image/upload/img/icon-comment.png">
+                    <strong class="count">0</strong>
+                </span>
+            </div>
+        </div>
+    </a>
+</div>
+                    
+                        <div class="col-md-3 col-sm-3 col-xs-6 ma-app-tile-wrap">
+    <a href="/app/detail/893bde96-6ab9-4bc2-92db-d5022ef98ee1">
+        <div class="ma-app-tile">
+            <div class="ma-app-tile-image">
+                <img src="/img/no_img/no_img_1.png" alt="aa">
+            </div>
+            <div class="ma-app-tile-title">aa</div>
+            <div class="ma-app-tile-toolbar">
+                <figure class="ma-app-star-count">
+                    <figcaption class="star">★</figcaption>
+                    <strong class="count">0</strong>
+                </figure>
+                <span class="ma-app-comment-count">
+                    <img class="comment" src="https://res.cloudinary.com/hcod0wyyv/image/upload/img/icon-comment.png">
+                    <strong class="count">0</strong>
+                </span>
+            </div>
+        </div>
+    </a>
+</div>
+                    
+                        <div class="col-md-3 col-sm-3 col-xs-6 ma-app-tile-wrap">
+    <a href="/app/detail/8e1af6ce-26d7-4684-956a-5466e0f6faab">
+        <div class="ma-app-tile">
+            <div class="ma-app-tile-image">
+                <img src="/img/no_img/no_img_1.png" alt="From twitter account">
+            </div>
+            <div class="ma-app-tile-title">From twitter account</div>
+            <div class="ma-app-tile-toolbar">
+                <figure class="ma-app-star-count">
+                    <figcaption class="star">★</figcaption>
+                    <strong class="count">1</strong>
+                </figure>
+                <span class="ma-app-comment-count">
+                    <img class="comment" src="https://res.cloudinary.com/hcod0wyyv/image/upload/img/icon-comment.png">
+                    <strong class="count">0</strong>
+                </span>
+            </div>
+        </div>
+    </a>
+</div>
+                    
+                        <div class="col-md-3 col-sm-3 col-xs-6 ma-app-tile-wrap">
+    <a href="/app/detail/f56d830b-ec5a-42d1-a892-72874a41cfa3">
+        <div class="ma-app-tile">
+            <div class="ma-app-tile-image">
+                <img src="/img/no_img/no_img_1.png" alt="twitter!">
+            </div>
+            <div class="ma-app-tile-title">twitter!</div>
+            <div class="ma-app-tile-toolbar">
+                <figure class="ma-app-star-count">
+                    <figcaption class="star">★</figcaption>
+                    <strong class="count">0</strong>
+                </figure>
+                <span class="ma-app-comment-count">
+                    <img class="comment" src="https://res.cloudinary.com/hcod0wyyv/image/upload/img/icon-comment.png">
+                    <strong class="count">0</strong>
+                </span>
+            </div>
+        </div>
+    </a>
+</div>
+                    
+                </div>
+                <div class="text-center">
+                    <a href="/app/list?orderBy=new"><h4>もっと見る</h4></a>
                 </div>
             </div>
         </section>
@@ -132,70 +180,94 @@
                     <div class="divider"></div>
                 </div>
                 <div class="row">
-                    <div class="col-md-3 col-sm-3 col-xs-6 ma-app-tile-wrap">
-                        <a href="/app/detail?id=001">
-                        <div class="ma-app-tile">
-                            <div class="ma-app-tile-image">
-                                <img src="/img/sample1.png" width="200" height="150" alt="Meet App">
-                            </div>
-                            <div class="ma-app-tile-title">Meet App - MeetAppは趣味アプリ開発を楽しくします</div>
-                            <div class="ma-app-tile-toolbar">
-                                <figure class="ma-app-star-count">
-                                    <figcaption class="star">★</figcaption>
-                                    <strong class="count">125</strong>
-                                </figure>
-                            </div>
-                        </div>
-                        </a>
-                    </div>
-                    <div class="col-md-3 col-sm-3 col-xs-6 ma-app-tile-wrap">
-                        <a href="/app/detail?id=001">
-                        <div class="ma-app-tile">
-                            <div class="ma-app-tile-image">
-                                <img src="/img/sample1.png" width="200" height="150" alt="Meet App">
-                            </div>
-                            <div class="ma-app-tile-title">Meet App - MeetAppは趣味アプリ開発を楽しくします</div>
-                            <div class="ma-app-tile-toolbar">
-                                <figure class="ma-app-star-count">
-                                    <figcaption class="star">★</figcaption>
-                                    <strong class="count">125</strong>
-                                </figure>
-                            </div>
-                        </div>
-                        </a>
-                    </div>
-                    <div class="col-md-3 col-sm-3 col-xs-6 ma-app-tile-wrap">
-                        <a href="/app/detail?id=001">
-                        <div class="ma-app-tile">
-                            <div class="ma-app-tile-image">
-                                <img src="/img/sample1.png" width="200" height="150" alt="Meet App">
-                            </div>
-                            <div class="ma-app-tile-title">Meet App - MeetAppは趣味アプリ開発を楽しくします</div>
-                            <div class="ma-app-tile-toolbar">
-                                <figure class="ma-app-star-count">
-                                    <figcaption class="star">★</figcaption>
-                                    <strong class="count">125</strong>
-                                </figure>
-                            </div>
-                        </div>
-                        </a>
-                    </div>
-                    <div class="col-md-3 col-sm-3 col-xs-6 ma-app-tile-wrap">
-                        <a href="/app/detail?id=001">
-                        <div class="ma-app-tile">
-                            <div class="ma-app-tile-image">
-                                <img src="/img/sample1.png" width="200" height="150" alt="Meet App">
-                            </div>
-                            <div class="ma-app-tile-title">Meet App - MeetAppは趣味アプリ開発を楽しくします</div>
-                            <div class="ma-app-tile-toolbar">
-                                <figure class="ma-app-star-count">
-                                    <figcaption class="star">★</figcaption>
-                                    <strong class="count">125</strong>
-                                </figure>
-                            </div>
-                        </div>
-                        </a>
-                    </div>
+                    
+                        <div class="col-md-3 col-sm-3 col-xs-6 ma-app-tile-wrap">
+    <a href="/app/detail/d08a5567-3097-4845-aec2-fdcb6f0946b4">
+        <div class="ma-app-tile">
+            <div class="ma-app-tile-image">
+                <img src="https://res.cloudinary.com/djhh5sokv/image/upload/w_160/7a0b61e4-bfec-453c-bf23-d454b9e61681_1432085777246955252" alt="hoge">
+            </div>
+            <div class="ma-app-tile-title">hoge</div>
+            <div class="ma-app-tile-toolbar">
+                <figure class="ma-app-star-count">
+                    <figcaption class="star">★</figcaption>
+                    <strong class="count">2</strong>
+                </figure>
+                <span class="ma-app-comment-count">
+                    <img class="comment" src="https://res.cloudinary.com/hcod0wyyv/image/upload/img/icon-comment.png">
+                    <strong class="count">6</strong>
+                </span>
+            </div>
+        </div>
+    </a>
+</div>
+                    
+                        <div class="col-md-3 col-sm-3 col-xs-6 ma-app-tile-wrap">
+    <a href="/app/detail/83b4e384-e5aa-4580-bd02-f50801cfc3b0">
+        <div class="ma-app-tile">
+            <div class="ma-app-tile-image">
+                <img src="/img/no_img/no_img_1.png" alt="1">
+            </div>
+            <div class="ma-app-tile-title">1</div>
+            <div class="ma-app-tile-toolbar">
+                <figure class="ma-app-star-count">
+                    <figcaption class="star">★</figcaption>
+                    <strong class="count">1</strong>
+                </figure>
+                <span class="ma-app-comment-count">
+                    <img class="comment" src="https://res.cloudinary.com/hcod0wyyv/image/upload/img/icon-comment.png">
+                    <strong class="count">0</strong>
+                </span>
+            </div>
+        </div>
+    </a>
+</div>
+                    
+                        <div class="col-md-3 col-sm-3 col-xs-6 ma-app-tile-wrap">
+    <a href="/app/detail/4253d66b-5377-4454-9c10-55aa2331c77c">
+        <div class="ma-app-tile">
+            <div class="ma-app-tile-image">
+                <img src="/img/no_img/no_img_0.png" alt="2">
+            </div>
+            <div class="ma-app-tile-title">2</div>
+            <div class="ma-app-tile-toolbar">
+                <figure class="ma-app-star-count">
+                    <figcaption class="star">★</figcaption>
+                    <strong class="count">1</strong>
+                </figure>
+                <span class="ma-app-comment-count">
+                    <img class="comment" src="https://res.cloudinary.com/hcod0wyyv/image/upload/img/icon-comment.png">
+                    <strong class="count">9</strong>
+                </span>
+            </div>
+        </div>
+    </a>
+</div>
+                    
+                        <div class="col-md-3 col-sm-3 col-xs-6 ma-app-tile-wrap">
+    <a href="/app/detail/8e1af6ce-26d7-4684-956a-5466e0f6faab">
+        <div class="ma-app-tile">
+            <div class="ma-app-tile-image">
+                <img src="/img/no_img/no_img_1.png" alt="From twitter account">
+            </div>
+            <div class="ma-app-tile-title">From twitter account</div>
+            <div class="ma-app-tile-toolbar">
+                <figure class="ma-app-star-count">
+                    <figcaption class="star">★</figcaption>
+                    <strong class="count">1</strong>
+                </figure>
+                <span class="ma-app-comment-count">
+                    <img class="comment" src="https://res.cloudinary.com/hcod0wyyv/image/upload/img/icon-comment.png">
+                    <strong class="count">0</strong>
+                </span>
+            </div>
+        </div>
+    </a>
+</div>
+                    
+                </div>
+                <div class="text-center">
+                    <a href="/app/list?orderBy=popular"><h4>もっと見る</h4></a>
                 </div>
             </div>
         </section>
@@ -205,7 +277,7 @@
                     <h1>職種別に探す</h1>
                     <div class="divider"></div>
                 </div>
-                <div class="row section-container ma-constant-list" data-constant="occupation"></div>
+                <div class="section-container ma-constant-icon-list" data-constant="occupation"></div>
             </div>
         </section>
         <section class="odd">
@@ -214,9 +286,10 @@
                     <h1>プラットフォーム別に探す</h1>
                     <div class="divider"></div>
                 </div>
-                <div class="row section-container ma-constant-list" data-constant="platform"></div>
+                <div class="section-container ma-constant-icon-list" data-constant="platform"></div>
             </div>
         </section>
+        
         <section class="even">
             <div class="container">
                 <div class="section-heading">
@@ -227,183 +300,128 @@
                     <a class="FbBtn" href="/login/facebook">
                        <div class="FbBtnLabel">Facebookでログイン・新規登録</div>
                     </a>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <a class="TwBtn" href="/login/twitter">
+                       <div class="TwBtnLabel">Twitterでログイン・新規登録</div>
+                    </a>
                     <div class="sectionDesc">
-                        <p>MeetAppが許可無くFacebook等へ投稿することはありません。</p>
+                        <p>MeetAppが許可無くFacebook/Twitter等へ投稿することはありません。</p>
                     </div>
                 </div>
             </div>
         </section>
+        
         <section class="odd">
             <div class="container">
                 <div class="section-heading">
-                    <h1>Adsense</h1>
+                    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                    
+                    <ins class="adsbygoogle"
+                         style="display:block"
+                         data-ad-client="ca-pub-9926247110273834"
+                         data-ad-slot="8252950503"
+                         data-ad-format="auto"></ins>
+                    <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
                 </div>
             </div>
         </section>
         <footer>
             <div class="container">
-                <div class="social">
-                    <div id="fb-root"></div>
-                    <script>(function(d, s, id) {
-                      var js, fjs = d.getElementsByTagName(s)[0];
-                      if (d.getElementById(id)) return;
-                      js = d.createElement(s); js.id = id;
-                      js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.3&appId=561154400651504";
-                      fjs.parentNode.insertBefore(js, fjs);
-                    }(document, 'script', 'facebook-jssdk'));</script>
-                        <div class="fb-like" data-href="https://meetapp-dev.herokuapp.com" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div>
-                        <a href="https://twitter.com/share" class="twitter-share-button" data-url="https://meetapp-dev.herokuapp.com/" data-via="" data-lang="en">Tweet</a>
-                        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-                </div>
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="col">
-                           <h4>MeetAppについて</h4>
-                               <ul>
-                                    <li><a href="/getting_started">このサービスの使い方</a></li>
-                                    <li><a href="/faq">よくある質問</a></li>
-                                    <li><a href="/terms">利用規約</a></li>
-                                    <li><a href="/privacy">プライバシーポリシー</a></li>
-                                    <li><a href="/contacts">お問い合わせ</a></li>
-                                </ul>
-                         </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="col">
-                            <h4>カテゴリ別に探す</h4>
-                            <div>
-                              <ul class="ma-constant-footer-list" data-constant="category"></ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="col">
-                            <h4>エリア別に探す</h4>
-                            <div>
-                              <ul class="ma-constant-footer-list" data-constant="meetingArea"></ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="rights">
-                    <p>Copyright &copy; 2015</p>
-                    <p>Created by DevMorning</p>
+    <div class="social">
+        <div id="fb-root"></div>
+        <script>(function(d, s, id) {
+          var js, fjs = d.getElementsByTagName(s)[0];
+          if (d.getElementById(id)) return;
+          js = d.createElement(s); js.id = id;
+          js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.3&appId=561154400651504";
+          fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));</script>
+        <div class="fb-like" data-href="https://meetapp.tokyo/" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div>
+        <div class="tw-share">
+          <a href="https://twitter.com/share" class="twitter-share-button" data-url="https://meetapp.tokyo/" data-via="" data-lang="en">Tweet</a>
+        </div>
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="col">
+               <h4>MeetAppについて</h4>
+                   <ul>
+                        <li><a href="/about">このサービスの使い方</a></li>
+                        
+                        <li><a href="/terms">利用規約</a></li>
+                        <li><a href="/privacy">プライバシーポリシー</a></li>
+                        <li><a href="/contact">お問い合わせ</a></li>
+                    </ul>
+             </div>
+        </div>
+        <div class="col-md-4">
+            <div class="col">
+                <h4>カテゴリ別に探す</h4>
+                <div>
+                  <ul class="ma-constant-footer-list" data-constant="category"></ul>
                 </div>
             </div>
+        </div>
+        <div class="col-md-4">
+            <div class="col">
+                <h4>エリア別に探す</h4>
+                <div>
+                  <ul class="ma-constant-footer-list" data-constant="area"></ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="rights">
+        <p>Copyright &copy; 2015</p>
+        <p>Created by <a href="https://devmorning.connpass.com/" target="_blank">DevMorning</a></p>
+    </div>
+</div>
         </footer>
     </div>
-<script>
-// define global constants
-var ma = {
-    config: {
-        user: {
-            id: "10152160532855662",
-            name: "Takuya Tejima"
-        }
-    },
+    <script>
+
+var ma = {};
+ma.config = {"static_path":"/","user":{"ID":"","Name":"","ImageName":"","ImageURL":"","LargeImageURL":"","Comment":"","HomePageURL":"","GitHubURL":"","FBUser":{"id":"","name":"","firstName":"","lastName":"","gender":"","locale":"","link":"","verified":false,"timezone":0,"updatedTime":""},"TwitterUser":{"contributors_enabled":false,"created_at":"","default_profile":false,"default_profile_image":false,"description":"","entities":{"Hashtags":null,"Urls":null,"Url":{"Urls":null},"User_mentions":null,"Media":null},"favourites_count":0,"follow_request_sent":false,"followers_count":0,"following":false,"friends_count":0,"geo_enabled":false,"id":0,"id_str":"","is_translator":false,"lang":"","listed_count":0,"location":"","name":"","notifications":false,"profile_background_color":"","profile_background_image_url":"","profile_background_image_url_https":"","profile_background_tile":false,"profile_banner_url":"","profile_image_url":"","profile_image_url_https":"","profile_link_color":"","profile_sidebar_border_color":"","profile_sidebar_fill_color":"","profile_text_color":"","profile_use_background_image":false,"protected":false,"screen_name":"","show_all_inline_media":false,"status":null,"statuses_count":0,"time_zone":"","url":"","utc_offset":0,"verified":false,"withheld_in_countries":"","withheld_scope":""}},"notification":{"UserID":"","Notifications":[]}};
+ma.constants = {"area":[{"id":"0","name":"まだ決めていない"},{"id":"1","name":"渋谷"},{"id":"2","name":"六本木"},{"id":"3","name":"恵比寿"},{"id":"4","name":"新宿"},{"id":"5","name":"横浜"},{"id":"6","name":"池袋"},{"id":"7","name":"品川"},{"id":"8","name":"五反田"},{"id":"9","name":"有楽町"},{"id":"10","name":"大阪"},{"id":"11","name":"福岡"},{"id":"12","name":"その他"}],"category":[{"id":"0","name":"まだ決めていない"},{"id":"1","name":"ブック"},{"id":"2","name":"ビジネス"},{"id":"3","name":"カタログ"},{"id":"4","name":"教育"},{"id":"5","name":"エンターテイメント"},{"id":"6","name":"ファイナンス"},{"id":"7","name":"フード"},{"id":"8","name":"ゲーム"},{"id":"9","name":"ヘルスケア"},{"id":"10","name":"ライフスタイル"},{"id":"11","name":"メディカル"},{"id":"12","name":"ミュージック"},{"id":"13","name":"ナビゲーション"},{"id":"14","name":"ニュース"},{"id":"15","name":"写真/ビデオ"},{"id":"16","name":"仕事効率化"},{"id":"17","name":"辞書/辞典"},{"id":"18","name":"SNS"},{"id":"19","name":"スポーツ"},{"id":"20","name":"旅行"},{"id":"21","name":"ユーティリティ"},{"id":"22","name":"天気"},{"id":"23","name":"その他"}],"meetingFrequency":[{"id":"0","name":"まだ決めていない"},{"id":"1","name":"週１回程度"},{"id":"2","name":"週2, 3回程度"},{"id":"3","name":"毎日"},{"id":"4","name":"月1回程度"},{"id":"5","name":"数ヶ月に1回程度"},{"id":"6","name":"不定期"},{"id":"7","name":"なし"},{"id":"8","name":"その他"}],"occupation":[{"id":"0","name":"まだ決めていない"},{"id":"1","name":"企画"},{"id":"2","name":"デザイナー"},{"id":"3","name":"サーバーエンジニア"},{"id":"4","name":"スマートフォンエンジニア"},{"id":"5","name":"フロントエンドエンジニア"},{"id":"6","name":"Webエンジニア"},{"id":"7","name":"インフラエンジニア"},{"id":"8","name":"フルスタックエンジニア"},{"id":"9","name":"プロジェクトマネージャー"},{"id":"10","name":"営業"},{"id":"11","name":"おてつだい"},{"id":"12","name":"その他"}],"pLang":[{"id":"0","name":"まだ決めていない"},{"id":"1","name":"Java"},{"id":"2","name":"JavaScript"},{"id":"3","name":"Swift"},{"id":"4","name":"Objective-c"},{"id":"5","name":"Go"},{"id":"6","name":"PHP"},{"id":"7","name":"Python"},{"id":"8","name":"Ruby"},{"id":"9","name":"Perl"},{"id":"10","name":"C"},{"id":"11","name":"C#"},{"id":"12","name":"C++"},{"id":"13","name":"Scala"},{"id":"14","name":"SQL"},{"id":"15","name":"VB"},{"id":"16","name":"MATLAB"},{"id":"17","name":"その他"}],"platform":[{"id":"0","name":"まだ決めていない"},{"id":"1","name":"Web"},{"id":"2","name":"iOS"},{"id":"3","name":"Android"},{"id":"4","name":"Mac"},{"id":"5","name":"Apple Watch"},{"id":"6","name":"Windows"},{"id":"7","name":"Linux"},{"id":"8","name":"Chrome"},{"id":"9","name":"その他"}],"projectState":[{"id":"1","name":"募集中"},{"id":"2","name":"募集完了"},{"id":"3","name":"開発完了"},{"id":"4","name":"一時休止"}]};
+ma.messages = {
     constants: {
-        platform: [
-            {id: "1", name: "Web"},
-            {id: "2", name: "iOS"},
-            {id: "3", name: "Android"},
-            {id: "4", name: "Mac"},
-            {id: "5", name: "Apple Watch"},
-            {id: "6", name: "Windows"},
-            {id: "7", name: "Linux"},
-            {id: "8", name: "Chrome"},
-            {id: "9", name: "その他"}
-        ],
-        category: [
-            {id: "1", name: "ブック"},
-            {id: "2", name: "ビジネス"},
-            {id: "3", name: "カタログ"},
-            {id: "4", name: "教育"},
-            {id: "5", name: "エンターテイメント"},
-            {id: "6", name: "ファイナンス"},
-            {id: "7", name: "フード"},
-            {id: "8", name: "ゲーム"},
-            {id: "9", name: "ヘルスケア"},
-            {id: "10", name: "ライフスタイル"},
-            {id: "11", name: "メディカル"},
-            {id: "12", name: "ミュージック"},
-            {id: "13", name: "ナビゲーション"},
-            {id: "14", name: "ニュース"},
-            {id: "15", name: "写真/ビデオ"},
-            {id: "16", name: "仕事効率化"},
-            {id: "17", name: "辞書/辞典"},
-            {id: "18", name: "SNS"},
-            {id: "19", name: "スポーツ"},
-            {id: "20", name: "旅行"},
-            {id: "21", name: "ユーティリティ"},
-            {id: "22", name: "天気"},
-            {id: "23", name: "その他"}
-        ],
-        pLang: [
-            {id: "1", name: "Java"},
-            {id: "2", name: "JavaScript"},
-            {id: "3", name: "Swift"},
-            {id: "4", name: "Objective-c"},
-            {id: "5", name: "Go"},
-            {id: "6", name: "PHP"},
-            {id: "7", name: "Python"},
-            {id: "8", name: "Ruby"},
-            {id: "9", name: "Perl"},
-            {id: "10", name: "C"},
-            {id: "11", name: "C#"},
-            {id: "12", name: "C++"},
-            {id: "13", name: "Scala"},
-            {id: "14", name: "SQL"},
-            {id: "15", name: "VB"},
-            {id: "16", name: "MATLAB"},
-            {id: "17", name: "その他"}
-        ],
-        meetingArea: [
-            {id: "1", name: "渋谷"},
-            {id: "2", name: "六本木"},
-            {id: "3", name: "恵比寿"},
-            {id: "4", name: "新宿"},
-            {id: "5", name: "横浜"},
-            {id: "6", name: "池袋"},
-            {id: "7", name: "品川"},
-            {id: "8", name: "五反田"},
-            {id: "9", name: "有楽町"},
-            {id: "10", name: "大阪"},
-            {id: "11", name: "福岡"},
-            {id: "12", name: "その他"}
-        ],
-        occupation: [
-            {id: "1", name: "企画"},
-            {id: "2", name: "デザイナー"},
-            {id: "3", name: "サーバーエンジニア"},
-            {id: "4", name: "スマートフォンエンジニア"},
-            {id: "5", name: "フロントエンドエンジニア"},
-            {id: "6", name: "Webエンジニア"},
-            {id: "7", name: "インフラエンジニア"},
-            {id: "8", name: "フルスタックエンジニア"},
-            {id: "9", name: "プロジェクトマネージャー"},
-            {id: "10", name: "営業"},
-            {id: "11", name: "おてつだい"},
-            {id: "12", name: "その他"}
-        ],
-        meetingFrequency: [
-            {id: "1", name: "週１回程度"},
-            {id: "2", name: "週2, 3回程度"},
-            {id: "3", name: "毎日"},
-            {id: "4", name: "月1回程度"},
-            {id: "5", name: "数ヶ月に1回程度"},
-            {id: "6", name: "不定期"},
-            {id: "7", name: "なし"},
-            {id: "8", name: "その他"}
-        ],
-        projectState: [
-            {id: "1", name: "募集中"},
-            {id: "2", name: "募集完了"},
-            {id: "3", name: "開発完了"},
-            {id: "4", name: " 一時休止"}
-        ]
+        platform: "プラットフォーム",
+        category: "カテゴリ",
+        pLang: "プログラミング言語",
+        meetingArea: "エリア",
+        occupation: "募集職種",
+        meetingFrequency: "ミーティング頻度",
+        projectState: "プロジェクトステータス"
+    },
+    props: {
+        
+        name: "アプリ名",
+        description: "説明",
+        platform: "プラットフォーム",
+        category: "カテゴリ",
+        pLang: "プログラミング言語",
+        keywords: "キーワード",
+        images: "画像URL",
+        currentMembers: "現在のメンバー構成",
+        recruitMembers: "募集したいメンバー",
+        demoUrl: "Demo URL",
+        githubUrl: "Github URL",
+        meetingArea: "ミーティング場所",
+        meetingFrequency: "ミーティング頻度",
+        projectState: "プロジェクトステータス",
+        projectStartDate: "プロジェクト開始日",
+        projectReleaseDate: "リリース予定日",
+        
+        Name: "名前",
+        Comment: "ひとこと",
+        HomePageURL: "ウェブサイトURL",
+        GitHubURL: "Github URL"
     }
 };
 </script>
-    <script src="/dist/main.js"></script>
+<script src="/dist/main.js"></script>
 </body>
 </html>
