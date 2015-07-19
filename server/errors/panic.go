@@ -7,11 +7,8 @@ import (
 
 	"github.com/guregu/kami"
 	"github.com/kyokomi/goroku"
-	"github.com/unrolled/render"
 	"golang.org/x/net/context"
 )
-
-var renderer = render.New(render.Options{})
 
 // PanicHandler 500 error
 func PanicHandler(ctx context.Context, w http.ResponseWriter, r *http.Request) {
@@ -21,8 +18,11 @@ func PanicHandler(ctx context.Context, w http.ResponseWriter, r *http.Request) {
 	fmt.Println(string(debug.Stack()))
 
 	// send airbrake
-	if airbrake, ok := goroku.Airbrake(ctx); ok {
-		airbrake.Notify(exception, r)
+	if n, ok := goroku.Airbrake(ctx); ok {
+		notice := n.Notice(exception, r, 3)
+		if err := n.SendNotice(notice); err != nil {
+			fmt.Println("gobrake failed (%s) reporting error: %v", err, exception)
+		}
 	}
 
 	//	renderer.JSON(w, 500, "Server Error")
