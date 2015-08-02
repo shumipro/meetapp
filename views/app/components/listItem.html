@@ -8,13 +8,10 @@
             </div>
         </div>
         <div class="ma-app-list-item-content">
-            <div class="ma-app-list-item-title">{{ .Name }}</div>
+            <div class="ma-app-list-item-title"><h4>{{ .Name }}</h4></div>
             <section class="ma-app-list-item-description">
-                {{ if .DescriptionMD }}
-                {{ .DescriptionMD }}
-                {{ else }}
-                {{ .Description }}
-                {{ end }}
+                <!-- show original text in list -->
+                <p>{{ .Description }}</p>
             </section>
             <section class="ma-app-list-item-member-wrap">
                 {{range .Members }}
