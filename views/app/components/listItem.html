@@ -1,8 +1,7 @@
 <li class="ma-app-list-item">
     <a href="/app/detail/{{ .ID }}">
-        <div class="ma-app-list-item-image">
+        <div class="ma-app-list-item-image" style="background-image: url('{{ .MainImage }}');">
             <div class="ma-image-ribon">
-                <img src="{{ .MainImage }}" alt="{{ .Name }}">
                 {{if eq .AppInfo.ProjectState.ID "1" }}
                 <p><span>募集中</span></p>
                 {{end}}

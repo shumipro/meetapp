@@ -1,7 +1,13 @@
 <div class="col-md-3 col-sm-3 col-xs-6 ma-app-tile-wrap">
     <a href="/app/detail/{{ .ID }}">
         <div class="ma-app-tile">
-            <div class="ma-app-tile-image" style="background-image: url('{{ .MainImage }}');"></div>
+            <div class="ma-app-tile-image" style="background-image: url('{{ .MainImage }}');">
+                <div class="ma-image-ribon">
+                {{if eq .ProjectState.ID "1" }}
+                    <p><span>募集中</span></p>
+                {{end}}
+                </div>
+            </div>
             <div class="ma-app-tile-title">{{ .Name }}</div>
             <div class="ma-app-tile-toolbar">
                 <figure class="ma-app-star-count">
