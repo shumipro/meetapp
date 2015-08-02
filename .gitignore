@@ -4,6 +4,7 @@ data/
 .DS_Store
 npm-debug.log
 configuration/config.js
+dump.rdb
 
 # idea
 .idea
