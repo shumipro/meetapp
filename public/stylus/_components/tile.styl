@@ -7,24 +7,36 @@
         border 1px solid #e9e9e9
         background-color #fff
         text-align center
-        border-radius(8px 8px 0 0)
+        box-shadow 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12)
+        border-radius(2px)
         
     .ma-app-tile-image
-        max-width 180px
-        height 134px
-        line-height 134px
+        height 180px
         margin 0 auto
-        img 
-            max-width 155px
-            max-height 132px
+        background-position center center
+        background-repeat no-repeat
+        background-size cover
+        position relative
+        width 100%
 
     .ma-app-tile-title
-        padding 4px
-        background #484a65
-        color #fff
+        // color #fff
         overflow hidden
         white-space nowrap
         text-overflow ellipsis
+        color rgba(0, 0, 0, 0.87)
+        font-size 16px
+        font-weight 500
+        letter-spacing 0
+        line-height 18px
+        overflow hidden
+        padding 16px
 
     .ma-app-tile-toolbar
-        padding 4px
+        border-top 1px solid rgba(0, 0, 0, 0.1)
+        background-color transparent
+        box-sizing border-box
+        font-size 16px
+        line-height normal
+        padding 8px
+        width 100%
