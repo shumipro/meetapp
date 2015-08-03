@@ -20,10 +20,11 @@
             </section>
         </div>
         <div class="ma-app-list-item-toolbar">
-            <div class="ma-tag">{{ .Category }}</div>
-            <div class="ma-tag">{{ .Platform }}</div>
-            <div class="ma-tag">{{ .Language }}</div>
-            <div class="ma-tag">{{ .Area }}</div>
+            <!-- skip to show ID 0 -->
+            {{if ne .Category.ID "0" }}<div class="ma-tag">{{ .Category }}</div>{{end}}
+            {{if ne .Platform.ID "0" }}<div class="ma-tag">{{ .Platform }}</div>{{end}}
+            {{if ne .Language.ID "0" }}<div class="ma-tag">{{ .Language }}</div>{{end}}
+            {{if ne .Area.ID "0" }}<div class="ma-tag">{{ .Area }}</div>{{end}}
             <span class="ma-star">
                 <span class="ma-star">
                     <figure class="ma-app-star-count">
