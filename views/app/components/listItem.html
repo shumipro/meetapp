@@ -1,21 +1,17 @@
 <li class="ma-app-list-item">
     <a href="/app/detail/{{ .ID }}">
-        <div class="ma-app-list-item-image">
+        <div class="ma-app-list-item-image" style="background-image: url('{{ .MainImage }}');">
             <div class="ma-image-ribon">
-                <img src="{{ .MainImage }}" alt="{{ .Name }}">
                 {{if eq .AppInfo.ProjectState.ID "1" }}
                 <p><span>募集中</span></p>
                 {{end}}
             </div>
         </div>
         <div class="ma-app-list-item-content">
-            <div class="ma-app-list-item-title">{{ .Name }}</div>
+            <div class="ma-app-list-item-title"><h4>{{ .Name }}</h4></div>
             <section class="ma-app-list-item-description">
-                {{ if .DescriptionMD }}
-                {{ .DescriptionMD }}
-                {{ else }}
-                {{ .Description }}
-                {{ end }}
+                <!-- show original text in list -->
+                <p>{{ .Description }}</p>
             </section>
             <section class="ma-app-list-item-member-wrap">
                 {{range .Members }}
@@ -24,10 +20,11 @@
             </section>
         </div>
         <div class="ma-app-list-item-toolbar">
-            <div class="ma-tag">{{ .Category }}</div>
-            <div class="ma-tag">{{ .Platform }}</div>
-            <div class="ma-tag">{{ .Language }}</div>
-            <div class="ma-tag">{{ .Area }}</div>
+            <!-- skip to show ID 0 -->
+            {{if ne .Category.ID "0" }}<div class="ma-tag">{{ .Category }}</div>{{end}}
+            {{if ne .Platform.ID "0" }}<div class="ma-tag">{{ .Platform }}</div>{{end}}
+            {{if ne .Language.ID "0" }}<div class="ma-tag">{{ .Language }}</div>{{end}}
+            {{if ne .Area.ID "0" }}<div class="ma-tag">{{ .Area }}</div>{{end}}
             <span class="ma-star">
                 <span class="ma-star">
                     <figure class="ma-app-star-count">
