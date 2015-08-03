@@ -22,8 +22,11 @@ func executeError(ctx context.Context, w http.ResponseWriter, r *http.Request, e
 
 	if err != nil {
 		log.Println("ERROR!", err)
-		if airbrake, ok := goroku.Airbrake(ctx); ok {
-			airbrake.Notify(err, r)
+		if n, ok := goroku.Airbrake(ctx); ok {
+			notice := n.Notice(err, r, 3)
+			if sendErr := n.SendNotice(notice); sendErr != nil {
+				log.Printf("gobrake failed (%s) reporting error: %v\n", sendErr, err)
+			}
 		}
 		preload.SubTitle = err.Error()
 	}

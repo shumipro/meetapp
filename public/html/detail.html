@@ -1,14 +1,16 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-<title>MeetApp - MeetApp</title>
+<title>MeetApp - 募集〜</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
 
 <meta name="description" content="このサービス自体のMeetAppです。
 
-機能拡張を手伝ってくれる方募集中！！
+機能拡張を手伝ってくれる方募集中！！ほげほげ  
+&lt;script&gt;alert(&#34;hoge&#34;)&lt;/script&gt;
 
 [&#34;GWハッカソンでMeetAppという趣味アプリ開発者のためのサービス作りました&#34;](http://www.tejitak.com/blog/?p=1430) という記事に開発概要は記載しております。
 
@@ -24,7 +26,8 @@
 ">
 <meta property="og:description" content="このサービス自体のMeetAppです。
 
-機能拡張を手伝ってくれる方募集中！！
+機能拡張を手伝ってくれる方募集中！！ほげほげ  
+&lt;script&gt;alert(&#34;hoge&#34;)&lt;/script&gt;
 
 [&#34;GWハッカソンでMeetAppという趣味アプリ開発者のためのサービス作りました&#34;](http://www.tejitak.com/blog/?p=1430) という記事に開発概要は記載しております。
 
@@ -39,11 +42,11 @@
 - Redis
 ">
 <meta name="keywords" content="meetapp, 趣味, 開発, アプリ, プログラミング, サービス, 求人, 企画, エンジニア, デザイナー, hobby, app, development, job, engineer, designer">
-<meta property="og:title" content="MeetApp - MeetApp">
+<meta property="og:title" content="MeetApp - 募集〜">
 
-<meta property="og:image" content="https://res.cloudinary.com/hcod0wyyv/image/upload/52708d7f-1961-412e-879e-15b4d473ebeb_1431557650545188095">
+<meta property="og:image" content="/img/no_img/no_img_1.png">
 
-<meta property="og:url" content="https://meetapp.tokyo/app/detail/ebdf283b-3c69-414a-8085-cfcc35b849dd">
+<meta property="og:url" content="https://meetapp.tokyo/app/detail/b1a1d5ff-e9e2-4695-9070-30c5dc7bb2a6">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="MeetApp">
 
@@ -56,7 +59,7 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-default navbar-fixed-top ma-nav-login" role="navigation">
+        <nav class="navbar navbar-default navbar-fixed-top " role="navigation">
     <div class="container">
         <div class="navbar-header">
             
@@ -70,53 +73,35 @@
                 <button class="ma-nav-mobile-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                     <span class="fa fa-bars fa-lg">Menu <b class="caret"></b></span>
                     <span class="ma-nav-login-profile-image">
-                        <img class="img-rounded" src="https://graph.facebook.com/10152855301715662/picture?type=square"><b class="caret"></b>
+                        <img class="img-rounded" src="/img/no_img/no_img_1.png"><b class="caret"></b>
                     </span>
                 </button>
             </div>
             
             <a class="navbar-brand" href="/">
-            <img src="https://res.cloudinary.com/hcod0wyyv/image/upload/img/logo.png" alt="" class="logo">
+            <img src="/img/logo.png" alt="" class="logo">
             </a>
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="/about">使い方</a></li>
-                <li><a href="/app/list">開発アイデアを探す</a></li>
+                <!-- <li><a href="/app/list">開発アイデアを探す</a></li> -->
 
                 
                 
-                <li><a href="/u/app/register">開発アイデアを登録する</a></li>
-                <li class="ma-nav-pc-menu ma-nav-notification" style="visibility: hidden;">
-                    <a data-toggle="dropdown" class="ma-nav-notification-link dropdown-toggle" role="button" href="javascript:;"><span class="badge">0</span></a>
-                    <ul role="menu" class="dropdown-menu ma-nav-notification-dropdown"></ul>
-                </li>
-                
-                <li class="ma-nav-pc-menu dropdown">
-                    <a data-toggle="dropdown" class="dropdown-toggle" role="button" href="#">
-                        <span class="ma-login-username">
-                            <img class="img-rounded" src="https://graph.facebook.com/10152855301715662/picture?type=square">
-                        </span>
-                        <span id="dropDownLoginName">Takuya Tejima</span><b class="caret"></b>
-                    </a>
-                    <ul role="menu" class="dropdown-menu ma-login-dropdown">
-                        <li role="presentation"><a href="/u/mypage">マイページ</a></li>
-                        <li role="presentation"><a href="/logout">ログアウト</a></li>
-                    </ul>
-                </li>
-                
-                <li class="ma-nav-mobile-menu" role="presentation"><a href="/u/mypage">マイページ</a></li>
-                <li class="ma-nav-mobile-menu" role="presentation"><a href="/logout">ログアウト</a></li>
+                <li><a href="/login">開発アイデアを登録する</a></li>
+                <li><a href="/login">ログイン・登録</a></li>
                 
             </ul>
         </div>
     </div>
+    <a href="/u/app/register" class="btn btn-primary btn-fab btn-register" title="開発アイデアを登録する">+</a>
 </nav>
 
 <div class="tp-banner-container">
     <div class="ma-top-banner" style="display: none;">
-        <img src="https://res.cloudinary.com/hcod0wyyv/image/upload/img/topbanner.jpg">
+        <img src="/img/topbanner.jpg">
     </div>
 </div>
 
@@ -128,74 +113,46 @@
                 <div class="ma-layout-col-left">
                     <div class="ma-infobox">
                         <div class="ma-infobox-logo">
-                            <a href="https://res.cloudinary.com/hcod0wyyv/image/upload/52708d7f-1961-412e-879e-15b4d473ebeb_1431557650545188095" target="_blank">
-                                <img src="https://res.cloudinary.com/hcod0wyyv/image/upload/w_160/52708d7f-1961-412e-879e-15b4d473ebeb_1431557650545188095" class="sectionImg">
-                            </a>
+                            <div class="ma-image-ribon">
+                                <a href="/img/no_img/no_img_1.png" target="_blank">
+                                    <img src="/img/no_img/no_img_1.png" class="sectionImg">
+                                    
+                                </a>
+                            </div>
                             <div class="ma-star-wrap text-center">
                                 <div>
                                 
                                     
-                                    <button class="ma-app-star-btn btn btn-primary" data-api="unstar" type="button"><i class="icon"></i><span>はずす</span></button>
+                                    <button class="ma-app-star-btn btn btn-primary" data-api="star" type="button"><i class="icon"></i><span>スターする</span></button>
                                 
                                 </div>
                                 <div>
                                     <figure class="ma-app-star-count">
                                         <figcaption class="star">★</figcaption>
-                                        <strong class="count">8</strong>
+                                        <strong class="count">0</strong>
                                     </figure>
                                 </div>
                                 <div class="ma-star-user-list-wrap">
-                                    
-                                    <a href="/mypage/other/52708d7f-1961-412e-879e-15b4d473ebeb" title="Takuya Tejima">
-                                        <img class="img-rounded ma-star-user-image" src="https://graph.facebook.com/10152855301715662/picture?type=square">
-                                    </a>
-                                    
-                                    <a href="/mypage/other/" title="">
-                                        <img class="img-rounded ma-star-user-image" src="/img/no_img/no_img_1.png">
-                                    </a>
-                                    
-                                    <a href="/mypage/other/ee6412b2-25ad-4ec2-a002-279e0af93ad1" title="kyokomi">
-                                        <img class="img-rounded ma-star-user-image" src="https://res.cloudinary.com/hcod0wyyv/image/upload/w_160/users/ee6412b2-25ad-4ec2-a002-279e0af93ad1_1432088884447881776">
-                                    </a>
-                                    
-                                    <a href="/mypage/other/9fd877ad-ada4-4ce0-b7eb-cebb563b74c7" title="よしを">
-                                        <img class="img-rounded ma-star-user-image" src="https://graph.facebook.com/633130610151143/picture?type=square">
-                                    </a>
-                                    
-                                    <a href="/mypage/other/7e833540-e8e7-4613-a16e-f8223fdc6ed2" title="Fujii Shinsaku">
-                                        <img class="img-rounded ma-star-user-image" src="https://graph.facebook.com/843248415769946/picture?type=square">
-                                    </a>
-                                    
-                                    <a href="/mypage/other/36fe35e3-387f-4f04-b55c-b16d4d9d5637" title="Kazuki  Morita">
-                                        <img class="img-rounded ma-star-user-image" src="https://res.cloudinary.com/hcod0wyyv/image/upload/w_160/users/36fe35e3-387f-4f04-b55c-b16d4d9d5637_1431909275740013251">
-                                    </a>
-                                    
-                                    <a href="/mypage/other/5d1da52c-e6a1-4c01-b398-a0913fb1f84a" title="Kazuki Miyanishi">
-                                        <img class="img-rounded ma-star-user-image" src="https://graph.facebook.com/931212753607821/picture?type=square">
-                                    </a>
-                                    
-                                    <a href="/mypage/other/c4859dda-f94c-4cf3-afc1-ade46f876ee1" title="kazupon">
-                                        <img class="img-rounded ma-star-user-image" src="https://graph.facebook.com/10205676697148770/picture?type=square">
-                                    </a>
                                     
                                 </div>
                             </div>
                         </div>
                         <div class="ma-infobox-table">
                             <dl>
-                                <dt>プラットフォーム:</dt><dd>Web</dd>
-                                <dt>カテゴリ:</dt><dd>エンターテイメント</dd>
-                                <dt>プログラミング言語:</dt><dd>Go</dd>
-                                <dt>キーワード:</dt><dd>アプリ開発</dd>
-                                <dt>アイデア作成日:</dt><dd>2015-05-05</dd>
+                                <dt>プラットフォーム:</dt><dd>まだ決めていない</dd>
+                                <dt>カテゴリ:</dt><dd>まだ決めていない</dd>
+                                <dt>プログラミング言語:</dt><dd>まだ決めていない</dd>
+                                <dt>キーワード:</dt><dd> - </dd>
+                                <dt>アイデア作成日:</dt><dd>2015-06-28</dd>
                             </dl>
                         </div>
                     </div>
                     <div class="ma-infobox">
                         <div class="ma-infobox-table">
                             <dl>
-                                <dt>ミーティング場所:</dt><dd>渋谷</dd>
-                                <dt>ミーティング頻度:</dt><dd>週１回程度</dd>
+                                <dt>ミーティング場所:</dt><dd>まだ決めていない</dd>
+                                <dt>ミーティング頻度:</dt><dd>まだ決めていない</dd>
+                                <dt>プロジェクトステータス:</dt><dd>開発完了</dd>
                                 
                             </dl>
                         </div>
@@ -203,9 +160,9 @@
                     <div class="ma-infobox">
                         <div class="text-center">
                             <div class="social">
-                                <div class="fb-like" data-href="https://meetapp.tokyo/app/detail/ebdf283b-3c69-414a-8085-cfcc35b849dd" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false"></div>
+                                <div class="fb-like" data-href="https://meetapp.tokyo/app/detail/b1a1d5ff-e9e2-4695-9070-30c5dc7bb2a6" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false"></div>
                                 <div class="tw-share">
-                                    <a href="https://twitter.com/share" class="twitter-share-button" data-url="https://meetapp.tokyo/app/detail/ebdf283b-3c69-414a-8085-cfcc35b849dd" data-via="" data-lang="en">Tweet</a>
+                                    <a href="https://twitter.com/share" class="twitter-share-button" data-url="https://meetapp.tokyo/app/detail/b1a1d5ff-e9e2-4695-9070-30c5dc7bb2a6" data-via="" data-lang="en">Tweet</a>
                                 </div>
                             </div>
                         </div>
@@ -226,19 +183,16 @@
                 <div class="ma-layout-col-right">
                     
                     
-                    <div class="ma-white-wrap text-center">
-                        <input class="ma-app-edit-btn btn btn-primary" type="button" value="開発アイデアを編集する">
-                        <input class="ma-app-delete-btn btn btn-primary" type="button" value="開発アイデアを削除する">
-                    </div>
-                    
 
                     <div class="ma-white-wrap">
                         <section>
                             <div>
-                                <h1>MeetApp</h1>
+                                <h1>募集〜</h1>
+                                
                                 <div class="sectionDesc  ma-mark-down"><p>このサービス自体のMeetAppです。</p>
 
-<p>機能拡張を手伝ってくれる方募集中！！</p>
+<p>機能拡張を手伝ってくれる方募集中！！ほげほげ<br/>
+&lt;script&gt;alert(&#34;hoge&#34;)&lt;/script&gt;</p>
 
 <p><a href="http://www.tejitak.com/blog/?p=1430" rel="nofollow">&#34;GWハッカソンでMeetAppという趣味アプリ開発者のためのサービス作りました&#34;</a> という記事に開発概要は記載しております。</p>
 
@@ -253,15 +207,12 @@
 <li>Redis</li>
 </ul>
 </div>
+                                
                             </div>
                         </section>
                         <section>
                             <div class="row text-center">
                                 
-                                
-                                <div class="sectionImgWrap">
-                                    <a href="https://res.cloudinary.com/hcod0wyyv/image/upload/52708d7f-1961-412e-879e-15b4d473ebeb_1431557650545188095" target="_blank"><img src="https://res.cloudinary.com/hcod0wyyv/image/upload/w_160/52708d7f-1961-412e-879e-15b4d473ebeb_1431557650545188095" class="sectionImg"></a>
-                                </div>
                                 
                             </div>
                         </section>
@@ -271,10 +222,10 @@
                                 <div class="divider"></div>
                             </div>
                             <dl>
-                                    <dt>Demo URL:</dt><dd><a href="https://meetapp.tokyo" target="_blank">https://meetapp.tokyo</a></dd>
+                                    <dt>Demo URL:</dt><dd> - </dd>
                             </dl>
                             <dl>
-                                <dt>Github URL:</dt><dd><a href="https://github.com/shumipro/meetapp" target="_blank">https://github.com/shumipro/meetapp</a></dd>
+                                <dt>Github URL:</dt><dd> - </dd>
                             </dl>
                         </section>
                         <section>
@@ -284,8 +235,7 @@
                             </div>
                             <div>
                                 
-                                    
-                                    <div class="ma-constant-icon-list" data-constant="occupation" data-values="2,11,"></div>
+                                    <p>現在メンバー募集はしていません</p>
                                 
                             </div>
                         </section>
@@ -301,18 +251,6 @@
                         </section>
                     </div>
                     
-                        <div class="ma-white-wrap">
-                            <section>
-                                <div class="section-heading">
-                                    <h3>Github Issues</h3>
-                                    <div class="divider"></div>
-                                </div>
-                                <div>
-                                    <div class="ma-github-issues" data-url="https://github.com/shumipro/meetapp"></div>
-                                </div>
-                            </section>
-                        </div>
-                    
                     <div class="ma-white-wrap">
                         <section>
                             <div class="section-heading">
@@ -322,28 +260,14 @@
                             <div>
                                 
                                 <div class="ma-profile">
-                                    <a href="/mypage/other/52708d7f-1961-412e-879e-15b4d473ebeb">
+                                    <a href="/mypage/other/7a0b61e4-bfec-453c-bf23-d454b9e61681">
                                         <div class="ma-profile-image-wrap">
-                                            <img class="img-rounded ma-profile-image" src="https://graph.facebook.com/10152855301715662/picture?type=square">
+                                            <img class="img-rounded ma-profile-image" src="http://graph.facebook.com/1422856218034023/picture?type=square">
                                         </div>
                                         <div class="ma-profile-content-wrap">
                                             <div class="ma-profile-content">
-                                                <div class="ma-profile-name">Takuya Tejima</div>
+                                                <div class="ma-profile-name">dummy Tejima Takuya</div>
                                                 <div class="ma-profile-title">企画</div>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                                
-                                <div class="ma-profile">
-                                    <a href="/mypage/other/ee6412b2-25ad-4ec2-a002-279e0af93ad1">
-                                        <div class="ma-profile-image-wrap">
-                                            <img class="img-rounded ma-profile-image" src="https://res.cloudinary.com/hcod0wyyv/image/upload/w_160/users/ee6412b2-25ad-4ec2-a002-279e0af93ad1_1432088884447881776">
-                                        </div>
-                                        <div class="ma-profile-content-wrap">
-                                            <div class="ma-profile-content">
-                                                <div class="ma-profile-name">kyokomi</div>
-                                                <div class="ma-profile-title">フルスタックエンジニア</div>
                                             </div>
                                         </div>
                                     </a>
@@ -359,165 +283,6 @@
                                 <div class="divider"></div>
                             </div>
                             <ul class="ma-list-bordered ma-discussion-wrap">
-                                
-                                <li class="ma-profile-comment">
-                                    
-                                    <span class="ma-profile-date subtle-text">2015-05-07 19:49</span>
-                                    <a href="/mypage/other/4995d8b8-fb23-4dfa-9f27-266b8d837771">
-                                        <span class="ma-profile-comment-name">Dejiang Feng</span>
-                                        <div class="ma-profile-image-wrap">
-                                            <img class="img-rounded ma-profile-image" src="https://graph.facebook.com/430633787105166/picture?type=square">
-                                        </div>
-                                    </a>
-                                    <div class="ma-profile-message ma-mark-down">
-                                        <p>goはやったことなくてもいいっすか？</p>
-
-                                    </div>
-                                </li>                                
-                                
-                                <li class="ma-profile-comment">
-                                    
-                                    <span class="ma-profile-comment-action">
-                                        <a href="javascript:;" class="ma-profile-comment-delete-btn" data-discussion-id="">削除</a>
-                                    </span>
-                                    
-                                    <span class="ma-profile-date subtle-text">2015-05-07 22:56</span>
-                                    <a href="/mypage/other/52708d7f-1961-412e-879e-15b4d473ebeb">
-                                        <span class="ma-profile-comment-name">Takuya Tejima</span>
-                                        <div class="ma-profile-image-wrap">
-                                            <img class="img-rounded ma-profile-image" src="https://graph.facebook.com/10152855301715662/picture?type=square">
-                                        </div>
-                                    </a>
-                                    <div class="ma-profile-message ma-mark-down">
-                                        <p>goは自分も今までやってなかったですがこのプロジェクトを通じて使えるようになってきました。なので大丈夫です！笑</p>
-
-                                    </div>
-                                </li>                                
-                                
-                                <li class="ma-profile-comment">
-                                    
-                                    <span class="ma-profile-date subtle-text">2015-05-08 16:34</span>
-                                    <a href="/mypage/other/4995d8b8-fb23-4dfa-9f27-266b8d837771">
-                                        <span class="ma-profile-comment-name">Dejiang Feng</span>
-                                        <div class="ma-profile-image-wrap">
-                                            <img class="img-rounded ma-profile-image" src="https://graph.facebook.com/430633787105166/picture?type=square">
-                                        </div>
-                                    </a>
-                                    <div class="ma-profile-message ma-mark-down">
-                                        <p>なら、お役に立つことが出来ればぜひ参加させて頂きたい。</p>
-
-                                    </div>
-                                </li>                                
-                                
-                                <li class="ma-profile-comment">
-                                    
-                                    <span class="ma-profile-comment-action">
-                                        <a href="javascript:;" class="ma-profile-comment-delete-btn" data-discussion-id="">削除</a>
-                                    </span>
-                                    
-                                    <span class="ma-profile-date subtle-text">2015-05-10 09:52</span>
-                                    <a href="/mypage/other/52708d7f-1961-412e-879e-15b4d473ebeb">
-                                        <span class="ma-profile-comment-name">Takuya Tejima</span>
-                                        <div class="ma-profile-image-wrap">
-                                            <img class="img-rounded ma-profile-image" src="https://graph.facebook.com/10152855301715662/picture?type=square">
-                                        </div>
-                                    </a>
-                                    <div class="ma-profile-message ma-mark-down">
-                                        <p>次の朝活で何かお手伝いお願いするかもです！
-開発環境のセットアップはgithubのreadmeご参照ください</p>
-
-                                    </div>
-                                </li>                                
-                                
-                                <li class="ma-profile-comment">
-                                    
-                                    <span class="ma-profile-date subtle-text">2015-05-10 14:58</span>
-                                    <a href="/mypage/other/ee6412b2-25ad-4ec2-a002-279e0af93ad1">
-                                        <span class="ma-profile-comment-name">kyokomi</span>
-                                        <div class="ma-profile-image-wrap">
-                                            <img class="img-rounded ma-profile-image" src="https://res.cloudinary.com/hcod0wyyv/image/upload/w_160/users/ee6412b2-25ad-4ec2-a002-279e0af93ad1_1432088884447881776">
-                                        </div>
-                                    </a>
-                                    <div class="ma-profile-message ma-mark-down">
-                                        <p>あとGoの入門ツアーをやっておくとスムーズに作業できるかと思います！</p>
-
-<p><a href="https://go-tour-jp.appspot.com/#1" rel="nofollow">https://go-tour-jp.appspot.com/#1</a></p>
-
-                                    </div>
-                                </li>                                
-                                
-                                <li class="ma-profile-comment">
-                                    
-                                    <span class="ma-profile-comment-action">
-                                        <a href="javascript:;" class="ma-profile-comment-delete-btn" data-discussion-id="1431250257347618626">削除</a>
-                                    </span>
-                                    
-                                    <span class="ma-profile-date subtle-text">2015-05-10 18:30</span>
-                                    <a href="/mypage/other/52708d7f-1961-412e-879e-15b4d473ebeb">
-                                        <span class="ma-profile-comment-name">Takuya Tejima</span>
-                                        <div class="ma-profile-image-wrap">
-                                            <img class="img-rounded ma-profile-image" src="https://graph.facebook.com/10152855301715662/picture?type=square">
-                                        </div>
-                                    </a>
-                                    <div class="ma-profile-message ma-mark-down">
-                                        <p>+1</p>
-
-                                    </div>
-                                </li>                                
-                                
-                                <li class="ma-profile-comment">
-                                    
-                                    <span class="ma-profile-comment-action">
-                                        <a href="javascript:;" class="ma-profile-comment-delete-btn" data-discussion-id="1431252830398438128">削除</a>
-                                    </span>
-                                    
-                                    <span class="ma-profile-date subtle-text">2015-05-10 19:13</span>
-                                    <a href="/mypage/other/52708d7f-1961-412e-879e-15b4d473ebeb">
-                                        <span class="ma-profile-comment-name">Takuya Tejima</span>
-                                        <div class="ma-profile-image-wrap">
-                                            <img class="img-rounded ma-profile-image" src="https://graph.facebook.com/10152855301715662/picture?type=square">
-                                        </div>
-                                    </a>
-                                    <div class="ma-profile-message ma-mark-down">
-                                        <p>もしやコメントに時差が。。</p>
-
-                                    </div>
-                                </li>                                
-                                
-                                <li class="ma-profile-comment">
-                                    
-                                    <span class="ma-profile-date subtle-text">2015-05-13 22:10</span>
-                                    <a href="/mypage/other/ee6412b2-25ad-4ec2-a002-279e0af93ad1">
-                                        <span class="ma-profile-comment-name">kyokomi</span>
-                                        <div class="ma-profile-image-wrap">
-                                            <img class="img-rounded ma-profile-image" src="https://res.cloudinary.com/hcod0wyyv/image/upload/w_160/users/ee6412b2-25ad-4ec2-a002-279e0af93ad1_1432088884447881776">
-                                        </div>
-                                    </a>
-                                    <div class="ma-profile-message ma-mark-down">
-                                        <p><code>Markdown</code>対応しました！</p>
-
-                                    </div>
-                                </li>                                
-                                
-                                <li class="ma-profile-comment">
-                                    
-                                    <span class="ma-profile-comment-action">
-                                        <a href="javascript:;" class="ma-profile-comment-delete-btn" data-discussion-id="1431557749211938404">削除</a>
-                                    </span>
-                                    
-                                    <span class="ma-profile-date subtle-text">2015-05-14 07:55</span>
-                                    <a href="/mypage/other/52708d7f-1961-412e-879e-15b4d473ebeb">
-                                        <span class="ma-profile-comment-name">Takuya Tejima</span>
-                                        <div class="ma-profile-image-wrap">
-                                            <img class="img-rounded ma-profile-image" src="https://graph.facebook.com/10152855301715662/picture?type=square">
-                                        </div>
-                                    </a>
-                                    <div class="ma-profile-message ma-mark-down">
-                                        <p>Good Job!<br/>
-説明文にTrelloのリンク埋め込みでおきました</p>
-
-                                    </div>
-                                </li>                                
                                 
                             </ul>
                             <div class="row text-center">
@@ -590,8 +355,8 @@
     <script>
 
 var ma = {};
-ma.config = {"static_path":"https://res.cloudinary.com/hcod0wyyv/image/upload/","user":{"ID":"52708d7f-1961-412e-879e-15b4d473ebeb","Name":"Takuya Tejima","ImageName":"","ImageURL":"","LargeImageURL":"","Comment":"MeetApp作成者です。","HomePageURL":"https://twitter.com/tejitak","GitHubURL":"https://github.com/tejitak","FBUser":{"id":"10152855301715662","name":"Takuya Tejima","firstName":"","lastName":"","gender":"male","locale":"en_US","link":"https://www.facebook.com/app_scoped_user_id/10152855301715662/","verified":true,"timezone":9,"updatedTime":""},"TwitterUser":{"contributors_enabled":false,"created_at":"","default_profile":false,"default_profile_image":false,"description":"","entities":{"Hashtags":[],"Urls":[],"Url":{"Urls":[]},"User_mentions":[],"Media":[]},"favourites_count":0,"follow_request_sent":false,"followers_count":0,"following":false,"friends_count":0,"geo_enabled":false,"id":0,"id_str":"","is_translator":false,"lang":"","listed_count":0,"location":"","name":"","notifications":false,"profile_background_color":"","profile_background_image_url":"","profile_background_image_url_https":"","profile_background_tile":false,"profile_banner_url":"","profile_image_url":"","profile_image_url_https":"","profile_link_color":"","profile_sidebar_border_color":"","profile_sidebar_fill_color":"","profile_text_color":"","profile_use_background_image":false,"protected":false,"screen_name":"","show_all_inline_media":false,"status":null,"statuses_count":0,"time_zone":"","url":"","utc_offset":0,"verified":false,"withheld_in_countries":"","withheld_scope":""}},"notification":{"UserID":"52708d7f-1961-412e-879e-15b4d473ebeb","Notifications":[{"NotificationID":"1431237517592618184","NotificationType":1,"SourceID":"1431237517592618184","Message":"メッセージがあります","DetailURL":"","IsRead":true,"CreatedAt":"0001-01-01T00:00:00Z"},{"NotificationID":"1431243514801816771","NotificationType":1,"SourceID":"1431243514801816771","Message":"メッセージがあります","DetailURL":"","IsRead":true,"CreatedAt":"0001-01-01T00:00:00Z"},{"NotificationID":"1431250257347618626","NotificationType":1,"SourceID":"1431250257347618626","Message":"新着メッセージ: +1","DetailURL":"/app/detail/ebdf283b-3c69-414a-8085-cfcc35b849dd","IsRead":true,"CreatedAt":"0001-01-01T00:00:00Z"},{"NotificationID":"1431522608769699022","NotificationType":1,"SourceID":"1431522608769699022","Message":"新着メッセージ: `Markdown`対応しました！","DetailURL":"/app/detail/ebdf283b-3c69-414a-8085-cfcc35b849dd","IsRead":true,"CreatedAt":"0001-01-01T00:00:00Z"},{"NotificationID":"1431848130219133581","NotificationType":1,"SourceID":"1431848130219133581","Message":"新着メッセージ: おお。ChatOps ですね。あと、Twitter じゃなくても良いですが通知のフィルタリングができるとうれしいですね。","DetailURL":"/app/detail/c74ae8fb-e627-4a6c-a8d5-19d9a5ca2d21","IsRead":true,"CreatedAt":"0001-01-01T00:00:00Z"},{"NotificationID":"1433078659808445163","NotificationType":2,"SourceID":"540c6474-74cb-4ba0-bbb1-d5aa1f1a410c","Message":"いいね: Nao  Minami","DetailURL":"/mypage/other/540c6474-74cb-4ba0-bbb1-d5aa1f1a410c","IsRead":true,"CreatedAt":"2015-05-31T22:24:19.808+09:00"},{"NotificationID":"1433218437187591691","NotificationType":2,"SourceID":"c4859dda-f94c-4cf3-afc1-ade46f876ee1","Message":"いいね: kazupon","DetailURL":"/mypage/other/c4859dda-f94c-4cf3-afc1-ade46f876ee1","IsRead":true,"CreatedAt":"2015-06-02T13:13:57.187+09:00"}]}};
-ma.constants = {"area":[{"id":"0","name":"まだ決めていない"},{"id":"1","name":"渋谷"},{"id":"2","name":"六本木"},{"id":"3","name":"恵比寿"},{"id":"4","name":"新宿"},{"id":"5","name":"横浜"},{"id":"6","name":"池袋"},{"id":"7","name":"品川"},{"id":"8","name":"五反田"},{"id":"9","name":"有楽町"},{"id":"10","name":"大阪"},{"id":"11","name":"福岡"},{"id":"12","name":"その他"}],"category":[{"id":"0","name":"まだ決めていない"},{"id":"1","name":"ブック"},{"id":"2","name":"ビジネス"},{"id":"3","name":"カタログ"},{"id":"4","name":"教育"},{"id":"5","name":"エンターテイメント"},{"id":"6","name":"ファイナンス"},{"id":"7","name":"フード"},{"id":"8","name":"ゲーム"},{"id":"9","name":"ヘルスケア"},{"id":"10","name":"ライフスタイル"},{"id":"11","name":"メディカル"},{"id":"12","name":"ミュージック"},{"id":"13","name":"ナビゲーション"},{"id":"14","name":"ニュース"},{"id":"15","name":"写真/ビデオ"},{"id":"16","name":"仕事効率化"},{"id":"17","name":"辞書/辞典"},{"id":"18","name":"SNS"},{"id":"19","name":"スポーツ"},{"id":"20","name":"旅行"},{"id":"21","name":"ユーティリティ"},{"id":"22","name":"天気"},{"id":"23","name":"その他"}],"meetingFrequency":[{"id":"0","name":"まだ決めていない"},{"id":"1","name":"週１回程度"},{"id":"2","name":"週2, 3回程度"},{"id":"3","name":"毎日"},{"id":"4","name":"月1回程度"},{"id":"5","name":"数ヶ月に1回程度"},{"id":"6","name":"不定期"},{"id":"7","name":"なし"},{"id":"8","name":"その他"}],"occupation":[{"id":"0","name":"まだ決めていない"},{"id":"1","name":"企画"},{"id":"2","name":"デザイナー"},{"id":"3","name":"サーバーエンジニア"},{"id":"4","name":"スマートフォンエンジニア"},{"id":"5","name":"フロントエンドエンジニア"},{"id":"6","name":"Webエンジニア"},{"id":"7","name":"インフラエンジニア"},{"id":"8","name":"フルスタックエンジニア"},{"id":"9","name":"プロジェクトマネージャー"},{"id":"10","name":"営業"},{"id":"11","name":"おてつだい"},{"id":"12","name":"その他"}],"pLang":[{"id":"0","name":"まだ決めていない"},{"id":"1","name":"Java"},{"id":"2","name":"JavaScript"},{"id":"3","name":"Swift"},{"id":"4","name":"Objective-c"},{"id":"5","name":"Go"},{"id":"6","name":"PHP"},{"id":"7","name":"Python"},{"id":"8","name":"Ruby"},{"id":"9","name":"Perl"},{"id":"10","name":"C"},{"id":"11","name":"C#"},{"id":"12","name":"C++"},{"id":"13","name":"Scala"},{"id":"14","name":"SQL"},{"id":"15","name":"VB"},{"id":"16","name":"MATLAB"},{"id":"17","name":"その他"}],"platform":[{"id":"0","name":"まだ決めていない"},{"id":"1","name":"Web"},{"id":"2","name":"iOS"},{"id":"3","name":"Android"},{"id":"4","name":"Mac"},{"id":"5","name":"Apple Watch"},{"id":"6","name":"Windows"},{"id":"7","name":"Linux"},{"id":"8","name":"Chrome"},{"id":"9","name":"その他"}]};
+ma.config = {"static_path":"/","user":{"ID":"","Name":"","ImageName":"","ImageURL":"","LargeImageURL":"","Comment":"","HomePageURL":"","GitHubURL":"","FBUser":{"id":"","name":"","firstName":"","lastName":"","gender":"","locale":"","link":"","verified":false,"timezone":0,"updatedTime":""},"TwitterUser":{"contributors_enabled":false,"created_at":"","default_profile":false,"default_profile_image":false,"description":"","entities":{"Hashtags":null,"Urls":null,"Url":{"Urls":null},"User_mentions":null,"Media":null},"favourites_count":0,"follow_request_sent":false,"followers_count":0,"following":false,"friends_count":0,"geo_enabled":false,"id":0,"id_str":"","is_translator":false,"lang":"","listed_count":0,"location":"","name":"","notifications":false,"profile_background_color":"","profile_background_image_url":"","profile_background_image_url_https":"","profile_background_tile":false,"profile_banner_url":"","profile_image_url":"","profile_image_url_https":"","profile_link_color":"","profile_sidebar_border_color":"","profile_sidebar_fill_color":"","profile_text_color":"","profile_use_background_image":false,"protected":false,"screen_name":"","show_all_inline_media":false,"status":null,"statuses_count":0,"time_zone":"","url":"","utc_offset":0,"verified":false,"withheld_in_countries":"","withheld_scope":""}},"notification":{"UserID":"","Notifications":[]}};
+ma.constants = {"area":[{"id":"0","name":"まだ決めていない"},{"id":"1","name":"渋谷"},{"id":"2","name":"六本木"},{"id":"3","name":"恵比寿"},{"id":"4","name":"新宿"},{"id":"5","name":"横浜"},{"id":"6","name":"池袋"},{"id":"7","name":"品川"},{"id":"8","name":"五反田"},{"id":"9","name":"有楽町"},{"id":"10","name":"大阪"},{"id":"11","name":"福岡"},{"id":"12","name":"その他"}],"category":[{"id":"0","name":"まだ決めていない"},{"id":"1","name":"ブック"},{"id":"2","name":"ビジネス"},{"id":"3","name":"カタログ"},{"id":"4","name":"教育"},{"id":"5","name":"エンターテイメント"},{"id":"6","name":"ファイナンス"},{"id":"7","name":"フード"},{"id":"8","name":"ゲーム"},{"id":"9","name":"ヘルスケア"},{"id":"10","name":"ライフスタイル"},{"id":"11","name":"メディカル"},{"id":"12","name":"ミュージック"},{"id":"13","name":"ナビゲーション"},{"id":"14","name":"ニュース"},{"id":"15","name":"写真/ビデオ"},{"id":"16","name":"仕事効率化"},{"id":"17","name":"辞書/辞典"},{"id":"18","name":"SNS"},{"id":"19","name":"スポーツ"},{"id":"20","name":"旅行"},{"id":"21","name":"ユーティリティ"},{"id":"22","name":"天気"},{"id":"23","name":"その他"}],"meetingFrequency":[{"id":"0","name":"まだ決めていない"},{"id":"1","name":"週１回程度"},{"id":"2","name":"週2, 3回程度"},{"id":"3","name":"毎日"},{"id":"4","name":"月1回程度"},{"id":"5","name":"数ヶ月に1回程度"},{"id":"6","name":"不定期"},{"id":"7","name":"なし"},{"id":"8","name":"その他"}],"occupation":[{"id":"0","name":"まだ決めていない"},{"id":"1","name":"企画"},{"id":"2","name":"デザイナー"},{"id":"3","name":"サーバーエンジニア"},{"id":"4","name":"スマートフォンエンジニア"},{"id":"5","name":"フロントエンドエンジニア"},{"id":"6","name":"Webエンジニア"},{"id":"7","name":"インフラエンジニア"},{"id":"8","name":"フルスタックエンジニア"},{"id":"9","name":"プロジェクトマネージャー"},{"id":"10","name":"営業"},{"id":"11","name":"おてつだい"},{"id":"12","name":"その他"}],"pLang":[{"id":"0","name":"まだ決めていない"},{"id":"1","name":"Java"},{"id":"2","name":"JavaScript"},{"id":"3","name":"Swift"},{"id":"4","name":"Objective-c"},{"id":"5","name":"Go"},{"id":"6","name":"PHP"},{"id":"7","name":"Python"},{"id":"8","name":"Ruby"},{"id":"9","name":"Perl"},{"id":"10","name":"C"},{"id":"11","name":"C#"},{"id":"12","name":"C++"},{"id":"13","name":"Scala"},{"id":"14","name":"SQL"},{"id":"15","name":"VB"},{"id":"16","name":"MATLAB"},{"id":"17","name":"その他"}],"platform":[{"id":"0","name":"まだ決めていない"},{"id":"1","name":"Web"},{"id":"2","name":"iOS"},{"id":"3","name":"Android"},{"id":"4","name":"Mac"},{"id":"5","name":"Apple Watch"},{"id":"6","name":"Windows"},{"id":"7","name":"Linux"},{"id":"8","name":"Chrome"},{"id":"9","name":"その他"}],"projectState":[{"id":"1","name":"募集中"},{"id":"2","name":"募集完了"},{"id":"3","name":"開発完了"},{"id":"4","name":"一時休止"}]};
 ma.messages = {
     constants: {
         platform: "プラットフォーム",
@@ -617,9 +382,9 @@ ma.messages = {
         githubUrl: "Github URL",
         meetingArea: "ミーティング場所",
         meetingFrequency: "ミーティング頻度",
+        projectState: "プロジェクトステータス",
         projectStartDate: "プロジェクト開始日",
         projectReleaseDate: "リリース予定日",
-        projectState "プロジェクトステータス",
         
         Name: "名前",
         Comment: "ひとこと",

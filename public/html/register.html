@@ -1,39 +1,97 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-<title>MeetApp - 開発アイデア登録</title>
+<title>MeetApp - アプリの登録</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-<link rel="shortcut icon" href="favicon.png">
+
+<meta name="description" content="MeetAppは趣味でアプリ・サービスの開発をしたいデザイナー・エンジニアと、開発のアイデアを持っている企画者のマッチングサービスです。MeetAppであなたの開発アイデアを実現する仲間を探しましょう。">
+<meta property="og:description" content="MeetAppは趣味でアプリ・サービスの開発をしたいデザイナー・エンジニアと、開発のアイデアを持っている企画者のマッチングサービスです。MeetAppであなたの開発アイデアを実現する仲間を探しましょう。">
+<meta name="keywords" content="meetapp, 趣味, 開発, アプリ, プログラミング, サービス, 求人, 企画, エンジニア, デザイナー, hobby, app, development, job, engineer, designer">
+<meta property="og:title" content="MeetApp - アプリの登録">
+
+<meta property="og:image" content="/img/topbanner.jpg">
+
+<meta property="og:url" content="https://meetapp.tokyo">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="MeetApp">
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@meetapp_tokyo" />
+<link href="https://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+<link rel="shortcut icon" href="/favicon.ico">
 <link rel="stylesheet" href="/css/main.css">
 
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="fa fa-bars fa-lg"></span>
-                    </button>
-                    <a class="navbar-brand" href="/">
-                    <img src="/img/logo.png" alt="" class="logo">
-                    </a>
-                </div>
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a href="/app/list">開発アイデアを探す</a></li>
-                        <li><a href="/app/login">ログイン・登録</a></li>
-                    </ul>
-                </div>
+        <nav class="navbar navbar-default navbar-fixed-top ma-nav-login" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            
+            <div class="ma-nav-mobile">
+                
+                <span class="ma-nav-mobile-dropdown dropdown ma-nav-notification" style="visibility: hidden;">
+                    <a data-toggle="dropdown" class="ma-nav-notification-link dropdown-toggle" role="button" href="javascript:;"><span class="badge">0</span></a>
+                    <ul role="menu" class="dropdown-menu pull-right ma-nav-notification-dropdown"></ul>
+                </span>
+                
+                <button class="ma-nav-mobile-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="fa fa-bars fa-lg">Menu <b class="caret"></b></span>
+                    <span class="ma-nav-login-profile-image">
+                        <img class="img-rounded" src="http://graph.facebook.com/1422856218034023/picture?type=square"><b class="caret"></b>
+                    </span>
+                </button>
             </div>
-        </nav>
-
-        <div class="tp-banner-container">
-            <div class="tp-banner">
-            </div>
+            
+            <a class="navbar-brand" href="/">
+            <img src="/img/logo.png" alt="" class="logo">
+            </a>
         </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/about">使い方</a></li>
+                <li><a href="/app/list">開発アイデアを探す</a></li>
+
+                
+                
+                <!-- <li><a href="/u/app/register">開発アイデアを登録する</a></li> -->
+                <li class="ma-nav-pc-menu ma-nav-notification" style="visibility: hidden;">
+                    <a data-toggle="dropdown" class="ma-nav-notification-link dropdown-toggle" role="button" href="javascript:;"><span class="badge">0</span></a>
+                    <ul role="menu" class="dropdown-menu ma-nav-notification-dropdown"></ul>
+                </li>
+                
+                <li class="ma-nav-pc-menu dropdown">
+                    <a data-toggle="dropdown" class="dropdown-toggle" role="button" href="#">
+                        <span class="ma-login-username">
+                            <img class="img-rounded" src="http://graph.facebook.com/1422856218034023/picture?type=square">
+                        </span>
+                        <span id="dropDownLoginName">dummy Tejima Takuya</span><b class="caret"></b>
+                    </a>
+                    <ul role="menu" class="dropdown-menu ma-login-dropdown">
+                        <li role="presentation"><a href="/u/mypage">マイページ</a></li>
+                        <li role="presentation"><a href="/logout">ログアウト</a></li>
+                    </ul>
+                </li>
+                
+                <li class="ma-nav-mobile-menu" role="presentation"><a href="/u/mypage">マイページ</a></li>
+                <li class="ma-nav-mobile-menu" role="presentation"><a href="/logout">ログアウト</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    <a href="/u/app/register" class="btn btn-primary btn-fab btn-register" title="開発アイデアを登録する">+</a>
+</nav>
+
+<div class="tp-banner-container">
+    <div class="ma-top-banner" style="display: none;">
+        <img src="/img/topbanner.jpg">
+    </div>
+</div>
+
     </header>
 
     <div class="wrapper">
@@ -41,55 +99,86 @@
             <form>
                 <div class="container">
                     <div class="section-heading">
+                        
                         <h1>開発アイデアを登録する</h1>
+                        
                         <div class="divider"></div>
                     </div>
                     <hr>
                     <div class="row">
                         <div class="col-xs-6 form-group">
-                            <label>アプリ名</label>
-                            <input id="ma_register_form_name" name="name" class="form-control" type="text"/>
+                            <label>アプリ名 <span class="ma-required">*</span></label>
+                            <input id="ma_register_form_name" name="name" class="form-control" type="text" value=""/>
                         </div>
                         <div class="col-xs-6 form-group">
                             <label>プラットフォーム</label>
-                            <select id="ma_register_form_platform" name="platform" class="form-control ma-constant-select" data-constant="platform"></select>
+                            <select id="ma_register_form_platform" name="platform" class="form-control ma-constant-select" data-constant="platform" data-default-value=""></select>
                         </div>
                         <div class="col-xs-6 form-group">
-                            <label>説明</label>
-                            <textarea id="ma_register_form_description" name="description" class="form-control" rows="8"></textarea>
+                            <div class="ma-markdown-preview-input-container">
+                                <label>説明 (Markdown記法が使用できます)</label>
+                                <a class="ma-right-text ma-markdown-preview-link" href="javascript:;">プレビュー</a>
+                                <textarea id="ma_register_form_description" name="description" class="form-control" rows="10"></textarea>
+                            </div>
+                            <div class="ma-markdown-preview-display-container" style="display: none;">
+                                <label>説明 (Markdown記法が使用できます)</label>
+                                <a class="ma-right-text ma-markdown-preview-back-link" href="javascript:;">入力に戻る</a>
+                                <div class="ma-markdown-preview-display sectionDesc ma-mark-down"></div>
+                            </div>
                         </div>
                         <div class="col-xs-6 form-group">
                             <label>カテゴリ</label>
-                            <select id="ma_register_form_category" name="category" class="form-control ma-constant-select" data-constant="category"></select>
+                            <select id="ma_register_form_category" name="category" class="form-control ma-constant-select" data-constant="category" data-default-value=""></select>
                         </div>
                         <div class="col-xs-6 form-group">
                             <label>プログラミング言語</label>
-                            <select id="ma_register_form_pLang" name="pLang" class="form-control ma-constant-select" data-constant="pLang"></select>
+                            <select id="ma_register_form_pLang" name="pLang" class="form-control ma-constant-select" data-constant="pLang" data-default-value=""></select>
                         </div>
                         <div class="col-xs-6 form-group">
                             <label>キーワード</label>
-                            <input id="ma_register_form_keywords" name="keywords" class="form-control" type="text"/>
+                            <input id="ma_register_form_keywords" name="keywords" class="form-control" type="text" value=""/>
                         </div>
                     </div>
                     <hr>
-                    <h3>画像URL</h3>
+                    <h3>画像URL (1つ目がメイン画像)</h3>
                     <div class="row">
+                        
                         <div class="col-xs-12 form-group">
-                            <span>画像1 (メイン)</span>
-                            <input id="ma_register_form_image1" data-list-name="images" name="url" class="form-control" type="text" placeholder="http://" />
-                            <!--div class="input-group">
+                            <div class="input-group">
                                 <span class="input-group-btn">
                                     <span class="btn btn-primary btn-file">
-                                        Browse&hellip; <input type="file" multiple>
+                                        Browse&hellip; <input type="file" class="ma-register-form-image-file" multiple>
                                     </span>
                                 </span>
-                                <input type="text" class="form-control" readonly>
-                            </div-->
-                            <span>画像2</span>
-                            <input id="ma_register_form_image2" data-list-name="images" name="url" class="form-control" type="text" placeholder="http://"/>
-                            <span>画像3</span>
-                            <input id="ma_register_form_image3" data-list-name="images" name="url" class="form-control" type="text" placeholder="http://"/>
+                                <input type="text" class="form-control ma-register-form-image-input" readonly data-list-name="images" name="url" value="">
+                            </div>
+                            
                         </div>
+                        
+                        <div class="col-xs-12 form-group">
+                            <div class="input-group">
+                                <span class="input-group-btn">
+                                    <span class="btn btn-primary btn-file">
+                                        Browse&hellip; <input type="file" class="ma-register-form-image-file" multiple>
+                                    </span>
+                                </span>
+                                <input type="text" class="form-control ma-register-form-image-input" readonly data-list-name="images" name="url" value="">
+                            </div>
+                            
+                        </div>
+                        
+                        <div class="col-xs-12 form-group">
+                            <div class="input-group">
+                                <span class="input-group-btn">
+                                    <span class="btn btn-primary btn-file">
+                                        Browse&hellip; <input type="file" class="ma-register-form-image-file" multiple>
+                                    </span>
+                                </span>
+                                <input type="text" class="form-control ma-register-form-image-input" readonly data-list-name="images" name="url" value="">
+                            </div>
+                            
+                        </div>
+                        
                     </div>
                     <hr>
                     <h3>現在のメンバー構成</h3>
@@ -97,18 +186,23 @@
                         <div class="input-group ma-friend-add-suggest">
                             <input type="text" class="form-control" id="ma_register_add_currentMember_suggest_input" placeholder="登録ユーザーの名前をタイプしてください">
                             <span class="input-group-btn">
-                                <button class="btn btn-default btn-primary ma-friend-add-btn" id="ma_register_add_currentMember_suggest_btn" type="button">追加</button>
+                                <button class="btn btn-primary ma-friend-add-btn" id="ma_register_add_currentMember_suggest_btn" type="button">追加</button>
                             </span>
                         </div>
                         <div id="ma_register_add_currentMember_result">
+                            
+                            
                             <div class="ma-friend-add-member" data-list-name="currentMembers">
-                                <input type="hidden" name="id" value="">
-                                <!-- 現在のユーザの情報をsetする -->
-                                <img class="img-rounded" width="32px" height="32px" src="">
-                                <span>Takuya Tejima</span>
-                                <select name="occupation" class="form-control ma-constant-select" data-constant="occupation"></select>
-                                <!--button type="button" class="btn btn-default ma-friend-delete-btn">削除</button-->
+                                <input type="hidden" name="id" value="7a0b61e4-bfec-453c-bf23-d454b9e61681">
+                                <img class="img-rounded" width="32px" height="32px" src="http://graph.facebook.com/1422856218034023/picture?type=square">
+                                <span>dummy Tejima Takuya</span>
+                                <select name="occupation" class="form-control ma-constant-select" data-constant="occupation" data-default-value="1"></select>
+                                
+                                <label><input type="checkbox" class="form-control" name="isAdmin" checked="checked" disabled="disabled">管理者</label>
+                                
+                                
                             </div>
+                            
                         </div>
                     </div>
                     <hr>
@@ -117,18 +211,20 @@
                         <div class="col-xs-12 form-group">
                             <button id="ma_register_add_recruitMember_btn" type="button" class="btn btn-default">追加</button>
                         </div>
-                        <div id="ma_register_add_recruitMember_result"></div>
+                        <div id="ma_register_add_recruitMember_result">
+                            
+                        </div>
                     </div>
                     <hr>
                     <h3>URL</h3>
                     <div class="row">
                         <div class="col-xs-6 form-group">
                             <label>Demo URL</label>
-                            <input id="ma_register_form_demoUrl" name="demoUrl" class="form-control" type="text" placeholder="http://"/>
+                            <input id="ma_register_form_demoUrl" name="demoUrl" class="form-control" type="text" placeholder="http://" value=""/>
                         </div>
                         <div class="col-xs-6 form-group">
                             <label>Github URL</label>
-                            <input id="ma_register_form_githubUrl" name="githubUrl" class="form-control" type="text" placeholder="https://github.com/owner/repo" />
+                            <input id="ma_register_form_githubUrl" name="githubUrl" class="form-control" type="text" placeholder="https://github.com/owner/repo" value=""/>
                         </div>
                     </div>
                     <hr>
@@ -136,208 +232,122 @@
                     <div class="row">
                         <div class="col-xs-6 form-group">
                             <label>ミーティング場所</label>
-                            <select id="ma_register_form_meetingArea" name="meetingArea" class="form-control ma-constant-select" data-constant="meetingArea"></select>
+                            <select id="ma_register_form_meetingArea" name="meetingArea" class="form-control ma-constant-select" data-constant="area" data-default-value=""></select>
                         </div>
                         <div class="col-xs-6 form-group">
                             <label>ミーティング頻度</label>
-                            <select id="ma_register_form_meetingFrequency" name="meetingFrequency" class="form-control ma-constant-select" data-constant="meetingFrequency"></select>
+                            <select id="ma_register_form_meetingFrequency" name="meetingFrequency" class="form-control ma-constant-select" data-constant="meetingFrequency" data-default-value=""></select>
                         </div>
                         <div class="col-xs-6 form-group">
                             <label>プロジェクトステータス</label>
-                            <select id="ma_register_form_projectState" name="projectState" class="form-control ma-constant-select" data-constant="projectState"></select>
+                            <select id="ma_register_form_projectState" name="projectState" class="form-control ma-constant-select" data-constant="projectState" data-default-value="1"></select>
                         </div>
-                        <!--div class="col-xs-6 form-group">
-                            <label>プロジェクト開始日</label>
-                            <input id="ma_register_form_projectStartDate" name="projectStartDate" class="form-control" type="date" placeholder="2015-05-01"/>
-                        </div>
-                        <div class="col-xs-6 form-group">
-                            <label>リリース予定日</label>
-                            <input id="ma_register_form_projectReleaseDate" name="projectReleaseDate" class="form-control" type="date" placeholder="2015-06-01"/>
-                        </div-->
+                        
                     </div>
                     <hr>
                     <div class="row text-center">
+                        
                         <input id="ma_register_submitBtn" class="btn btn-lg btn-primary" type="button" value="登録する" />
+                        
                     </div>
                 </div>
             </form>
         </section>
         <footer>
             <div class="container">
-                <div class="social">
-                    <div id="fb-root"></div>
-                    <script>(function(d, s, id) {
-                      var js, fjs = d.getElementsByTagName(s)[0];
-                      if (d.getElementById(id)) return;
-                      js = d.createElement(s); js.id = id;
-                      js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.3&appId=561154400651504";
-                      fjs.parentNode.insertBefore(js, fjs);
-                    }(document, 'script', 'facebook-jssdk'));</script>
-                        <div class="fb-like" data-href="https://meetapp-dev.herokuapp.com" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div>
-                        <a href="https://twitter.com/share" class="twitter-share-button" data-url="https://meetapp-dev.herokuapp.com/" data-via="" data-lang="en">Tweet</a>
-                        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-                </div>
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="col">
-                           <h4>MeetAppについて</h4>
-                               <ul>
-                                    <li><a href="/getting_started">このサービスの使い方</a></li>
-                                    <li><a href="/faq">よくある質問</a></li>
-                                    <li><a href="/terms">利用規約</a></li>
-                                    <li><a href="/privacy">プライバシーポリシー</a></li>
-                                    <li><a href="/contacts">お問い合わせ</a></li>
-                                </ul>
-                         </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="col">
-                            <h4>カテゴリ別に探す</h4>
-                            <div>
-                              <ul class="ma-constant-footer-list" data-constant="category"></ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="col">
-                            <h4>エリア別に探す</h4>
-                            <div>
-                              <ul class="ma-constant-footer-list" data-constant="meetingArea"></ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="rights">
-                    <p>Copyright &copy; 2015</p>
-                    <p>Created by DevMorning</p>
+    <div class="social">
+        <div id="fb-root"></div>
+        <script>(function(d, s, id) {
+          var js, fjs = d.getElementsByTagName(s)[0];
+          if (d.getElementById(id)) return;
+          js = d.createElement(s); js.id = id;
+          js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.3&appId=561154400651504";
+          fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));</script>
+        <div class="fb-like" data-href="https://meetapp.tokyo/" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div>
+        <div class="tw-share">
+          <a href="https://twitter.com/share" class="twitter-share-button" data-url="https://meetapp.tokyo/" data-via="" data-lang="en">Tweet</a>
+        </div>
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="col">
+               <h4>MeetAppについて</h4>
+                   <ul>
+                        <li><a href="/about">このサービスの使い方</a></li>
+                        
+                        <li><a href="/terms">利用規約</a></li>
+                        <li><a href="/privacy">プライバシーポリシー</a></li>
+                        <li><a href="/contact">お問い合わせ</a></li>
+                    </ul>
+             </div>
+        </div>
+        <div class="col-md-4">
+            <div class="col">
+                <h4>カテゴリ別に探す</h4>
+                <div>
+                  <ul class="ma-constant-footer-list" data-constant="category"></ul>
                 </div>
             </div>
+        </div>
+        <div class="col-md-4">
+            <div class="col">
+                <h4>エリア別に探す</h4>
+                <div>
+                  <ul class="ma-constant-footer-list" data-constant="area"></ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="rights">
+        <p>Copyright &copy; 2015</p>
+        <p>Created by <a href="https://devmorning.connpass.com/" target="_blank">DevMorning</a></p>
+    </div>
+</div>
         </footer>
     </div>
     <script>
-    // define global constants
-var ma = {
-    config: {
-        user: {
-            id: "10152160532855662",
-            name: "Takuya Tejima"
-        }
-    },
+
+var ma = {};
+ma.config = {"static_path":"/","user":{"ID":"7a0b61e4-bfec-453c-bf23-d454b9e61681","Name":"dummy Tejima Takuya","ImageName":"","ImageURL":"http://graph.facebook.com/1422856218034023/picture?type=square","LargeImageURL":"http://graph.facebook.com/1422856218034023/picture?type=large","Comment":"","HomePageURL":"","GitHubURL":"","FBUser":{"id":"1422856218034023","name":"Tejima Takuya","firstName":"","lastName":"","gender":"male","locale":"ja_JP","link":"https://www.facebook.com/app_scoped_user_id/1422856218034023/","verified":false,"timezone":9,"updatedTime":""},"TwitterUser":{"contributors_enabled":false,"created_at":"Wed May 02 06:24:24 +0000 2007","default_profile":false,"default_profile_image":false,"description":"とある渋谷ヒカリエの会社のぷろぐらまーなう。","entities":{"Hashtags":[],"Urls":[],"Url":{"Urls":[{"Indices":[0,22],"Url":"http://t.co/HOCJmurjCL","Display_url":"tejitak.com/blog/","Expanded_url":"http://www.tejitak.com/blog/"}]},"User_mentions":[],"Media":[]},"favourites_count":102,"follow_request_sent":false,"followers_count":229,"following":false,"friends_count":184,"geo_enabled":true,"id":5705942,"id_str":"5705942","is_translator":false,"lang":"en","listed_count":16,"location":"てじ宅","name":"てじ～ま～5s","notifications":false,"profile_background_color":"EDECE9","profile_background_image_url":"http://abs.twimg.com/images/themes/theme3/bg.gif","profile_background_image_url_https":"https://abs.twimg.com/images/themes/theme3/bg.gif","profile_background_tile":false,"profile_banner_url":"","profile_image_url":"http://pbs.twimg.com/profile_images/877579363/1187537_857979428_normal.jpg","profile_image_url_https":"https://pbs.twimg.com/profile_images/877579363/1187537_857979428_normal.jpg","profile_link_color":"088253","profile_sidebar_border_color":"D3D2CF","profile_sidebar_fill_color":"E3E2DE","profile_text_color":"634047","profile_use_background_image":true,"protected":false,"screen_name":"tejitak","show_all_inline_media":false,"status":{"contributors":[],"coordinates":null,"created_at":"Tue Jun 23 12:58:08 +0000 2015","entities":{"Hashtags":[{"Indices":[55,71],"Text":"16Personalities"}],"Urls":[{"Indices":[32,54],"Url":"http://t.co/iX20AwtGMj","Display_url":"16personalities.com/ja/%E6%80%A7%E…","Expanded_url":"http://www.16personalities.com/ja/%E6%80%A7%E6%A0%BC%E8%A8%BA%E6%96%AD%E3%83%86%E3%82%B9%E3%83%88"}],"Url":{"Urls":[]},"User_mentions":[{"Name":"16Personalities","Indices":[72,88],"Screen_name":"16Personalities","Id":612476419,"Id_str":"612476419"}],"Media":[]},"favorite_count":0,"favorited":false,"filter_level":"","id":613330196226117634,"id_str":"613330196226117634","in_reply_to_screen_name":"","in_reply_to_status_id":0,"in_reply_to_status_id_str":"","in_reply_to_user_id":0,"in_reply_to_user_id_str":"","lang":"ja","place":{"attributes":{},"bounding_box":{"coordinates":[],"type":""},"contained_within":[],"country":"","country_code":"","full_name":"","geometry":{"coordinates":[],"type":""},"id":"","name":"","place_type":"","polylines":[],"url":""},"possibly_sensitive":false,"retweet_count":0,"retweeted":false,"retweeted_status":null,"source":"\u003ca href=\"http://mobile.twitter.com\" rel=\"nofollow\"\u003eMobile Web\u003c/a\u003e","scopes":{},"text":"私の性格タイプは “指揮官” です。あなたのタイプは何ですか？ http://t.co/iX20AwtGMj #16Personalities @16Personalitiesさんから","truncated":false,"user":{"contributors_enabled":false,"created_at":"","default_profile":false,"default_profile_image":false,"description":"","entities":{"Hashtags":[],"Urls":[],"Url":{"Urls":[]},"User_mentions":[],"Media":[]},"favourites_count":0,"follow_request_sent":false,"followers_count":0,"following":false,"friends_count":0,"geo_enabled":false,"id":0,"id_str":"","is_translator":false,"lang":"","listed_count":0,"location":"","name":"","notifications":false,"profile_background_color":"","profile_background_image_url":"","profile_background_image_url_https":"","profile_background_tile":false,"profile_banner_url":"","profile_image_url":"","profile_image_url_https":"","profile_link_color":"","profile_sidebar_border_color":"","profile_sidebar_fill_color":"","profile_text_color":"","profile_use_background_image":false,"protected":false,"screen_name":"","show_all_inline_media":false,"status":null,"statuses_count":0,"time_zone":"","url":"","utc_offset":0,"verified":false,"withheld_in_countries":"","withheld_scope":""},"withheld_copyright":false,"withheld_in_countries":[],"withheld_scope":""},"statuses_count":3413,"time_zone":"Tokyo","url":"http://t.co/HOCJmurjCL","utc_offset":32400,"verified":false,"withheld_in_countries":"","withheld_scope":""}},"notification":{"UserID":"7a0b61e4-bfec-453c-bf23-d454b9e61681","Notifications":[{"NotificationID":"1434858899244476704","NotificationType":2,"SourceID":"5bf6bdff-9b1c-4f35-9c35-0933808d1f91","Message":"いいね: てじ～ま～5s","DetailURL":"/app/detail/d08a5567-3097-4845-aec2-fdcb6f0946b4","IsRead":true,"CreatedAt":"2015-06-21T12:54:59.244+09:00"},{"NotificationID":"1434858901643558710","NotificationType":2,"SourceID":"5bf6bdff-9b1c-4f35-9c35-0933808d1f91","Message":"いいね: てじ～ま～5s","DetailURL":"/app/detail/d08a5567-3097-4845-aec2-fdcb6f0946b4","IsRead":true,"CreatedAt":"2015-06-21T12:55:01.643+09:00"},{"NotificationID":"1434858913923013926","NotificationType":2,"SourceID":"5bf6bdff-9b1c-4f35-9c35-0933808d1f91","Message":"いいね: てじ～ま～5s","DetailURL":"/app/detail/d08a5567-3097-4845-aec2-fdcb6f0946b4","IsRead":true,"CreatedAt":"2015-06-21T12:55:13.923+09:00"},{"NotificationID":"1434859634695288369","NotificationType":3,"SourceID":"5bf6bdff-9b1c-4f35-9c35-0933808d1f91","Message":"興味あり: てじ～ま～5s","DetailURL":"/mypage/other/5bf6bdff-9b1c-4f35-9c35-0933808d1f91","IsRead":true,"CreatedAt":"2015-06-21T13:07:14.695+09:00"},{"NotificationID":"1434859880803705174","NotificationType":3,"SourceID":"5bf6bdff-9b1c-4f35-9c35-0933808d1f91","Message":"興味あり: てじ～ま～5s:hoge","DetailURL":"/mypage/other/5bf6bdff-9b1c-4f35-9c35-0933808d1f91","IsRead":true,"CreatedAt":"2015-06-21T13:11:20.803+09:00"},{"NotificationID":"1434859979792502518","NotificationType":3,"SourceID":"5bf6bdff-9b1c-4f35-9c35-0933808d1f91","Message":"興味あり: hogeにてじ～ま～5sさんが興味をもっています","DetailURL":"/mypage/other/5bf6bdff-9b1c-4f35-9c35-0933808d1f91","IsRead":true,"CreatedAt":"2015-06-21T13:12:59.792+09:00"},{"NotificationID":"1435148608005178537","NotificationType":3,"SourceID":"5bf6bdff-9b1c-4f35-9c35-0933808d1f91","Message":"興味あり: hogeにてじ～ま～5sさんが興味をもっています","DetailURL":"/mypage/other/5bf6bdff-9b1c-4f35-9c35-0933808d1f91","IsRead":true,"CreatedAt":"2015-06-24T21:23:28.005+09:00"},{"NotificationID":"1435148610125465548","NotificationType":3,"SourceID":"5bf6bdff-9b1c-4f35-9c35-0933808d1f91","Message":"興味あり: hogeにてじ～ま～5sさんが興味をもっています","DetailURL":"/mypage/other/5bf6bdff-9b1c-4f35-9c35-0933808d1f91","IsRead":true,"CreatedAt":"2015-06-24T21:23:30.125+09:00"},{"NotificationID":"1435148742415019293","NotificationType":3,"SourceID":"5bf6bdff-9b1c-4f35-9c35-0933808d1f91","Message":"興味あり: hogeにてじ～ま～5sさんが興味をもっています","DetailURL":"/mypage/other/5bf6bdff-9b1c-4f35-9c35-0933808d1f91","IsRead":true,"CreatedAt":"2015-06-24T21:25:42.415+09:00"},{"NotificationID":"1435148745197036187","NotificationType":3,"SourceID":"5bf6bdff-9b1c-4f35-9c35-0933808d1f91","Message":"興味あり: hogeにてじ～ま～5sさんが興味をもっています","DetailURL":"/mypage/other/5bf6bdff-9b1c-4f35-9c35-0933808d1f91","IsRead":true,"CreatedAt":"2015-06-24T21:25:45.197+09:00"}]}};
+ma.constants = {"area":[{"id":"0","name":"まだ決めていない"},{"id":"1","name":"渋谷"},{"id":"2","name":"六本木"},{"id":"3","name":"恵比寿"},{"id":"4","name":"新宿"},{"id":"5","name":"横浜"},{"id":"6","name":"池袋"},{"id":"7","name":"品川"},{"id":"8","name":"五反田"},{"id":"9","name":"有楽町"},{"id":"10","name":"大阪"},{"id":"11","name":"福岡"},{"id":"12","name":"その他"}],"category":[{"id":"0","name":"まだ決めていない"},{"id":"1","name":"ブック"},{"id":"2","name":"ビジネス"},{"id":"3","name":"カタログ"},{"id":"4","name":"教育"},{"id":"5","name":"エンターテイメント"},{"id":"6","name":"ファイナンス"},{"id":"7","name":"フード"},{"id":"8","name":"ゲーム"},{"id":"9","name":"ヘルスケア"},{"id":"10","name":"ライフスタイル"},{"id":"11","name":"メディカル"},{"id":"12","name":"ミュージック"},{"id":"13","name":"ナビゲーション"},{"id":"14","name":"ニュース"},{"id":"15","name":"写真/ビデオ"},{"id":"16","name":"仕事効率化"},{"id":"17","name":"辞書/辞典"},{"id":"18","name":"SNS"},{"id":"19","name":"スポーツ"},{"id":"20","name":"旅行"},{"id":"21","name":"ユーティリティ"},{"id":"22","name":"天気"},{"id":"23","name":"その他"}],"meetingFrequency":[{"id":"0","name":"まだ決めていない"},{"id":"1","name":"週１回程度"},{"id":"2","name":"週2, 3回程度"},{"id":"3","name":"毎日"},{"id":"4","name":"月1回程度"},{"id":"5","name":"数ヶ月に1回程度"},{"id":"6","name":"不定期"},{"id":"7","name":"なし"},{"id":"8","name":"その他"}],"occupation":[{"id":"0","name":"まだ決めていない"},{"id":"1","name":"企画"},{"id":"2","name":"デザイナー"},{"id":"3","name":"サーバーエンジニア"},{"id":"4","name":"スマートフォンエンジニア"},{"id":"5","name":"フロントエンドエンジニア"},{"id":"6","name":"Webエンジニア"},{"id":"7","name":"インフラエンジニア"},{"id":"8","name":"フルスタックエンジニア"},{"id":"9","name":"プロジェクトマネージャー"},{"id":"10","name":"営業"},{"id":"11","name":"おてつだい"},{"id":"12","name":"その他"}],"pLang":[{"id":"0","name":"まだ決めていない"},{"id":"1","name":"Java"},{"id":"2","name":"JavaScript"},{"id":"3","name":"Swift"},{"id":"4","name":"Objective-c"},{"id":"5","name":"Go"},{"id":"6","name":"PHP"},{"id":"7","name":"Python"},{"id":"8","name":"Ruby"},{"id":"9","name":"Perl"},{"id":"10","name":"C"},{"id":"11","name":"C#"},{"id":"12","name":"C++"},{"id":"13","name":"Scala"},{"id":"14","name":"SQL"},{"id":"15","name":"VB"},{"id":"16","name":"MATLAB"},{"id":"17","name":"その他"}],"platform":[{"id":"0","name":"まだ決めていない"},{"id":"1","name":"Web"},{"id":"2","name":"iOS"},{"id":"3","name":"Android"},{"id":"4","name":"Mac"},{"id":"5","name":"Apple Watch"},{"id":"6","name":"Windows"},{"id":"7","name":"Linux"},{"id":"8","name":"Chrome"},{"id":"9","name":"その他"}],"projectState":[{"id":"1","name":"募集中"},{"id":"2","name":"募集完了"},{"id":"3","name":"開発完了"},{"id":"4","name":"一時休止"}]};
+ma.messages = {
     constants: {
-        platform: [
-            {id: "1", name: "Web"},
-            {id: "2", name: "iOS"},
-            {id: "3", name: "Android"},
-            {id: "4", name: "Mac"},
-            {id: "5", name: "Apple Watch"},
-            {id: "6", name: "Windows"},
-            {id: "7", name: "Linux"},
-            {id: "8", name: "Chrome"},
-            {id: "9", name: "その他"},
-            {id: "0", name: "まだ決めていない"}
-        ],
-        category: [
-            {id: "1", name: "ブック"},
-            {id: "2", name: "ビジネス"},
-            {id: "3", name: "カタログ"},
-            {id: "4", name: "教育"},
-            {id: "5", name: "エンターテイメント"},
-            {id: "6", name: "ファイナンス"},
-            {id: "7", name: "フード"},
-            {id: "8", name: "ゲーム"},
-            {id: "9", name: "ヘルスケア"},
-            {id: "10", name: "ライフスタイル"},
-            {id: "11", name: "メディカル"},
-            {id: "12", name: "ミュージック"},
-            {id: "13", name: "ナビゲーション"},
-            {id: "14", name: "ニュース"},
-            {id: "15", name: "写真/ビデオ"},
-            {id: "16", name: "仕事効率化"},
-            {id: "17", name: "辞書/辞典"},
-            {id: "18", name: "SNS"},
-            {id: "19", name: "スポーツ"},
-            {id: "20", name: "旅行"},
-            {id: "21", name: "ユーティリティ"},
-            {id: "22", name: "天気"},
-            {id: "23", name: "その他"},
-            {id: "0", name: "まだ決めていない"}
-        ],
-        pLang: [
-            {id: "1", name: "Java"},
-            {id: "2", name: "JavaScript"},
-            {id: "3", name: "Swift"},
-            {id: "4", name: "Objective-c"},
-            {id: "5", name: "Go"},
-            {id: "6", name: "PHP"},
-            {id: "7", name: "Python"},
-            {id: "8", name: "Ruby"},
-            {id: "9", name: "Perl"},
-            {id: "10", name: "C"},
-            {id: "11", name: "C#"},
-            {id: "12", name: "C++"},
-            {id: "13", name: "Scala"},
-            {id: "14", name: "SQL"},
-            {id: "15", name: "VB"},
-            {id: "16", name: "MATLAB"},
-            {id: "17", name: "その他"},
-            {id: "0", name: "まだ決めていない"}
-        ],
-        area: [
-            {id: "1", name: "渋谷"},
-            {id: "2", name: "六本木"},
-            {id: "3", name: "恵比寿"},
-            {id: "4", name: "新宿"},
-            {id: "5", name: "横浜"},
-            {id: "6", name: "池袋"},
-            {id: "7", name: "品川"},
-            {id: "8", name: "五反田"},
-            {id: "9", name: "有楽町"},
-            {id: "10", name: "大阪"},
-            {id: "11", name: "福岡"},
-            {id: "12", name: "その他"},
-            {id: "0", name: "まだ決めていない"}
-        ],
-        occupation: [
-            {id: "1", name: "企画"},
-            {id: "2", name: "デザイナー"},
-            {id: "3", name: "サーバーエンジニア"},
-            {id: "4", name: "スマートフォンエンジニア"},
-            {id: "5", name: "フロントエンドエンジニア"},
-            {id: "6", name: "Webエンジニア"},
-            {id: "7", name: "インフラエンジニア"},
-            {id: "8", name: "フルスタックエンジニア"},
-            {id: "9", name: "プロジェクトマネージャー"},
-            {id: "10", name: "営業"},
-            {id: "11", name: "おてつだい"},
-            {id: "12", name: "その他"},
-            {id: "0", name: "まだ決めていない"}
-        ],
-        meetingFrequency: [
-            {id: "1", name: "週１回程度"},
-            {id: "2", name: "週2, 3回程度"},
-            {id: "3", name: "毎日"},
-            {id: "4", name: "月1回程度"},
-            {id: "5", name: "数ヶ月に1回程度"},
-            {id: "6", name: "不定期"},
-            {id: "7", name: "なし"},
-            {id: "8", name: "その他"},
-            {id: "0", name: "まだ決めていない"}
-        ],
-        projectState: [
-            {id: "1", name: "募集中"},
-            {id: "2", name: "募集完了"},
-            {id: "3", name: "開発完了"},
-            {id: "4", name: " 一時休止"}
-        ]
-    }
-};
-// for edit
-ma.app = {
-    detail: {
+        platform: "プラットフォーム",
+        category: "カテゴリ",
+        pLang: "プログラミング言語",
+        meetingArea: "エリア",
+        occupation: "募集職種",
+        meetingFrequency: "ミーティング頻度",
+        projectState: "プロジェクトステータス"
+    },
+    props: {
         
+        name: "アプリ名",
+        description: "説明",
+        platform: "プラットフォーム",
+        category: "カテゴリ",
+        pLang: "プログラミング言語",
+        keywords: "キーワード",
+        images: "画像URL",
+        currentMembers: "現在のメンバー構成",
+        recruitMembers: "募集したいメンバー",
+        demoUrl: "Demo URL",
+        githubUrl: "Github URL",
+        meetingArea: "ミーティング場所",
+        meetingFrequency: "ミーティング頻度",
+        projectState: "プロジェクトステータス",
+        projectStartDate: "プロジェクト開始日",
+        projectReleaseDate: "リリース予定日",
+        
+        Name: "名前",
+        Comment: "ひとこと",
+        HomePageURL: "ウェブサイトURL",
+        GitHubURL: "Github URL"
     }
 };
-    </script>
-    <script src="/dist/main.js"></script>
+</script>
+<script src="/dist/main.js"></script>
 </body>
 </html>
