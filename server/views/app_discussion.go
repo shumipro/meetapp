@@ -8,13 +8,14 @@ import (
 	"strconv"
 	"time"
 
+	"html/template"
+
 	"github.com/guregu/kami"
+	"github.com/microcosm-cc/bluemonday"
+	"github.com/russross/blackfriday"
 	"github.com/shumipro/meetapp/server/models"
 	"github.com/shumipro/meetapp/server/notification"
 	"golang.org/x/net/context"
-	"html/template"
-	"github.com/russross/blackfriday"
-	"github.com/microcosm-cc/bluemonday"
 )
 
 func init() {
